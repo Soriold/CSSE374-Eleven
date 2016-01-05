@@ -26,8 +26,10 @@ public class AllClasses implements IGraphVizComponent {
 				+ "\"Bitstream Vera Sans\" fontsize = 8]");
 		for (IClass clazz : this.classes) {
 			ret.append(clazz.getGraphViz());
+			ret.append("\n");
 		}
 		ret.append(this.getEdges());
+		ret.append("\n");
 		ret.append("}");
 		String mod = ret.toString().replace("<", "\\<");
 		mod = mod.replace(">", "\\>");
@@ -41,10 +43,12 @@ public class AllClasses implements IGraphVizComponent {
 			for (String s : c.getInterfaces()) {
 				if (classNames.contains(s)) {
 					ret.append(this.createImplementsEdge(c.getName(), s));
+					ret.append("\n");
 				}
 			}
 			if (classNames.contains(c.getSuperClass())) {
 				ret.append(this.createExtendsEdge(c.getName(), c.getSuperClass()));
+				ret.append("\n");
 			}
 		}
 		return ret.toString();
