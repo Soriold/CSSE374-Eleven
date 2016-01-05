@@ -3,7 +3,7 @@ package src.problem.components;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AllClasses {
+public class AllClasses implements IGraphVizComponent {
 	private Map<String, IClass> classes;
 
 	public AllClasses() {
@@ -16,5 +16,11 @@ public class AllClasses {
 
 	public Map<String, IClass> getClasses() {
 		return this.classes;
+	}
+
+	@Override
+	public String getGraphViz() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
