@@ -33,6 +33,7 @@ public class AllClasses implements IGraphVizComponent {
 		ret.append("}");
 		String mod = ret.toString().replace("<", "\\<");
 		mod = mod.replace(">", "\\>");
+		mod = mod.replace("$", ">");
 		return mod;
 	}
 
@@ -55,12 +56,12 @@ public class AllClasses implements IGraphVizComponent {
 	}
 
 	private String createImplementsEdge(String src, String dest) {
-		String ret = "edge [ arrowhead = \"odot\"]\n" + src + " -> " + dest;
+		String ret = "edge [ arrowhead = \"onormal\" style = \"dashed\" ]\n" + src + " -$ " + dest;
 		return ret;
 	}
 
 	private String createExtendsEdge(String src, String dest) {
-		String ret = "edge [ arrowhead = \"onormal\"]\n" + src + " -> " + dest;
+		String ret = "edge [ arrowhead = \"onormal\"]\n" + src + " -$ " + dest;
 		return ret;
 	}
 

@@ -25,6 +25,8 @@ public class DesignParser {
 			IClass clazz = parse(className);
 			allClasses.addClass(clazz);
 		}
+		
+		System.out.println(allClasses.getGraphViz());
 	}
 	
 	public static IClass parse(String args) throws IOException {

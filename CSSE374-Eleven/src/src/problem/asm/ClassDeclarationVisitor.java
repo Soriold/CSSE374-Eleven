@@ -22,10 +22,18 @@ public class ClassDeclarationVisitor extends ClassVisitor {
 			String[] splitType = name.split("/");
 			name = splitType[splitType.length - 1];
 		}
+		if(superName.contains("/")) {
+			String[] splitType = superName.split("/");
+			superName = splitType[splitType.length - 1];
+		}
 		
 		clazz.setName(name);
 		clazz.setSuperClass(superName);
 		for (String i : interfaces) {
+			if(i.contains("/")) {
+				String[] splitType = i.split("/");
+				i = splitType[splitType.length - 1];
+			}
 			clazz.addInterface(i);
 		}
 		if ((access & Opcodes.ACC_INTERFACE) != 0) {

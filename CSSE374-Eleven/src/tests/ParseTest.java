@@ -7,6 +7,7 @@ import java.io.IOException;
 import org.junit.Test;
 
 import src.problem.asm.DesignParser;
+import src.problem.components.AllClasses;
 import src.problem.components.IClass;
 
 public class ParseTest {
@@ -46,18 +47,35 @@ public class ParseTest {
 	}
 	
 	@Test
-	public void testOneInterface() {
-		fail("Not yet implemented");
+	public void testImplements() throws IOException {
+		DesignParser dp = new DesignParser();		
+		String[] args = new String[]{"tests.TestInterface", "tests.TestInterfaceImplementation" };
+		
+		AllClasses allClasses = new AllClasses();
+		
+		for (String className : args) {	
+			IClass clazz = dp.parse(className);
+			allClasses.addClass(clazz);
+		}
+		
+		String result = allClasses.getGraphViz();
+		assertTrue(result.contains("edge [ arrowhead = \"onormal\" style = \"dashed\" ]"));
 	}
 	
 	@Test
-	public void testInheritance() {
-		fail("Not yet implemented");
-	}
-	
-	@Test
-	public void testImplements() {
-		fail("Not yet implemented");
+	public void testInheritance() throws IOException {
+		DesignParser dp = new DesignParser();		
+		String[] args = new String[]{"tests.TestSuperClass", "tests.TestSubClass" };
+		
+		AllClasses allClasses = new AllClasses();
+		
+		for (String className : args) {	
+			IClass clazz = dp.parse(className);
+			allClasses.addClass(clazz);
+		}
+		
+		String result = allClasses.getGraphViz();
+		assertTrue(result.contains("edge [ arrowhead = \"onormal\"]"));
 	}
 
 }
