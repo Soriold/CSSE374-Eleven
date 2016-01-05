@@ -3,7 +3,9 @@ This tool is designed to describe the methods and dependancies of Java code usin
 
 # Responsibilities:
 Ben Kimmel - Wrote parsing and GraphViz code with Taylor.
+
 Taylor How - Wrote Parsing and GraphViz code with Ben.
+
 Shayna Oriold - Wrote test cases and troubleshot Ben and Taylor's code.
 
 # Instructions: 
