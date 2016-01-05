@@ -1,5 +1,19 @@
 package src.problem.components;
 
-public class Class {
+import java.util.List;
+
+public class Class implements IClass {
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<IField> getFields() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
