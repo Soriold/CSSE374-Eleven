@@ -1,27 +1,16 @@
 package src.problem.components;
 
-public class Parameter implements IParameter{
-	
-	private String name;
-	private String type;
-	
-	public Parameter() {
-		
-	}
+public class Parameter implements IParameter {
 
-	@Override
-	public String getName() {
-		return this.name;
+	private String type;
+
+	public Parameter() {
+
 	}
 
 	@Override
 	public String getType() {
 		return this.type;
-	}
-
-	@Override
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	@Override

@@ -16,6 +16,7 @@ public class Class implements IClass {
 		this.fields = new ArrayList<IField>();
 		this.methods = new ArrayList<IMethod>();
 		this.interfaces = new ArrayList<String>();
+		this.isInterface = false;
 	}
 
 	@Override
