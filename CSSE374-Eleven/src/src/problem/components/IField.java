@@ -2,7 +2,7 @@ package src.problem.components;
 
 import java.util.List;
 
-public interface IField {
+public interface IField extends IGraphVizComponent{
 	public String getName();
 	public void setName(String name);
 	public String getType();

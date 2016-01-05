@@ -1,6 +1,6 @@
 package src.problem.components;
 
-public interface IParameter {
+public interface IParameter extends IGraphVizComponent {
 
 	public String getType();
 

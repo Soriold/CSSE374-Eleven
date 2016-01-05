@@ -69,11 +69,6 @@ public class Method implements IMethod, IGraphVizComponent {
 	@Override
 	public String getGraphViz() {
 		StringBuilder ret = new StringBuilder();
-		ret.append(this.name);
-		ret.append(" [label = \"{");
-		ret.append(this.name);
-		ret.append("||");
-		return ret.toString();
 	}
 
 }

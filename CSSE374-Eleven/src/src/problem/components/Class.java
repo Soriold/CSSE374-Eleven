@@ -81,8 +81,20 @@ public class Class implements IClass, IGraphVizComponent {
 
 	@Override
 	public String getGraphViz() {
-		// TODO Auto-generated method stub
-		return null;
+		StringBuilder ret = new StringBuilder();
+		ret.append(this.name);
+		ret.append(" [label = \"{");
+		ret.append(this.name);
+		ret.append("|");
+		for (IField curField : this.fields) {
+			ret.append(curField.getGraphViz());
+		}
+		ret.append("|");
+		for (IMethod curMethod : this.methods) {
+			ret.append(curMethod.getGraphViz());
+		}
+		ret.append("}\"]");
+		return ret.toString();
 	}
 
 }
