@@ -21,12 +21,18 @@ public class DesignParser {
 	public static void main(String[] args) throws IOException {
 		AllClasses allClasses = new AllClasses();
 		
-		for (String className : args) {
+		for (String className : args) {	
+			IClass clazz = parse(className);
+			allClasses.addClass(clazz);
+		}
+	}
+	
+	public static IClass parse(String args) throws IOException {
 			IClass clazz = new Class();
 			
 			// ASM's ClassReader does the heavy lifting of parsing the compiled
 			// Java class
-			ClassReader reader = new ClassReader(className);
+			ClassReader reader = new ClassReader(args);
 			// make class declaration visitor to get superclass and interfaces
 			ClassVisitor decVisitor = new ClassDeclarationVisitor(Opcodes.ASM5, clazz);
 			// DECORATE declaration visitor with field visitor
@@ -39,9 +45,6 @@ public class DesignParser {
 			// visit the class
 			reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
 			
-			allClasses.addClass(clazz);
-		}
-		
-		
+			return clazz;
 	}
 }	

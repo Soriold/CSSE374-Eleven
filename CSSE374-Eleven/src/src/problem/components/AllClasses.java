@@ -20,7 +20,6 @@ public class AllClasses implements IGraphVizComponent {
 
 	@Override
 	public String getGraphViz() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }
