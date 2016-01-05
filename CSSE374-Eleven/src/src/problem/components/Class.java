@@ -1,5 +1,6 @@
 package src.problem.components;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Class implements IClass {
@@ -7,6 +8,11 @@ public class Class implements IClass {
 	private String name;
 	private List<IField> fields;
 	private List<IMethod> methods;
+	
+	public Class() {
+		this.fields = new ArrayList<IField>();
+		this.methods = new ArrayList<IMethod>();
+	}
 	
 	@Override
 	public String getName() {
@@ -22,7 +28,7 @@ public class Class implements IClass {
 	public List<IMethod> getMethods() {
 		return methods;
 	}
-	
+
 	@Override
 	public void setName(String name) {
 		this.name = name;

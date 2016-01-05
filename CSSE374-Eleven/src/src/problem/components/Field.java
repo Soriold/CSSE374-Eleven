@@ -1,5 +1,6 @@
 package src.problem.components;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Field implements IField {
@@ -8,6 +9,10 @@ public class Field implements IField {
 	private String type;
 	private String visibility;
 	private List<String> modifiers;
+	
+	public Field() {
+		this.modifiers = new ArrayList<String>();
+	}
 
 	@Override
 	public void setName(String name) {

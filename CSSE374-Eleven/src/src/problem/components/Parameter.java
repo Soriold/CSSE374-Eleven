@@ -4,6 +4,10 @@ public class Parameter implements IParameter{
 	
 	private String name;
 	private String type;
+	
+	public Parameter() {
+		
+	}
 
 	@Override
 	public String getName() {
