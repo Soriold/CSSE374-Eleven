@@ -2,37 +2,62 @@ package src.problem.components;
 
 import java.util.List;
 
-public class Method implements IMethod{
+public class Method implements IMethod {
+
+	private String name;
+	private String returnType;
+	private String visibility;
+	private List<String> modifiers;
+	private List<IParameter> parameters;
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return name;
 	}
 
 	@Override
 	public String getReturnType() {
-		// TODO Auto-generated method stub
-		return null;
+		return returnType;
 	}
 
 	@Override
 	public String getVisibility() {
-		// TODO Auto-generated method stub
-		return null;
+		return visibility;
 	}
 
 	@Override
 	public List<String> getModifiers() {
-		// TODO Auto-generated method stub
-		return null;
+		return modifiers;
 	}
 
 	@Override
 	public List<IParameter> getParameters() {
-		// TODO Auto-generated method stub
-		return null;
+		return parameters;
 	}
-	
-	
+
+	@Override
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	@Override
+	public void setReturnType(String returnType) {
+		this.returnType = returnType;
+	}
+
+	@Override
+	public void setVisibility(String visibility) {
+		this.visibility = visibility;
+	}
+
+	@Override
+	public void addModifier(String modifier) {
+		this.modifiers.add(modifier);
+	}
+
+	@Override
+	public void addParameter(IParameter parameter) {
+		this.parameters.add(parameter);
+	}
+
 }

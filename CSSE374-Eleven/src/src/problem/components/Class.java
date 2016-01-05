@@ -3,17 +3,40 @@ package src.problem.components;
 import java.util.List;
 
 public class Class implements IClass {
-
+	
+	private String name;
+	private List<IField> fields;
+	private List<IMethod> methods;
+	
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return name;
 	}
-
+	
 	@Override
 	public List<IField> getFields() {
-		// TODO Auto-generated method stub
-		return null;
+		return fields;
 	}
+	
+	@Override
+	public List<IMethod> getMethods() {
+		return methods;
+	}
+	
+	@Override
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	@Override
+	public void addField(IField field) {
+		this.fields.add(field);
+	}
+	
+	@Override
+	public void addMethod(IMethod method) {
+		this.methods.add(method);
+	}
+
 
 }
