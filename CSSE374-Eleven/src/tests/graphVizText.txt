@@ -1,3 +1,0 @@
-TestClass [
-                label = "{TestClass|- testStringField : String\l- testIntField : int\l+ testListField : List<String>\l|- testPrivateMethod(int testArg) : void\l# testProtectedMethod(int testArg1, double testArg2) : void\l+ testPublicMethod(String testArg) : void\l+ testGetIntField() : int\l + testGetStringField() : String\l}"
-        ]

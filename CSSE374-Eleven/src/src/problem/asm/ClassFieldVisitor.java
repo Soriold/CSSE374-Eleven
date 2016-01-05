@@ -24,6 +24,10 @@ public class ClassFieldVisitor extends ClassVisitor {
 	public FieldVisitor visitField(int access, String name, String desc, String signature, Object value) {
 		FieldVisitor toDecorate = super.visitField(access, name, desc, signature, value);
 		String type = Type.getType(desc).getClassName();
+		if(type.contains(".")) {
+			String[] splitType = type.split("\\.");
+			type = splitType[splitType.length - 1];
+		}
 		
 		IField field = new Field();
 		field.setName(name);
