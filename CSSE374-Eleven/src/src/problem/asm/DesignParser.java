@@ -20,36 +20,38 @@ public class DesignParser {
 	 */
 	public static void main(String[] args) throws IOException {
 		AllClasses allClasses = new AllClasses();
-		
-		//Used to generate UML for Lab 1-3 code
-		String[] lab = new String[]{ "lab13code.AppLauncher", "lab13code.EntryCreatedHandler", "lab13code.HTMLHandler", "lab13code.IAppLauncher", "lab13code.IHandler", "lab13code.TXTHandler"};
-		
-		for (String className : lab) {	
+
+		// Used to generate UML for Lab 1-3 code
+		String[] lab = new String[] { "lab1_3.AppLauncher", "lab1_3.EntryDeleteObserver", "lab1_3.EntryModifyObserver",
+				"lab1_3.HtmlCreateObserver", "lab1_3.Observer", "lab1_3.PngCreateObserver", "lab1_3.Subject",
+				"lab1_3.TxtCreateObserver" };
+
+		for (String className : args) {
 			IClass clazz = parse(className);
 			allClasses.addClass(clazz);
 		}
-		
+
 		System.out.println(allClasses.getGraphViz());
 	}
-	
+
 	public static IClass parse(String args) throws IOException {
-			IClass clazz = new Class();
-			
-			// ASM's ClassReader does the heavy lifting of parsing the compiled
-			// Java class
-			ClassReader reader = new ClassReader(args);
-			// make class declaration visitor to get superclass and interfaces
-			ClassVisitor decVisitor = new ClassDeclarationVisitor(Opcodes.ASM5, clazz);
-			// DECORATE declaration visitor with field visitor
-			ClassVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5, decVisitor, clazz);
-			// DECORATE field visitor with method visitor
-			ClassVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5, fieldVisitor, clazz);
-			// TODO: add more DECORATORS here in later milestones to accomplish
-			// specific tasks
-			// Tell the Reader to use our (heavily decorated) ClassVisitor to
-			// visit the class
-			reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
-			
-			return clazz;
+		IClass clazz = new Class();
+
+		// ASM's ClassReader does the heavy lifting of parsing the compiled
+		// Java class
+		ClassReader reader = new ClassReader(args);
+		// make class declaration visitor to get superclass and interfaces
+		ClassVisitor decVisitor = new ClassDeclarationVisitor(Opcodes.ASM5, clazz);
+		// DECORATE declaration visitor with field visitor
+		ClassVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5, decVisitor, clazz);
+		// DECORATE field visitor with method visitor
+		ClassVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5, fieldVisitor, clazz);
+		// TODO: add more DECORATORS here in later milestones to accomplish
+		// specific tasks
+		// Tell the Reader to use our (heavily decorated) ClassVisitor to
+		// visit the class
+		reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
+
+		return clazz;
 	}
-}	
+}

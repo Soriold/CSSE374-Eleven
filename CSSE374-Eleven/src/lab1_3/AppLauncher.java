@@ -1,4 +1,4 @@
-package lab13code;
+package lab1_3;
 
 /*
  * Copyright (c) 2008, 2010, Oracle and/or its affiliates. All rights reserved.
@@ -36,11 +36,8 @@ package lab13code;
 
 import java.nio.file.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-
-//import temp.IDisplay;
 
 import static java.nio.file.StandardWatchEventKinds.*;
 
@@ -62,20 +59,14 @@ import java.io.*;
  * 
  * 
  * @author Chandan R. Rupakheti (chandan.rupakheti@rose-hulman.edu)
- * @author Mark Hays (hays@rose-hulman.edu)
  */
-public class AppLauncher extends Thread implements IAppLauncher{
+public class AppLauncher extends Thread implements Subject {
 
 	private final WatchService watcher;
 	private final Path dir;
 	private boolean stop;
 	private List<Process> processes;
-	
-	
-	private Collection<IHandler> handlers;
-	private Path currentFile;
-	private String currentEvent;
-	
+	ArrayList<Observer> observers;
 
 	/**
 	 * Creates a WatchService and registers the given directory
@@ -86,13 +77,12 @@ public class AppLauncher extends Thread implements IAppLauncher{
 		this.processes = Collections.synchronizedList(new ArrayList<Process>());
 		this.watcher = FileSystems.getDefault().newWatchService();
 		dir.register(watcher, ENTRY_CREATE, ENTRY_DELETE, ENTRY_MODIFY);
-		
-		
-		this.handlers = Collections.synchronizedCollection(new ArrayList<IHandler>());
-		this.handlers.add(new HMTLHandler());
-		this.handlers.add(new TXTHandler());
-		this.handlers.add(new EntryCreatedHandler());
-		
+		this.observers = new ArrayList<Observer>();
+		registerObserver(new HtmlCreateObserver());
+		registerObserver(new TxtCreateObserver());
+		registerObserver(new PngCreateObserver());
+		registerObserver(new EntryDeleteObserver());
+		registerObserver(new EntryModifyObserver());
 	}
 
 	/**
@@ -187,47 +177,50 @@ public class AppLauncher extends Thread implements IAppLauncher{
 	public void handleDirectoryEvent(String eventName, Path file) {
 
 		// We are only interested in the new files that get dropped into the launcher folder
-		//if(!eventName.equals("ENTRY_CREATE"))
-		//	return;
-		
-		this.currentFile = file;
-		notifyHandlers();
 		
 		/*
+		if(!eventName.equals("ENTRY_CREATE"))
+			return;
+		*/
+
 		ProcessBuilder processBuilder = null;
-		String command = null;
+		ArrayList<String> commands = null;
 		String arg = null;
 		
 		String fileName = file.toString();
 		System.out.println("Processing " + fileName + "...");
-	
+		System.out.println("eventHandler");
+		arg = fileName;
+		commands = notifyObservers(eventName, fileName);
+		
+		/*
 		if(fileName.endsWith(".html") || fileName.endsWith(".htm")) {
 			// For Mac, use the "open" command instead of "explorer"
 			command = "explorer";
-			arg = fileName;
 		}
 		else if(fileName.endsWith(".txt")) {
 			command = "Notepad";
-			arg = fileName;
 		}
 		else {
 			command = null;
 			System.err.format("No support available for: %s...%n", file);
 			return;
 		}
+		*/
 
 		// Run the application if support is available
 		try {
-			System.out.format("Launching %s ...%n", command);
-			processBuilder = new ProcessBuilder(command, arg);
-			
-			// Start and add the process to the processes list
-			Process process = processBuilder.start();
-			this.processes.add(process);
+			for(int i=0; i<=commands.size()-1; i++) {
+				System.out.format("Launching %s ...%n", commands.get(i));
+				processBuilder = new ProcessBuilder(commands.get(i), arg);
+				
+				// Start and add the process to the processes list
+				Process process = processBuilder.start();
+				this.processes.add(process);
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		*/
 	}
 
 	public static void main(String[] args) throws IOException, InterruptedException {
@@ -246,28 +239,27 @@ public class AppLauncher extends Thread implements IAppLauncher{
 
 		System.out.println("Directory watching stopped ...");
 	}
-	
-	
+
 	@Override
-	public void registerHandler(IHandler h) {
-		this.handlers.add(h);
+	public void registerObserver(Observer o) {
+		this.observers.add(o);
+		
 	}
 
 	@Override
-	public void removeHandler(IHandler h) {
-		this.handlers.remove(h);
+	public void removeObserver(Observer o) {
+		this.observers.remove(o);
 	}
-	
-	protected void notifyHandlers() {
-		System.out.println("Calling notify handlers!");
-		synchronized (this.handlers) {
-			for (IHandler h : this.handlers) {
-				Process process = h.eventProcessed(this.currentEvent, this.currentFile);
-				if (process != null) {
-					this.processes.add(process);
-				}
-			}
+
+	@Override
+	public ArrayList<String> notifyObservers(String action, String fileName) {
+		System.out.println("notify");
+		ArrayList<String> commands = new ArrayList<String>();
+		for(Observer o : observers){
+			String result = o.update(action, fileName);
+			if(result != null) commands.add(result);
 		}
+		return commands;
+		
 	}
-	
 }
