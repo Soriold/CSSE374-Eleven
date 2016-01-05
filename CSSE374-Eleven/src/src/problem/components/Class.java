@@ -85,7 +85,7 @@ public class Class implements IClass {
 		ret.append(this.name);
 		ret.append(" [label = \"{");
 		if (this.isInterface) {
-			ret.append("\\<\\<interface\\>\\>");
+			ret.append("<<interface>>");
 			ret.append("\\l");
 		}
 		ret.append(this.name);
