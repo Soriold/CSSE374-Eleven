@@ -59,6 +59,7 @@ public class ClassMethodVisitor extends ClassVisitor {
 		//DONE: ADD this information to your representation of the current
 		// method.
 		method.addModifier(level);
+		method.setVisibility(level);
 	}
 
 	void addReturnType(String desc, IMethod method) {
@@ -66,6 +67,10 @@ public class ClassMethodVisitor extends ClassVisitor {
 		//System.out.println("return type: " + returnType);
 		// DONE: ADD this information to your representation of the current
 		// method.
+		if(returnType.contains(".")) {
+			String[] splitType = returnType.split("\\.");
+			returnType = splitType[splitType.length - 1];
+		}
 		method.setReturnType(returnType);
 	}
 
@@ -76,6 +81,10 @@ public class ClassMethodVisitor extends ClassVisitor {
 			//System.out.println("arg " + i + ": " + arg);
 			// DONE: ADD this information to your representation of the current
 			// method.
+			if(arg.contains(".")) {
+				String[] splitType = arg.split("\\.");
+				arg = splitType[splitType.length - 1];
+			}
 			IParameter parameter = new Parameter();
 			parameter.setType(arg);
 			method.addParameter(parameter);
