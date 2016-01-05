@@ -24,29 +24,40 @@ public class AllClasses implements IGraphVizComponent {
 		ret.append("digraph G {fontname = \"Bitstream Vera Sans\" fontsize = 8\nnode [fontname ="
 				+ "\"Bitstream Vera Sans\" fontsize = 8 shape = \"record\"] edge [fontname = "
 				+ "\"Bitstream Vera Sans\" fontsize = 8]");
-		for(IClass clazz : this.classes) {
+		for (IClass clazz : this.classes) {
 			ret.append(clazz.getGraphViz());
 		}
 		ret.append(this.getEdges());
 		ret.append("}");
-		return ret.toString();
+		String mod = ret.toString().replace("<", "\\<");
+		mod = mod.replace(">", "\\>");
+		return mod;
 	}
+
 	private String getEdges() {
 		StringBuilder ret = new StringBuilder();
 		ArrayList<String> classNames = this.getClassNames();
 		for (IClass c : this.classes) {
-			for(String s : c.getInterfaces()){
-				if (classNames.contains(s)){
-					this.createImplementsEdge();
+			for (String s : c.getInterfaces()) {
+				if (classNames.contains(s)) {
+					ret.append(this.createImplementsEdge(c.getName(), s));
 				}
+			}
+			if (classNames.contains(c.getSuperClass())) {
+				ret.append(this.createExtendsEdge(c.getName(), c.getSuperClass()));
 			}
 		}
 		return ret.toString();
 	}
 
-	private void createImplementsEdge() {
-		// TODO Auto-generated method stub
-		
+	private String createImplementsEdge(String src, String dest) {
+		String ret = "edge [ arrowhead = \"odot\"]\n" + src + " -> " + dest;
+		return ret;
+	}
+
+	private String createExtendsEdge(String src, String dest) {
+		String ret = "edge [ arrowhead = \"onormal\"]\n" + src + " -> " + dest;
+		return ret;
 	}
 
 	private ArrayList<String> getClassNames() {
