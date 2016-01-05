@@ -84,6 +84,10 @@ public class Class implements IClass {
 		StringBuilder ret = new StringBuilder();
 		ret.append(this.name);
 		ret.append(" [label = \"{");
+		if (this.isInterface) {
+			ret.append("\\<\\<interface\\>\\>");
+			ret.append("\\l");
+		}
 		ret.append(this.name);
 		ret.append("|");
 		for (IField curField : this.fields) {
