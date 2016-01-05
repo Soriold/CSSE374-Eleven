@@ -3,7 +3,7 @@ package src.problem.components;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Method implements IMethod, IGraphVizComponent {
+public class Method implements IMethod{
 
 	private String name;
 	private String returnType;

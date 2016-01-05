@@ -3,7 +3,7 @@ package src.problem.components;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Class implements IClass, IGraphVizComponent {
+public class Class implements IClass {
 
 	private String name;
 	private List<IField> fields;
