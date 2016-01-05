@@ -21,7 +21,10 @@ public class DesignParser {
 	public static void main(String[] args) throws IOException {
 		AllClasses allClasses = new AllClasses();
 		
-		for (String className : args) {	
+		//Used to generate UML for Lab 1-3 code
+		String[] lab = new String[]{ "lab13code.AppLauncher", "lab13code.EntryCreatedHandler", "lab13code.HTMLHandler", "lab13code.IAppLauncher", "lab13code.IHandler", "lab13code.TXTHandler"};
+		
+		for (String className : lab) {	
 			IClass clazz = parse(className);
 			allClasses.addClass(clazz);
 		}
