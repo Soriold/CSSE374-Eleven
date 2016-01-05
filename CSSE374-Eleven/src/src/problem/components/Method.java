@@ -68,7 +68,6 @@ public class Method implements IMethod, IGraphVizComponent {
 
 	@Override
 	public String getGraphViz() {
-		StringBuilder ret = new StringBuilder();
 	}
 
 }
