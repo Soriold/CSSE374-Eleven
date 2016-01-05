@@ -1,9 +1,7 @@
 package src.problem.components;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class AllClasses implements IGraphVizComponent {
 	private List<IClass> classes;
@@ -29,6 +27,33 @@ public class AllClasses implements IGraphVizComponent {
 		for(IClass clazz : this.classes) {
 			ret.append(clazz.getGraphViz());
 		}
-		return null;
+		ret.append(this.getEdges());
+		ret.append("}");
+		return ret.toString();
+	}
+	private String getEdges() {
+		StringBuilder ret = new StringBuilder();
+		ArrayList<String> classNames = this.getClassNames();
+		for (IClass c : this.classes) {
+			for(String s : c.getInterfaces()){
+				if (classNames.contains(s)){
+					this.createImplementsEdge();
+				}
+			}
+		}
+		return ret.toString();
+	}
+
+	private void createImplementsEdge() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private ArrayList<String> getClassNames() {
+		ArrayList<String> classNames = new ArrayList<>();
+		for (IClass c : this.classes) {
+			classNames.add(c.getName());
+		}
+		return classNames;
 	}
 }
