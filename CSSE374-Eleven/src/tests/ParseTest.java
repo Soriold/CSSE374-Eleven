@@ -75,7 +75,7 @@ public class ParseTest {
 		}
 		
 		String result = allClasses.getGraphViz();
-		assertTrue(result.contains("edge [ arrowhead = \"onormal\"]"));
+		assertTrue(result.contains("edge [ arrowhead = \"onormal\" style = \"solid\" ]"));
 	}
 
 }

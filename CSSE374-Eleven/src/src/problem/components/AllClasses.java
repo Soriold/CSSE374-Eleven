@@ -44,7 +44,6 @@ public class AllClasses implements IGraphVizComponent {
 			for (String s : c.getInterfaces()) {
 				if (classNames.contains(s)) {
 					if (c.getIsInterface()) {
-						System.out.println("BLAH");
 						ret.append(this.createExtendsEdge(c.getName(), s));
 						ret.append("\n");
 					} else {
