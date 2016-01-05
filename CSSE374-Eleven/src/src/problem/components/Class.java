@@ -4,26 +4,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Class implements IClass {
-	
+
 	private String name;
 	private List<IField> fields;
 	private List<IMethod> methods;
-	
+	private boolean isInterface;
+	private List<String> interfaces;
+	private String superClass;
+
 	public Class() {
 		this.fields = new ArrayList<IField>();
 		this.methods = new ArrayList<IMethod>();
+		this.interfaces = new ArrayList<String>();
 	}
-	
+
 	@Override
 	public String getName() {
 		return name;
 	}
-	
+
 	@Override
 	public List<IField> getFields() {
 		return fields;
 	}
-	
+
 	@Override
 	public List<IMethod> getMethods() {
 		return methods;
@@ -33,16 +37,45 @@ public class Class implements IClass {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	@Override
 	public void addField(IField field) {
 		this.fields.add(field);
 	}
-	
+
 	@Override
 	public void addMethod(IMethod method) {
 		this.methods.add(method);
 	}
 
+	@Override
+	public List<String> getInterfaces() {
+		return this.interfaces;
+	}
+
+	@Override
+	public void addInterface(String impl) {
+		this.interfaces.add(impl);
+	}
+
+	@Override
+	public String getSuperClass() {
+		return this.superClass;
+	}
+
+	@Override
+	public void setSuperClass(String superClass) {
+		this.superClass = superClass;
+	}
+
+	@Override
+	public boolean getIsInterface() {
+		return this.isInterface;
+	}
+
+	@Override
+	public void setIsInterface(boolean isInterface) {
+		this.isInterface = isInterface;
+	}
 
 }
