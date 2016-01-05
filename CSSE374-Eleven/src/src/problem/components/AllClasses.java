@@ -43,8 +43,14 @@ public class AllClasses implements IGraphVizComponent {
 		for (IClass c : this.classes) {
 			for (String s : c.getInterfaces()) {
 				if (classNames.contains(s)) {
-					ret.append(this.createImplementsEdge(c.getName(), s));
-					ret.append("\n");
+					if (c.getIsInterface()) {
+						System.out.println("BLAH");
+						ret.append(this.createExtendsEdge(c.getName(), s));
+						ret.append("\n");
+					} else {
+						ret.append(this.createImplementsEdge(c.getName(), s));
+						ret.append("\n");
+					}
 				}
 			}
 			if (classNames.contains(c.getSuperClass())) {
@@ -61,7 +67,7 @@ public class AllClasses implements IGraphVizComponent {
 	}
 
 	private String createExtendsEdge(String src, String dest) {
-		String ret = "edge [ arrowhead = \"onormal\"]\n" + src + " -$ " + dest;
+		String ret = "edge [ arrowhead = \"onormal\" style = \"solid\" ]\n" + src + " -$ " + dest;
 		return ret;
 	}
 
