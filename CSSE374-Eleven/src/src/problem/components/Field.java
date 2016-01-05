@@ -56,8 +56,22 @@ public class Field implements IField, IGraphVizComponent {
 
 	@Override
 	public String getGraphViz() {
-		// TODO Auto-generated method stub
-		return null;
+		StringBuilder ret = new StringBuilder();
+		
+		if (this.visibility.equals("public")) {
+			ret.append("+ ");
+		} else if (this.visibility.equals("private")) {
+			ret.append("- ");
+		} else if (this.visibility.equals("protected")) {
+			ret.append("# ");
+		}
+		
+		ret.append(this.name);
+		ret.append(" : ");
+		ret.append(this.type);
+		ret.append("\\l");
+		
+		return ret.toString();
 	}
 
 }
