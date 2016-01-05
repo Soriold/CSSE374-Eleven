@@ -3,7 +3,7 @@ package src.problem.components;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Class implements IClass {
+public class Class implements IClass, IGraphVizComponent {
 
 	private String name;
 	private List<IField> fields;
@@ -77,6 +77,12 @@ public class Class implements IClass {
 	@Override
 	public void setIsInterface(boolean isInterface) {
 		this.isInterface = isInterface;
+	}
+
+	@Override
+	public String getGraphViz() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

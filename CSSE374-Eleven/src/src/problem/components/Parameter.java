@@ -1,6 +1,6 @@
 package src.problem.components;
 
-public class Parameter implements IParameter {
+public class Parameter implements IParameter, IGraphVizComponent {
 
 	private String type;
 
@@ -16,6 +16,11 @@ public class Parameter implements IParameter {
 	@Override
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	@Override
+	public String getGraphViz() {
+		return this.getType();
 	}
 
 }

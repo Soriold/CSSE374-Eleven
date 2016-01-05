@@ -3,7 +3,7 @@ package src.problem.components;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Field implements IField {
+public class Field implements IField, IGraphVizComponent {
 
 	private String name;
 	private String type;
@@ -52,6 +52,12 @@ public class Field implements IField {
 	@Override
 	public List<String> getModifiers() {
 		return modifiers;
+	}
+
+	@Override
+	public String getGraphViz() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

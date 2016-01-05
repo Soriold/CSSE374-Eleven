@@ -41,5 +41,7 @@ public class DesignParser {
 			
 			allClasses.addClass(clazz);
 		}
+		
+		
 	}
 }	

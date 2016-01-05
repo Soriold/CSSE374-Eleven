@@ -3,7 +3,7 @@ package src.problem.components;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Method implements IMethod {
+public class Method implements IMethod, IGraphVizComponent {
 
 	private String name;
 	private String returnType;
@@ -64,6 +64,16 @@ public class Method implements IMethod {
 	@Override
 	public void addParameter(IParameter parameter) {
 		this.parameters.add(parameter);
+	}
+
+	@Override
+	public String getGraphViz() {
+		StringBuilder ret = new StringBuilder();
+		ret.append(this.name);
+		ret.append(" [label = \"{");
+		ret.append(this.name);
+		ret.append("||");
+		return ret.toString();
 	}
 
 }
