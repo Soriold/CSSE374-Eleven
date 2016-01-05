@@ -1,6 +1,6 @@
 package src.problem.components;
 
-public class Parameter implements IParameter {
+public class Parameter implements IParameter, IGraphVizComponent {
 
 	private String type;
 
