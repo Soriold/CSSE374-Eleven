@@ -34,10 +34,12 @@ public class DesignParser {
 		String [] m3 = new String[] {"src.problem.components.AllClasses", "src.problem.components.Class", 
 				"src.problem.components.IClass", "src.problem.components.Field",  "src.problem.components.IField", 
 				"src.problem.components.Method", "src.problem.components.IMethod", "src.problem.components.Parameter", 
-				"src.problem.components.IParameter", "src.problem.components.IGraphVizComponent"};
+				"src.problem.components.IParameter", "src.problem.components.IGraphVizComponent", 
+				"src.problem.asm.ClassDeclarationVisitor", "src.problem.asm.ClassFieldVisitor", "src.problem.asm.ClassMethodVisitor", 
+				"src.problem.asm.ClassSignatureVisitor", "src.problem.asm.DesignParser", "src.problem.asm.MethodBodyVisitor"};
 		
 		//args = new String[]{"tests.TestClass", "tests.TestClassTwo"};
-		for (String className : m2) {
+		for (String className : m3) {
 			IClass clazz = parse(className);
 			allClasses.addClass(clazz);
 		}

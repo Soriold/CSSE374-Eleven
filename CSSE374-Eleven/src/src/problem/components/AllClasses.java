@@ -105,7 +105,6 @@ public class AllClasses implements IGraphVizComponent {
 				int index1 = dest.indexOf('<');
 				int index2 = dest.indexOf('>');
 				dest = dest.substring(index1 + 1, index2);
-				System.out.println(dest);
 			}
 			if(this.getClassNames().contains(dest)) {
 				createAssociationEdge(c.getName(), dest);
