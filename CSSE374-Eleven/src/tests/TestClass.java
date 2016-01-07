@@ -28,7 +28,11 @@ public class TestClass {
 		return testStringField;
 	}
 	
-	public TestClassTwo testUses() {
+	public TestClassTwo testUsesReturn() {
 		return new TestClassTwo();
+	}
+	
+	public void testUsesArg(TestSuperClass tsc) {
+		
 	}
 }
