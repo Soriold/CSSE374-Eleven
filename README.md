@@ -3,7 +3,9 @@ This tool is designed to interpret a set of Java classes and generate an accurat
 
 # Responsibilities:
 Ben Kimmel - Wrote ASM parsing and GraphViz text output code with Tayler. Helped Tayler with creating UML diagrams. Wrote return type and parameter Uses edge code.
+
 Tayler How - Wrote ASM parsing code with Ben. Helped Ben with writing GraphViz text output code. Created manual/auto-generated UML diagrams. 
+
 Shayna Oriold - Wrote testing suite for parsing software. Also troubleshot Ben and Tayler's code. Wrote Association edge code. 
 
 All team members were equally involved in important matters such as software design decisions, etcetera.
