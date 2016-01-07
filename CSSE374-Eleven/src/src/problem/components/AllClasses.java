@@ -92,8 +92,14 @@ public class AllClasses implements IGraphVizComponent {
 		StringBuilder ret = new StringBuilder();
 		List<IField> fields = c.getFields();
 		for(IField f : fields) {
-			if(this.getClassNames().contains(f.getType())) {
-				createAssociationEdge(c.getName(), f.getType());
+			if (f.hasGenericType()) {
+				if (this.getClassNames().contains(f.getGenericType())) {
+					createAssociationEdge(c.getName(), f.getGenericType());
+				} 
+			} else {
+				if (this.getClassNames().contains(f.getType())) {
+					createAssociationEdge(c.getName(), f.getType());
+				} 
 			}
 		}
 		return ret.toString();
