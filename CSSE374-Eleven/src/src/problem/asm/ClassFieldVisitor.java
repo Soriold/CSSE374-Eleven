@@ -1,9 +1,15 @@
 package src.problem.asm;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.Signature;
+import java.util.Collection;
+import java.util.List;
+
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.FieldVisitor;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
+import org.objectweb.asm.signature.SignatureVisitor;
 
 import src.problem.components.*;
 
@@ -24,6 +30,7 @@ public class ClassFieldVisitor extends ClassVisitor {
 	public FieldVisitor visitField(int access, String name, String desc, String signature, Object value) {
 		FieldVisitor toDecorate = super.visitField(access, name, desc, signature, value);
 		String type = Type.getType(desc).getClassName();
+		//System.out.println(Type.getType(desc).getClassName());
 		type = simplifyClassName(type);
 		
 		IField field = new Field();
@@ -43,7 +50,7 @@ public class ClassFieldVisitor extends ClassVisitor {
 		
 		return toDecorate;
 	};
-	
+
 	String simplifyClassName(String arg) {
 		if(arg.contains(".")) {
 			String[] splitType = arg.split("\\.");

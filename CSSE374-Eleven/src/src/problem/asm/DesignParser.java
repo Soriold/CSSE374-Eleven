@@ -25,6 +25,8 @@ public class DesignParser {
 		String[] lab = new String[] { "lab1_3.AppLauncher", "lab1_3.EntryDeleteObserver", "lab1_3.EntryModifyObserver",
 				"lab1_3.HtmlCreateObserver", "lab1_3.Observer", "lab1_3.PngCreateObserver", "lab1_3.Subject",
 				"lab1_3.TxtCreateObserver" };
+		
+		args = new String[]{"tests.TestClass"};
 
 		for (String className : args) {
 			IClass clazz = parse(className);

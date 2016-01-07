@@ -41,6 +41,7 @@ public class AllClasses implements IGraphVizComponent {
 		StringBuilder ret = new StringBuilder();
 		ArrayList<String> classNames = this.getClassNames();
 		for (IClass c : this.classes) {
+			ret.append(getAssociations(c));
 			for (String s : c.getInterfaces()) {
 				if (classNames.contains(s)) {
 					if (c.getIsInterface()) {
@@ -60,6 +61,18 @@ public class AllClasses implements IGraphVizComponent {
 		return ret.toString();
 	}
 
+	private String getAssociations(IClass c) {
+		StringBuilder ret = new StringBuilder();
+		List<IField> fields = c.getFields();
+		for(IField f : fields) {
+			if(this.getClassNames().contains(f.getType())) {
+				ret.append(createAssociationEdge(c.getName(), f.getType()));
+				ret.append("\n");
+			}
+		}
+		return ret.toString();
+	}
+
 	private String createImplementsEdge(String src, String dest) {
 		String ret = "edge [ arrowhead = \"onormal\" style = \"dashed\" ]\n" + src + " -$ " + dest;
 		return ret;
@@ -67,6 +80,11 @@ public class AllClasses implements IGraphVizComponent {
 
 	private String createExtendsEdge(String src, String dest) {
 		String ret = "edge [ arrowhead = \"onormal\" style = \"solid\" ]\n" + src + " -$ " + dest;
+		return ret;
+	}
+	
+	private String createAssociationEdge(String src, String dest) {
+		String ret = "edge [ arrowhead = \"vee\" style = \"solid\" ]\n" + src + " -$ " + dest;
 		return ret;
 	}
 

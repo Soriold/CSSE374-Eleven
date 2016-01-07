@@ -4,7 +4,7 @@ import java.util.List;
 
 public class TestClass {
 	private String testStringField;
-	private int testIntField;
+	private int[] testIntField;
 	public List<String> testListField;
 	
 	private void testPrivateMethod(int testArg) {
@@ -19,7 +19,7 @@ public class TestClass {
 
 	}
 	
-	public int testGetIntField() {
+	public int[] testGetIntField() {
 		return testIntField;
 	}
 	
