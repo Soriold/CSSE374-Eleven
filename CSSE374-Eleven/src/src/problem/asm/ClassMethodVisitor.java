@@ -67,10 +67,7 @@ public class ClassMethodVisitor extends ClassVisitor {
 		//System.out.println("return type: " + returnType);
 		// DONE: ADD this information to your representation of the current
 		// method.
-		if(returnType.contains(".")) {
-			String[] splitType = returnType.split("\\.");
-			returnType = splitType[splitType.length - 1];
-		}
+		returnType = simplifyClassName(returnType);
 		method.setReturnType(returnType);
 	}
 
@@ -81,13 +78,18 @@ public class ClassMethodVisitor extends ClassVisitor {
 			//System.out.println("arg " + i + ": " + arg);
 			// DONE: ADD this information to your representation of the current
 			// method.
-			if(arg.contains(".")) {
-				String[] splitType = arg.split("\\.");
-				arg = splitType[splitType.length - 1];
-			}
+			arg = simplifyClassName(arg);
 			IParameter parameter = new Parameter();
 			parameter.setType(arg);
 			method.addParameter(parameter);
 		}
+	}
+	
+	String simplifyClassName(String arg) {
+		if(arg.contains(".")) {
+			String[] splitType = arg.split("\\.");
+			arg = splitType[splitType.length - 1];
+		}
+		return arg;
 	}
 }
