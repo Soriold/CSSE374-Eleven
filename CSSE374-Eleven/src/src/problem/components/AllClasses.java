@@ -100,8 +100,15 @@ public class AllClasses implements IGraphVizComponent {
 		StringBuilder ret = new StringBuilder();
 		List<IField> fields = c.getFields();
 		for(IField f : fields) {
-			if(this.getClassNames().contains(f.getType())) {
-				createAssociationEdge(c.getName(), f.getType());
+			String dest = f.getType();
+			if(f.getType().contains("List")) {
+				int index1 = dest.indexOf('<');
+				int index2 = dest.indexOf('>');
+				dest = dest.substring(index1 + 1, index2);
+				System.out.println(dest);
+			}
+			if(this.getClassNames().contains(dest)) {
+				createAssociationEdge(c.getName(), dest);
 			}
 		}
 		return ret.toString();

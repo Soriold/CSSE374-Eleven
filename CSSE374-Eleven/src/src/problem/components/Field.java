@@ -9,9 +9,12 @@ public class Field implements IField {
 	private String type;
 	private String visibility;
 	private List<String> modifiers;
+	private boolean hasGenericType;
+	private String genericType;
 	
 	public Field() {
 		this.modifiers = new ArrayList<String>();
+		this.hasGenericType= false;
 	}
 
 	@Override
@@ -72,6 +75,27 @@ public class Field implements IField {
 		ret.append("\\l");
 		
 		return ret.toString();
+	}
+
+	@Override
+	public String getGenericType() {
+		return this.genericType;
+	}
+
+	@Override
+	public void setGenericType(String type) {
+		this.genericType = type;
+		
+	}
+
+	@Override
+	public boolean hasGenericType() {
+		return this.hasGenericType;
+	}
+
+	@Override
+	public void setHasGenericType(boolean b) {
+		this.hasGenericType = b;
 	}
 
 }
