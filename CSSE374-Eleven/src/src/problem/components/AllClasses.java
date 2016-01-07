@@ -1,13 +1,17 @@
 package src.problem.components;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class AllClasses implements IGraphVizComponent {
 	private List<IClass> classes;
+	private Set<String> edges;
 
 	public AllClasses() {
 		this.classes = new ArrayList<>();
+		this.edges = new HashSet<>();
 	}
 
 	public void addClass(IClass clazz) {
@@ -39,34 +43,62 @@ public class AllClasses implements IGraphVizComponent {
 
 	private String getEdges() {
 		StringBuilder ret = new StringBuilder();
-		ArrayList<String> classNames = this.getClassNames();
 		for (IClass c : this.classes) {
-			for (String s : c.getInterfaces()) {
-				if (classNames.contains(s)) {
-					if (c.getIsInterface()) {
-						ret.append(this.createExtendsEdge(c.getName(), s));
-						ret.append("\n");
-					} else {
-						ret.append(this.createImplementsEdge(c.getName(), s));
-						ret.append("\n");
-					}
-				}
-			}
-			if (classNames.contains(c.getSuperClass())) {
-				ret.append(this.createExtendsEdge(c.getName(), c.getSuperClass()));
-				ret.append("\n");
-			}
+			this.getInterfacesEdges(c);
+			this.getSuperClassEdges(c.getName(), c.getSuperClass());
+			this.getUsesEdges(c);
+		}
+		for( String s : this.edges) {
+			ret.append(s);
 		}
 		return ret.toString();
 	}
 
+	private void getUsesEdges(IClass clazz) {
+		ArrayList<String> classNames = this.getClassNames();
+		for (IMethod m : clazz.getMethods()) {
+			if (classNames.contains(m.getReturnType())) {
+				this.edges.add(this.createUsesEdge(clazz.getName(), m.getReturnType()));
+			}
+			for (IParameter p : m.getParameters()) {
+				if (classNames.contains(p.getType())) {
+					this.edges.add(this.createUsesEdge(clazz.getName(), p.getType()));
+				}
+			}
+		}
+	}
+
+	private void getSuperClassEdges(String name, String superClass) {
+		if (this.getClassNames().contains(superClass)) {
+			this.edges.add(this.createExtendsEdge(name, superClass));
+		}
+	}
+
+	private void getInterfacesEdges(IClass c) {
+		ArrayList<String> classNames = this.getClassNames();
+		for (String s : c.getInterfaces()) {
+			if (classNames.contains(s)) {
+				if (c.getIsInterface()) {
+					this.edges.add(this.createExtendsEdge(c.getName(), s));
+				} else {
+					this.edges.add(this.createImplementsEdge(c.getName(), s));
+				}
+			}
+		}
+	}
+
 	private String createImplementsEdge(String src, String dest) {
-		String ret = "edge [ arrowhead = \"onormal\" style = \"dashed\" ]\n" + src + " -$ " + dest;
+		String ret = "edge [ arrowhead = \"onormal\" style = \"dashed\" ]\n" + src + " -$ " + dest + "\n";
 		return ret;
 	}
 
 	private String createExtendsEdge(String src, String dest) {
-		String ret = "edge [ arrowhead = \"onormal\" style = \"solid\" ]\n" + src + " -$ " + dest;
+		String ret = "edge [ arrowhead = \"onormal\" style = \"solid\" ]\n" + src + " -$ " + dest + "\n";
+		return ret;
+	}
+
+	private String createUsesEdge(String src, String dest) {
+		String ret = "edge [ arrowhead = \"vee\" style = \"dashed\" ]\n" + src + " -$ " + dest + "\n";
 		return ret;
 	}
 
