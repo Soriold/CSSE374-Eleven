@@ -18,14 +18,8 @@ public class ClassDeclarationVisitor extends ClassVisitor {
 	@Override
 	public void visit(int version, int access, String name, String signature, String superName, String[] interfaces) {
 		//System.out.println("Class: " + name + " extends " + superName + " implements " + Arrays.toString(interfaces));
-		if(name.contains("/")) {
-			String[] splitType = name.split("/");
-			name = splitType[splitType.length - 1];
-		}
-		if(superName.contains("/")) {
-			String[] splitType = superName.split("/");
-			superName = splitType[splitType.length - 1];
-		}
+		name = simplifyClassName(name);
+		superName = simplifyClassName(superName);
 		
 		clazz.setName(name);
 		clazz.setSuperClass(superName);
@@ -41,5 +35,13 @@ public class ClassDeclarationVisitor extends ClassVisitor {
 		}
 		
 		super.visit(version, access, name, signature, superName, interfaces);
+	}
+	
+	String simplifyClassName(String arg) {
+		if(arg.contains("/")) {
+			String[] splitType = arg.split("/");
+			arg = splitType[splitType.length - 1];
+		}
+		return arg;
 	}
 }
