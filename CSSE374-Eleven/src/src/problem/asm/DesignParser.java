@@ -31,9 +31,9 @@ public class DesignParser {
 				"lab2_3.NYPizzaStore", "lab2_3.PizzaIngredientFactory", "lab2_3.PlumTomatoSauce", "lab2_3.ReggianoCheese", "lab2_3.Sauce",
 				"lab2_3.ThickCrustDough", "lab2_3.ThinCrustDough" };
 		
-		args = new String[]{"tests.TestClass", "tests.TestClassTwo"};
+		//args = new String[]{"tests.TestClass", "tests.TestClassTwo"};
 
-		for (String className : m2) {
+		for (String className : args) {
 			IClass clazz = parse(className);
 			allClasses.addClass(clazz);
 		}
