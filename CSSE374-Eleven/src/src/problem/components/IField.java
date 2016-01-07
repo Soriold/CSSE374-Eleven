@@ -7,6 +7,10 @@ public interface IField extends IGraphVizComponent{
 	public void setName(String name);
 	public String getType();
 	public void setType(String type);
+	public String getGenericType();
+	public void setGenericType(String type);
+	public boolean hasGenericType();
+	public void setHasGenericType(boolean b);
 	public String getVisibility();
 	public void setVisibility(String visibility);
 	public List<String> getModifiers();

@@ -37,6 +37,10 @@ public class ClassFieldVisitor extends ClassVisitor {
 		type += signature;
 		
 		IField field = new Field();
+		if(!signature.equals("")) {
+			field.setHasGenericType(true);
+			field.setGenericType(signature);
+		}
 		field.setName(name);
 		field.setType(type);
 		if ((access & Opcodes.ACC_PUBLIC) != 0) {
