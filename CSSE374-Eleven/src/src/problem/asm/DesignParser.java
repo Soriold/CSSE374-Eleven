@@ -36,8 +36,7 @@ public class DesignParser {
 				"src.problem.components.Method", "src.problem.components.IMethod", "src.problem.components.Parameter", 
 				"src.problem.components.IParameter", "src.problem.components.IGraphVizComponent"};
 		
-		args = new String[]{"tests.TestClass", "tests.TestClassTwo"};
-
+		//args = new String[]{"tests.TestClass", "tests.TestClassTwo"};
 		for (String className : m2) {
 			IClass clazz = parse(className);
 			allClasses.addClass(clazz);
