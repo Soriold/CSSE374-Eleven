@@ -31,6 +31,11 @@ public class DesignParser {
 				"lab2_3.NYPizzaStore", "lab2_3.PizzaIngredientFactory", "lab2_3.PlumTomatoSauce", "lab2_3.ReggianoCheese", "lab2_3.Sauce",
 				"lab2_3.ThickCrustDough", "lab2_3.ThinCrustDough" };
 		
+		String [] m3 = new String[] {"src.problem.components.AllClasses", "src.problem.components.Class", 
+				"src.problem.components.IClass", "src.problem.components.Field",  "src.problem.components.IField", 
+				"src.problem.components.Method", "src.problem.components.IMethod", "src.problem.components.Parameter", 
+				"src.problem.components.IParameter", "src.problem.components.IGraphVizComponent"};
+		
 		args = new String[]{"tests.TestClass", "tests.TestClassTwo"};
 
 		for (String className : m2) {
