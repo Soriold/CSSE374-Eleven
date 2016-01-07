@@ -67,6 +67,12 @@ public class AllClasses implements IGraphVizComponent {
 				}
 			}
 		}
+		
+		for (String usedClass : clazz.getUsedClasses()) {
+			if (classNames.contains(usedClass)) {
+				this.createUsesEdge(clazz.getName(), usedClass);
+			}
+		}
 	}
 
 	private void getSuperClassEdges(String name, String superClass) {
