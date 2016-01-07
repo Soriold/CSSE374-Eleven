@@ -39,7 +39,7 @@ public class DesignParser {
 				"src.problem.asm.ClassSignatureVisitor", "src.problem.asm.DesignParser", "src.problem.asm.MethodBodyVisitor"};
 		
 		//args = new String[]{"tests.TestClass", "tests.TestClassTwo"};
-		for (String className : m3) {
+		for (String className : m2) {
 			IClass clazz = parse(className);
 			allClasses.addClass(clazz);
 		}
