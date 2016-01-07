@@ -51,11 +51,16 @@ public class ClassFieldVisitor extends ClassVisitor {
 		return toDecorate;
 	};
 
-	String simplifyClassName(String arg) {
+	private String simplifyClassName(String arg) {
 		if(arg.contains(".")) {
 			String[] splitType = arg.split("\\.");
 			arg = splitType[splitType.length - 1];
 		}
 		return arg;
+	}
+	private String extractType(String in) {
+		int start = in.indexOf("<");
+		int end = in.indexOf(">") + 1;
+		return in.substring(start, end);
 	}
 }
