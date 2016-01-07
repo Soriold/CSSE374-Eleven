@@ -59,11 +59,11 @@ public class AllClasses implements IGraphVizComponent {
 		ArrayList<String> classNames = this.getClassNames();
 		for (IMethod m : clazz.getMethods()) {
 			if (classNames.contains(m.getReturnType())) {
-				this.edges.add(this.createUsesEdge(clazz.getName(), m.getReturnType()));
+				this.createUsesEdge(clazz.getName(), m.getReturnType());
 			}
 			for (IParameter p : m.getParameters()) {
 				if (classNames.contains(p.getType())) {
-					this.edges.add(this.createUsesEdge(clazz.getName(), p.getType()));
+					this.createUsesEdge(clazz.getName(), p.getType());
 				}
 			}
 		}
@@ -71,7 +71,7 @@ public class AllClasses implements IGraphVizComponent {
 
 	private void getSuperClassEdges(String name, String superClass) {
 		if (this.getClassNames().contains(superClass)) {
-			this.edges.add(this.createExtendsEdge(name, superClass));
+			this.createExtendsEdge(name, superClass);
 		}
 	}
 
@@ -80,9 +80,9 @@ public class AllClasses implements IGraphVizComponent {
 		for (String s : c.getInterfaces()) {
 			if (classNames.contains(s)) {
 				if (c.getIsInterface()) {
-					this.edges.add(this.createExtendsEdge(c.getName(), s));
+					this.createExtendsEdge(c.getName(), s);
 				} else {
-					this.edges.add(this.createImplementsEdge(c.getName(), s));
+					this.createImplementsEdge(c.getName(), s);
 				}
 			}
 		}
@@ -93,31 +93,30 @@ public class AllClasses implements IGraphVizComponent {
 		List<IField> fields = c.getFields();
 		for(IField f : fields) {
 			if(this.getClassNames().contains(f.getType())) {
-				ret.append(createAssociationEdge(c.getName(), f.getType()));
-				ret.append("\n");
+				createAssociationEdge(c.getName(), f.getType());
 			}
 		}
 		return ret.toString();
 	}
 
-	private String createImplementsEdge(String src, String dest) {
+	private void createImplementsEdge(String src, String dest) {
 		String ret = "edge [ arrowhead = \"onormal\" style = \"dashed\" ]\n" + src + " -$ " + dest + "\n";
-		return ret;
+		this.edges.add(ret);
 	}
 
-	private String createExtendsEdge(String src, String dest) {
+	private void createExtendsEdge(String src, String dest) {
 		String ret = "edge [ arrowhead = \"onormal\" style = \"solid\" ]\n" + src + " -$ " + dest + "\n";
-		return ret;
+		this.edges.add(ret);
 	}
 
-	private String createUsesEdge(String src, String dest) {
+	private void createUsesEdge(String src, String dest) {
 		String ret = "edge [ arrowhead = \"vee\" style = \"dashed\" ]\n" + src + " -$ " + dest + "\n";
-		return ret;
+		this.edges.add(ret);
 	}
 	
-	private String createAssociationEdge(String src, String dest) {
-		String ret = "edge [ arrowhead = \"vee\" style = \"solid\" ]\n" + src + " -$ " + dest;
-		return ret;
+	private void createAssociationEdge(String src, String dest) {
+		String ret = "edge [ arrowhead = \"vee\" style = \"solid\" ]\n" + src + " -$ " + dest + "\n";
+		this.edges.add(ret);
 	}
 
 	private ArrayList<String> getClassNames() {
