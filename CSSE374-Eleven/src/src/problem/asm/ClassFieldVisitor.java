@@ -33,6 +33,9 @@ public class ClassFieldVisitor extends ClassVisitor {
 		//System.out.println(Type.getType(desc).getClassName());
 		type = simplifyClassName(type);
 		
+		signature = extractType(signature);
+		type += signature;
+		
 		IField field = new Field();
 		field.setName(name);
 		field.setType(type);
@@ -59,8 +62,15 @@ public class ClassFieldVisitor extends ClassVisitor {
 		return arg;
 	}
 	private String extractType(String in) {
+		if(in == null) {
+			return "";
+		}
 		int start = in.indexOf("<");
 		int end = in.indexOf(">") + 1;
-		return in.substring(start, end);
+		in = in.substring(start, end);
+		String[] parts = in.split("/");
+		in = parts[parts.length-1];
+		in = in.replace(";", "");
+		return "<" + in;
 	}
 }

@@ -6,6 +6,7 @@ public class TestClass {
 	private String testStringField;
 	private int[] testIntField;
 	public List<String> testListField;
+	protected TestClassTwo testClassTwo;
 	
 	private void testPrivateMethod(int testArg) {
 		
@@ -25,5 +26,9 @@ public class TestClass {
 	
 	public String testGetStringField() {
 		return testStringField;
+	}
+	
+	public TestClassTwo testUses() {
+		return new TestClassTwo();
 	}
 }

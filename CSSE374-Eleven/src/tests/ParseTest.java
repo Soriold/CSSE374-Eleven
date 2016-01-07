@@ -77,5 +77,39 @@ public class ParseTest {
 		String result = allClasses.getGraphViz();
 		assertTrue(result.contains("edge [ arrowhead = \"onormal\" style = \"solid\" ]"));
 	}
+	
+	@Test
+	public void testAssociation() throws IOException {
+		DesignParser dp = new DesignParser();		
+		String[] args = new String[]{"tests.TestClass", "tests.TestClassTwo" };
+		
+		AllClasses allClasses = new AllClasses();
+		
+		for (String className : args) {	
+			IClass clazz = dp.parse(className);
+			allClasses.addClass(clazz);
+		}
+		
+		String result = allClasses.getGraphViz();
+		assertTrue(result.contains("edge [ arrowhead = \"vee\" style = \"solid\" ]"));
+		assertTrue(result.contains("TestClass -> TestClassTwo"));
+	}
+	
+	@Test
+	public void testUses() throws IOException {
+		DesignParser dp = new DesignParser();		
+		String[] args = new String[]{"tests.TestClass", "tests.TestClassTwo" };
+		
+		AllClasses allClasses = new AllClasses();
+		
+		for (String className : args) {	
+			IClass clazz = dp.parse(className);
+			allClasses.addClass(clazz);
+		}
+		
+		String result = allClasses.getGraphViz();
+		assertTrue(result.contains("edge [ arrowhead = \"vee\" style = \"dashed\" ]"));
+		assertTrue(result.contains("TestClass -> TestClassTwo"));
+	}
 
 }
