@@ -28,6 +28,7 @@ public class ClassMethodVisitor extends ClassVisitor {
 	@Override
 	public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
 		MethodVisitor toDecorate = super.visitMethod(access, name, desc, signature, exceptions);
+		MethodBodyVisitor mbv = new MethodBodyVisitor(this.api, toDecorate, this.clazz);
 		//System.out.println("method " + name);
 		// DONE: create an internal representation of the current method and
 		// pass it to the methods below
@@ -40,7 +41,8 @@ public class ClassMethodVisitor extends ClassVisitor {
 		// DONE: add the current method to your internal representation of the
 		// current class
 		this.clazz.addMethod(method);
-		return toDecorate;
+		
+		return mbv;
 	}
 
 	void addAccessLevel(int access, IMethod method) {

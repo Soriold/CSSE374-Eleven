@@ -1,7 +1,9 @@
 package src.problem.components;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Class implements IClass {
 
@@ -11,12 +13,14 @@ public class Class implements IClass {
 	private boolean isInterface;
 	private List<String> interfaces;
 	private String superClass;
+	private Set<String> createdUsedObjects;
 
 	public Class() {
 		this.fields = new ArrayList<IField>();
 		this.methods = new ArrayList<IMethod>();
 		this.interfaces = new ArrayList<String>();
 		this.isInterface = false;
+		this.createdUsedObjects = new HashSet<String>();
 	}
 
 	@Override
@@ -99,6 +103,16 @@ public class Class implements IClass {
 		}
 		ret.append("}\"]");
 		return ret.toString();
+	}
+
+	@Override
+	public Set<String> getUsedClasses() {
+		return this.createdUsedObjects;
+	}
+
+	@Override
+	public void addUsedClass(String createdUsedObject) {
+		this.createdUsedObjects.add(createdUsedObject);
 	}
 
 }

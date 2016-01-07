@@ -1,6 +1,7 @@
 package src.problem.components;
 
 import java.util.List;
+import java.util.Set;
 
 public interface IClass extends IGraphVizComponent {
 
@@ -27,5 +28,9 @@ public interface IClass extends IGraphVizComponent {
 	public boolean getIsInterface();
 
 	public void setIsInterface(boolean isInterface);
+	
+	public Set<String> getUsedClasses();
+	
+	public void addUsedClass(String createdUsedObject);
 
 }

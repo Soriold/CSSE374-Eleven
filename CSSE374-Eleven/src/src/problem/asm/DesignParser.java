@@ -22,13 +22,18 @@ public class DesignParser {
 		AllClasses allClasses = new AllClasses();
 
 		// Used to generate UML for Lab 1-3 code
-		String[] lab = new String[] { "lab1_3.AppLauncher", "lab1_3.EntryDeleteObserver", "lab1_3.EntryModifyObserver",
+		String[] m1 = new String[] { "lab1_3.AppLauncher", "lab1_3.EntryDeleteObserver", "lab1_3.EntryModifyObserver",
 				"lab1_3.HtmlCreateObserver", "lab1_3.Observer", "lab1_3.PngCreateObserver", "lab1_3.Subject",
 				"lab1_3.TxtCreateObserver" };
 		
-		//args = new String[]{"tests.TestClass", "tests.TestClassTwo"};
+		String[] m2 = new String[] { "lab2_3.Cheese", "lab2_3.ChicagoPizzaIngredientFactory", "lab2_3.Clams", "lab2_3.Dough",
+				"lab2_3.FreshClams", "lab2_3.FrozenClams", "lab2_3.MarinaraSauce", "lab2_3.MozzarellaCheese", "lab2_3.NYPizzaIngredientFactory",
+				"lab2_3.NYPizzaStore", "lab2_3.PizzaIngredientFactory", "lab2_3.PlumTomatoSauce", "lab2_3.ReggianoCheese", "lab2_3.Sauce",
+				"lab2_3.ThickCrustDough", "lab2_3.ThinCrustDough" };
+		
+		args = new String[]{"tests.TestClass", "tests.TestClassTwo"};
 
-		for (String className : args) {
+		for (String className : m2) {
 			IClass clazz = parse(className);
 			allClasses.addClass(clazz);
 		}
