@@ -54,13 +54,13 @@ public class Model implements IModel {
 //		return ret.toString();
 //	}
 
-//	private ArrayList<String> getClassNames() {
-//		ArrayList<String> classNames = new ArrayList<>();
-//		for (IClass c : this.classes) {
-//			classNames.add(c.getName());
-//		}
-//		return classNames;
-//	}
+	private ArrayList<String> getClassNames() {
+		ArrayList<String> classNames = new ArrayList<>();
+		for (IClass c : this.classes) {
+			classNames.add(c.getName());
+		}
+		return classNames;
+	}
 	
 	public Set<IRelation> getRelations() {
 		return this.relations;
@@ -77,9 +77,12 @@ public class Model implements IModel {
 			ITraverser t = (ITraverser) c;
 			t.accept(v);
 		}
+		ArrayList<String> classNames = getClassNames();
 		for (IRelation r : this.relations) {
-			ITraverser t = (ITraverser) r;
-			t.accept(v);
+			if(classNames.contains(r.getSrc()) && classNames.contains(r.getDest())) {
+				ITraverser t = (ITraverser) r;
+				t.accept(v);
+			}
 		}
 		v.postVisit(this);
 	}
