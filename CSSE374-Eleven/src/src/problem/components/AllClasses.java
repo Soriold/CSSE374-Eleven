@@ -57,18 +57,6 @@ public class AllClasses implements IGraphVizComponent {
 
 	private void getUsesEdges(IClass clazz) {
 		ArrayList<String> classNames = this.getClassNames();
-		/*
-		for (IMethod m : clazz.getMethods()) {
-			if (classNames.contains(m.getReturnType())) {
-				this.createUsesEdge(clazz.getName(), m.getReturnType());
-			}
-			for (IParameter p : m.getParameters()) {
-				if (classNames.contains(p.getType())) {
-					this.createUsesEdge(clazz.getName(), p.getType());
-				}
-			}
-		}
-		*/
 		
 		for (String usedClass : clazz.getUsedClasses()) {
 			if (classNames.contains(usedClass)) {
