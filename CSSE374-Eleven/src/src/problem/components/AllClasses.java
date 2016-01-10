@@ -10,10 +10,12 @@ import src.problem.outputvisitor.IGraphVizComponent;
 public class AllClasses implements IGraphVizComponent {
 	private List<IClass> classes;
 	private Set<String> edges;
+	private Set<IRelation> relations;
 
 	public AllClasses() {
 		this.classes = new ArrayList<>();
 		this.edges = new HashSet<>();
+		this.relations = new HashSet<>();
 	}
 
 	public void addClass(IClass clazz) {
@@ -77,5 +79,13 @@ public class AllClasses implements IGraphVizComponent {
 			classNames.add(c.getName());
 		}
 		return classNames;
+	}
+	
+	public Set<IRelation> getRelations() {
+		return this.relations;
+	}
+
+	public void addRelation(IRelation relation) {
+		this.relations.add(relation);
 	}
 }
