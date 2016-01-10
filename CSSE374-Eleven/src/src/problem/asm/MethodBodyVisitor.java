@@ -21,7 +21,7 @@ public class MethodBodyVisitor extends MethodVisitor {
 		}
 	}
 	
-	String simplifyClassName(String arg) {
+	private String simplifyClassName(String arg) {
 		if(arg.contains("/")) {
 			String[] splitType = arg.split("/");
 			arg = splitType[splitType.length - 1];

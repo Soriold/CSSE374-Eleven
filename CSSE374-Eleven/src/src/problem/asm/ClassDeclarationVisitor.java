@@ -36,7 +36,7 @@ public class ClassDeclarationVisitor extends ClassVisitor {
 		super.visit(version, access, name, signature, superName, interfaces);
 	}
 	
-	String simplifyClassName(String arg) {
+	private String simplifyClassName(String arg) {
 		if(arg.contains("/")) {
 			String[] splitType = arg.split("/");
 			arg = splitType[splitType.length - 1];
