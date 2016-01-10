@@ -30,11 +30,11 @@ public class ClassFieldVisitor extends ClassVisitor {
 		signature = extractType(signature);
 		
 		IRelation relation;
-		if(type.equals("List")) {
+		if(!signature.equals("")) {
 			String temp = signature.substring(1, signature.length() - 1);
 			relation = new Relation(this.clazz.getName(), temp, RelationType.ASSOCIATION);
 		} else {
-			relation = new Relation(this.clazz.getName(), type + signature, RelationType.ASSOCIATION);
+			relation = new Relation(this.clazz.getName(), type, RelationType.ASSOCIATION);
 		}
 		
 		type += signature;
