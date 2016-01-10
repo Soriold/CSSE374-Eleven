@@ -29,6 +29,8 @@ public class GraphVizOutputStream extends FilterOutputStream {
 	}
 
 	private void setupVisitors() {
+		this.setupPreVisitModel();
+		this.setupPostVisitModel();
 		this.setupPreVisitClass();
 		this.setupVisitClass();
 		this.setupPostVisitClass();
