@@ -1,0 +1,696 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.3">
+  <zoom_level>8</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>904</x>
+      <y>528</y>
+      <w>216</w>
+      <h>320</h>
+    </coordinates>
+    <panel_attributes>src.problem.components::Class
+--
+-name: String
+-fields: List&lt;IField&gt;
+-methods: List&lt;IMethod&gt;
+-isInterface: boolean
+-interfaces: List&lt;String&gt;
+-superClass: String
+--
++Class(): ctor
++getName(): String
++getFields(): List&lt;IField&gt;
++getMethods(): List&lt;IMethod&gt;
++setName(String name): void
++addField(IField field): void
++addMethod(IMethod method): void
++getInterfaces(): List&lt;String&gt;
++addInterface(String impl): void
++getSuperClass(): String
++setSuperClass(String superClass): void
++getIsInterface(): boolean
++setIsInterface(boolean isInterface): void
++getGraphViz(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1784</x>
+      <y>528</y>
+      <w>232</w>
+      <h>280</h>
+    </coordinates>
+    <panel_attributes>src.problem.components::Method
+--
+-name: String
+-returnType: String
+-visibility: String
+-modifiers: List&lt;String&gt;
+-parameters: List&lt;IParameter&gt;
+--
++Method(): ctor
++getName(): String
++getReturnType(): String
++getVisibility(): String
++getModifiers(): List&lt;String&gt;
++getParameters(): List&lt;IParameter&gt;
++setName(String name): void
++setReturnType(String returnType): void
++setVisibility(String visibility): void
++addModifier(String modifier): void
++addParameter(IParameter parameter): void
++getGraphViz(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1336</x>
+      <y>528</y>
+      <w>184</w>
+      <h>232</h>
+    </coordinates>
+    <panel_attributes>src.problem.components::Field
+--
+-name: String
+-type: String
+-visibility: String
+-modifiers: List&lt;String&gt;
+--
++Field(): ctor
++setName(String name): void
++setType(String type): void
++setVisibility(String visibility): void
++addModifier(String modifier): void
++getName(): String
++getType(): String
++getVisibility(): String
++getModifiers(): List&lt;String&gt;
++getGraphViz(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>904</x>
+      <y>248</y>
+      <w>216</w>
+      <h>224</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+src.problem.components::IClass
+--
+--
++getName(): String
++setName(String name): void
++getFields(): List&lt;IField&gt;
++addField(IField field): void
++getMethods(): List&lt;IMethod&gt;
++addMethod(IMethod method): void
++getInterfaces(): List&lt;String&gt;
++addInterface(String impl): void
++getSuperClass(): String
++setSuperClass(String superClass): void
++getIsInterface(): boolean
++setIsInterface(boolean isInterface): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1784</x>
+      <y>248</y>
+      <w>232</w>
+      <h>192</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+src.problem.components::IMethod
+--
+--
++getName(): String
++setName(String name): void
++getReturnType(): String
++setReturnType(String returnType): void
++getVisibility(): String
++setVisibility(String visibility): void
++getModifiers(): List&lt;String&gt;
++addModifier(String modifier): void
++getParameters(): List&lt;IParameter&gt;
++addParameter(IParameter parameter): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1336</x>
+      <y>248</y>
+      <w>184</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+src.problem.components::IField
+--
+--
++getName(): String
++setName(String name): void
++getType(): String
++setType(String type): void
++getVisibility(): String
++setVisibility(String visibility): void
++getModifiers(): List&lt;String&gt;
++addModifier(String modifier): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>64</x>
+      <y>672</y>
+      <w>520</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>src.problem.asm::ClassMethodVisitor
+--
+-clazz: IClass
+--
++ClassMethodVisitor(int api, IClass clazz): ctor
++ClassMethodVisitor(int api, ClassVisitor decorated, IClass clazz): ctor
++visitMethod(int access, String name, String desc, String signature, String[] exceptions): MethodVisitor
+-addAccessLevel(int access, IMethod method): void
+-addReturnType(String desc, IMethod method): void
+-addArguments(String desc, IMethod method): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2232</x>
+      <y>528</y>
+      <w>192</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>src.problem.components::Parameter
+--
+-type: String
+--
++Parameter(): ctor
++getType(): String
++setType(String type): void
++getGraphViz(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>64</x>
+      <y>568</y>
+      <w>464</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>src.problem.asm::ClassFieldVisitor
+--
+-clazz: IClass
+--
++ClassFieldVisitor(int api, IClass clazz): ctor
++ClassFieldVisitor(int api, ClassVisitor decorated, IClass clazz): ctor
++visitField(int access, String name, String desc, String signature, Object value): FieldVisitor
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>64</x>
+      <y>464</y>
+      <w>520</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>src.problem.asm::ClassDeclarationVisitor
+--
+-clazz: IClass
+--
++ClassDeclarationVisitor(int api, IClass clazz): ctor
++visit(int version, int access, String name, String signature, String superName, String[] interfaces): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2232</x>
+      <y>248</y>
+      <w>200</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+src.problem.components::IParameter
+--
+--
++getType(): String
++setType(String type): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>704</x>
+      <y>0</y>
+      <w>168</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>src.problem.asm::DesignParser
+--
+--
++main(String[] args): void
++parse(String args): IClass
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1304</x>
+      <y>0</y>
+      <w>248</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+src.problem.components::IGraphVizComponent
+--
+--
++getGraphViz(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2320</x>
+      <y>328</y>
+      <w>24</w>
+      <h>216</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;250.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1888</x>
+      <y>432</y>
+      <w>24</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1416</x>
+      <y>408</y>
+      <w>24</w>
+      <h>136</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;150.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1000</x>
+      <y>464</y>
+      <w>24</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1464</x>
+      <y>64</y>
+      <w>888</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;130.0;1090.0;130.0;1090.0;230.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1440</x>
+      <y>64</y>
+      <w>472</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;180.0;570.0;180.0;570.0;230.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1416</x>
+      <y>64</y>
+      <w>24</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;230.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1000</x>
+      <y>64</y>
+      <w>416</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>500.0;10.0;500.0;180.0;10.0;180.0;10.0;230.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>576</x>
+      <y>360</y>
+      <w>344</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;170.0;140.0;170.0;140.0;10.0;410.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>520</x>
+      <y>376</y>
+      <w>400</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;280.0;230.0;280.0;230.0;10.0;480.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>576</x>
+      <y>392</y>
+      <w>344</w>
+      <h>328</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;390.0;180.0;390.0;180.0;10.0;410.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>312</x>
+      <y>248</y>
+      <w>280</w>
+      <h>176</h>
+    </coordinates>
+    <panel_attributes>AllClasses
+--
+-classes: List&lt;IClass&gt;
+--
++AllClasses(): ctor
++addClass(IClass class): void
++getClasses(): List&lt;IClass&gt;
++getGraphViz(): String
+-getEdges(): String
+-createImplementsEdge(String src, String dest): String
+-createExtendsEdge(String src, String dest): String
+-getClassNames(): ArrayList&lt;String&gt;
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>440</x>
+      <y>64</y>
+      <w>952</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>1170.0;10.0;1170.0;130.0;10.0;130.0;10.0;230.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1112</x>
+      <y>288</y>
+      <w>240</w>
+      <h>288</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;340.0;170.0;340.0;170.0;10.0;280.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1112</x>
+      <y>288</y>
+      <w>688</w>
+      <h>336</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;400.0;220.0;400.0;220.0;230.0;590.0;230.0;590.0;10.0;840.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2008</x>
+      <y>280</y>
+      <w>240</w>
+      <h>296</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;350.0;140.0;350.0;140.0;10.0;280.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>584</x>
+      <y>288</y>
+      <w>336</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;400.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1112</x>
+      <y>304</y>
+      <w>240</w>
+      <h>288</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>280.0;10.0;190.0;10.0;190.0;340.0;10.0;340.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1112</x>
+      <y>304</y>
+      <w>688</w>
+      <h>336</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>840.0;10.0;610.0;10.0;610.0;230.0;240.0;230.0;240.0;400.0;10.0;400.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>424</x>
+      <y>64</y>
+      <w>368</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;230.0;10.0;110.0;440.0;110.0;440.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>32</x>
+      <y>64</y>
+      <w>744</w>
+      <h>456</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>40.0;550.0;10.0;550.0;10.0;90.0;910.0;90.0;910.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>16</x>
+      <y>64</y>
+      <w>744</w>
+      <h>560</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>60.0;680.0;10.0;680.0;10.0;70.0;910.0;70.0;910.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>0</x>
+      <y>64</y>
+      <w>744</w>
+      <h>664</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>80.0;810.0;10.0;810.0;10.0;50.0;910.0;50.0;910.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>784</x>
+      <y>64</y>
+      <w>136</w>
+      <h>584</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>150.0;710.0;10.0;710.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>800</x>
+      <y>64</y>
+      <w>120</w>
+      <h>280</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>130.0;330.0;10.0;330.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>520</x>
+      <y>624</y>
+      <w>832</w>
+      <h>288</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>1020.0;110.0;910.0;110.0;910.0;340.0;290.0;340.0;290.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>576</x>
+      <y>320</y>
+      <w>1224</w>
+      <h>608</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>1510.0;10.0;1300.0;10.0;1300.0;740.0;200.0;740.0;200.0;520.0;10.0;520.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>576</x>
+      <y>560</y>
+      <w>1224</w>
+      <h>384</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>1510.0;10.0;1320.0;10.0;1320.0;460.0;180.0;460.0;180.0;240.0;10.0;240.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>576</x>
+      <y>576</y>
+      <w>1672</w>
+      <h>384</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>2070.0;10.0;2000.0;10.0;2000.0;460.0;160.0;460.0;160.0;240.0;10.0;240.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>584</x>
+      <y>304</y>
+      <w>336</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>400.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1112</x>
+      <y>320</y>
+      <w>240</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>280.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1112</x>
+      <y>336</y>
+      <w>688</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>840.0;10.0;650.0;10.0;650.0;130.0;150.0;130.0;150.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2008</x>
+      <y>296</y>
+      <w>240</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>280.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2008</x>
+      <y>312</y>
+      <w>240</w>
+      <h>280</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>280.0;10.0;160.0;10.0;160.0;330.0;10.0;330.0</additional_attributes>
+  </element>
+</diagram>

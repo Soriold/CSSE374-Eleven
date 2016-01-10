@@ -71,6 +71,7 @@ public class ClassMethodVisitor extends ClassVisitor {
 		// method.
 		returnType = simplifyClassName(returnType);
 		method.setReturnType(returnType);
+		this.clazz.addUsedClass(returnType);
 	}
 
 	void addArguments(String desc, IMethod method) {
@@ -83,6 +84,7 @@ public class ClassMethodVisitor extends ClassVisitor {
 			arg = simplifyClassName(arg);
 			IParameter parameter = new Parameter();
 			parameter.setType(arg);
+			this.clazz.addUsedClass(arg);
 			method.addParameter(parameter);
 		}
 	}

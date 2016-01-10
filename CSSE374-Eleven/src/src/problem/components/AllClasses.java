@@ -57,16 +57,6 @@ public class AllClasses implements IGraphVizComponent {
 
 	private void getUsesEdges(IClass clazz) {
 		ArrayList<String> classNames = this.getClassNames();
-		for (IMethod m : clazz.getMethods()) {
-			if (classNames.contains(m.getReturnType())) {
-				this.createUsesEdge(clazz.getName(), m.getReturnType());
-			}
-			for (IParameter p : m.getParameters()) {
-				if (classNames.contains(p.getType())) {
-					this.createUsesEdge(clazz.getName(), p.getType());
-				}
-			}
-		}
 		
 		for (String usedClass : clazz.getUsedClasses()) {
 			if (classNames.contains(usedClass)) {
@@ -103,7 +93,6 @@ public class AllClasses implements IGraphVizComponent {
 				int index1 = dest.indexOf('<');
 				int index2 = dest.indexOf('>');
 				dest = dest.substring(index1 + 1, index2);
-				System.out.println(dest);
 			}
 			if(this.getClassNames().contains(dest)) {
 				createAssociationEdge(c.getName(), dest);
