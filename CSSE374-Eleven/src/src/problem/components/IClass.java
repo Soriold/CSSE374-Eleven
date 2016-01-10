@@ -28,9 +28,5 @@ public interface IClass{
 	public boolean getIsInterface();
 
 	public void setIsInterface(boolean isInterface);
-	
-	public Set<IRelation> getRelations();
-	
-	public void addRelation(IRelation relation);
 
 }

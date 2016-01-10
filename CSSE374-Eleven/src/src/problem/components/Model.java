@@ -47,7 +47,7 @@ public class Model implements IModel {
 		ArrayList<String> classNames = this.getClassNames();
 		StringBuilder ret = new StringBuilder();
 		for (IClass c : this.classes) {
-			for(IRelation r : c.getRelations()) {
+			for(IRelation r : this.relations) {
 				if(classNames.contains(r.getSrc()) && classNames.contains(r.getDest())) {
 					switch(r.getType()) {
 						case EXTENDS:

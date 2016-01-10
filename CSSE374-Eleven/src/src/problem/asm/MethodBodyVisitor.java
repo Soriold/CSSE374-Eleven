@@ -2,18 +2,17 @@ package src.problem.asm;
 
 import org.objectweb.asm.MethodVisitor;
 
-import src.problem.components.IClass;
-import src.problem.components.IRelation;
-import src.problem.components.Relation;
-import src.problem.components.RelationType;
+import src.problem.components.*;
 
 public class MethodBodyVisitor extends MethodVisitor {
 	
 	private IClass clazz;
+	private IModel model;
 
-	public MethodBodyVisitor(int api, MethodVisitor methodVisitor, IClass clazz) {
+	public MethodBodyVisitor(int api, MethodVisitor methodVisitor, IClass clazz, IModel model) {
 		super(api, methodVisitor);
 		this.clazz = clazz;
+		this.model = model;
 	}
 	
 	@Override
@@ -21,7 +20,7 @@ public class MethodBodyVisitor extends MethodVisitor {
 		if (name.equals("<init>")) {
 			String usedClassToAdd = simplifyClassName(owner);
 			IRelation relation = new Relation(this.clazz.getName(), usedClassToAdd, RelationType.USES);
-			this.clazz.addRelation(relation);
+			this.model.addRelation(relation);
 		}
 	}
 	
