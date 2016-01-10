@@ -7,6 +7,7 @@ import org.objectweb.asm.Opcodes;
 
 import src.problem.components.*;
 import src.problem.components.Class;
+import src.problem.outputvisitor.GraphVizOutputStream;
 
 public class DesignParser {
 	/**
@@ -20,6 +21,7 @@ public class DesignParser {
 	 */
 	public static void main(String[] args) throws IOException {
 		Model model = new Model();
+		GraphVizOutputStream gvos = new GraphVizOutputStream();
 
 		// Used to generate UML for Lab 1-3 code
 		String[] m1 = new String[] { "lab1_3.AppLauncher", "lab1_3.EntryDeleteObserver", "lab1_3.EntryModifyObserver",
@@ -43,7 +45,7 @@ public class DesignParser {
 			model.addClass(clazz);
 		}
 
-		System.out.println(model.getGraphViz());
+		System.out.println(gvos.write(model));
 	}
 
 	public static IClass parse(String args, IModel model) throws IOException {
