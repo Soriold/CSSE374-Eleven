@@ -1,5 +1,6 @@
 package src.problem.asm;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
@@ -7,6 +8,7 @@ import org.objectweb.asm.Opcodes;
 
 import src.problem.components.*;
 import src.problem.components.Class;
+import src.problem.outputvisitor.GraphVizOutputStream;
 
 public class DesignParser {
 	/**
@@ -20,6 +22,7 @@ public class DesignParser {
 	 */
 	public static void main(String[] args) throws IOException {
 		Model model = new Model();
+		GraphVizOutputStream gvos = new GraphVizOutputStream(new FileOutputStream("result.txt"));
 
 		// Used to generate UML for Lab 1-3 code
 		String[] m1 = new String[] { "lab1_3.AppLauncher", "lab1_3.EntryDeleteObserver", "lab1_3.EntryModifyObserver",
@@ -34,7 +37,12 @@ public class DesignParser {
 		String [] m3 = new String[] {"src.problem.components.Model", "src.problem.components.IModel", "src.problem.components.Class", 
 				"src.problem.components.IClass", "src.problem.components.Field",  "src.problem.components.IField", 
 				"src.problem.components.Method", "src.problem.components.IMethod", "src.problem.components.Parameter", 
-				"src.problem.components.IParameter", "src.problem.components.IGraphVizComponent"};
+				"src.problem.components.IParameter", "src.problem.components.IModel", "src.problem.components.Model", 
+				"src.problem.components.IRelation", "src.problem.components.Relation", "src.problem.components.RelationType", 
+				"src.problem.outputvisitor.GraphVizOutputStream", "src.problem.outputvisitor.ITraverser", 
+				"src.problem.outputvisitor.IVisitMethod", "src.problem.outputvisitor.IVisitor", 
+				"src.problem.outputvisitor.LookupKey", "src.problem.outputvisitor.Visitor", "src.problem.outputvisitor.VisitType"};
+		
 		
 		args = new String[]{"tests.TestClass", "tests.TestClassTwo"};
 
@@ -43,7 +51,7 @@ public class DesignParser {
 			model.addClass(clazz);
 		}
 
-		System.out.println(model.getGraphViz());
+		System.out.println(gvos.write(model));
 	}
 
 	public static IClass parse(String args, IModel model) throws IOException {

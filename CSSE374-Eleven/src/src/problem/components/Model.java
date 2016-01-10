@@ -5,6 +5,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import src.problem.outputvisitor.ITraverser;
+import src.problem.outputvisitor.IVisitor;
+
 
 public class Model implements IModel {
 	private List<IClass> classes;
@@ -25,57 +28,39 @@ public class Model implements IModel {
 		return this.classes;
 	}
 
-	public String getGraphViz() {
-		StringBuilder ret = new StringBuilder();
-		ret.append("digraph G {fontname = \"Bitstream Vera Sans\" fontsize = 8\nnode [fontname ="
-				+ "\"Bitstream Vera Sans\" fontsize = 8 shape = \"record\"] edge [fontname = "
-				+ "\"Bitstream Vera Sans\" fontsize = 8]");
-		for (IClass clazz : this.classes) {
-			ret.append(clazz.getGraphViz());
-			ret.append("\n");
-		}
-		ret.append(this.getEdges());
-		ret.append("\n");
-		ret.append("}");
-		String mod = ret.toString().replace("<", "\\<");
-		mod = mod.replace(">", "\\>");
-		mod = mod.replace("$", ">");
-		return mod;
-	}
+//	private String getEdges() {
+//		ArrayList<String> classNames = this.getClassNames();
+//		StringBuilder ret = new StringBuilder();
+//		for (IClass c : this.classes) {
+//			for(IRelation r : this.relations) {
+//				if(classNames.contains(r.getSrc()) && classNames.contains(r.getDest())) {
+//					switch(r.getType()) {
+//						case EXTENDS:
+//							ret.append("edge [ arrowhead = \"onormal\" style = \"solid\" ]\n" + r.getSrc() + " -$ " + r.getDest() + "\n");
+//							break;
+//						case IMPLEMENTS:
+//							ret.append("edge [ arrowhead = \"onormal\" style = \"dashed\" ]\n" + r.getSrc() + " -$ " + r.getDest() + "\n");
+//							break;
+//						case ASSOCIATION:
+//							ret.append("edge [ arrowhead = \"vee\" style = \"solid\" ]\n" + r.getSrc() + " -$ " + r.getDest() + "\n");
+//							break;
+//						case USES:
+//							ret.append("edge [ arrowhead = \"vee\" style = \"dashed\" ]\n" + r.getSrc() + " -$ " + r.getDest() + "\n");
+//							break;
+//					}
+//				}
+//			}
+//		}
+//		return ret.toString();
+//	}
 
-	private String getEdges() {
-		ArrayList<String> classNames = this.getClassNames();
-		StringBuilder ret = new StringBuilder();
-		for (IClass c : this.classes) {
-			for(IRelation r : this.relations) {
-				if(classNames.contains(r.getSrc()) && classNames.contains(r.getDest())) {
-					switch(r.getType()) {
-						case EXTENDS:
-							ret.append("edge [ arrowhead = \"onormal\" style = \"solid\" ]\n" + r.getSrc() + " -$ " + r.getDest() + "\n");
-							break;
-						case IMPLEMENTS:
-							ret.append("edge [ arrowhead = \"onormal\" style = \"dashed\" ]\n" + r.getSrc() + " -$ " + r.getDest() + "\n");
-							break;
-						case ASSOCIATION:
-							ret.append("edge [ arrowhead = \"vee\" style = \"solid\" ]\n" + r.getSrc() + " -$ " + r.getDest() + "\n");
-							break;
-						case USES:
-							ret.append("edge [ arrowhead = \"vee\" style = \"dashed\" ]\n" + r.getSrc() + " -$ " + r.getDest() + "\n");
-							break;
-					}
-				}
-			}
-		}
-		return ret.toString();
-	}
-
-	private ArrayList<String> getClassNames() {
-		ArrayList<String> classNames = new ArrayList<>();
-		for (IClass c : this.classes) {
-			classNames.add(c.getName());
-		}
-		return classNames;
-	}
+//	private ArrayList<String> getClassNames() {
+//		ArrayList<String> classNames = new ArrayList<>();
+//		for (IClass c : this.classes) {
+//			classNames.add(c.getName());
+//		}
+//		return classNames;
+//	}
 	
 	public Set<IRelation> getRelations() {
 		return this.relations;
@@ -83,5 +68,17 @@ public class Model implements IModel {
 
 	public void addRelation(IRelation relation) {
 		this.relations.add(relation);
+	}
+
+	@Override
+	public void accept(IVisitor v) {
+		System.out.println("visiting model");
+		v.preVisit(this);
+		for (IClass c : this.classes) {
+			System.out.println("visiting class" + c.getName());
+			ITraverser t = (ITraverser) c;
+			t.accept(v);
+		}
+		v.postVisit(this);
 	}
 }
