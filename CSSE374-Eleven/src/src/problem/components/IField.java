@@ -2,9 +2,9 @@ package src.problem.components;
 
 import java.util.List;
 
-import src.problem.outputvisitor.IGraphVizComponent;
+import src.problem.outputvisitor.ITraverser;
 
-public interface IField{
+public interface IField extends ITraverser{
 	public String getName();
 	public void setName(String name);
 	public String getType();

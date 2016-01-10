@@ -3,7 +3,9 @@ package src.problem.components;
 import java.util.List;
 import java.util.Set;
 
-public interface IClass{
+import src.problem.outputvisitor.ITraverser;
+
+public interface IClass extends ITraverser{
 
 	public String getName();
 

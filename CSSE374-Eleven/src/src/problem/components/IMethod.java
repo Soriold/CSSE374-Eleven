@@ -3,8 +3,9 @@ package src.problem.components;
 import java.util.List;
 
 import src.problem.outputvisitor.IGraphVizComponent;
+import src.problem.outputvisitor.ITraverser;
 
-public interface IMethod {
+public interface IMethod extends ITraverser {
 
 	public String getName();
 
