@@ -1,5 +1,9 @@
 package src.problem.outputvisitor;
 
+import java.io.FilterOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+
 import src.problem.components.IClass;
 
 /*import java.io.FilterOutputStream;
@@ -12,13 +16,13 @@ import src.problem.components.IModel;
 import src.problem.components.IParameter;
 import src.problem.components.IRelation;
 
-public class GraphVizOutputStream /* extends FilterOutputStream */ {
+public class GraphVizOutputStream extends FilterOutputStream {
 
 	private final IVisitor visitor;
 	private StringBuilder output;
 
-	public GraphVizOutputStream(/* OutputStream out */) {
-		// super(out);
+	public GraphVizOutputStream(OutputStream out) {
+		super(out);
 		this.visitor = new Visitor();
 		this.output = new StringBuilder();
 		this.setupVisitors();
@@ -35,14 +39,24 @@ public class GraphVizOutputStream /* extends FilterOutputStream */ {
 		this.setupVisitRelationship();
 	}
 	
+	private void write(String m) {
+		try {
+			super.write(m.getBytes());
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
 	public String write(IModel m) {
-		visitor.visit(m);
+		ITraverser t = (ITraverser) m;
+		t.accept(this.visitor);
+		System.out.println(this.output.toString());
 		return this.output.toString();
 	}
 
 	public void setupPreVisitModel() {
 		this.visitor.addVisit(VisitType.PreVisit, IModel.class, (ITraverser t) -> {
-			this.output.append("digraph G {fontname = \"Bitstream Vera Sans\" fontsize = 8\nnode [fontname ="
+			this.write("digraph G {fontname = \"Bitstream Vera Sans\" fontsize = 8\nnode [fontname ="
 					+ "\"Bitstream Vera Sans\" fontsize = 8 shape = \"record\"] edge [fontname = "
 					+ "\"Bitstream Vera Sans\" fontsize = 8]");
 		});
@@ -50,8 +64,7 @@ public class GraphVizOutputStream /* extends FilterOutputStream */ {
 
 	public void setupPostVisitModel() {
 		this.visitor.addVisit(VisitType.PostVisit, IModel.class, (ITraverser t) -> {
-			this.output.append("\n");
-			this.output.append("}");
+			this.write("\n}");
 		});
 
 	}
@@ -69,21 +82,21 @@ public class GraphVizOutputStream /* extends FilterOutputStream */ {
 			ret.append(c.getName());
 			ret.append("|");
 
-			this.output.append(ret.toString());
+			this.write(ret.toString());
 		});
 
 	}
 
 	private void setupVisitClass() {
 		this.visitor.addVisit(VisitType.Visit, IClass.class, (ITraverser t) -> {
-			this.output.append("|");
+			this.write("|");
 		});
 
 	}
 
 	private void setupPostVisitClass() {
 		this.visitor.addVisit(VisitType.PostVisit, IClass.class, (ITraverser t) -> {
-			this.output.append("}\"]");
+			this.write("}\"]");
 		});
 
 	}
@@ -103,16 +116,16 @@ public class GraphVizOutputStream /* extends FilterOutputStream */ {
 
 			ret.append(c.getName());
 			ret.append("(");
-			this.output.append(ret.toString());
+			this.write(ret.toString());
 		});
 	}
 
 	private void setupPostVisitMethod() {
 		this.visitor.addVisit(VisitType.PostVisit, IMethod.class, (ITraverser t) -> {
 			IMethod c = (IMethod) t;
-			this.output.append(") : ");
-			this.output.append(c.getReturnType());
-			this.output.append("\\l");
+			this.write(") : ");
+			this.write(c.getReturnType());
+			this.write("\\l");
 		});
 
 	}
@@ -135,7 +148,7 @@ public class GraphVizOutputStream /* extends FilterOutputStream */ {
 			ret.append(c.getType());
 			ret.append("\\l");
 
-			this.output.append(ret.toString());
+			this.write(ret.toString());
 		});
 
 	}
@@ -145,19 +158,19 @@ public class GraphVizOutputStream /* extends FilterOutputStream */ {
 			IRelation c = (IRelation) t;
 			switch (c.getType()) {
 				case EXTENDS:
-					this.output.append("edge [ arrowhead = \"onormal\" style = \"solid\" ]\n" + c.getSrc() + " -$ " + c.getDest()
+					this.write("edge [ arrowhead = \"onormal\" style = \"solid\" ]\n" + c.getSrc() + " -$ " + c.getDest()
 							+ "\n");
 					break;
 				case IMPLEMENTS:
-					this.output.append("edge [ arrowhead = \"onormal\" style = \"dashed\" ]\n" + c.getSrc() + " -$ " + c.getDest()
+					this.write("edge [ arrowhead = \"onormal\" style = \"dashed\" ]\n" + c.getSrc() + " -$ " + c.getDest()
 							+ "\n");
 					break;
 				case ASSOCIATION:
-					this.output.append(
+					this.write(
 							"edge [ arrowhead = \"vee\" style = \"solid\" ]\n" + c.getSrc() + " -$ " + c.getDest() + "\n");
 					break;
 				case USES:
-					this.output.append(
+					this.write(
 							"edge [ arrowhead = \"vee\" style = \"dashed\" ]\n" + c.getSrc() + " -$ " + c.getDest() + "\n");
 					break;
 			}
@@ -167,7 +180,7 @@ public class GraphVizOutputStream /* extends FilterOutputStream */ {
 	private void setupVisitParameter() {
 		this.visitor.addVisit(VisitType.Visit, IParameter.class, (ITraverser t) -> {
 			IParameter c = (IParameter) t;
-			this.output.append(c.getType());
+			this.write(c.getType());
 		});
 	}
 
