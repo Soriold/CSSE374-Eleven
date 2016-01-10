@@ -72,11 +72,13 @@ public class Model implements IModel {
 
 	@Override
 	public void accept(IVisitor v) {
-		System.out.println("visiting model");
 		v.preVisit(this);
 		for (IClass c : this.classes) {
-			System.out.println("visiting class" + c.getName());
 			ITraverser t = (ITraverser) c;
+			t.accept(v);
+		}
+		for (IRelation r : this.relations) {
+			ITraverser t = (ITraverser) r;
 			t.accept(v);
 		}
 		v.postVisit(this);

@@ -50,8 +50,7 @@ public class DesignParser {
 			IClass clazz = parse(className, model);
 			model.addClass(clazz);
 		}
-
-		System.out.println(gvos.write(model));
+		gvos.write(model);
 	}
 
 	public static IClass parse(String args, IModel model) throws IOException {

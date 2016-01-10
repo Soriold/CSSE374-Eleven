@@ -4,17 +4,13 @@ import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import src.problem.components.IClass;
-
-/*import java.io.FilterOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;*/
-
-import src.problem.components.IField;
-import src.problem.components.IMethod;
+import src.problem.components.Class;
+import src.problem.components.Field;
 import src.problem.components.IModel;
-import src.problem.components.IParameter;
-import src.problem.components.IRelation;
+import src.problem.components.Method;
+import src.problem.components.Model;
+import src.problem.components.Parameter;
+import src.problem.components.Relation;
 
 public class GraphVizOutputStream extends FilterOutputStream {
 
@@ -49,31 +45,29 @@ public class GraphVizOutputStream extends FilterOutputStream {
 		}
 	}
 	
-	public String write(IModel m) {
+	public void write(Model m) {
 		ITraverser t = (ITraverser) m;
 		t.accept(this.visitor);
-		System.out.println(this.output.toString());
-		return this.output.toString();
 	}
 
-	public void setupPreVisitModel() {
-		this.visitor.addVisit(VisitType.PreVisit, IModel.class, (ITraverser t) -> {
+	private void setupPreVisitModel() {
+		this.visitor.addVisit(VisitType.PreVisit, Model.class, (ITraverser t) -> {
 			this.write("digraph G {fontname = \"Bitstream Vera Sans\" fontsize = 8\nnode [fontname ="
 					+ "\"Bitstream Vera Sans\" fontsize = 8 shape = \"record\"] edge [fontname = "
 					+ "\"Bitstream Vera Sans\" fontsize = 8]");
 		});
 	}
 
-	public void setupPostVisitModel() {
-		this.visitor.addVisit(VisitType.PostVisit, IModel.class, (ITraverser t) -> {
+	private void setupPostVisitModel() {
+		this.visitor.addVisit(VisitType.PostVisit, Model.class, (ITraverser t) -> {
 			this.write("\n}");
 		});
 
 	}
 
 	private void setupPreVisitClass() {
-		this.visitor.addVisit(VisitType.PreVisit, IClass.class, (ITraverser t) -> {
-			IClass c = (IClass) t;
+		this.visitor.addVisit(VisitType.PreVisit, Class.class, (ITraverser t) -> {
+			Class c = (Class) t;
 			StringBuilder ret = new StringBuilder();
 			ret.append(c.getName());
 			ret.append(" [label = \"{");
@@ -90,22 +84,46 @@ public class GraphVizOutputStream extends FilterOutputStream {
 	}
 
 	private void setupVisitClass() {
-		this.visitor.addVisit(VisitType.Visit, IClass.class, (ITraverser t) -> {
+		this.visitor.addVisit(VisitType.Visit, Class.class, (ITraverser t) -> {
 			this.write("|");
 		});
 
 	}
 
 	private void setupPostVisitClass() {
-		this.visitor.addVisit(VisitType.PostVisit, IClass.class, (ITraverser t) -> {
-			this.write("}\"]");
+		this.visitor.addVisit(VisitType.PostVisit, Class.class, (ITraverser t) -> {
+			this.write("}\"]\n");
 		});
 
 	}
 
+	private void setupVisitField() {
+		this.visitor.addVisit(VisitType.Visit, Field.class, (ITraverser t) -> {
+			Field c = (Field) t;
+			StringBuilder ret = new StringBuilder();
+	
+			if (c.getVisibility().equals("public")) {
+				ret.append("+ ");
+			} else if (c.getVisibility().equals("private")) {
+				ret.append("- ");
+			} else if (c.getVisibility().equals("protected")) {
+				ret.append("# ");
+			}
+	
+			ret.append(c.getName());
+			ret.append(" : ");
+			ret.append(c.getType());
+			ret.append("\\l\n");
+			String mod = ret.toString().replace("<", "\\<");
+			mod = mod.replace(">", "\\>");
+			this.write(mod);
+		});
+	
+	}
+
 	private void setupPreVisitMethod() {
-		this.visitor.addVisit(VisitType.PreVisit, IMethod.class, (ITraverser t) -> {
-			IMethod c = (IMethod) t;
+		this.visitor.addVisit(VisitType.PreVisit, Method.class, (ITraverser t) -> {
+			Method c = (Method) t;
 			StringBuilder ret = new StringBuilder();
 
 			if (c.getVisibility().equals("public")) {
@@ -118,71 +136,57 @@ public class GraphVizOutputStream extends FilterOutputStream {
 
 			ret.append(c.getName());
 			ret.append("(");
-			this.write(ret.toString());
+			String mod = ret.toString().replace("<", "\\<");
+			mod = mod.replace(">", "\\>");
+			this.write(mod);
 		});
 	}
 
 	private void setupPostVisitMethod() {
-		this.visitor.addVisit(VisitType.PostVisit, IMethod.class, (ITraverser t) -> {
-			IMethod c = (IMethod) t;
-			this.write(") : ");
-			this.write(c.getReturnType());
-			this.write("\\l");
-		});
-
-	}
-
-	private void setupVisitField() {
-		this.visitor.addVisit(VisitType.Visit, IField.class, (ITraverser t) -> {
-			IField c = (IField) t;
+		this.visitor.addVisit(VisitType.PostVisit, Method.class, (ITraverser t) -> {
+			Method c = (Method) t;
 			StringBuilder ret = new StringBuilder();
-
-			if (c.getVisibility().equals("public")) {
-				ret.append("+ ");
-			} else if (c.getVisibility().equals("private")) {
-				ret.append("- ");
-			} else if (c.getVisibility().equals("protected")) {
-				ret.append("# ");
-			}
-
-			ret.append(c.getName());
-			ret.append(" : ");
-			ret.append(c.getType());
-			ret.append("\\l");
-
-			this.write(ret.toString());
+			ret.append(") : ");
+			ret.append(c.getReturnType());
+			ret.append("\\l\n");
+			
+			String mod = ret.toString().replace("<", "\\<");
+			mod = mod.replace(">", "\\>");
+			this.write(mod);
 		});
 
 	}
 
 	private void setupVisitRelationship() {
-		this.visitor.addVisit(VisitType.Visit, IRelation.class, (ITraverser t) -> {
-			IRelation c = (IRelation) t;
+		this.visitor.addVisit(VisitType.Visit, Relation.class, (ITraverser t) -> {
+			Relation c = (Relation) t;
 			switch (c.getType()) {
 				case EXTENDS:
-					this.write("edge [ arrowhead = \"onormal\" style = \"solid\" ]\n" + c.getSrc() + " -$ " + c.getDest()
+					this.write("edge [ arrowhead = \"onormal\" style = \"solid\" ]\n" + c.getSrc() + " -> " + c.getDest()
 							+ "\n");
 					break;
 				case IMPLEMENTS:
-					this.write("edge [ arrowhead = \"onormal\" style = \"dashed\" ]\n" + c.getSrc() + " -$ " + c.getDest()
+					this.write("edge [ arrowhead = \"onormal\" style = \"dashed\" ]\n" + c.getSrc() + " -> " + c.getDest()
 							+ "\n");
 					break;
 				case ASSOCIATION:
 					this.write(
-							"edge [ arrowhead = \"vee\" style = \"solid\" ]\n" + c.getSrc() + " -$ " + c.getDest() + "\n");
+							"edge [ arrowhead = \"vee\" style = \"solid\" ]\n" + c.getSrc() + " -> " + c.getDest() + "\n");
 					break;
 				case USES:
 					this.write(
-							"edge [ arrowhead = \"vee\" style = \"dashed\" ]\n" + c.getSrc() + " -$ " + c.getDest() + "\n");
+							"edge [ arrowhead = \"vee\" style = \"dashed\" ]\n" + c.getSrc() + " -> " + c.getDest() + "\n");
 					break;
 			}
 		});
 	}
 
 	private void setupVisitParameter() {
-		this.visitor.addVisit(VisitType.Visit, IParameter.class, (ITraverser t) -> {
-			IParameter c = (IParameter) t;
-			this.write(c.getType());
+		this.visitor.addVisit(VisitType.Visit, Parameter.class, (ITraverser t) -> {
+			Parameter c = (Parameter) t;
+			String mod = c.getType().toString().replace("<", "\\<");
+			mod = mod.replace(">", "\\>");
+			this.write(mod);
 		});
 	}
 
