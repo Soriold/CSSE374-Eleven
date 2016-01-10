@@ -29,7 +29,7 @@ public class DesignParser {
 		String[] m2 = new String[] { "lab2_3.Cheese", "lab2_3.ChicagoPizzaIngredientFactory", "lab2_3.Clams", "lab2_3.Dough",
 				"lab2_3.FreshClams", "lab2_3.FrozenClams", "lab2_3.MarinaraSauce", "lab2_3.MozzarellaCheese", "lab2_3.NYPizzaIngredientFactory",
 				"lab2_3.NYPizzaStore", "lab2_3.PizzaIngredientFactory", "lab2_3.PlumTomatoSauce", "lab2_3.ReggianoCheese", "lab2_3.Sauce",
-				"lab2_3.ThickCrustDough", "lab2_3.ThinCrustDough" };
+				"lab2_3.ThickCrustDough", "lab2_3.ThinCrustDough", "lab2_3.Pizza" };
 		
 		String [] m3 = new String[] {"src.problem.components.AllClasses", "src.problem.components.Class", 
 				"src.problem.components.IClass", "src.problem.components.Field",  "src.problem.components.IField", 
@@ -38,7 +38,7 @@ public class DesignParser {
 		
 		args = new String[]{"tests.TestClass", "tests.TestClassTwo"};
 
-		for (String className : m3) {
+		for (String className : m2) {
 			IClass clazz = parse(className);
 			allClasses.addClass(clazz);
 		}
