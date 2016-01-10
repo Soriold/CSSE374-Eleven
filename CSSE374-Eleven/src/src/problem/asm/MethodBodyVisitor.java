@@ -5,7 +5,7 @@ import org.objectweb.asm.MethodVisitor;
 import src.problem.components.IClass;
 import src.problem.components.IRelation;
 import src.problem.components.Relation;
-import src.problem.components.Relation.RelationType;
+import src.problem.components.RelationType;
 
 public class MethodBodyVisitor extends MethodVisitor {
 	

@@ -19,7 +19,7 @@ public class DesignParser {
 	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException {
-		AllClasses allClasses = new AllClasses();
+		Model model = new Model();
 
 		// Used to generate UML for Lab 1-3 code
 		String[] m1 = new String[] { "lab1_3.AppLauncher", "lab1_3.EntryDeleteObserver", "lab1_3.EntryModifyObserver",
@@ -39,25 +39,25 @@ public class DesignParser {
 		args = new String[]{"tests.TestClass", "tests.TestClassTwo"};
 
 		for (String className : m3) {
-			IClass clazz = parse(className);
-			allClasses.addClass(clazz);
+			IClass clazz = parse(className, model);
+			model.addClass(clazz);
 		}
 
-		System.out.println(allClasses.getGraphViz());
+		System.out.println(model.getGraphViz());
 	}
 
-	public static IClass parse(String args) throws IOException {
+	public static IClass parse(String args, IModel model) throws IOException {
 		IClass clazz = new Class();
 
 		// ASM's ClassReader does the heavy lifting of parsing the compiled
 		// Java class
 		ClassReader reader = new ClassReader(args);
 		// make class declaration visitor to get superclass and interfaces
-		ClassVisitor decVisitor = new ClassDeclarationVisitor(Opcodes.ASM5, clazz);
+		ClassVisitor decVisitor = new ClassDeclarationVisitor(Opcodes.ASM5, clazz, model);
 		// DECORATE declaration visitor with field visitor
-		ClassVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5, decVisitor, clazz);
+		ClassVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5, decVisitor, clazz, model);
 		// DECORATE field visitor with method visitor
-		ClassVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5, fieldVisitor, clazz);
+		ClassVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5, fieldVisitor, clazz, model);
 		// TODO: add more DECORATORS here in later milestones to accomplish
 		// specific tasks
 		// Tell the Reader to use our (heavily decorated) ClassVisitor to
