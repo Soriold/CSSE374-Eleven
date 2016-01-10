@@ -2,7 +2,7 @@ package src.problem.components;
 
 import src.problem.outputvisitor.IGraphVizComponent;
 
-public interface IParameter extends IGraphVizComponent {
+public interface IParameter {
 
 	public String getType();
 

@@ -4,7 +4,7 @@ import java.util.List;
 
 import src.problem.outputvisitor.IGraphVizComponent;
 
-public interface IMethod extends IGraphVizComponent {
+public interface IMethod {
 
 	public String getName();
 

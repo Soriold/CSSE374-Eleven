@@ -2,13 +2,6 @@ package src.problem.components;
 
 public class Relation implements IRelation {
 	
-	public enum RelationType {
-			EXTENDS,
-			IMPLEMENTS,
-			ASSOCIATION,
-			USES
-	}
-	
 	private String dest;
 	private String src;
 	private RelationType type;

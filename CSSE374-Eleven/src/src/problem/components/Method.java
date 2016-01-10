@@ -66,29 +66,4 @@ public class Method implements IMethod{
 		this.parameters.add(parameter);
 	}
 
-	@Override
-	public String getGraphViz() {
-		StringBuilder ret = new StringBuilder();
-		
-		if (this.visibility.equals("public")) {
-			ret.append("+ ");
-		} else if (this.visibility.equals("private")) {
-			ret.append("- ");
-		} else if (this.visibility.equals("protected")) {
-			ret.append("# ");
-		}
-		
-		ret.append(this.name);
-		ret.append("(");
-		for (int i=0; i<this.parameters.size(); i++) {
-			if (i!=0) ret.append(", ");
-			ret.append(this.parameters.get(i).getGraphViz());
-		}
-		ret.append(") : ");
-		ret.append(this.returnType);
-		ret.append("\\l");
-		
-		return ret.toString();
-	}
-
 }

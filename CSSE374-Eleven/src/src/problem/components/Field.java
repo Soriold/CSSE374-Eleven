@@ -78,24 +78,4 @@ public class Field implements IField {
 		this.hasGenericType = b;
 	}
 
-	@Override
-	public String getGraphViz() {
-		StringBuilder ret = new StringBuilder();
-		
-		if (this.visibility.equals("public")) {
-			ret.append("+ ");
-		} else if (this.visibility.equals("private")) {
-			ret.append("- ");
-		} else if (this.visibility.equals("protected")) {
-			ret.append("# ");
-		}
-		
-		ret.append(this.name);
-		ret.append(" : ");
-		ret.append(this.type);
-		ret.append("\\l");
-		
-		return ret.toString();
-	}
-
 }

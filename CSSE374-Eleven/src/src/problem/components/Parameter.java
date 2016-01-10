@@ -18,9 +18,4 @@ public class Parameter implements IParameter {
 		this.type = type;
 	}
 
-	@Override
-	public String getGraphViz() {
-		return this.getType();
-	}
-
 }

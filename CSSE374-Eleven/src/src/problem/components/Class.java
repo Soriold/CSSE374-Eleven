@@ -84,28 +84,6 @@ public class Class implements IClass {
 	}
 
 	@Override
-	public String getGraphViz() {
-		StringBuilder ret = new StringBuilder();
-		ret.append(this.name);
-		ret.append(" [label = \"{");
-		if (this.isInterface) {
-			ret.append("<<interface>>");
-			ret.append("\\n");
-		}
-		ret.append(this.name);
-		ret.append("|");
-		for (IField curField : this.fields) {
-			ret.append(curField.getGraphViz());
-		}
-		ret.append("|");
-		for (IMethod curMethod : this.methods) {
-			ret.append(curMethod.getGraphViz());
-		}
-		ret.append("}\"]");
-		return ret.toString();
-	}
-
-	@Override
 	public Set<IRelation> getRelations() {
 		return this.relations;
 	}

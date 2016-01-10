@@ -4,7 +4,7 @@ import java.util.List;
 
 import src.problem.outputvisitor.IGraphVizComponent;
 
-public interface IField extends IGraphVizComponent{
+public interface IField{
 	public String getName();
 	public void setName(String name);
 	public String getType();
