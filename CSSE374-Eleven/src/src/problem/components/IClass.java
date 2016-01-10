@@ -29,10 +29,6 @@ public interface IClass extends IGraphVizComponent {
 
 	public void setIsInterface(boolean isInterface);
 	
-	public Set<String> getUsedClasses();
-	
-	public void addUsedClass(String createdUsedObject);
-	
 	public Set<IRelation> getRelations();
 	
 	public void addRelation(IRelation relation);

@@ -18,28 +18,13 @@ public class Field implements IField {
 	}
 
 	@Override
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	@Override
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	@Override
-	public void setVisibility(String visibility) {
-		this.visibility = visibility;
-	}
-
-	@Override
-	public void addModifier(String modifier) {
-		this.modifiers.add(modifier);
-	}
-	
-	@Override
 	public String getName() {
 		return name;
+	}
+
+	@Override
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@Override
@@ -48,13 +33,49 @@ public class Field implements IField {
 	}
 
 	@Override
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	@Override
 	public String getVisibility() {
 		return visibility;
 	}
 
 	@Override
+	public void setVisibility(String visibility) {
+		this.visibility = visibility;
+	}
+
+	@Override
 	public List<String> getModifiers() {
 		return modifiers;
+	}
+
+	@Override
+	public void addModifier(String modifier) {
+		this.modifiers.add(modifier);
+	}
+	
+	@Override
+	public String getGenericType() {
+		return this.genericType;
+	}
+
+	@Override
+	public void setGenericType(String type) {
+		this.genericType = type;
+		
+	}
+
+	@Override
+	public boolean hasGenericType() {
+		return this.hasGenericType;
+	}
+
+	@Override
+	public void setHasGenericType(boolean b) {
+		this.hasGenericType = b;
 	}
 
 	@Override
@@ -75,27 +96,6 @@ public class Field implements IField {
 		ret.append("\\l");
 		
 		return ret.toString();
-	}
-
-	@Override
-	public String getGenericType() {
-		return this.genericType;
-	}
-
-	@Override
-	public void setGenericType(String type) {
-		this.genericType = type;
-		
-	}
-
-	@Override
-	public boolean hasGenericType() {
-		return this.hasGenericType;
-	}
-
-	@Override
-	public void setHasGenericType(boolean b) {
-		this.hasGenericType = b;
 	}
 
 }

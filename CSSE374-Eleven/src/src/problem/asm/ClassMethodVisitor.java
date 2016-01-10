@@ -48,7 +48,7 @@ public class ClassMethodVisitor extends ClassVisitor {
 		return mbv;
 	}
 
-	void addAccessLevel(int access, IMethod method) {
+	private void addAccessLevel(int access, IMethod method) {
 		String level = "";
 		if ((access & Opcodes.ACC_PUBLIC) != 0) {
 			level = "public";
@@ -67,7 +67,7 @@ public class ClassMethodVisitor extends ClassVisitor {
 		method.setVisibility(level);
 	}
 
-	void addReturnType(String desc, IMethod method) {
+	private void addReturnType(String desc, IMethod method) {
 		String returnType = Type.getReturnType(desc).getClassName();
 		//System.out.println("return type: " + returnType);
 		// DONE: ADD this information to your representation of the current
@@ -78,7 +78,7 @@ public class ClassMethodVisitor extends ClassVisitor {
 		this.clazz.addRelation(relation);
 	}
 
-	void addArguments(String desc, IMethod method) {
+	private void addArguments(String desc, IMethod method) {
 		Type[] args = Type.getArgumentTypes(desc);
 		for (int i = 0; i < args.length; i++) {
 			String arg = args[i].getClassName();
@@ -94,7 +94,7 @@ public class ClassMethodVisitor extends ClassVisitor {
 		}
 	}
 	
-	String simplifyClassName(String arg) {
+	private String simplifyClassName(String arg) {
 		if(arg.contains(".")) {
 			String[] splitType = arg.split("\\.");
 			arg = splitType[splitType.length - 1];

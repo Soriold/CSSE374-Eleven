@@ -22,13 +22,28 @@ public class Method implements IMethod{
 	}
 
 	@Override
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	@Override
 	public String getReturnType() {
 		return returnType;
 	}
 	
 	@Override
+	public void setReturnType(String returnType) {
+		this.returnType = returnType;
+	}
+
+	@Override
 	public String getVisibility() {
 		return visibility;
+	}
+
+	@Override
+	public void setVisibility(String visibility) {
+		this.visibility = visibility;
 	}
 
 	@Override
@@ -37,28 +52,13 @@ public class Method implements IMethod{
 	}
 
 	@Override
-	public List<IParameter> getParameters() {
-		return parameters;
-	}
-
-	@Override
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	@Override
-	public void setReturnType(String returnType) {
-		this.returnType = returnType;
-	}
-	
-	@Override
-	public void setVisibility(String visibility) {
-		this.visibility = visibility;
-	}
-
-	@Override
 	public void addModifier(String modifier) {
 		this.modifiers.add(modifier);
+	}
+
+	@Override
+	public List<IParameter> getParameters() {
+		return parameters;
 	}
 
 	@Override

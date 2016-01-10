@@ -1,4 +1,4 @@
-package tests;
+package integrationTests;
 
 public class TestSubClass extends TestSuperClass {
 	

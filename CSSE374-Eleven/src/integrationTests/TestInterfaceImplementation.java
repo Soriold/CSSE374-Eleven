@@ -1,4 +1,4 @@
-package tests;
+package integrationTests;
 
 public class TestInterfaceImplementation implements TestInterface {
 	

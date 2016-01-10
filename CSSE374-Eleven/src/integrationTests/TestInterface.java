@@ -1,4 +1,4 @@
-package tests;
+package integrationTests;
 
 public interface TestInterface {
 	
