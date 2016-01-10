@@ -50,7 +50,7 @@ public class ClassFieldVisitorUnitTests {
 		assertEquals(clazz.getFields().size(), 1);
 		IField addedField = clazz.getFields().get(0);
 		assertEquals(addedField.getName(), "testField");
-		assertEquals(addedField.getType(), "IClass");
+		assertEquals(addedField.getType(), "List<IClass>");
 		assertEquals(addedField.getVisibility(), "private");
 		assertTrue(addedField.hasGenericType());	
 		assertEquals(addedField.getGenericType(), "IClass");
