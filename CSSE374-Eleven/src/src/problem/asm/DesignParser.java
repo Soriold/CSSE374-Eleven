@@ -44,9 +44,9 @@ public class DesignParser {
 				"src.problem.outputvisitor.LookupKey", "src.problem.outputvisitor.Visitor", "src.problem.outputvisitor.VisitType"};
 		
 		
-		args = new String[]{"tests.TestClass", "tests.TestClassTwo"};
+		args = new String[]{"integrationTests.TestClass", "integrationTests.TestClassTwo"};
 
-		for (String className : m3) {
+		for (String className : args) {
 			IClass clazz = parse(className, model);
 			model.addClass(clazz);
 		}
