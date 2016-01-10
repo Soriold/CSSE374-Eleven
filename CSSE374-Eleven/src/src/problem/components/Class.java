@@ -13,7 +13,6 @@ public class Class implements IClass {
 	private boolean isInterface;
 	private List<String> interfaces;
 	private String superClass;
-	private Set<String> createdUsedObjects;
 	private Set<IRelation> relations;
 
 	public Class() {
@@ -21,7 +20,6 @@ public class Class implements IClass {
 		this.methods = new ArrayList<IMethod>();
 		this.interfaces = new ArrayList<String>();
 		this.isInterface = false;
-		this.createdUsedObjects = new HashSet<String>();
 		this.relations = new HashSet<IRelation>();
 	}
 
@@ -105,16 +103,6 @@ public class Class implements IClass {
 		}
 		ret.append("}\"]");
 		return ret.toString();
-	}
-
-	@Override
-	public Set<String> getUsedClasses() {
-		return this.createdUsedObjects;
-	}
-
-	@Override
-	public void addUsedClass(String createdUsedObject) {
-		this.createdUsedObjects.add(createdUsedObject);
 	}
 
 	@Override
