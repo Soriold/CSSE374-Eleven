@@ -9,28 +9,30 @@ import src.problem.components.*;
 public class ClassFieldVisitor extends ClassVisitor {
 	
 	private IClass clazz;
+	private IModel model;
 	
-	public ClassFieldVisitor(int api, IClass clazz) {
+	public ClassFieldVisitor(int api, IClass clazz, IModel model) {
 		super(api);
 		this.clazz = clazz;
+		this.model = model;
 	}
 
 	public ClassFieldVisitor(int api, ClassVisitor decorated, IClass clazz, IModel model) {
 		super(api, decorated);
 		this.clazz = clazz;
+		this.model = model;
 	}
 
 	public FieldVisitor visitField(int access, String name, String desc, String signature, Object value) {
 		FieldVisitor toDecorate = super.visitField(access, name, desc, signature, value);
 		String type = Type.getType(desc).getClassName();
-		//System.out.println(Type.getType(desc).getClassName());
 		type = simplifyClassName(type);
 		signature = extractType(signature);
 		
 		IRelation relation;
 		if(type.equals("List")) {
-			signature = signature.substring(1, signature.length() - 1);
-			relation = new Relation(this.clazz.getName(), signature, RelationType.ASSOCIATION);
+			String temp = signature.substring(1, signature.length() - 1);
+			relation = new Relation(this.clazz.getName(), temp, RelationType.ASSOCIATION);
 		} else {
 			relation = new Relation(this.clazz.getName(), type + signature, RelationType.ASSOCIATION);
 		}
@@ -55,7 +57,7 @@ public class ClassFieldVisitor extends ClassVisitor {
 		}
 		
 		this.clazz.addField(field);
-		this.clazz.addRelation(relation);
+		this.model.addRelation(relation);
 		
 		return toDecorate;
 	};

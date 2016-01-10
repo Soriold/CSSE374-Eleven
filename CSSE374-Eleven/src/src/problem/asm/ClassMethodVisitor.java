@@ -10,21 +10,24 @@ import src.problem.components.*;
 public class ClassMethodVisitor extends ClassVisitor {
 	
 	private IClass clazz;
+	private IModel model;
 	
-	public ClassMethodVisitor(int api, IClass clazz) {
+	public ClassMethodVisitor(int api, IClass clazz, IModel model) {
 		super(api);
 		this.clazz = clazz;
+		this.model = model;
 	}
 
 	public ClassMethodVisitor(int api, ClassVisitor decorated, IClass clazz, IModel model) {
 		super(api, decorated);
 		this.clazz = clazz;
+		this.model = model;
 	}
 
 	@Override
 	public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
 		MethodVisitor toDecorate = super.visitMethod(access, name, desc, signature, exceptions);
-		MethodBodyVisitor mbv = new MethodBodyVisitor(this.api, toDecorate, this.clazz);
+		MethodBodyVisitor mbv = new MethodBodyVisitor(this.api, toDecorate, this.clazz, this.model);
 		//System.out.println("method " + name);
 		// DONE: create an internal representation of the current method and
 		// pass it to the methods below
@@ -68,7 +71,7 @@ public class ClassMethodVisitor extends ClassVisitor {
 		returnType = simplifyClassName(returnType);
 		method.setReturnType(returnType);
 		IRelation relation = new Relation(this.clazz.getName(), returnType, RelationType.USES);
-		this.clazz.addRelation(relation);
+		this.model.addRelation(relation);
 	}
 
 	private void addArguments(String desc, IMethod method) {
@@ -82,7 +85,7 @@ public class ClassMethodVisitor extends ClassVisitor {
 			IParameter parameter = new Parameter();
 			parameter.setType(arg);
 			IRelation relation = new Relation(this.clazz.getName(), arg, RelationType.USES);
-			this.clazz.addRelation(relation);
+			this.model.addRelation(relation);
 			method.addParameter(parameter);
 		}
 	}

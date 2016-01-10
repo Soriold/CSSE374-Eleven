@@ -8,10 +8,12 @@ import src.problem.components.*;
 public class ClassDeclarationVisitor extends ClassVisitor {
 	
 	private IClass clazz;
+	private IModel model;
 	
 	public ClassDeclarationVisitor(int api, IClass clazz, IModel model) {
 		super(api);
 		this.clazz = clazz;
+		this.model = model;
 	}
 
 	@Override
@@ -27,7 +29,7 @@ public class ClassDeclarationVisitor extends ClassVisitor {
 			relation = new Relation(this.clazz.getName(), superName, RelationType.EXTENDS);
 		}
 		
-		clazz.addRelation(relation);
+		this.model.addRelation(relation);
 		for (String i : interfaces) {
 			if(i.contains("/")) {
 				String[] splitType = i.split("/");
@@ -35,7 +37,7 @@ public class ClassDeclarationVisitor extends ClassVisitor {
 			}
 			clazz.addInterface(i);
 			relation = new Relation(this.clazz.getName(), i, RelationType.IMPLEMENTS);
-			clazz.addRelation(relation);
+			this.model.addRelation(relation);
 		}
 		if ((access & Opcodes.ACC_INTERFACE) != 0) {
 			clazz.setIsInterface(true);

@@ -1,9 +1,7 @@
 package src.problem.components;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import src.problem.outputvisitor.ITraverser;
 import src.problem.outputvisitor.IVisitor;
@@ -16,14 +14,12 @@ public class Class implements IClass {
 	private boolean isInterface;
 	private List<String> interfaces;
 	private String superClass;
-	private Set<IRelation> relations;
 
 	public Class() {
 		this.fields = new ArrayList<IField>();
 		this.methods = new ArrayList<IMethod>();
 		this.interfaces = new ArrayList<String>();
 		this.isInterface = false;
-		this.relations = new HashSet<IRelation>();
 	}
 
 	@Override
@@ -84,16 +80,6 @@ public class Class implements IClass {
 	@Override
 	public void setIsInterface(boolean isInterface) {
 		this.isInterface = isInterface;
-	}
-
-	@Override
-	public Set<IRelation> getRelations() {
-		return this.relations;
-	}
-
-	@Override
-	public void addRelation(IRelation relation) {
-		this.relations.add(relation);
 	}
 
 	@Override
