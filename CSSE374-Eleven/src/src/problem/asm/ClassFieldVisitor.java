@@ -31,8 +31,8 @@ public class ClassFieldVisitor extends ClassVisitor {
 		
 		IRelation relation;
 		if(type.equals("List")) {
-			signature = signature.substring(1, signature.length() - 1);
-			relation = new Relation(this.clazz.getName(), signature, RelationType.ASSOCIATION);
+			String temp = signature.substring(1, signature.length() - 1);
+			relation = new Relation(this.clazz.getName(), temp, RelationType.ASSOCIATION);
 		} else {
 			relation = new Relation(this.clazz.getName(), type + signature, RelationType.ASSOCIATION);
 		}
