@@ -3,7 +3,7 @@ package src.problem.components;
 import src.problem.outputvisitor.IVisitor;
 
 public class Relation implements IRelation {
-	
+
 	private String dest;
 	private String src;
 	private RelationType type;
@@ -44,21 +44,20 @@ public class Relation implements IRelation {
 	public void setType(RelationType type) {
 		this.type = type;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
-		IRelation relation = (Relation)obj;
+		IRelation relation = (Relation) obj;
 		boolean destEquals = this.dest.equals(relation.getDest());
 		boolean srcEquals = this.src.equals(relation.getSrc());
-		boolean typeEquals = this.type == relation.getType() ||
-							this.type == RelationType.ASSOCIATION && relation.getType() == RelationType.USES ||
-							this.type == RelationType.USES && relation.getType() == RelationType.ASSOCIATION;
+		boolean typeEquals = this.type == relation.getType()
+				|| this.type == RelationType.ASSOCIATION && relation.getType() == RelationType.USES
+				|| this.type == RelationType.USES && relation.getType() == RelationType.ASSOCIATION;
 		return destEquals && srcEquals && typeEquals;
 	}
 
-	//@Override
-	//public void accept(IVisitor v) {
-		
-		
-	//}
+	@Override
+	public void accept(IVisitor v) {
+		v.visit(this);
+	}
 }

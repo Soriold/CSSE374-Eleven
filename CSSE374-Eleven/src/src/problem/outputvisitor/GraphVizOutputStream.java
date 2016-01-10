@@ -8,7 +8,9 @@ import java.io.OutputStream;*/
 
 import src.problem.components.IField;
 import src.problem.components.IMethod;
+import src.problem.components.IModel;
 import src.problem.components.IParameter;
+import src.problem.components.IRelation;
 
 public class GraphVizOutputStream /* extends FilterOutputStream */ {
 
@@ -33,6 +35,11 @@ public class GraphVizOutputStream /* extends FilterOutputStream */ {
 		this.setupVisitRelationship();
 	}
 	
+	public String write(IModel m) {
+		visitor.visit(m);
+		return this.output.toString();
+	}
+
 	public void setupPreVisitModel() {
 		this.visitor.addVisit(VisitType.PreVisit, IModel.class, (ITraverser t) -> {
 			this.output.append("digraph G {fontname = \"Bitstream Vera Sans\" fontsize = 8\nnode [fontname ="
@@ -40,16 +47,13 @@ public class GraphVizOutputStream /* extends FilterOutputStream */ {
 					+ "\"Bitstream Vera Sans\" fontsize = 8]");
 		});
 	}
-	
+
 	public void setupPostVisitModel() {
 		this.visitor.addVisit(VisitType.PostVisit, IModel.class, (ITraverser t) -> {
 			this.output.append("\n");
 			this.output.append("}");
 		});
-		
-		
-		ret.append("\n");
-		ret.append("}");
+
 	}
 
 	private void setupPreVisitClass() {
@@ -64,31 +68,31 @@ public class GraphVizOutputStream /* extends FilterOutputStream */ {
 			}
 			ret.append(c.getName());
 			ret.append("|");
-	
+
 			this.output.append(ret.toString());
 		});
-		
+
 	}
 
 	private void setupVisitClass() {
 		this.visitor.addVisit(VisitType.Visit, IClass.class, (ITraverser t) -> {
 			this.output.append("|");
 		});
-	
+
 	}
 
 	private void setupPostVisitClass() {
 		this.visitor.addVisit(VisitType.PostVisit, IClass.class, (ITraverser t) -> {
 			this.output.append("}\"]");
 		});
-		
+
 	}
 
 	private void setupPreVisitMethod() {
 		this.visitor.addVisit(VisitType.PreVisit, IMethod.class, (ITraverser t) -> {
 			IMethod c = (IMethod) t;
 			StringBuilder ret = new StringBuilder();
-			
+
 			if (c.getVisibility().equals("public")) {
 				ret.append("+ ");
 			} else if (c.getVisibility().equals("private")) {
@@ -96,7 +100,7 @@ public class GraphVizOutputStream /* extends FilterOutputStream */ {
 			} else if (c.getVisibility().equals("protected")) {
 				ret.append("# ");
 			}
-			
+
 			ret.append(c.getName());
 			ret.append("(");
 			this.output.append(ret.toString());
@@ -110,14 +114,14 @@ public class GraphVizOutputStream /* extends FilterOutputStream */ {
 			this.output.append(c.getReturnType());
 			this.output.append("\\l");
 		});
-		
+
 	}
 
 	private void setupVisitField() {
 		this.visitor.addVisit(VisitType.Visit, IField.class, (ITraverser t) -> {
 			IField c = (IField) t;
 			StringBuilder ret = new StringBuilder();
-	
+
 			if (c.getVisibility().equals("public")) {
 				ret.append("+ ");
 			} else if (c.getVisibility().equals("private")) {
@@ -125,20 +129,39 @@ public class GraphVizOutputStream /* extends FilterOutputStream */ {
 			} else if (c.getVisibility().equals("protected")) {
 				ret.append("# ");
 			}
-	
+
 			ret.append(c.getName());
 			ret.append(" : ");
 			ret.append(c.getType());
 			ret.append("\\l");
-	
+
 			this.output.append(ret.toString());
 		});
-	
+
 	}
 
 	private void setupVisitRelationship() {
-		// TODO Auto-generated method stub
-
+		this.visitor.addVisit(VisitType.Visit, IRelation.class, (ITraverser t) -> {
+			IRelation c = (IRelation) t;
+			switch (c.getType()) {
+				case EXTENDS:
+					this.output.append("edge [ arrowhead = \"onormal\" style = \"solid\" ]\n" + c.getSrc() + " -$ " + c.getDest()
+							+ "\n");
+					break;
+				case IMPLEMENTS:
+					this.output.append("edge [ arrowhead = \"onormal\" style = \"dashed\" ]\n" + c.getSrc() + " -$ " + c.getDest()
+							+ "\n");
+					break;
+				case ASSOCIATION:
+					this.output.append(
+							"edge [ arrowhead = \"vee\" style = \"solid\" ]\n" + c.getSrc() + " -$ " + c.getDest() + "\n");
+					break;
+				case USES:
+					this.output.append(
+							"edge [ arrowhead = \"vee\" style = \"dashed\" ]\n" + c.getSrc() + " -$ " + c.getDest() + "\n");
+					break;
+			}
+		});
 	}
 
 	private void setupVisitParameter() {

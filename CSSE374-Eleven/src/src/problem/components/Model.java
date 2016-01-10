@@ -5,6 +5,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import src.problem.outputvisitor.ITraverser;
+import src.problem.outputvisitor.IVisitor;
+
 
 public class Model implements IModel {
 	private List<IClass> classes;
@@ -23,24 +26,6 @@ public class Model implements IModel {
 	@Override
 	public List<IClass> getClasses() {
 		return this.classes;
-	}
-
-	public String getGraphViz() {
-		StringBuilder ret = new StringBuilder();
-		ret.append("digraph G {fontname = \"Bitstream Vera Sans\" fontsize = 8\nnode [fontname ="
-				+ "\"Bitstream Vera Sans\" fontsize = 8 shape = \"record\"] edge [fontname = "
-				+ "\"Bitstream Vera Sans\" fontsize = 8]");
-		for (IClass clazz : this.classes) {
-			ret.append(clazz.getGraphViz());
-			ret.append("\n");
-		}
-		ret.append(this.getEdges());
-		ret.append("\n");
-		ret.append("}");
-		String mod = ret.toString().replace("<", "\\<");
-		mod = mod.replace(">", "\\>");
-		mod = mod.replace("$", ">");
-		return mod;
 	}
 
 	private String getEdges() {
@@ -83,5 +68,15 @@ public class Model implements IModel {
 
 	public void addRelation(IRelation relation) {
 		this.relations.add(relation);
+	}
+
+	@Override
+	public void accept(IVisitor v) {
+		v.preVisit(this);
+		for (IClass c : this.classes) {
+			ITraverser t = (ITraverser) c;
+			t.accept(v);
+		}
+		v.postVisit(this);
 	}
 }
