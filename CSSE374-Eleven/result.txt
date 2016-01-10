@@ -1,24 +1,333 @@
 digraph G {fontname = "Bitstream Vera Sans" fontsize = 8
-node [fontname ="Bitstream Vera Sans" fontsize = 8 shape = "record"] edge [fontname = "Bitstream Vera Sans" fontsize = 8]TestClass [label = "{TestClass|- testStringField : String\l
-- testIntField : int[]\l
-+ testListField : List\<String\>\l
-# testClassTwo : TestClassTwo\l
+node [fontname ="Bitstream Vera Sans" fontsize = 8 shape = "record"] edge [fontname = "Bitstream Vera Sans" fontsize = 8]Model [label = "{Model|- classes : List\<IClass\>\l
+- relations : Set\<IRelation\>\l
 |+ \<init\>() : void\l
-- testPrivateMethod(int) : void\l
-# testProtectedMethod(intdouble) : void\l
-+ testPublicMethod(String) : void\l
-+ testGetIntField() : int[]\l
-+ testGetStringField() : String\l
-+ testUsesReturn() : TestClassTwo\l
-+ testUsesArg(TestSuperClass) : void\l
++ addClass(IClass) : void\l
++ getClasses() : List\l
+- getClassNames() : ArrayList\l
++ getRelations() : Set\l
++ addRelation(IRelation) : void\l
++ accept(IVisitor) : void\l
 }"]
-TestClassTwo [label = "{TestClassTwo|- testClasses : ArrayList\<TestClass\>\l
+IModel [label = "{\<\<interface\>\>\nIModel||+ getClasses() : List\l
++ getRelations() : Set\l
++ addClass(IClass) : void\l
++ addRelation(IRelation) : void\l
+}"]
+Class [label = "{Class|- name : String\l
+- fields : List\<IField\>\l
+- methods : List\<IMethod\>\l
+- isInterface : boolean\l
+- interfaces : List\<String\>\l
+- superClass : String\l
 |+ \<init\>() : void\l
-+ testUsesEdgeCase() : TestSuperClass\l
++ getName() : String\l
++ getFields() : List\l
++ getMethods() : List\l
++ setName(String) : void\l
++ addField(IField) : void\l
++ addMethod(IMethod) : void\l
++ getInterfaces() : List\l
++ addInterface(String) : void\l
++ getSuperClass() : String\l
++ setSuperClass(String) : void\l
++ getIsInterface() : boolean\l
++ setIsInterface(boolean) : void\l
++ accept(IVisitor) : void\l
+}"]
+IClass [label = "{\<\<interface\>\>\nIClass||+ getName() : String\l
++ setName(String) : void\l
++ getFields() : List\l
++ addField(IField) : void\l
++ getMethods() : List\l
++ addMethod(IMethod) : void\l
++ getInterfaces() : List\l
++ addInterface(String) : void\l
++ getSuperClass() : String\l
++ setSuperClass(String) : void\l
++ getIsInterface() : boolean\l
++ setIsInterface(boolean) : void\l
+}"]
+Field [label = "{Field|- name : String\l
+- type : String\l
+- visibility : String\l
+- modifiers : List\<String\>\l
+- hasGenericType : boolean\l
+- genericType : String\l
+|+ \<init\>() : void\l
++ getName() : String\l
++ setName(String) : void\l
++ getType() : String\l
++ setType(String) : void\l
++ getVisibility() : String\l
++ setVisibility(String) : void\l
++ getModifiers() : List\l
++ addModifier(String) : void\l
++ getGenericType() : String\l
++ setGenericType(String) : void\l
++ hasGenericType() : boolean\l
++ setHasGenericType(boolean) : void\l
++ accept(IVisitor) : void\l
+}"]
+IField [label = "{\<\<interface\>\>\nIField||+ getName() : String\l
++ setName(String) : void\l
++ getType() : String\l
++ setType(String) : void\l
++ getGenericType() : String\l
++ setGenericType(String) : void\l
++ hasGenericType() : boolean\l
++ setHasGenericType(boolean) : void\l
++ getVisibility() : String\l
++ setVisibility(String) : void\l
++ getModifiers() : List\l
++ addModifier(String) : void\l
+}"]
+Method [label = "{Method|- name : String\l
+- returnType : String\l
+- visibility : String\l
+- modifiers : List\<String\>\l
+- parameters : List\<IParameter\>\l
+|+ \<init\>() : void\l
++ getName() : String\l
++ setName(String) : void\l
++ getReturnType() : String\l
++ setReturnType(String) : void\l
++ getVisibility() : String\l
++ setVisibility(String) : void\l
++ getModifiers() : List\l
++ addModifier(String) : void\l
++ getParameters() : List\l
++ addParameter(IParameter) : void\l
++ accept(IVisitor) : void\l
+}"]
+IMethod [label = "{\<\<interface\>\>\nIMethod||+ getName() : String\l
++ setName(String) : void\l
++ getReturnType() : String\l
++ setReturnType(String) : void\l
++ getVisibility() : String\l
++ setVisibility(String) : void\l
++ getModifiers() : List\l
++ addModifier(String) : void\l
++ getParameters() : List\l
++ addParameter(IParameter) : void\l
+}"]
+Parameter [label = "{Parameter|- type : String\l
+|+ \<init\>() : void\l
++ getType() : String\l
++ setType(String) : void\l
++ accept(IVisitor) : void\l
+}"]
+IParameter [label = "{\<\<interface\>\>\nIParameter||+ getType() : String\l
++ setType(String) : void\l
+}"]
+IModel [label = "{\<\<interface\>\>\nIModel||+ getClasses() : List\l
++ getRelations() : Set\l
++ addClass(IClass) : void\l
++ addRelation(IRelation) : void\l
+}"]
+Model [label = "{Model|- classes : List\<IClass\>\l
+- relations : Set\<IRelation\>\l
+|+ \<init\>() : void\l
++ addClass(IClass) : void\l
++ getClasses() : List\l
+- getClassNames() : ArrayList\l
++ getRelations() : Set\l
++ addRelation(IRelation) : void\l
++ accept(IVisitor) : void\l
+}"]
+IRelation [label = "{\<\<interface\>\>\nIRelation||+ getDest() : String\l
++ getSrc() : String\l
++ getType() : RelationType\l
++ setDest(String) : void\l
++ setSrc(String) : void\l
++ setType(RelationType) : void\l
+}"]
+Relation [label = "{Relation|- dest : String\l
+- src : String\l
+- type : RelationType\l
+|+ \<init\>(StringStringRelationType) : void\l
++ getDest() : String\l
++ getSrc() : String\l
++ getType() : RelationType\l
++ setDest(String) : void\l
++ setSrc(String) : void\l
++ setType(RelationType) : void\l
++ equals(Object) : boolean\l
++ hashCode() : int\l
++ accept(IVisitor) : void\l
+}"]
+RelationType [label = "{RelationType|+ EXTENDS : RelationType\l
++ IMPLEMENTS : RelationType\l
++ ASSOCIATION : RelationType\l
++ USES : RelationType\l
+- ENUM$VALUES : RelationType[]\l
+|\<clinit\>() : void\l
+- \<init\>(Stringint) : void\l
++ values() : RelationType[]\l
++ valueOf(String) : RelationType\l
+}"]
+GraphVizOutputStream [label = "{GraphVizOutputStream|- visitor : IVisitor\l
+- output : StringBuilder\l
+- $SWITCH_TABLE$src$problem$components$RelationType : int[]\l
+|+ \<init\>(OutputStream) : void\l
+- setupVisitors() : void\l
+- write(String) : void\l
++ write(Model) : void\l
+- setupPreVisitModel() : void\l
+- setupPostVisitModel() : void\l
+- setupPreVisitClass() : void\l
+- setupVisitClass() : void\l
+- setupPostVisitClass() : void\l
+- setupVisitField() : void\l
+- setupPreVisitMethod() : void\l
+- setupPostVisitMethod() : void\l
+- setupVisitRelationship() : void\l
+- setupVisitParameter() : void\l
+$SWITCH_TABLE$src$problem$components$RelationType() : int[]\l
+- lambda$0(ITraverser) : void\l
+- lambda$1(ITraverser) : void\l
+- lambda$2(ITraverser) : void\l
+- lambda$3(ITraverser) : void\l
+- lambda$4(ITraverser) : void\l
+- lambda$5(ITraverser) : void\l
+- lambda$6(ITraverser) : void\l
+- lambda$7(ITraverser) : void\l
+- lambda$8(ITraverser) : void\l
+- lambda$9(ITraverser) : void\l
+}"]
+ITraverser [label = "{\<\<interface\>\>\nITraverser||+ accept(IVisitor) : void\l
+}"]
+IVisitMethod [label = "{\<\<interface\>\>\nIVisitMethod||+ execute(ITraverser) : void\l
+}"]
+IVisitor [label = "{\<\<interface\>\>\nIVisitor||+ preVisit(ITraverser) : void\l
++ visit(ITraverser) : void\l
++ postVisit(ITraverser) : void\l
++ addVisit(VisitTypeClassIVisitMethod) : void\l
++ removeVisit(VisitTypeClass) : void\l
+}"]
+LookupKey [label = "{LookupKey|- visitType : VisitType\l
+- clazz : Class\<\<*\>\l
+|+ \<init\>(VisitTypeClass) : void\l
++ hashCode() : int\l
++ equals(Object) : boolean\l
+}"]
+Visitor [label = "{Visitor|keyToVisitMethod : Map\<IVisitMethod\>\l
+|+ \<init\>() : void\l
+- doVisit(VisitTypeITraverser) : void\l
++ preVisit(ITraverser) : void\l
++ visit(ITraverser) : void\l
++ postVisit(ITraverser) : void\l
++ addVisit(VisitTypeClassIVisitMethod) : void\l
++ removeVisit(VisitTypeClass) : void\l
+}"]
+VisitType [label = "{VisitType|+ PreVisit : VisitType\l
++ PostVisit : VisitType\l
++ Visit : VisitType\l
+- ENUM$VALUES : VisitType[]\l
+|\<clinit\>() : void\l
+- \<init\>(Stringint) : void\l
++ values() : VisitType[]\l
++ valueOf(String) : VisitType\l
 }"]
 edge [ arrowhead = "vee" style = "solid" ]
-TestClass -> TestClassTwo
+Model -> IRelation
 edge [ arrowhead = "vee" style = "solid" ]
-TestClassTwo -> TestClass
+Method -> IParameter
+edge [ arrowhead = "vee" style = "solid" ]
+VisitType -> VisitType
+edge [ arrowhead = "onormal" style = "dashed" ]
+Visitor -> IVisitor
+edge [ arrowhead = "vee" style = "dashed" ]
+Parameter -> IVisitor
+edge [ arrowhead = "vee" style = "dashed" ]
+Model -> IVisitor
+edge [ arrowhead = "onormal" style = "dashed" ]
+IModel -> ITraverser
+edge [ arrowhead = "vee" style = "dashed" ]
+IModel -> IRelation
+edge [ arrowhead = "vee" style = "dashed" ]
+GraphVizOutputStream -> Model
+edge [ arrowhead = "vee" style = "dashed" ]
+IRelation -> RelationType
+edge [ arrowhead = "vee" style = "solid" ]
+GraphVizOutputStream -> IVisitor
+edge [ arrowhead = "vee" style = "dashed" ]
+Relation -> IVisitor
+edge [ arrowhead = "onormal" style = "dashed" ]
+Model -> IModel
+edge [ arrowhead = "onormal" style = "dashed" ]
+IParameter -> ITraverser
+edge [ arrowhead = "onormal" style = "dashed" ]
+Parameter -> IParameter
+edge [ arrowhead = "vee" style = "dashed" ]
+Visitor -> ITraverser
+edge [ arrowhead = "vee" style = "dashed" ]
+IVisitMethod -> ITraverser
+edge [ arrowhead = "vee" style = "solid" ]
+RelationType -> RelationType
+edge [ arrowhead = "vee" style = "solid" ]
+Relation -> RelationType
+edge [ arrowhead = "vee" style = "dashed" ]
+IVisitor -> ITraverser
+edge [ arrowhead = "vee" style = "solid" ]
+LookupKey -> VisitType
+edge [ arrowhead = "vee" style = "dashed" ]
+Field -> IVisitor
+edge [ arrowhead = "vee" style = "dashed" ]
+IVisitor -> Class
+edge [ arrowhead = "vee" style = "dashed" ]
+LookupKey -> Class
+edge [ arrowhead = "vee" style = "dashed" ]
+Visitor -> LookupKey
+edge [ arrowhead = "vee" style = "dashed" ]
+Method -> IVisitor
+edge [ arrowhead = "onormal" style = "dashed" ]
+Class -> IClass
+edge [ arrowhead = "onormal" style = "dashed" ]
+Field -> IField
+edge [ arrowhead = "vee" style = "solid" ]
+Class -> IField
+edge [ arrowhead = "vee" style = "dashed" ]
+IVisitor -> VisitType
+edge [ arrowhead = "vee" style = "dashed" ]
+ITraverser -> IVisitor
+edge [ arrowhead = "vee" style = "solid" ]
+Class -> IMethod
+edge [ arrowhead = "onormal" style = "dashed" ]
+Method -> IMethod
+edge [ arrowhead = "vee" style = "solid" ]
+Model -> IClass
+edge [ arrowhead = "onormal" style = "dashed" ]
+IField -> ITraverser
+edge [ arrowhead = "vee" style = "dashed" ]
+Visitor -> Class
+edge [ arrowhead = "vee" style = "dashed" ]
+Class -> IVisitor
+edge [ arrowhead = "onormal" style = "dashed" ]
+Relation -> IRelation
+edge [ arrowhead = "vee" style = "dashed" ]
+IModel -> IClass
+edge [ arrowhead = "vee" style = "dashed" ]
+IClass -> IField
+edge [ arrowhead = "vee" style = "dashed" ]
+Visitor -> VisitType
+edge [ arrowhead = "vee" style = "solid" ]
+Visitor -> IVisitMethod
+edge [ arrowhead = "onormal" style = "dashed" ]
+IMethod -> ITraverser
+edge [ arrowhead = "vee" style = "dashed" ]
+IMethod -> IParameter
+edge [ arrowhead = "onormal" style = "dashed" ]
+IRelation -> ITraverser
+edge [ arrowhead = "vee" style = "dashed" ]
+GraphVizOutputStream -> ITraverser
+edge [ arrowhead = "vee" style = "dashed" ]
+IVisitor -> IVisitMethod
+edge [ arrowhead = "onormal" style = "dashed" ]
+IClass -> ITraverser
+edge [ arrowhead = "vee" style = "dashed" ]
+GraphVizOutputStream -> Visitor
+edge [ arrowhead = "vee" style = "dashed" ]
+IClass -> IMethod
 
 }

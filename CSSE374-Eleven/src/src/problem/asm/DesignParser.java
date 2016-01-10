@@ -46,7 +46,7 @@ public class DesignParser {
 		
 		args = new String[]{"integrationTests.TestClass", "integrationTests.TestClassTwo"};
 
-		for (String className : args) {
+		for (String className : m3) {
 			IClass clazz = parse(className, model);
 			model.addClass(clazz);
 		}
