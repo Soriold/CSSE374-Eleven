@@ -9,13 +9,15 @@ import org.junit.Test;
 import src.problem.asm.DesignParser;
 import src.problem.components.Model;
 import src.problem.components.IClass;
+import src.problem.components.IModel;
 
 public class ParseTest {
 
 	@Test
 	public void testFields() throws IOException {
 		DesignParser dp = new DesignParser();
-		IClass clazz = dp.parse("tests.TestClass");
+		IModel model = new Model();
+		IClass clazz = dp.parse("tests.TestClass", model);
 
 		String result = clazz.getGraphViz();
 		assertTrue(result.contains("- testStringField : String"));
@@ -27,7 +29,8 @@ public class ParseTest {
 	@Test
 	public void testMethods() throws IOException {
 		DesignParser dp = new DesignParser();
-		IClass clazz = dp.parse("tests.TestClass");
+		IModel model = new Model();
+		IClass clazz = dp.parse("tests.TestClass", model);
 
 		String result = clazz.getGraphViz();
 		System.out.println(result);
@@ -41,7 +44,8 @@ public class ParseTest {
 	@Test
 	public void testClass() throws IOException {
 		DesignParser dp = new DesignParser();
-		IClass clazz = dp.parse("tests.TestClass");
+		IModel model = new Model();
+		IClass clazz = dp.parse("tests.TestClass", model);
 
 		String result = clazz.getGraphViz();
 		assertTrue(result.contains("TestClass|"));
@@ -52,14 +56,14 @@ public class ParseTest {
 		DesignParser dp = new DesignParser();
 		String[] args = new String[] { "tests.TestInterface", "tests.TestInterfaceImplementation" };
 
-		Model allClasses = new Model();
+		Model model = new Model();
 
 		for (String className : args) {
-			IClass clazz = dp.parse(className);
-			allClasses.addClass(clazz);
+			IClass clazz = dp.parse(className, model);
+			model.addClass(clazz);
 		}
 
-		String result = allClasses.getGraphViz();
+		String result = model.getGraphViz();
 		assertTrue(result.contains(
 				"edge [ arrowhead = \"onormal\" style = \"dashed\" ]\nTestInterfaceImplementation -> TestInterface"));
 	}
@@ -69,14 +73,14 @@ public class ParseTest {
 		DesignParser dp = new DesignParser();
 		String[] args = new String[] { "tests.TestSuperClass", "tests.TestSubClass" };
 
-		Model allClasses = new Model();
+		Model model = new Model();
 
 		for (String className : args) {
-			IClass clazz = dp.parse(className);
-			allClasses.addClass(clazz);
+			IClass clazz = dp.parse(className, model);
+			model.addClass(clazz);
 		}
 
-		String result = allClasses.getGraphViz();
+		String result = model.getGraphViz();
 		assertTrue(
 				result.contains("edge [ arrowhead = \"onormal\" style = \"solid\" ]\nTestSubClass -> TestSuperClass"));
 	}
@@ -86,14 +90,14 @@ public class ParseTest {
 		DesignParser dp = new DesignParser();
 		String[] args = new String[] { "tests.TestInterface", "tests.TestInterfaceTwo" };
 
-		Model allClasses = new Model();
+		Model model = new Model();
 
 		for (String className : args) {
-			IClass clazz = dp.parse(className);
-			allClasses.addClass(clazz);
+			IClass clazz = dp.parse(className, model);
+			model.addClass(clazz);
 		}
 
-		String result = allClasses.getGraphViz();
+		String result = model.getGraphViz();
 		assertTrue(result
 				.contains("edge [ arrowhead = \"onormal\" style = \"solid\" ]\nTestInterfaceTwo -> TestInterface"));
 
@@ -104,14 +108,14 @@ public class ParseTest {
 		DesignParser dp = new DesignParser();
 		String[] args = new String[] { "tests.TestClass", "tests.TestClassTwo" };
 
-		Model allClasses = new Model();
+		Model model = new Model();
 
 		for (String className : args) {
-			IClass clazz = dp.parse(className);
-			allClasses.addClass(clazz);
+			IClass clazz = dp.parse(className, model);
+			model.addClass(clazz);
 		}
 
-		String result = allClasses.getGraphViz();
+		String result = model.getGraphViz();
 		assertTrue(result.contains("edge [ arrowhead = \"vee\" style = \"solid\" ]\nTestClass -> TestClassTwo"));
 	}
 
@@ -120,14 +124,14 @@ public class ParseTest {
 		DesignParser dp = new DesignParser();
 		String[] args = new String[] { "tests.TestClass", "tests.TestClassTwo" };
 
-		Model allClasses = new Model();
+		Model model = new Model();
 
 		for (String className : args) {
-			IClass clazz = dp.parse(className);
-			allClasses.addClass(clazz);
+			IClass clazz = dp.parse(className, model);
+			model.addClass(clazz);
 		}
 
-		String result = allClasses.getGraphViz();
+		String result = model.getGraphViz();
 		assertTrue(result.contains("edge [ arrowhead = \"vee\" style = \"solid\" ]\nTestClassTwo -> TestClass"));
 	}
 
@@ -136,14 +140,14 @@ public class ParseTest {
 		DesignParser dp = new DesignParser();
 		String[] args = new String[] { "tests.TestClass", "tests.TestClassTwo" };
 
-		Model allClasses = new Model();
+		Model model = new Model();
 
 		for (String className : args) {
-			IClass clazz = dp.parse(className);
-			allClasses.addClass(clazz);
+			IClass clazz = dp.parse(className, model);
+			model.addClass(clazz);
 		}
 
-		String result = allClasses.getGraphViz();
+		String result = model.getGraphViz();
 		assertTrue(result.contains("edge [ arrowhead = \"vee\" style = \"dashed\" ]\nTestClass -> TestClassTwo"));
 	}
 
@@ -152,14 +156,14 @@ public class ParseTest {
 		DesignParser dp = new DesignParser();
 		String[] args = new String[] { "tests.TestClass", "tests.TestSuperClass" };
 
-		Model allClasses = new Model();
+		Model model = new Model();
 
 		for (String className : args) {
-			IClass clazz = dp.parse(className);
-			allClasses.addClass(clazz);
+			IClass clazz = dp.parse(className, model);
+			model.addClass(clazz);
 		}
 
-		String result = allClasses.getGraphViz();
+		String result = model.getGraphViz();
 		assertTrue(result.contains("edge [ arrowhead = \"vee\" style = \"dashed\" ]\nTestClass -> TestSuperClass"));
 	}
 
@@ -168,14 +172,14 @@ public class ParseTest {
 		DesignParser dp = new DesignParser();
 		String[] args = new String[] { "tests.TestClassTwo", "tests.TestSuperClass", "tests.TestSubClass" };
 
-		Model allClasses = new Model();
+		Model model = new Model();
 
 		for (String className : args) {
-			IClass clazz = dp.parse(className);
-			allClasses.addClass(clazz);
+			IClass clazz = dp.parse(className, model);
+			model.addClass(clazz);
 		}
 
-		String result = allClasses.getGraphViz();
+		String result = model.getGraphViz();
 		assertTrue(result.contains("edge [ arrowhead = \"vee\" style = \"dashed\" ]\nTestClassTwo -> TestSuperClass"));
 		assertTrue(result.contains("edge [ arrowhead = \"vee\" style = \"dashed\" ]\nTestClassTwo -> TestSubClass"));
 	}
@@ -190,14 +194,14 @@ public class ParseTest {
 				"lab2_3.PizzaIngredientFactory", "lab2_3.PlumTomatoSauce", "lab2_3.ReggianoCheese", "lab2_3.Sauce",
 				"lab2_3.ThickCrustDough", "lab2_3.ThinCrustDough" };
 
-		Model allClasses = new Model();
+		Model model = new Model();
 
 		for (String className : args) {
-			IClass clazz = dp.parse(className);
-			allClasses.addClass(clazz);
+			IClass clazz = dp.parse(className, model);
+			model.addClass(clazz);
 		}
 
-		String result = allClasses.getGraphViz();
+		String result = model.getGraphViz();
 		assertTrue(result.contains(
 				"NYPizzaIngredientFactory [label = \"{NYPizzaIngredientFactory||+ \\<init\\>() : void\\l+ createDough() : Dough\\l+ createSauce() : Sauce\\l+ createCheese() : Cheese\\l+ createVeggies() : Veggies[]\\l+ createPepperoni() : Pepperoni\\l+ createClam() : Clams\\l+ createVeggies() : Veggies[]\\l+ createPepperoni() : Pepperoni\\l}\"]"));
 	}
@@ -211,14 +215,14 @@ public class ParseTest {
 				"lab2_3.PizzaIngredientFactory", "lab2_3.PlumTomatoSauce", "lab2_3.ReggianoCheese", "lab2_3.Sauce",
 				"lab2_3.ThickCrustDough", "lab2_3.ThinCrustDough" };
 
-		Model allClasses = new Model();
+		Model model = new Model();
 
 		for (String className : args) {
-			IClass clazz = dp.parse(className);
-			allClasses.addClass(clazz);
+			IClass clazz = dp.parse(className, model);
+			model.addClass(clazz);
 		}
 
-		String result = allClasses.getGraphViz();
+		String result = model.getGraphViz();
 		assertTrue(result.contains("edge [ arrowhead = \"onormal\" style = \"dashed\" ]\nNYPizzaIngredientFactory -> PizzaIngredientFactory"));
 		assertTrue(result.contains("edge [ arrowhead = \"onormal\" style = \"dashed\" ]\nChicagoPizzaIngredientFactory -> PizzaIngredientFactory"));
 		assertTrue(result.contains("edge [ arrowhead = \"onormal\" style = \"dashed\" ]\nMozzarellaCheese -> Cheese"));
@@ -234,14 +238,14 @@ public class ParseTest {
 				"lab2_3.PizzaIngredientFactory", "lab2_3.PlumTomatoSauce", "lab2_3.ReggianoCheese", "lab2_3.Sauce",
 				"lab2_3.ThickCrustDough", "lab2_3.ThinCrustDough" };
 
-		Model allClasses = new Model();
+		Model model = new Model();
 
 		for (String className : args) {
-			IClass clazz = dp.parse(className);
-			allClasses.addClass(clazz);
+			IClass clazz = dp.parse(className, model);
+			model.addClass(clazz);
 		}
 
-		String result = allClasses.getGraphViz();
+		String result = model.getGraphViz();
 		assertTrue(result.contains("edge [ arrowhead = \"vee\" style = \"dashed\" ]\nNYPizzaIngredientFactory -> Cheese"));
 		assertTrue(result.contains("edge [ arrowhead = \"vee\" style = \"dashed\" ]\nChicagoPizzaIngredientFactory -> Sauce"));
 	}
@@ -255,14 +259,14 @@ public class ParseTest {
 				"lab2_3.PizzaIngredientFactory", "lab2_3.PlumTomatoSauce", "lab2_3.ReggianoCheese", "lab2_3.Sauce",
 				"lab2_3.ThickCrustDough", "lab2_3.ThinCrustDough" };
 
-		Model allClasses = new Model();
+		Model model = new Model();
 
 		for (String className : args) {
-			IClass clazz = dp.parse(className);
-			allClasses.addClass(clazz);
+			IClass clazz = dp.parse(className, model);
+			model.addClass(clazz);
 		}
 
-		String result = allClasses.getGraphViz();
+		String result = model.getGraphViz();
 		assertTrue(result.contains("edge [ arrowhead = \"vee\" style = \"dashed\" ]\nNYPizzaIngredientFactory -> ReggianoCheese"));
 		assertFalse(result.contains("edge [ arrowhead = \"vee\" style = \"dashed\" ]\nNYPizzaIngredientFactory -> MozzarellaCheese"));
 		assertTrue(result.contains("edge [ arrowhead = \"vee\" style = \"dashed\" ]\nChicagoPizzaIngredientFactory -> PlumTomatoSauce"));
