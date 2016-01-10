@@ -2,6 +2,8 @@ package src.problem.components;
 
 import java.util.List;
 
+import src.problem.outputvisitor.IGraphVizComponent;
+
 public interface IMethod extends IGraphVizComponent {
 
 	public String getName();

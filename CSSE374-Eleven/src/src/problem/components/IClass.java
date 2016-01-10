@@ -3,6 +3,8 @@ package src.problem.components;
 import java.util.List;
 import java.util.Set;
 
+import src.problem.outputvisitor.IGraphVizComponent;
+
 public interface IClass extends IGraphVizComponent {
 
 	public String getName();

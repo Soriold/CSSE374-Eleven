@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import src.problem.outputvisitor.IGraphVizComponent;
+
 public class AllClasses implements IGraphVizComponent {
 	private List<IClass> classes;
 	private Set<String> edges;

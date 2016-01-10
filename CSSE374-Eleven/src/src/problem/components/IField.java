@@ -2,6 +2,8 @@ package src.problem.components;
 
 import java.util.List;
 
+import src.problem.outputvisitor.IGraphVizComponent;
+
 public interface IField extends IGraphVizComponent{
 	public String getName();
 	public void setName(String name);

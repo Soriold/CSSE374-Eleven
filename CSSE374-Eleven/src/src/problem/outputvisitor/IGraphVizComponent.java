@@ -1,4 +1,4 @@
-package src.problem.components;
+package src.problem.outputvisitor;
 
 public interface IGraphVizComponent {
 
