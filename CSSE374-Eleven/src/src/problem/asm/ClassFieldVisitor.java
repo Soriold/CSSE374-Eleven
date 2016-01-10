@@ -5,6 +5,7 @@ import org.objectweb.asm.FieldVisitor;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 import src.problem.components.*;
+import src.problem.components.Relation.RelationType;
 
 public class ClassFieldVisitor extends ClassVisitor {
 	
@@ -47,6 +48,8 @@ public class ClassFieldVisitor extends ClassVisitor {
 		}
 		
 		this.clazz.addField(field);
+		IRelation relation = new Relation(this.clazz.getName(), field.getType(), RelationType.ASSOCIATION);
+		this.clazz.addRelation(relation);
 		
 		return toDecorate;
 	};

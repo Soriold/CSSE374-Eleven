@@ -38,7 +38,7 @@ public class DesignParser {
 		
 		args = new String[]{"tests.TestClass", "tests.TestClassTwo"};
 
-		for (String className : m2) {
+		for (String className : m3) {
 			IClass clazz = parse(className);
 			allClasses.addClass(clazz);
 		}

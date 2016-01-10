@@ -14,6 +14,7 @@ public class Class implements IClass {
 	private List<String> interfaces;
 	private String superClass;
 	private Set<String> createdUsedObjects;
+	private Set<IRelation> relations;
 
 	public Class() {
 		this.fields = new ArrayList<IField>();
@@ -21,6 +22,7 @@ public class Class implements IClass {
 		this.interfaces = new ArrayList<String>();
 		this.isInterface = false;
 		this.createdUsedObjects = new HashSet<String>();
+		this.relations = new HashSet<IRelation>();
 	}
 
 	@Override
@@ -115,4 +117,13 @@ public class Class implements IClass {
 		this.createdUsedObjects.add(createdUsedObject);
 	}
 
+	@Override
+	public Set<IRelation> getRelations() {
+		return this.relations;
+	}
+
+	@Override
+	public void addRelation(IRelation relation) {
+		this.relations.add(relation);
+	}
 }

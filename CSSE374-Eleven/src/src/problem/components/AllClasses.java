@@ -42,83 +42,31 @@ public class AllClasses implements IGraphVizComponent {
 	}
 
 	private String getEdges() {
+		ArrayList<String> classNames = this.getClassNames();
 		StringBuilder ret = new StringBuilder();
 		for (IClass c : this.classes) {
-			ret.append(getAssociations(c));
-			this.getInterfacesEdges(c);
-			this.getSuperClassEdges(c.getName(), c.getSuperClass());
-			this.getUsesEdges(c);
-		}
-		for( String s : this.edges) {
-			ret.append(s);
-		}
-		return ret.toString();
-	}
-
-	private void getUsesEdges(IClass clazz) {
-		ArrayList<String> classNames = this.getClassNames();
-		
-		for (String usedClass : clazz.getUsedClasses()) {
-			if (classNames.contains(usedClass)) {
-				this.createUsesEdge(clazz.getName(), usedClass);
-			}
-		}
-	}
-
-	private void getSuperClassEdges(String name, String superClass) {
-		if (this.getClassNames().contains(superClass)) {
-			this.createExtendsEdge(name, superClass);
-		}
-	}
-
-	private void getInterfacesEdges(IClass c) {
-		ArrayList<String> classNames = this.getClassNames();
-		for (String s : c.getInterfaces()) {
-			if (classNames.contains(s)) {
-				if (c.getIsInterface()) {
-					this.createExtendsEdge(c.getName(), s);
-				} else {
-					this.createImplementsEdge(c.getName(), s);
+			System.out.println(c.getName());
+			for(IRelation r : c.getRelations()) {
+				if(classNames.contains(r.getSrc()) && classNames.contains(r.getDest())) {
+					System.out.println(r.getSrc() + " " + r.getDest() + " " + r.getType().toString());
+					switch(r.getType()) {
+						case EXTENDS:
+							ret.append("edge [ arrowhead = \"onormal\" style = \"solid\" ]\n" + r.getSrc() + " -$ " + r.getDest() + "\n");
+							break;
+						case IMPLEMENTS:
+							ret.append("edge [ arrowhead = \"onormal\" style = \"dashed\" ]\n" + r.getSrc() + " -$ " + r.getDest() + "\n");
+							break;
+						case ASSOCIATION:
+							ret.append("edge [ arrowhead = \"vee\" style = \"solid\" ]\n" + r.getSrc() + " -$ " + r.getDest() + "\n");
+							break;
+						case USES:
+							ret.append("edge [ arrowhead = \"vee\" style = \"dashed\" ]\n" + r.getSrc() + " -$ " + r.getDest() + "\n");
+							break;
+					}
 				}
 			}
 		}
-	}
-
-	private String getAssociations(IClass c) {
-		StringBuilder ret = new StringBuilder();
-		List<IField> fields = c.getFields();
-		for(IField f : fields) {
-			String dest = f.getType();
-			if(f.getType().contains("List")) {
-				int index1 = dest.indexOf('<');
-				int index2 = dest.indexOf('>');
-				dest = dest.substring(index1 + 1, index2);
-			}
-			if(this.getClassNames().contains(dest)) {
-				createAssociationEdge(c.getName(), dest);
-			}
-		}
 		return ret.toString();
-	}
-
-	private void createImplementsEdge(String src, String dest) {
-		String ret = "edge [ arrowhead = \"onormal\" style = \"dashed\" ]\n" + src + " -$ " + dest + "\n";
-		this.edges.add(ret);
-	}
-
-	private void createExtendsEdge(String src, String dest) {
-		String ret = "edge [ arrowhead = \"onormal\" style = \"solid\" ]\n" + src + " -$ " + dest + "\n";
-		this.edges.add(ret);
-	}
-
-	private void createUsesEdge(String src, String dest) {
-		String ret = "edge [ arrowhead = \"vee\" style = \"dashed\" ]\n" + src + " -$ " + dest + "\n";
-		this.edges.add(ret);
-	}
-	
-	private void createAssociationEdge(String src, String dest) {
-		String ret = "edge [ arrowhead = \"vee\" style = \"solid\" ]\n" + src + " -$ " + dest + "\n";
-		this.edges.add(ret);
 	}
 
 	private ArrayList<String> getClassNames() {

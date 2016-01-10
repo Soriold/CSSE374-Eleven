@@ -32,5 +32,9 @@ public interface IClass extends IGraphVizComponent {
 	public Set<String> getUsedClasses();
 	
 	public void addUsedClass(String createdUsedObject);
+	
+	public Set<IRelation> getRelations();
+	
+	public void addRelation(IRelation relation);
 
 }
