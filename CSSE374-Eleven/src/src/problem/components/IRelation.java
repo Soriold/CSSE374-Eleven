@@ -1,7 +1,5 @@
 package src.problem.components;
 
-import src.problem.components.Relation.RelationType;
-
 public interface IRelation {
 	
 	public String getDest();

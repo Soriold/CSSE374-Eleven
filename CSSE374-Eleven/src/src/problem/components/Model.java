@@ -5,28 +5,26 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import src.problem.outputvisitor.IGraphVizComponent;
 
-public class AllClasses implements IGraphVizComponent {
+public class Model implements IModel {
 	private List<IClass> classes;
-	private Set<String> edges;
 	private Set<IRelation> relations;
 
-	public AllClasses() {
-		this.classes = new ArrayList<>();
-		this.edges = new HashSet<>();
-		this.relations = new HashSet<>();
+	public Model() {
+		this.classes = new ArrayList<IClass>();
+		this.relations = new HashSet<IRelation>();
 	}
-
+	
+	@Override
 	public void addClass(IClass clazz) {
 		this.classes.add(clazz);
 	}
-
+	
+	@Override
 	public List<IClass> getClasses() {
 		return this.classes;
 	}
 
-	@Override
 	public String getGraphViz() {
 		StringBuilder ret = new StringBuilder();
 		ret.append("digraph G {fontname = \"Bitstream Vera Sans\" fontsize = 8\nnode [fontname ="

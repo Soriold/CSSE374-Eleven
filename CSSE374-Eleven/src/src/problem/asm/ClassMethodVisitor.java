@@ -5,14 +5,7 @@ import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 
-import src.problem.components.IClass;
-import src.problem.components.IMethod;
-import src.problem.components.IParameter;
-import src.problem.components.IRelation;
-import src.problem.components.Method;
-import src.problem.components.Parameter;
-import src.problem.components.Relation;
-import src.problem.components.Relation.RelationType;
+import src.problem.components.*;
 
 public class ClassMethodVisitor extends ClassVisitor {
 	
@@ -23,7 +16,7 @@ public class ClassMethodVisitor extends ClassVisitor {
 		this.clazz = clazz;
 	}
 
-	public ClassMethodVisitor(int api, ClassVisitor decorated, IClass clazz) {
+	public ClassMethodVisitor(int api, ClassVisitor decorated, IClass clazz, IModel model) {
 		super(api, decorated);
 		this.clazz = clazz;
 	}

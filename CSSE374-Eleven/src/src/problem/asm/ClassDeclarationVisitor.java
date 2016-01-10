@@ -4,13 +4,12 @@ import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.Opcodes;
 
 import src.problem.components.*;
-import src.problem.components.Relation.RelationType;
 
 public class ClassDeclarationVisitor extends ClassVisitor {
 	
 	private IClass clazz;
 	
-	public ClassDeclarationVisitor(int api, IClass clazz) {
+	public ClassDeclarationVisitor(int api, IClass clazz, IModel model) {
 		super(api);
 		this.clazz = clazz;
 	}

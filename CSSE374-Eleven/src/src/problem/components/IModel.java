@@ -1,0 +1,11 @@
+package src.problem.components;
+
+import java.util.List;
+import java.util.Set;
+
+public interface IModel {
+	public List<IClass> getClasses();
+	public Set<IRelation> getRelations();
+	public void addClass(IClass clazz);
+	public void addRelation(IRelation relation);	
+}

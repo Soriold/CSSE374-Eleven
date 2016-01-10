@@ -7,7 +7,7 @@ import java.io.IOException;
 import org.junit.Test;
 
 import src.problem.asm.DesignParser;
-import src.problem.components.AllClasses;
+import src.problem.components.Model;
 import src.problem.components.IClass;
 
 public class ParseTest {
@@ -52,7 +52,7 @@ public class ParseTest {
 		DesignParser dp = new DesignParser();
 		String[] args = new String[] { "tests.TestInterface", "tests.TestInterfaceImplementation" };
 
-		AllClasses allClasses = new AllClasses();
+		Model allClasses = new Model();
 
 		for (String className : args) {
 			IClass clazz = dp.parse(className);
@@ -69,7 +69,7 @@ public class ParseTest {
 		DesignParser dp = new DesignParser();
 		String[] args = new String[] { "tests.TestSuperClass", "tests.TestSubClass" };
 
-		AllClasses allClasses = new AllClasses();
+		Model allClasses = new Model();
 
 		for (String className : args) {
 			IClass clazz = dp.parse(className);
@@ -86,7 +86,7 @@ public class ParseTest {
 		DesignParser dp = new DesignParser();
 		String[] args = new String[] { "tests.TestInterface", "tests.TestInterfaceTwo" };
 
-		AllClasses allClasses = new AllClasses();
+		Model allClasses = new Model();
 
 		for (String className : args) {
 			IClass clazz = dp.parse(className);
@@ -104,7 +104,7 @@ public class ParseTest {
 		DesignParser dp = new DesignParser();
 		String[] args = new String[] { "tests.TestClass", "tests.TestClassTwo" };
 
-		AllClasses allClasses = new AllClasses();
+		Model allClasses = new Model();
 
 		for (String className : args) {
 			IClass clazz = dp.parse(className);
@@ -120,7 +120,7 @@ public class ParseTest {
 		DesignParser dp = new DesignParser();
 		String[] args = new String[] { "tests.TestClass", "tests.TestClassTwo" };
 
-		AllClasses allClasses = new AllClasses();
+		Model allClasses = new Model();
 
 		for (String className : args) {
 			IClass clazz = dp.parse(className);
@@ -136,7 +136,7 @@ public class ParseTest {
 		DesignParser dp = new DesignParser();
 		String[] args = new String[] { "tests.TestClass", "tests.TestClassTwo" };
 
-		AllClasses allClasses = new AllClasses();
+		Model allClasses = new Model();
 
 		for (String className : args) {
 			IClass clazz = dp.parse(className);
@@ -152,7 +152,7 @@ public class ParseTest {
 		DesignParser dp = new DesignParser();
 		String[] args = new String[] { "tests.TestClass", "tests.TestSuperClass" };
 
-		AllClasses allClasses = new AllClasses();
+		Model allClasses = new Model();
 
 		for (String className : args) {
 			IClass clazz = dp.parse(className);
@@ -168,7 +168,7 @@ public class ParseTest {
 		DesignParser dp = new DesignParser();
 		String[] args = new String[] { "tests.TestClassTwo", "tests.TestSuperClass", "tests.TestSubClass" };
 
-		AllClasses allClasses = new AllClasses();
+		Model allClasses = new Model();
 
 		for (String className : args) {
 			IClass clazz = dp.parse(className);
@@ -190,7 +190,7 @@ public class ParseTest {
 				"lab2_3.PizzaIngredientFactory", "lab2_3.PlumTomatoSauce", "lab2_3.ReggianoCheese", "lab2_3.Sauce",
 				"lab2_3.ThickCrustDough", "lab2_3.ThinCrustDough" };
 
-		AllClasses allClasses = new AllClasses();
+		Model allClasses = new Model();
 
 		for (String className : args) {
 			IClass clazz = dp.parse(className);
@@ -211,7 +211,7 @@ public class ParseTest {
 				"lab2_3.PizzaIngredientFactory", "lab2_3.PlumTomatoSauce", "lab2_3.ReggianoCheese", "lab2_3.Sauce",
 				"lab2_3.ThickCrustDough", "lab2_3.ThinCrustDough" };
 
-		AllClasses allClasses = new AllClasses();
+		Model allClasses = new Model();
 
 		for (String className : args) {
 			IClass clazz = dp.parse(className);
@@ -234,7 +234,7 @@ public class ParseTest {
 				"lab2_3.PizzaIngredientFactory", "lab2_3.PlumTomatoSauce", "lab2_3.ReggianoCheese", "lab2_3.Sauce",
 				"lab2_3.ThickCrustDough", "lab2_3.ThinCrustDough" };
 
-		AllClasses allClasses = new AllClasses();
+		Model allClasses = new Model();
 
 		for (String className : args) {
 			IClass clazz = dp.parse(className);
@@ -255,7 +255,7 @@ public class ParseTest {
 				"lab2_3.PizzaIngredientFactory", "lab2_3.PlumTomatoSauce", "lab2_3.ReggianoCheese", "lab2_3.Sauce",
 				"lab2_3.ThickCrustDough", "lab2_3.ThinCrustDough" };
 
-		AllClasses allClasses = new AllClasses();
+		Model allClasses = new Model();
 
 		for (String className : args) {
 			IClass clazz = dp.parse(className);
