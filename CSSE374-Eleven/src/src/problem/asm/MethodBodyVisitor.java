@@ -3,6 +3,9 @@ package src.problem.asm;
 import org.objectweb.asm.MethodVisitor;
 
 import src.problem.components.IClass;
+import src.problem.components.IRelation;
+import src.problem.components.Relation;
+import src.problem.components.Relation.RelationType;
 
 public class MethodBodyVisitor extends MethodVisitor {
 	
@@ -17,7 +20,8 @@ public class MethodBodyVisitor extends MethodVisitor {
 	public void visitMethodInsn(int opcode, String owner, String name, String desc, boolean itf) {
 		if (name.equals("<init>")) {
 			String usedClassToAdd = simplifyClassName(owner);
-			clazz.addUsedClass(usedClassToAdd);
+			IRelation relation = new Relation(this.clazz.getName(), usedClassToAdd, RelationType.USES);
+			this.clazz.addRelation(relation);
 		}
 	}
 	

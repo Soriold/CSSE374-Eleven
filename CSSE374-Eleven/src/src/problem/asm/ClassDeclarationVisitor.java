@@ -4,6 +4,7 @@ import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.Opcodes;
 
 import src.problem.components.*;
+import src.problem.components.Relation.RelationType;
 
 public class ClassDeclarationVisitor extends ClassVisitor {
 	
@@ -19,15 +20,23 @@ public class ClassDeclarationVisitor extends ClassVisitor {
 		//System.out.println("Class: " + name + " extends " + superName + " implements " + Arrays.toString(interfaces));
 		name = simplifyClassName(name);
 		superName = simplifyClassName(superName);
+		IRelation relation  = null;
 		
 		clazz.setName(name);
 		clazz.setSuperClass(superName);
+		if(superName != null) {
+			relation = new Relation(this.clazz.getName(), superName, RelationType.EXTENDS);
+		}
+		
+		clazz.addRelation(relation);
 		for (String i : interfaces) {
 			if(i.contains("/")) {
 				String[] splitType = i.split("/");
 				i = splitType[splitType.length - 1];
 			}
 			clazz.addInterface(i);
+			relation = new Relation(this.clazz.getName(), i, RelationType.IMPLEMENTS);
+			clazz.addRelation(relation);
 		}
 		if ((access & Opcodes.ACC_INTERFACE) != 0) {
 			clazz.setIsInterface(true);

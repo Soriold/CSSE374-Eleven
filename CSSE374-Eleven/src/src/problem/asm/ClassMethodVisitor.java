@@ -8,8 +8,11 @@ import org.objectweb.asm.Type;
 import src.problem.components.IClass;
 import src.problem.components.IMethod;
 import src.problem.components.IParameter;
+import src.problem.components.IRelation;
 import src.problem.components.Method;
 import src.problem.components.Parameter;
+import src.problem.components.Relation;
+import src.problem.components.Relation.RelationType;
 
 public class ClassMethodVisitor extends ClassVisitor {
 	
@@ -71,7 +74,8 @@ public class ClassMethodVisitor extends ClassVisitor {
 		// method.
 		returnType = simplifyClassName(returnType);
 		method.setReturnType(returnType);
-		this.clazz.addUsedClass(returnType);
+		IRelation relation = new Relation(this.clazz.getName(), returnType, RelationType.USES);
+		this.clazz.addRelation(relation);
 	}
 
 	private void addArguments(String desc, IMethod method) {
@@ -84,7 +88,8 @@ public class ClassMethodVisitor extends ClassVisitor {
 			arg = simplifyClassName(arg);
 			IParameter parameter = new Parameter();
 			parameter.setType(arg);
-			this.clazz.addUsedClass(arg);
+			IRelation relation = new Relation(this.clazz.getName(), arg, RelationType.USES);
+			this.clazz.addRelation(relation);
 			method.addParameter(parameter);
 		}
 	}
