@@ -48,9 +48,29 @@ public class Relation implements IRelation {
 		IRelation relation = (Relation)obj;
 		boolean destEquals = this.dest.equals(relation.getDest());
 		boolean srcEquals = this.src.equals(relation.getSrc());
-		boolean typeEquals = this.type == relation.getType() ||
+		boolean typeEquals = (this.type == relation.getType() ||
 							this.type == RelationType.ASSOCIATION && relation.getType() == RelationType.USES ||
-							this.type == RelationType.USES && relation.getType() == RelationType.ASSOCIATION;
-		return destEquals && srcEquals && typeEquals;
+							this.type == RelationType.USES && relation.getType() == RelationType.ASSOCIATION);
+		boolean result = destEquals && srcEquals && typeEquals;
+		if(result && this.type == RelationType.USES && relation.getType() == RelationType.ASSOCIATION) {
+			this.type = RelationType.ASSOCIATION;
+		}
+		return result;
 	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((dest == null) ? 0 : dest.hashCode());
+		result = prime * result + ((src == null) ? 0 : src.hashCode());
+		if(type == RelationType.USES) {
+			result = prime * result + ((type == null) ? 0 : RelationType.ASSOCIATION.hashCode());
+		} else {
+			result = prime * result + ((type == null) ? 0 : type.hashCode());
+		}
+		return result;
+	}
+	
+	
 }

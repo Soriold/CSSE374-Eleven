@@ -26,8 +26,16 @@ public class ClassFieldVisitor extends ClassVisitor {
 		String type = Type.getType(desc).getClassName();
 		//System.out.println(Type.getType(desc).getClassName());
 		type = simplifyClassName(type);
-		
 		signature = extractType(signature);
+		
+		IRelation relation;
+		if(type.equals("List")) {
+			signature = signature.substring(1, signature.length() - 1);
+			relation = new Relation(this.clazz.getName(), signature, RelationType.ASSOCIATION);
+		} else {
+			relation = new Relation(this.clazz.getName(), type + signature, RelationType.ASSOCIATION);
+		}
+		
 		type += signature;
 		
 		IField field = new Field();
@@ -48,7 +56,6 @@ public class ClassFieldVisitor extends ClassVisitor {
 		}
 		
 		this.clazz.addField(field);
-		IRelation relation = new Relation(this.clazz.getName(), field.getType(), RelationType.ASSOCIATION);
 		this.clazz.addRelation(relation);
 		
 		return toDecorate;

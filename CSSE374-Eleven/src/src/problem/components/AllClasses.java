@@ -49,10 +49,8 @@ public class AllClasses implements IGraphVizComponent {
 		ArrayList<String> classNames = this.getClassNames();
 		StringBuilder ret = new StringBuilder();
 		for (IClass c : this.classes) {
-			System.out.println(c.getName());
 			for(IRelation r : c.getRelations()) {
 				if(classNames.contains(r.getSrc()) && classNames.contains(r.getDest())) {
-					System.out.println(r.getSrc() + " " + r.getDest() + " " + r.getType().toString());
 					switch(r.getType()) {
 						case EXTENDS:
 							ret.append("edge [ arrowhead = \"onormal\" style = \"solid\" ]\n" + r.getSrc() + " -$ " + r.getDest() + "\n");
