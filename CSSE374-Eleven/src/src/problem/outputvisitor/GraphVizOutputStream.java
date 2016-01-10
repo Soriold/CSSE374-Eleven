@@ -32,6 +32,25 @@ public class GraphVizOutputStream /* extends FilterOutputStream */ {
 		this.setupVisitParameter();
 		this.setupVisitRelationship();
 	}
+	
+	public void setupPreVisitModel() {
+		this.visitor.addVisit(VisitType.PreVisit, IModel.class, (ITraverser t) -> {
+			this.output.append("digraph G {fontname = \"Bitstream Vera Sans\" fontsize = 8\nnode [fontname ="
+					+ "\"Bitstream Vera Sans\" fontsize = 8 shape = \"record\"] edge [fontname = "
+					+ "\"Bitstream Vera Sans\" fontsize = 8]");
+		});
+	}
+	
+	public void setupPostVisitModel() {
+		this.visitor.addVisit(VisitType.PostVisit, IModel.class, (ITraverser t) -> {
+			this.output.append("\n");
+			this.output.append("}");
+		});
+		
+		
+		ret.append("\n");
+		ret.append("}");
+	}
 
 	private void setupPreVisitClass() {
 		this.visitor.addVisit(VisitType.PreVisit, IClass.class, (ITraverser t) -> {
@@ -40,7 +59,7 @@ public class GraphVizOutputStream /* extends FilterOutputStream */ {
 			ret.append(c.getName());
 			ret.append(" [label = \"{");
 			if (c.getIsInterface()) {
-				ret.append("<<interface>>");
+				ret.append("\\<\\<interface\\>\\>");
 				ret.append("\\n");
 			}
 			ret.append(c.getName());
@@ -127,14 +146,6 @@ public class GraphVizOutputStream /* extends FilterOutputStream */ {
 			IParameter c = (IParameter) t;
 			this.output.append(c.getType());
 		});
-	}
-
-
-	private void write(String m) {
-		/*
-		 * try { super.write(m.getBytes()); } catch (IOException e) { throw new
-		 * RuntimeException(e); }
-		 */
 	}
 
 }

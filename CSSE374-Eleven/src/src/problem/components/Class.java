@@ -5,6 +5,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import src.problem.outputvisitor.ITraverser;
+import src.problem.outputvisitor.IVisitor;
+
 public class Class implements IClass {
 
 	private String name;
@@ -91,5 +94,20 @@ public class Class implements IClass {
 	@Override
 	public void addRelation(IRelation relation) {
 		this.relations.add(relation);
+	}
+
+	@Override
+	public void accept(IVisitor v) {
+		v.preVisit(this);
+		for(IField f : this.fields) {
+			ITraverser t = (ITraverser) f;
+			t.accept(v);
+		}
+		v.visit(this);
+		for (IMethod m : this.methods) {
+			ITraverser t = (ITraverser) m;
+			t.accept(v);
+		}
+		v.postVisit(this);		
 	}
 }

@@ -1,5 +1,7 @@
 package src.problem.components;
 
+import src.problem.outputvisitor.IVisitor;
+
 public class Relation implements IRelation {
 	
 	private String dest;
@@ -53,4 +55,10 @@ public class Relation implements IRelation {
 							this.type == RelationType.USES && relation.getType() == RelationType.ASSOCIATION;
 		return destEquals && srcEquals && typeEquals;
 	}
+
+	//@Override
+	//public void accept(IVisitor v) {
+		
+		
+	//}
 }

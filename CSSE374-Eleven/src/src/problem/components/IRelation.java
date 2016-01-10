@@ -1,8 +1,8 @@
 package src.problem.components;
 
-import src.problem.components.Relation.RelationType;
+import src.problem.outputvisitor.ITraverser;
 
-public interface IRelation {
+public interface IRelation extends ITraverser{
 	
 	public String getDest();
 	public String getSrc();

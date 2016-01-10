@@ -1,8 +1,8 @@
 package src.problem.components;
 
-import src.problem.outputvisitor.IGraphVizComponent;
+import src.problem.outputvisitor.ITraverser;
 
-public interface IParameter {
+public interface IParameter extends ITraverser {
 
 	public String getType();
 
