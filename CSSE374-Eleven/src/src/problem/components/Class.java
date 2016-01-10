@@ -10,17 +10,17 @@ public class Class implements IClass {
 	private String name;
 	private List<IField> fields;
 	private List<IMethod> methods;
-	private boolean isInterface;
 	private List<String> interfaces;
 	private String superClass;
-	private Set<String> createdUsedObjects;
+	private boolean isInterface;
+	private Set<String> usedClasses;
 
 	public Class() {
 		this.fields = new ArrayList<IField>();
 		this.methods = new ArrayList<IMethod>();
 		this.interfaces = new ArrayList<String>();
 		this.isInterface = false;
-		this.createdUsedObjects = new HashSet<String>();
+		this.usedClasses = new HashSet<String>();
 	}
 
 	@Override
@@ -29,23 +29,23 @@ public class Class implements IClass {
 	}
 
 	@Override
-	public List<IField> getFields() {
-		return fields;
-	}
-
-	@Override
-	public List<IMethod> getMethods() {
-		return methods;
-	}
-
-	@Override
 	public void setName(String name) {
 		this.name = name;
 	}
 
 	@Override
+	public List<IField> getFields() {
+		return fields;
+	}
+
+	@Override
 	public void addField(IField field) {
 		this.fields.add(field);
+	}
+
+	@Override
+	public List<IMethod> getMethods() {
+		return methods;
 	}
 
 	@Override
@@ -84,6 +84,16 @@ public class Class implements IClass {
 	}
 
 	@Override
+	public Set<String> getUsedClasses() {
+		return this.usedClasses;
+	}
+
+	@Override
+	public void addUsedClass(String usedClass) {
+		this.usedClasses.add(usedClass);
+	}
+
+	@Override
 	public String getGraphViz() {
 		StringBuilder ret = new StringBuilder();
 		ret.append(this.name);
@@ -103,16 +113,6 @@ public class Class implements IClass {
 		}
 		ret.append("}\"]");
 		return ret.toString();
-	}
-
-	@Override
-	public Set<String> getUsedClasses() {
-		return this.createdUsedObjects;
-	}
-
-	@Override
-	public void addUsedClass(String createdUsedObject) {
-		this.createdUsedObjects.add(createdUsedObject);
 	}
 
 }
