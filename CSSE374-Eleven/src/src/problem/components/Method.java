@@ -148,6 +148,7 @@ public class Method implements IMethod {
 			return false;
 		} else if (!returnType.equals(other.returnType)) {
 			return false;
+		}
 		return true;
 	}
 
