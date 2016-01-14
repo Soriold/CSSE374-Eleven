@@ -48,11 +48,11 @@ public class DesignParser {
 		
 		args = new String[]{"java.util.Collections", "integrationTests.TestClassTwo"};
 
-		for (String className : args) {
+		for (String className : m3) {
 			IClass clazz = parse(className, model);
 			model.addClass(clazz);
 		}
-		sdeos.writeMethod(model, "java.util.Collections.shuffle()", 5);
+		sdeos.writeMethod(model, "src.problems.outputvisitor.SDEditOutputStream.writeMethod()", 2);
 		sdeos.close();
 		gvos.close();
 	}
