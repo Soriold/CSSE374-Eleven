@@ -1,14 +1,2 @@
 SDEditOutputStream:SDEditOutputStream
-StringBuilder:StringBuilder
-Pair:Pair
 
-SDEditOutputStream:SDEditOutputStream.write
-SDEditOutputStream:SDEditOutputStream.findClass
-SDEditOutputStream:SDEditOutputStream.findMethod
-SDEditOutputStream:Pair.create
-SDEditOutputStream:SDEditOutputStream.writeMethodHelper
-SDEditOutputStream:SDEditOutputStream.writeClasses
-SDEditOutputStream:SDEditOutputStream.write
-SDEditOutputStream:StringBuilder.toString
-SDEditOutputStream:SDEditOutputStream.write
-SDEditOutputStream:SDEditOutputStream.writeMethod

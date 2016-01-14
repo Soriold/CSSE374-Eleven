@@ -33,7 +33,7 @@ public class DesignParser {
 		SDEditOutputStream sdeos = new SDEditOutputStream(new FileOutputStream("SDEditOutput.txt"));
 
 		Scanner scanner = new Scanner(new File(args[0]));
-		scanner.useDelimiter("\n");
+		scanner.useDelimiter("\r\n");
 		ArrayList<String> argumentsAL = new ArrayList<String>();
 		while (scanner.hasNext()) {
 			argumentsAL.add(scanner.next());

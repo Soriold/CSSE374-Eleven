@@ -75,6 +75,7 @@ public class ClassMethodVisitor extends ClassVisitor {
 		// DONE: ADD this information to your representation of the current
 		// method.
 		returnType = simplifyClassName(returnType);
+		System.out.println("return type: "+ returnType);
 		method.setReturnType(returnType);
 		IRelation relation = new Relation(this.clazz.getName(), returnType, RelationType.USES);
 		this.model.addRelation(relation);
@@ -88,6 +89,7 @@ public class ClassMethodVisitor extends ClassVisitor {
 			// DONE: ADD this information to your representation of the current
 			// method.
 			arg = simplifyClassName(arg);
+			System.out.println("arg type: "+ arg);
 			IParameter parameter = new Parameter();
 			parameter.setType(arg);
 			IRelation relation = new Relation(this.clazz.getName(), arg, RelationType.USES);
