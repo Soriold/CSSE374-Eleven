@@ -1,7 +1,13 @@
 package src.problem.asm;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.Opcodes;
@@ -23,32 +29,21 @@ public class DesignParser {
 	 */
 	public static void main(String[] args) throws IOException {
 		Model model = new Model();
-		GraphVizOutputStream gvos = new GraphVizOutputStream(new FileOutputStream("result.txt"));
-		SDEditOutputStream sdeos = new SDEditOutputStream(new FileOutputStream("result2.txt"));
+		GraphVizOutputStream gvos = new GraphVizOutputStream(new FileOutputStream("GVOuput.txt"));
+		SDEditOutputStream sdeos = new SDEditOutputStream(new FileOutputStream("SDEditOutput.txt"));
 		
-		// Used to generate UML for Lab 1-3 code
-		String[] m1 = new String[] { "lab1_3.AppLauncher", "lab1_3.EntryDeleteObserver", "lab1_3.EntryModifyObserver",
-				"lab1_3.HtmlCreateObserver", "lab1_3.Observer", "lab1_3.PngCreateObserver", "lab1_3.Subject",
-				"lab1_3.TxtCreateObserver" };
+		Scanner scanner = new Scanner(new File(args[0]));
+		scanner.useDelimiter("\n");
+		ArrayList<String> argumentsAL = new ArrayList<String>();
+		while (scanner.hasNext()) {
+			argumentsAL.add(scanner.next());
+		}
+		scanner.close();
 		
-		String[] m2 = new String[] { "lab2_3.Cheese", "lab2_3.ChicagoPizzaIngredientFactory", "lab2_3.Clams", "lab2_3.Dough",
-				"lab2_3.FreshClams", "lab2_3.FrozenClams", "lab2_3.MarinaraSauce", "lab2_3.MozzarellaCheese", "lab2_3.NYPizzaIngredientFactory",
-				"lab2_3.NYPizzaStore", "lab2_3.PizzaIngredientFactory", "lab2_3.PlumTomatoSauce", "lab2_3.ReggianoCheese", "lab2_3.Sauce",
-				"lab2_3.ThickCrustDough", "lab2_3.ThinCrustDough", "lab2_3.Pizza" };
+		String[] arguments = new String[]{};
+		arguments = argumentsAL.toArray(arguments);
 		
-		String [] m3 = new String[] {"src.problem.components.Model", "src.problem.components.IModel", "src.problem.components.Class", 
-				"src.problem.components.IClass", "src.problem.components.Field",  "src.problem.components.IField", 
-				"src.problem.components.Method", "src.problem.components.IMethod", "src.problem.components.Parameter", 
-				"src.problem.components.IParameter", "src.problem.outputvisitor.SDEditOutputStream",
-				"src.problem.components.IRelation", "src.problem.components.Relation", "src.problem.components.RelationType", 
-				"src.problem.outputvisitor.GraphVizOutputStream", "src.problem.outputvisitor.ITraverser", 
-				"src.problem.outputvisitor.IVisitMethod", "src.problem.outputvisitor.IVisitor", 
-				"src.problem.outputvisitor.LookupKey", "src.problem.outputvisitor.Visitor", "src.problem.outputvisitor.VisitType"};
-		
-		
-		args = new String[]{"java.util.Collections", "integrationTests.TestClassTwo"};
-
-		for (String className : args) {
+		for (String className : arguments) {
 			IClass clazz = parse(className, model);
 			model.addClass(clazz);
 		}
