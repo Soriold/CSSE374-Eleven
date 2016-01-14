@@ -13,7 +13,7 @@ import src.problem.outputvisitor.GraphVizOutputStream;
 import src.problem.components.IClass;
 import src.problem.components.IModel;
 
-public class ParseTest {
+public class GVOSIntegrationTests {
 
 	@Test
 	public void testFields() throws IOException {
