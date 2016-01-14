@@ -19,7 +19,7 @@ public class ClassMethodVisitorUnitTests {
 		IModel model = new Model();
 		IClass clazz = new Class();
 		ClassVisitor cmv = new ClassMethodVisitor(Opcodes.ASM5, clazz, model);
-		
+				
 		int access = 2;
 		String name = "testMethod";
 		String desc = "()Ljava/util/TestClassTwo;";
