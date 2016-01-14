@@ -1,11 +1,15 @@
 package src.problem.asm;
 
-import javax.swing.plaf.synth.SynthSeparatorUI;
-
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Type;
 
-import src.problem.components.*;
+import src.problem.components.IClass;
+import src.problem.components.IMethod;
+import src.problem.components.IModel;
+import src.problem.components.IRelation;
+import src.problem.components.MethodCall;
+import src.problem.components.Relation;
+import src.problem.components.RelationType;
 
 public class MethodBodyVisitor extends MethodVisitor {
 	
@@ -24,7 +28,7 @@ public class MethodBodyVisitor extends MethodVisitor {
 	public void visitMethodInsn(int opcode, String owner, String name, String desc, boolean itf) {
 		String classname = this.clazz.getName();
 		owner = simplifyClassName(owner);
-		MethodCall mc = new MethodCall(classname, this.method.getName(), owner, name);
+		MethodCall mc = new MethodCall(this.method, owner, name);
 		if (name.equals("<init>")) {
 			IRelation relation = new Relation(classname, owner, RelationType.USES);
 			this.model.addRelation(relation);
@@ -33,13 +37,8 @@ public class MethodBodyVisitor extends MethodVisitor {
 		for(Type t : Type.getArgumentTypes(desc)) {
 			mc.addDestParameter(simplifyClassName(t.toString()).replace(";",""));
 		}
-		for(IParameter p : this.method.getParameters()){
-			mc.addSourceParameter(p.getType());
-		}
+	
 		this.method.addMethodCall(mc);
-//		System.out.println(mc.getDestParameters().toString());
-//
-//		System.out.println(mc.getSourceParameters().toString());
 	}
 	
 	private String simplifyClassName(String arg) {

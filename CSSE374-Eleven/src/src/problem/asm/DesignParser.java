@@ -9,7 +9,9 @@ import org.objectweb.asm.Opcodes;
 import src.problem.components.*;
 import src.problem.components.Class;
 import src.problem.outputvisitor.GraphVizOutputStream;
+import src.problem.outputvisitor.ITraverser;
 import src.problem.outputvisitor.SDEditOutputStream;
+import src.problem.outputvisitor.VisitType;
 
 public class DesignParser {
 	/**
@@ -52,7 +54,7 @@ public class DesignParser {
 			IClass clazz = parse(className, model);
 			model.addClass(clazz);
 		}
-		sdeos.writeMethod(model, "src.problems.outputvisitor.SDEditOutputStream.writeMethod()", 2);
+		sdeos.writeMethod(model, "src.problem.outputvisitor.SDEditOutputStream.writeMethod(Model m, String methodQualifier, int depth)", 2);
 		sdeos.close();
 		gvos.close();
 	}

@@ -2,7 +2,6 @@ package src.problem.components;
 
 import java.util.List;
 
-import src.problem.asm.Pair;
 import src.problem.outputvisitor.ITraverser;
 
 public interface IMethod extends ITraverser {

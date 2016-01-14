@@ -4,41 +4,43 @@ import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
-import src.problem.asm.Pair;
 import src.problem.components.Class;
+import src.problem.components.IMethod;
 import src.problem.components.IMethodCall;
+import src.problem.components.IParameter;
 import src.problem.components.Method;
 import src.problem.components.Model;
+import src.problem.components.Parameter;
 
 public class SDEditOutputStream extends FilterOutputStream {
 
 	private final IVisitor visitor;
 	private StringBuilder classDeclarations;
 	private StringBuilder methodCalls;
-	private Set<String> methods;
+	private Map<Method, Method> methods;
 	private Set<String> clazzes;
-	private HashMap<Pair<String, String>, ArrayList<Pair<String, String>>> methodMapping;
+	private Map<IMethod, ArrayList<IMethod>> methodMapping;
 
 	public SDEditOutputStream(OutputStream out) {
 		super(out);
 		this.visitor = new Visitor();
 		this.classDeclarations = new StringBuilder();
 		this.methodCalls = new StringBuilder();
-		this.methods = new HashSet<String>();
+		this.methods = new TreeMap<Method, Method>();
 		this.clazzes = new HashSet<String>();
-		this.methodMapping = new HashMap<>();
+		this.methodMapping = new TreeMap<>();
 		this.setupVisitors();
 	}
 
 	private void setupVisitors() {
 		this.setupVisitClass();
 		this.setupVisitMethod();
-		this.setupPostVisitModel();
 	}
 
 	private void write(String m) {
@@ -51,13 +53,37 @@ public class SDEditOutputStream extends FilterOutputStream {
 
 	public void writeMethod(Model m, String methodQualifier, int depth) {
 		this.write(m);
-		String clazz = this.findClass(methodQualifier);
-		String method = this.findMethod(methodQualifier);
-		Pair<String, String> methodToSequence = new Pair<String, String>(clazz, method);
+		IMethod methodToSequence = findMethod(methodQualifier);
+		methodToSequence = this.methods.get(methodToSequence);
 		this.writeMethodHelper(methodToSequence, depth - 1);
 		writeClasses();
 		this.write("\n");
 		this.write(this.methodCalls.toString());
+	}
+
+	private IMethod findMethod(String methodSignature) {
+		IMethod method = new Method();
+		method.setOwner(this.findClass(methodSignature));
+		method.setName(this.findMethodName(methodSignature));
+		for (IParameter p : this.findParameters(methodSignature)) {
+			method.addParameter(p);
+		}
+		return method;
+	}
+
+	private ArrayList<IParameter> findParameters(String methodSignature) {
+		ArrayList<IParameter> ret = new ArrayList<>();
+		String params = methodSignature.substring(methodSignature.indexOf("("), methodSignature.indexOf(")") + 1);
+		String newChar = "";
+		params = params.replace("(", newChar).replace(",", newChar).replace(")", newChar);
+		String[] paramArray = params.split(" ");
+		for(int i = 0; i < paramArray.length; i += 2) {
+			IParameter p = new Parameter();
+			p.setType(paramArray[i].trim());
+			ret.add(p);
+		}
+		//System.out.println(methodSignature + "-->>>" + ret.toString());
+		return ret;
 	}
 
 	private void writeClasses() {
@@ -67,34 +93,41 @@ public class SDEditOutputStream extends FilterOutputStream {
 		}
 	}
 
-	private void writeMethodHelper(Pair<String, String> key, int depth) {
-		this.clazzes.add(key.getLeft());
+	private void writeMethodHelper(IMethod key, int depth) {
+		this.clazzes.add(key.getOwner());
 		if(this.methodMapping.get(key) == null) {
 			return;
 		}
-		for (Pair<String, String> p : this.methodMapping.get(key)) {
-			this.clazzes.add(p.getLeft());
+		for (IMethod m : this.methodMapping.get(key)) {
+			this.clazzes.add(m.getOwner());
 			if (depth <= 1) {
-				this.methodCalls.append(key.getLeft() + ":" + p.getLeft() + "." + p.getRight());
-				this.methodCalls.append("\n");
+				this.makeMethodArrow(key, m);
 			} else {
-				this.methodCalls.append(key.getLeft() + ":" + p.getLeft() + "." + p.getRight());
-				this.methodCalls.append("\n");
-				this.writeMethodHelper(p, depth - 1);
+				this.makeMethodArrow(key, m);
+				this.writeMethodHelper(m, depth - 1);
 			}
 		}
 	}
 
-	private String findMethod(String methodQualifier) {
-		String[] splits = methodQualifier.split("\\.");
-		String ret = splits[splits.length - 1];
-		ret = ret.substring(0, ret.indexOf('('));
-		return ret;
+	private void makeMethodArrow(IMethod key, IMethod m) {
+		String app = key.getOwner() + ":" + m.getOwner() + "." + m.getName() + "(";
+		for(IParameter p : m.getParameters()){
+			app += p.getType() + " ";
+		}
+		app += ")\n";
+		this.methodCalls.append(app);
 	}
 
-	private String findClass(String methodQualifier) {
-		String[] splits = methodQualifier.split("\\.");
-		return splits[splits.length - 2];
+	private String findMethodName(String methodSignature) {
+		String[] splits = methodSignature.split("\\.");
+		String ret = splits[splits.length - 1];
+		ret = ret.substring(0, ret.indexOf('('));
+		return ret.trim();
+	}
+
+	private String findClass(String methodSignature) {
+		String[] splits = methodSignature.split("\\.");
+		return splits[splits.length - 2].trim();
 	}
 
 	public void writeMethod(Model m, String methodQualifier) {
@@ -118,41 +151,25 @@ public class SDEditOutputStream extends FilterOutputStream {
 	private void setupVisitMethod() {
 		this.visitor.addVisit(VisitType.Visit, Method.class, (ITraverser t) -> {
 			Method c = (Method) t;
-			this.methods.add(c.getName());
+			this.methods.put(c, c);
 			List<IMethodCall> methodCalls = c.getMethodCalls();
 			for (IMethodCall mc : methodCalls) {
-				this.insertMapping(mc.getSourceClass(), mc.getSourceMethod(), mc.getDestinationClass(), mc.getDestinationMethod());
-				// if (methods.contains(pair.getLeft())) {
-				// System.out.println("here");
-				// this.methodCalls.append(c.getOwner() + ":" + pair.getRight()
-				// + "." + pair.getLeft());
-				// this.methodCalls.append("\n");
-				// }
+				this.insertMapping(mc.getSourceMethod(), mc.getDestMethod());
 			}
 		});
 
 	}
 
-	private void insertMapping(String owner, String name, String callClass, String callMethod) {
-		Pair<String, String> key = new Pair<String, String>(owner, name);
-		Pair<String, String> value = new Pair<String, String>(callClass, callMethod);
-		if (this.methodMapping.containsKey(key)) {
-			ArrayList<Pair<String, String>> toInsert = this.methodMapping.get(key);
-			toInsert.add(value);
-			this.methodMapping.remove(key);
-			this.methodMapping.put(key, toInsert);
+	private void insertMapping(IMethod source, IMethod dest) {
+		if (this.methodMapping.containsKey(source)) {
+			ArrayList<IMethod> toInsert = this.methodMapping.get(source);
+			toInsert.add(dest);
+			this.methodMapping.remove(source);
+			this.methodMapping.put(source, toInsert);
 		} else {
-			ArrayList<Pair<String, String>> toInsert = new ArrayList<>();
-			toInsert.add(value);
-			this.methodMapping.put(key, toInsert);
+			ArrayList<IMethod> toInsert = new ArrayList<>();
+			toInsert.add(dest);
+			this.methodMapping.put(source, toInsert);
 		}
-	}
-
-	private void setupPostVisitModel() {
-		this.visitor.addVisit(VisitType.PostVisit, Model.class, (ITraverser t) -> {
-			// this.write(this.classDeclarations.toString());
-			// this.write("\n");
-			// this.write(this.methodCalls.toString());
-		});
 	}
 }

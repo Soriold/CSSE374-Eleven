@@ -3,11 +3,10 @@ package src.problem.components;
 import java.util.ArrayList;
 import java.util.List;
 
-import src.problem.asm.Pair;
 import src.problem.outputvisitor.ITraverser;
 import src.problem.outputvisitor.IVisitor;
 
-public class Method implements IMethod {
+public class Method implements IMethod, Comparable<Method> {
 
 	private String name;
 	private String owner;
@@ -131,6 +130,16 @@ public class Method implements IMethod {
 	}
 
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
+		result = prime * result + ((this.owner == null) ? 0 : this.owner.hashCode());
+		result = prime * result + ((this.parameters == null) ? 0 : this.parameters.hashCode());
+		return result;
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -139,17 +148,29 @@ public class Method implements IMethod {
 		if (getClass() != obj.getClass())
 			return false;
 		Method other = (Method) obj;
-		if (name == null) {
-			if (other.name != null)
+		if (this.name == null) {
+			if (other.getName() != null)
 				return false;
-		} else if (!name.equals(other.name)) {
+		} else if (!this.name.equals(other.getName()))
 			return false;
-		} else if (!parameters.equals(other.parameters)) {
+		if (this.owner == null) {
+			if (other.getOwner() != null)
+				return false;
+		} else if (!this.owner.equals(other.getOwner()))
 			return false;
-		} else if (!returnType.equals(other.returnType)) {
+		if (this.parameters == null) {
+			if (other.getParameters() != null)
+				return false;
+		} else if (!this.parameters.equals(other.getParameters()))
 			return false;
-		}
 		return true;
 	}
+
+	@Override
+	public int compareTo(Method o) {
+		return this.name.compareTo(o.getName());
+	}
+
+	
 
 }
