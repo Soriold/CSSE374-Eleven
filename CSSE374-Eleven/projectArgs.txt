@@ -11,7 +11,7 @@ src.problem.components.IParameter
 src.problem.outputvisitor.SDEditOutputStream
 src.problem.components.IRelation
 src.problem.components.Relation
-src.problem.components.RelationType,
+src.problem.components.RelationType
 src.problem.outputvisitor.GraphVizOutputStream
 src.problem.outputvisitor.ITraverser
 src.problem.outputvisitor.IVisitMethod
