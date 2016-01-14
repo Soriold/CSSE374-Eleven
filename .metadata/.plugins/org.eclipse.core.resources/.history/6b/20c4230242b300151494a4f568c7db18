@@ -1,8 +1,0 @@
-package src.problem.components;
-
-public interface IField {
-	public String getName();
-	public String getType();
-	public String getVisibility();
-	public String getModifiers();
-}

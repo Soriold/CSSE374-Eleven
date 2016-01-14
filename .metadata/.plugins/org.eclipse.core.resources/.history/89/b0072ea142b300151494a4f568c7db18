@@ -1,5 +1,0 @@
-package src.problem.components;
-
-public interface IClass {
-
-}
