@@ -8,19 +8,23 @@ public class MethodBodyVisitor extends MethodVisitor {
 	
 	private IClass clazz;
 	private IModel model;
+	private IMethod method;
 
-	public MethodBodyVisitor(int api, MethodVisitor methodVisitor, IClass clazz, IModel model) {
+	public MethodBodyVisitor(int api, MethodVisitor methodVisitor, IClass clazz, IModel model, IMethod method) {
 		super(api, methodVisitor);
 		this.clazz = clazz;
 		this.model = model;
+		this.method = method;
 	}
 	
 	@Override
 	public void visitMethodInsn(int opcode, String owner, String name, String desc, boolean itf) {
+		owner = simplifyClassName(owner);
 		if (name.equals("<init>")) {
-			String usedClassToAdd = simplifyClassName(owner);
-			IRelation relation = new Relation(this.clazz.getName(), usedClassToAdd, RelationType.USES);
+			IRelation relation = new Relation(this.clazz.getName(), owner, RelationType.USES);
 			this.model.addRelation(relation);
+		} else {
+			this.method.addMethodCall(name, owner);
 		}
 	}
 	

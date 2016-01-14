@@ -2,6 +2,7 @@ package src.problem.components;
 
 import java.util.List;
 
+import src.problem.asm.Pair;
 import src.problem.outputvisitor.ITraverser;
 
 public interface IMethod extends ITraverser {
@@ -26,7 +27,7 @@ public interface IMethod extends ITraverser {
 
 	public void addParameter(IParameter parameter);
 
-	public List<IMethod> getMethodCalls();
+	public List<Pair<String, String>> getMethodCalls();
 	
-	public void addMethodCall(IMethod method);
+	public void addMethodCall(String method, String clazz);
 }

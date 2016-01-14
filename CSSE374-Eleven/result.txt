@@ -87,6 +87,7 @@ Method [label = "{Method|- name : String\l
 - visibility : String\l
 - modifiers : List\<String\>\l
 - parameters : List\<IParameter\>\l
+- methodCalls : List\<IMethod\>\l
 |+ \<init\>() : void\l
 + getName() : String\l
 + setName(String) : void\l
@@ -98,6 +99,8 @@ Method [label = "{Method|- name : String\l
 + addModifier(String) : void\l
 + getParameters() : List\l
 + addParameter(IParameter) : void\l
++ getMethodCalls() : List\l
++ addMethodCall(IMethod) : void\l
 + accept(IVisitor) : void\l
 }"]
 IMethod [label = "{\<\<interface\>\>\nIMethod||+ getName() : String\l
@@ -110,6 +113,8 @@ IMethod [label = "{\<\<interface\>\>\nIMethod||+ getName() : String\l
 + addModifier(String) : void\l
 + getParameters() : List\l
 + addParameter(IParameter) : void\l
++ getMethodCalls() : List\l
++ addMethodCall(IMethod) : void\l
 }"]
 Parameter [label = "{Parameter|- type : String\l
 |+ \<init\>() : void\l
@@ -310,6 +315,8 @@ IModel -> IClass
 edge [ arrowhead = "vee" style = "dashed" ]
 IClass -> IField
 edge [ arrowhead = "vee" style = "dashed" ]
+IMethod -> IMethod
+edge [ arrowhead = "vee" style = "dashed" ]
 Visitor -> VisitType
 edge [ arrowhead = "vee" style = "solid" ]
 Visitor -> IVisitMethod
@@ -329,5 +336,7 @@ edge [ arrowhead = "vee" style = "dashed" ]
 GraphVizOutputStream -> Visitor
 edge [ arrowhead = "vee" style = "dashed" ]
 IClass -> IMethod
+edge [ arrowhead = "vee" style = "solid" ]
+Method -> IMethod
 
 }
