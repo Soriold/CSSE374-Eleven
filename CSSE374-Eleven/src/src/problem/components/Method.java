@@ -3,6 +3,7 @@ package src.problem.components;
 import java.util.ArrayList;
 import java.util.List;
 
+import src.problem.asm.Pair;
 import src.problem.outputvisitor.ITraverser;
 import src.problem.outputvisitor.IVisitor;
 
@@ -13,7 +14,7 @@ public class Method implements IMethod {
 	private String visibility;
 	private List<String> modifiers;
 	private List<IParameter> parameters;
-	private List<IMethod> methodCalls;
+	private List<Pair<String,String>> methodCalls;
 
 	public Method() {
 		this.modifiers = new ArrayList<String>();
@@ -71,13 +72,13 @@ public class Method implements IMethod {
 	}
 	
 	@Override
-	public List<IMethod> getMethodCalls() {
+	public List<Pair<String, String>> getMethodCalls() {
 		return this.methodCalls;
 	}
 	
 	@Override
-	public void addMethodCall(IMethod method) {
-		this.methodCalls.add(method);
+	public void addMethodCall(String method, String clazz) {
+		this.methodCalls.add(new Pair<String, String>(method, clazz));
 	}
 
 //	@Override
