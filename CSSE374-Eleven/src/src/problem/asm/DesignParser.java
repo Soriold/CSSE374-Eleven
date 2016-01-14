@@ -52,7 +52,7 @@ public class DesignParser {
 			IClass clazz = parse(className, model);
 			model.addClass(clazz);
 		}
-		sdeos.writeMethod(model, "src.problem.asm.ClassFieldVisitor.visitField()");
+		sdeos.writeMethod(model, "src.problem.outputvisitor.Visitor.visit()");
 		gvos.close();
 		sdeos.close();
 	}

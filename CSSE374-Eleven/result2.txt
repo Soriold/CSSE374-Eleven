@@ -1,0 +1,11 @@
+IVisitMethod:IVisitMethod
+Visitor:Visitor
+LookupKey:LookupKey
+Object:Object
+Map:Map
+
+Visitor:Visitor.doVisit
+Visitor:Object.getClass
+Visitor:LookupKey.create
+Visitor:Map.get
+Visitor:IVisitMethod.execute
