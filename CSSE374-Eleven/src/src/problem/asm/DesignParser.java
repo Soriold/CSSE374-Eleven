@@ -47,7 +47,8 @@ public class DesignParser {
 			IClass clazz = parse(className, model);
 			model.addClass(clazz);
 		}
-		sdeos.writeMethod(model, "java.util.Collections.shuffle(List<T> list)", 2);
+		gvos.write(model);
+		sdeos.writeMethod(model, args[1], 2);
 		sdeos.close();
 		gvos.close();
 	}
