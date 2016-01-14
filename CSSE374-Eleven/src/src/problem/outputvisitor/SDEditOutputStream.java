@@ -94,8 +94,10 @@ public class SDEditOutputStream extends FilterOutputStream {
 	}
 
 	private void writeMethodHelper(IMethod key, int depth) {
+		//FIXME:NP exception on key??
 		this.clazzes.add(key.getOwner());
 		if(this.methodMapping.get(key) == null) {
+			//System.out.println(key.getOwner() + "."+ key.getName() + " body is empty");
 			return;
 		}
 		for (IMethod m : this.methodMapping.get(key)) {
@@ -104,12 +106,15 @@ public class SDEditOutputStream extends FilterOutputStream {
 				this.makeMethodArrow(key, m);
 			} else {
 				this.makeMethodArrow(key, m);
-				this.writeMethodHelper(m, depth - 1);
+				if (! m.equals(key)) {
+					this.writeMethodHelper(m, depth - 1);
+				}
 			}
 		}
 	}
 
 	private void makeMethodArrow(IMethod key, IMethod m) {
+		//System.out.println("Drawing arrow for " + key.getOwner() + "." + key.getName() + "'s " + "call on " + m.getOwner() + "." + m.getName());
 		String app = key.getOwner() + ":" + m.getReturnType() + "=" + m.getOwner() + "." + m.getName() + "(";
 		for(IParameter p : m.getParameters()){
 			app += p.getType() + " ";
