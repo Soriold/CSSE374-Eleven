@@ -113,4 +113,10 @@ public class MethodCall implements IMethodCall {
 		this.destMethod = destMethod;
 	}
 
+	@Override
+	public void setDestReturnType(String t) {
+		this.destMethod.setReturnType(t);
+		
+	}
+
 }

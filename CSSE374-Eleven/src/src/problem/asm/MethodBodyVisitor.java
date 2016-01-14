@@ -26,6 +26,7 @@ public class MethodBodyVisitor extends MethodVisitor {
 	
 	@Override
 	public void visitMethodInsn(int opcode, String owner, String name, String desc, boolean itf) {
+		//System.out.println("DESCRIPTION: "+ desc);
 		String classname = this.clazz.getName();
 		owner = simplifyClassName(owner);
 		MethodCall mc = new MethodCall(this.method, owner, name);
@@ -37,6 +38,9 @@ public class MethodBodyVisitor extends MethodVisitor {
 		for(Type t : Type.getArgumentTypes(desc)) {
 			mc.addDestParameter(simplifyClassName(t.toString()).replace(";",""));
 		}
+		//System.out.println(Type.getReturnType(desc).toString());
+		//System.out.println(this.getReturnType(Type.getReturnType(desc).toString()));
+		mc.setDestReturnType(this.getReturnType(Type.getReturnType(desc).toString()));
 	
 		this.method.addMethodCall(mc);
 	}
@@ -47,6 +51,33 @@ public class MethodBodyVisitor extends MethodVisitor {
 			arg = splitType[splitType.length - 1];
 		}
 		return arg;
+	}
+	
+	private String getReturnType(String s) {
+		switch(s) {
+		case "V":
+			return "void";
+		case "I":
+			return "int";
+		case "Z":
+			return "boolean";
+		case "B":
+			return "byte";
+		case "C":
+			return "char";
+		case "D":
+			return "double";
+		case "F":
+			return "float";
+		case "J":
+			return "long";
+		case "S":
+			return "short";
+		default:
+			String[] split = s.split("/");
+			return split[split.length - 1].replace(";", "").trim();
+					
+		}
 	}
 
 }

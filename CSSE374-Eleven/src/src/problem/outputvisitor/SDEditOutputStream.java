@@ -110,7 +110,7 @@ public class SDEditOutputStream extends FilterOutputStream {
 	}
 
 	private void makeMethodArrow(IMethod key, IMethod m) {
-		String app = key.getOwner() + ":" + m.getOwner() + "." + m.getName() + "(";
+		String app = key.getOwner() + ":" + m.getReturnType() + "=" + m.getOwner() + "." + m.getName() + "(";
 		for(IParameter p : m.getParameters()){
 			app += p.getType() + " ";
 		}

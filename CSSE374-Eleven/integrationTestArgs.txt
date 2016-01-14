@@ -1,0 +1,4 @@
+integrationTests.TestClass
+integrationTests.TestClassTwo
+integrationTests.TestClassThree
+integrationTests.TestInterface

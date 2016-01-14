@@ -15,46 +15,71 @@ public class ClassMethodVisitorUnitTests {
 	//access: 1 = public, 2 = private, 4 = protected, anything else = default
 
 	@Test
-	public void testBasicField() {
+	public void testBasicMethod() {
+		IModel model = new Model();
+		IClass clazz = new Class();
+		ClassVisitor cmv = new ClassMethodVisitor(Opcodes.ASM5, clazz, model);
+				
+		int access = 2;
+		String name = "testMethod";
+		String desc = "()Ljava/util/TestClassTwo;";
+		String signature = null;
+		String[] exceptions = null;
+		
+		cmv.visitMethod(access, name, desc, signature, exceptions);
+		assertEquals(clazz.getMethods().size(), 1);
+		IMethod addedMethod = clazz.getMethods().get(0);
+		assertEquals(addedMethod.getName(), "testMethod");
+		assertEquals(addedMethod.getReturnType(), "TestClassTwo");
+		assertEquals(addedMethod.getVisibility(), "private");
+	}
+	
+	@Test
+	public void testBasicMethodWithParameters() {
 		IModel model = new Model();
 		IClass clazz = new Class();
 		ClassVisitor cmv = new ClassMethodVisitor(Opcodes.ASM5, clazz, model);
 		
 		int access = 1;
-		String name = "testField";
-		String desc = "Ljava/lang/String;";
+		String name = "testMethod";
+		String desc = "(LintegrationTests/TestClassThree;ILjava/lang/String;)Ljava/util/TestClassTwo;";
 		String signature = null;
-		String[] value = null;
+		String[] exceptions = null;
 		
-		cmv.visitMethod(access, name, desc, signature, value);
-		assertEquals(clazz.getFields().size(), 1);
-		IField addedField = clazz.getFields().get(0);
-		assertEquals(addedField.getName(), "testField");
-		assertEquals(addedField.getType(), "String");
-		assertEquals(addedField.getVisibility(), "public");
-		assertFalse(addedField.hasGenericType());	
+		cmv.visitMethod(access, name, desc, signature, exceptions);
+		assertEquals(clazz.getMethods().size(), 1);
+		IMethod addedMethod = clazz.getMethods().get(0);
+		assertEquals(addedMethod.getName(), "testMethod");
+		assertEquals(addedMethod.getReturnType(), "TestClassTwo");
+		assertEquals(addedMethod.getVisibility(), "public");
+		assertEquals(addedMethod.getParameters().size(), 3);
+		assertEquals(addedMethod.getParameters().get(0).getType(), "TestClassThree");
+		assertEquals(addedMethod.getParameters().get(1).getType(), "int");
+		assertEquals(addedMethod.getParameters().get(2).getType(), "String");
 	}
 	
 	@Test
-	public void testFieldWithGenerics() {
+	public void testMethodVoidReturn() {
 		IModel model = new Model();
 		IClass clazz = new Class();
-		ClassVisitor cfv = new ClassFieldVisitor(Opcodes.ASM5, clazz, model);
+		ClassVisitor cmv = new ClassMethodVisitor(Opcodes.ASM5, clazz, model);
 		
-		int access = 2;
-		String name = "testField";
-		String desc = "Ljava/lang/List;";
-		String signature = "Ljava/util/List<Lsrc/problem/components/IClass;>;";
-		Object value = null;
+		int access = 4;
+		String name = "testMethod";
+		String desc = "(LintegrationTests/TestClassThree;ILjava/lang/String;)V";
+		String signature = null;
+		String[] exceptions = null;
 		
-		cfv.visitField(access, name, desc, signature, value);
-		assertEquals(clazz.getFields().size(), 1);
-		IField addedField = clazz.getFields().get(0);
-		assertEquals(addedField.getName(), "testField");
-		assertEquals(addedField.getType(), "List<IClass>");
-		assertEquals(addedField.getVisibility(), "private");
-		assertTrue(addedField.hasGenericType());	
-		assertEquals(addedField.getGenericType(), "<IClass>");
+		cmv.visitMethod(access, name, desc, signature, exceptions);
+		assertEquals(clazz.getMethods().size(), 1);
+		IMethod addedMethod = clazz.getMethods().get(0);
+		assertEquals(addedMethod.getName(), "testMethod");
+		assertEquals(addedMethod.getReturnType(), "void");
+		assertEquals(addedMethod.getVisibility(), "protected");
+		assertEquals(addedMethod.getParameters().size(), 3);
+		assertEquals(addedMethod.getParameters().get(0).getType(), "TestClassThree");
+		assertEquals(addedMethod.getParameters().get(1).getType(), "int");
+		assertEquals(addedMethod.getParameters().get(2).getType(), "String");
 	}
 
 }

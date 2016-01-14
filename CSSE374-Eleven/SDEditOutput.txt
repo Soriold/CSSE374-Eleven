@@ -1,0 +1,33 @@
+Random:Random
+List:List
+Collections:Collections
+ListIterator:ListIterator
+
+Collections:void=Random.create()
+Collections:void=Collections.shuffle(List Random )
+Collections:void=Random.create()
+Collections:void=Collections.shuffle(List Random )
+Collections:int=List.size()
+Collections:int=Random.nextInt(I )
+Collections:void=Collections.swap(List I I )
+Collections:Object=List.toArray()
+Collections:int=Random.nextInt(I )
+Collections:void=Collections.swap(Object I I )
+Collections:ListIterator=List.listIterator()
+Collections:Object=ListIterator.next()
+Collections:void=ListIterator.set(Object )
+Collections:int=List.size()
+Collections:int=Random.nextInt(I )
+Collections:void=Collections.swap(List I I )
+Collections:Object=List.get(I )
+Collections:Object=List.set(I Object )
+Collections:Object=List.set(I Object )
+Collections:Object=List.toArray()
+Collections:int=Random.nextInt(I )
+Collections:void=Collections.swap(Object I I )
+Collections:Object=List.get(I )
+Collections:Object=List.set(I Object )
+Collections:Object=List.set(I Object )
+Collections:ListIterator=List.listIterator()
+Collections:Object=ListIterator.next()
+Collections:void=ListIterator.set(Object )

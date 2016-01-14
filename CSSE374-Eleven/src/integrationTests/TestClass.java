@@ -1,5 +1,6 @@
 package integrationTests;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TestClass {
@@ -25,6 +26,7 @@ public class TestClass {
 	}
 	
 	public String testGetStringField() {
+		TestClassTwo tct = new TestClassTwo();
 		return testStringField;
 	}
 	
@@ -34,5 +36,9 @@ public class TestClass {
 	
 	public void testUsesArg(TestSuperClass tsc) {
 		
+	}
+	
+	public ArrayList<String> method() {
+		return new ArrayList<String>();
 	}
 }

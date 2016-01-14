@@ -25,4 +25,6 @@ public interface IMethodCall {
 	
 	public void addSourceParameter(String p);
 	public void addDestParameter(String p);
+	
+	public void setDestReturnType(String t);
 }
