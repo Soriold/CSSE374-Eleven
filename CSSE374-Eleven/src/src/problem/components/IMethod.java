@@ -26,4 +26,7 @@ public interface IMethod extends ITraverser {
 
 	public void addParameter(IParameter parameter);
 
+	public List<IMethod> getMethodCalls();
+	
+	public void addMethodCall(IMethod method);
 }

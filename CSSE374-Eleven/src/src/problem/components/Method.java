@@ -13,6 +13,7 @@ public class Method implements IMethod {
 	private String visibility;
 	private List<String> modifiers;
 	private List<IParameter> parameters;
+	private List<IMethod> methodCalls;
 
 	public Method() {
 		this.modifiers = new ArrayList<String>();
@@ -67,6 +68,16 @@ public class Method implements IMethod {
 	@Override
 	public void addParameter(IParameter parameter) {
 		this.parameters.add(parameter);
+	}
+	
+	@Override
+	public List<IMethod> getMethodCalls() {
+		return this.methodCalls;
+	}
+	
+	@Override
+	public void addMethodCall(IMethod method) {
+		this.methodCalls.add(method);
 	}
 
 //	@Override
