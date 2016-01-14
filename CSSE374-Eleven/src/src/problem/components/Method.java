@@ -130,4 +130,25 @@ public class Method implements IMethod {
 		v.postVisit(this);
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Method other = (Method) obj;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name)) {
+			return false;
+		} else if (!parameters.equals(other.parameters)) {
+			return false;
+		} else if (!returnType.equals(other.returnType)) {
+			return false;
+		return true;
+	}
+
 }
