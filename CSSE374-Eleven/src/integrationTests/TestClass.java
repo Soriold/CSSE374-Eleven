@@ -26,6 +26,7 @@ public class TestClass {
 	}
 	
 	public String testGetStringField() {
+		TestClassTwo tct = new TestClassTwo();
 		return testStringField;
 	}
 	

@@ -22,6 +22,7 @@ public class MethodBodyVisitor extends MethodVisitor {
 	
 	@Override
 	public void visitMethodInsn(int opcode, String owner, String name, String desc, boolean itf) {
+		System.out.println("DESCRIPTION: "+ desc);
 		String classname = this.clazz.getName();
 		owner = simplifyClassName(owner);
 		MethodCall mc = new MethodCall(classname, this.method.getName(), owner, name);
