@@ -32,6 +32,7 @@ public class ClassMethodVisitor extends ClassVisitor {
 		// pass it to the methods below
 		IMethod method = new Method();
 		method.setName(name);
+		method.setOwner(this.clazz.getName());
 		
 		addAccessLevel(access, method);
 		addReturnType(desc, method);

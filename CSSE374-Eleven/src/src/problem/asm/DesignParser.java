@@ -9,6 +9,7 @@ import org.objectweb.asm.Opcodes;
 import src.problem.components.*;
 import src.problem.components.Class;
 import src.problem.outputvisitor.GraphVizOutputStream;
+import src.problem.outputvisitor.SDEditOutputStream;
 
 public class DesignParser {
 	/**
@@ -23,7 +24,8 @@ public class DesignParser {
 	public static void main(String[] args) throws IOException {
 		Model model = new Model();
 		GraphVizOutputStream gvos = new GraphVizOutputStream(new FileOutputStream("result.txt"));
-
+		SDEditOutputStream sdeos = new SDEditOutputStream(new FileOutputStream("result2.txt"));
+		
 		// Used to generate UML for Lab 1-3 code
 		String[] m1 = new String[] { "lab1_3.AppLauncher", "lab1_3.EntryDeleteObserver", "lab1_3.EntryModifyObserver",
 				"lab1_3.HtmlCreateObserver", "lab1_3.Observer", "lab1_3.PngCreateObserver", "lab1_3.Subject",
@@ -50,8 +52,8 @@ public class DesignParser {
 			IClass clazz = parse(className, model);
 			model.addClass(clazz);
 		}
-		gvos.write(model);
-		gvos.close();
+		sdeos.write(model);
+		sdeos.close();
 	}
 
 	public static IClass parse(String args, IModel model) throws IOException {

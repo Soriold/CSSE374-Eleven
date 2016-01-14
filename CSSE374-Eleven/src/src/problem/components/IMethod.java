@@ -10,6 +10,10 @@ public interface IMethod extends ITraverser {
 	public String getName();
 
 	public void setName(String name);
+	
+	public String getOwner();
+	
+	public void setOwner(String owner);
 
 	public String getReturnType();
 

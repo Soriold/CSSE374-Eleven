@@ -23,6 +23,7 @@ public class MethodBodyVisitor extends MethodVisitor {
 		if (name.equals("<init>")) {
 			IRelation relation = new Relation(this.clazz.getName(), owner, RelationType.USES);
 			this.model.addRelation(relation);
+			this.method.addMethodCall("create", owner);
 		} else {
 			this.method.addMethodCall(name, owner);
 		}

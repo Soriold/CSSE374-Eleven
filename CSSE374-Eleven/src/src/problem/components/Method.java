@@ -10,6 +10,7 @@ import src.problem.outputvisitor.IVisitor;
 public class Method implements IMethod {
 
 	private String name;
+	private String owner;
 	private String returnType;
 	private String visibility;
 	private List<String> modifiers;
@@ -19,6 +20,7 @@ public class Method implements IMethod {
 	public Method() {
 		this.modifiers = new ArrayList<String>();
 		this.parameters = new ArrayList<IParameter>();
+		this.methodCalls = new ArrayList<Pair<String, String>>();
 	}
 
 	@Override
@@ -29,6 +31,16 @@ public class Method implements IMethod {
 	@Override
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	@Override
+	public String getOwner() {
+		return owner;
+	}
+	
+	@Override
+	public void setOwner(String owner) {
+		this.owner = owner;
 	}
 
 	@Override
