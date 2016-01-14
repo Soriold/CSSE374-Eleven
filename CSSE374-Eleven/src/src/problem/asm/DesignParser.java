@@ -39,7 +39,7 @@ public class DesignParser {
 		String [] m3 = new String[] {"src.problem.components.Model", "src.problem.components.IModel", "src.problem.components.Class", 
 				"src.problem.components.IClass", "src.problem.components.Field",  "src.problem.components.IField", 
 				"src.problem.components.Method", "src.problem.components.IMethod", "src.problem.components.Parameter", 
-				"src.problem.components.IParameter", "src.problem.components.IModel", "src.problem.components.Model", 
+				"src.problem.components.IParameter", 
 				"src.problem.components.IRelation", "src.problem.components.Relation", "src.problem.components.RelationType", 
 				"src.problem.outputvisitor.GraphVizOutputStream", "src.problem.outputvisitor.ITraverser", 
 				"src.problem.outputvisitor.IVisitMethod", "src.problem.outputvisitor.IVisitor", 

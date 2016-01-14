@@ -126,6 +126,7 @@ public class Method implements IMethod {
 			ITraverser t = (ITraverser) p;
 			t.accept(v);
 		}
+		v.visit(this);
 		v.postVisit(this);
 	}
 

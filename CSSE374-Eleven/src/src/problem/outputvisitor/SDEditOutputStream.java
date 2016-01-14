@@ -17,19 +17,21 @@ import src.problem.components.Relation;
 public class SDEditOutputStream extends FilterOutputStream {
 
 	private final IVisitor visitor;
-	private StringBuilder output;
+	private StringBuilder classDeclarations;
+	private StringBuilder methodCalls;
 
 	public SDEditOutputStream(OutputStream out) {
 		super(out);
 		this.visitor = new Visitor();
-		this.output = new StringBuilder();
+		this.classDeclarations = new StringBuilder();
+		this.methodCalls = new StringBuilder();
 		this.setupVisitors();
 	}
 
 	private void setupVisitors() {
 		this.setupVisitClass();
-		this.setupPostVisitClass();
 		this.setupVisitMethod();
+		this.setupPostVisitModel();
 	}
 	
 	private void write(String m) {
@@ -47,29 +49,30 @@ public class SDEditOutputStream extends FilterOutputStream {
 
 	private void setupVisitClass() {
 		this.visitor.addVisit(VisitType.Visit, Class.class, (ITraverser t) -> {
-			System.out.println("here");
 			Class c = (Class)t;
-			this.write(c.getName() + ":" + c.getName());
-			this.write("\n");
+			this.classDeclarations.append(c.getName() + ":" + c.getName());
+			this.classDeclarations.append("\n");
+		});
+
+	}
+
+	private void setupVisitMethod() {
+		this.visitor.addVisit(VisitType.Visit, Method.class, (ITraverser t) -> {
+			Method c = (Method) t;
+			List<Pair<String, String>> methodCalls = c.getMethodCalls();
+			for(Pair<String, String> pair : methodCalls) {
+				this.methodCalls.append(c.getOwner() + ":" + pair.getRight() + "." + pair.getLeft());
+				this.methodCalls.append("\n");
+			}
 		});
 
 	}
 	
-	private void setupPostVisitClass() {
-		this.visitor.addVisit(VisitType.Visit, Class.class, (ITraverser t) -> {
+	private void setupPostVisitModel() {
+		this.visitor.addVisit(VisitType.PostVisit, Model.class, (ITraverser t) -> {
+			this.write(this.classDeclarations.toString());
 			this.write("\n");
+			this.write(this.methodCalls.toString());
 		});
-	}
-
-	private void setupVisitMethod() {
-		this.visitor.addVisit(VisitType.PostVisit, Method.class, (ITraverser t) -> {
-			Method c = (Method) t;
-			List<Pair<String, String>> methodCalls = c.getMethodCalls();
-			for(Pair<String, String> pair : methodCalls) {
-				this.write(c.getOwner() + ":" + pair.getRight() + "." + pair.getLeft());
-				this.write("\n");
-			}
-		});
-
 	}
 }
