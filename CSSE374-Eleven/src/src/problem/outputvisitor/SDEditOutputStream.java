@@ -54,7 +54,7 @@ public class SDEditOutputStream extends FilterOutputStream {
 		String clazz = this.findClass(methodQualifier);
 		String method = this.findMethod(methodQualifier);
 		Pair<String, String> methodToSequence = new Pair<String, String>(clazz, method);
-		this.writeMethod(methodToSequence, depth);
+		this.writeMethodHelper(methodToSequence, depth - 1);
 		writeClasses();
 		this.write("\n");
 		this.write(this.methodCalls.toString());
@@ -67,21 +67,20 @@ public class SDEditOutputStream extends FilterOutputStream {
 		}
 	}
 
-	private void writeMethod(Pair<String, String> key, int depth) {
+	private void writeMethodHelper(Pair<String, String> key, int depth) {
 		this.clazzes.add(key.getLeft());
 		if(this.methodMapping.get(key) == null) {
 			return;
 		}
-		System.out.println(key);
 		for (Pair<String, String> p : this.methodMapping.get(key)) {
 			this.clazzes.add(p.getLeft());
-			if (depth == 1) {
+			if (depth <= 1) {
 				this.methodCalls.append(key.getLeft() + ":" + p.getLeft() + "." + p.getRight());
 				this.methodCalls.append("\n");
 			} else {
 				this.methodCalls.append(key.getLeft() + ":" + p.getLeft() + "." + p.getRight());
 				this.methodCalls.append("\n");
-				this.writeMethod(p, depth - 1);
+				this.writeMethodHelper(p, depth - 1);
 			}
 		}
 	}

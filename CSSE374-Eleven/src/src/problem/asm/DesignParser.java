@@ -39,20 +39,20 @@ public class DesignParser {
 		String [] m3 = new String[] {"src.problem.components.Model", "src.problem.components.IModel", "src.problem.components.Class", 
 				"src.problem.components.IClass", "src.problem.components.Field",  "src.problem.components.IField", 
 				"src.problem.components.Method", "src.problem.components.IMethod", "src.problem.components.Parameter", 
-				"src.problem.components.IParameter", 
+				"src.problem.components.IParameter", "src.problem.outputvisitor.SDEditOutputStream",
 				"src.problem.components.IRelation", "src.problem.components.Relation", "src.problem.components.RelationType", 
 				"src.problem.outputvisitor.GraphVizOutputStream", "src.problem.outputvisitor.ITraverser", 
 				"src.problem.outputvisitor.IVisitMethod", "src.problem.outputvisitor.IVisitor", 
 				"src.problem.outputvisitor.LookupKey", "src.problem.outputvisitor.Visitor", "src.problem.outputvisitor.VisitType"};
 		
 		
-		args = new String[]{"integrationTests.TestClass", "integrationTests.TestClassTwo"};
+		args = new String[]{"java.util.Collections", "integrationTests.TestClassTwo"};
 
-		for (String className : m3) {
+		for (String className : args) {
 			IClass clazz = parse(className, model);
 			model.addClass(clazz);
 		}
-		sdeos.writeMethod(model, "src.problem.outputvisitor.Visitor.visit()");
+		sdeos.writeMethod(model, "java.util.Collections.shuffle()", 5);
 		sdeos.close();
 		gvos.close();
 	}
