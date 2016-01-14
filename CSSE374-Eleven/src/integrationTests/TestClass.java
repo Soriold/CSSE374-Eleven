@@ -28,8 +28,8 @@ public class TestClass {
 		return testStringField;
 	}
 	
-	public TestClassTwo testUsesReturn() {
-		return new TestClassTwo();
+	public TestClassThree testUsesReturn() {
+		return new TestClassThree();
 	}
 	
 	public void testUsesArg(TestSuperClass tsc) {

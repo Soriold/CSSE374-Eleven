@@ -29,18 +29,20 @@ public class ClassDeclarationVisitor extends ClassVisitor {
 			relation = new Relation(this.clazz.getName(), superName, RelationType.EXTENDS);
 		}
 		
-		this.model.addRelation(relation);
-		for (String i : interfaces) {
-			if(i.contains("/")) {
-				String[] splitType = i.split("/");
-				i = splitType[splitType.length - 1];
-			}
-			clazz.addInterface(i);
-			relation = new Relation(this.clazz.getName(), i, RelationType.IMPLEMENTS);
-			this.model.addRelation(relation);
-		}
 		if ((access & Opcodes.ACC_INTERFACE) != 0) {
 			clazz.setIsInterface(true);
+		}
+		
+		this.model.addRelation(relation);
+		for (String i : interfaces) {
+			i = simplifyClassName(i);
+			clazz.addInterface(i);
+			if (clazz.getIsInterface()) {
+				relation = new Relation(this.clazz.getName(), i, RelationType.EXTENDS);
+			} else {
+				relation = new Relation(this.clazz.getName(), i, RelationType.IMPLEMENTS);
+			}
+			this.model.addRelation(relation);
 		}
 		
 		super.visit(version, access, name, signature, superName, interfaces);
