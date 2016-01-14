@@ -15,12 +15,12 @@ public class Method implements IMethod {
 	private String visibility;
 	private List<String> modifiers;
 	private List<IParameter> parameters;
-	private List<Pair<IClass,IMethod>> methodCalls;
+	private List<Pair<String,String>> methodCalls;
 
 	public Method() {
 		this.modifiers = new ArrayList<String>();
 		this.parameters = new ArrayList<IParameter>();
-		this.methodCalls = new ArrayList<Pair<IClass, IMethod>>();
+		this.methodCalls = new ArrayList<Pair<String, String>>();
 	}
 
 	@Override
@@ -84,13 +84,13 @@ public class Method implements IMethod {
 	}
 	
 	@Override
-	public List<Pair<IClass, IMethod>> getMethodCalls() {
+	public List<Pair<String, String>> getMethodCalls() {
 		return this.methodCalls;
 	}
 	
 	@Override
-	public void addMethodCall(IClass clazz, IMethod method) {
-		this.methodCalls.add(new Pair<IClass, IMethod>(clazz, method));
+	public void addMethodCall(String method, String clazz) {
+		this.methodCalls.add(new Pair<String, String>(method, clazz));
 	}
 
 //	@Override
