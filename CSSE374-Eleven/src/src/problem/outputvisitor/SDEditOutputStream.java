@@ -20,6 +20,7 @@ public class SDEditOutputStream extends FilterOutputStream {
 	private StringBuilder classDeclarations;
 	private StringBuilder methodCalls;
 	private Set<String> methods;
+	private Set<String> clazzes;
 	private HashMap<Pair<String, String>, ArrayList<Pair<String, String>>> methodMapping;
 	private String clazz;
 
@@ -29,6 +30,7 @@ public class SDEditOutputStream extends FilterOutputStream {
 		this.classDeclarations = new StringBuilder();
 		this.methodCalls = new StringBuilder();
 		this.methods = new HashSet<String>();
+		this.clazzes = new HashSet<String>();
 		this.methodMapping = new HashMap<>();
 		this.setupVisitors();
 	}
@@ -52,21 +54,33 @@ public class SDEditOutputStream extends FilterOutputStream {
 		String clazz = this.findClass(methodQualifier);
 		String method = this.findMethod(methodQualifier);
 		Pair<String, String> methodToSequence = new Pair<String, String>(clazz, method);
-		this.writeMethod(methodToSequence, depth);
-		this.write(this.classDeclarations.toString());
+		this.writeMethodHelper(methodToSequence, depth - 1);
+		writeClasses();
 		this.write("\n");
 		this.write(this.methodCalls.toString());
 	}
 
-	private void writeMethod(Pair<String, String> key, int depth) {
+	private void writeClasses() {
+		for(String c : this.clazzes) {
+			this.write(c + ":" + c);
+			this.write("\n");
+		}
+	}
+
+	private void writeMethodHelper(Pair<String, String> key, int depth) {
+		this.clazzes.add(key.getLeft());
+		if(this.methodMapping.get(key) == null) {
+			return;
+		}
 		for (Pair<String, String> p : this.methodMapping.get(key)) {
-			if (depth == 1) {
-				this.methodCalls.append(key.getRight() + ":" + p.getLeft() + "." + p.getRight());
+			this.clazzes.add(p.getLeft());
+			if (depth <= 1) {
+				this.methodCalls.append(key.getLeft() + ":" + p.getLeft() + "." + p.getRight());
 				this.methodCalls.append("\n");
 			} else {
-				this.methodCalls.append(key.getRight() + ":" + p.getLeft() + "." + p.getRight());
+				this.methodCalls.append(key.getLeft() + ":" + p.getLeft() + "." + p.getRight());
 				this.methodCalls.append("\n");
-				this.writeMethod(p, depth - 1);
+				this.writeMethodHelper(p, depth - 1);
 			}
 		}
 	}
@@ -74,7 +88,7 @@ public class SDEditOutputStream extends FilterOutputStream {
 	private String findMethod(String methodQualifier) {
 		String[] splits = methodQualifier.split("\\.");
 		String ret = splits[splits.length - 1];
-		ret = ret.substring(ret.indexOf('('));
+		ret = ret.substring(0, ret.indexOf('('));
 		return ret;
 	}
 
@@ -125,6 +139,7 @@ public class SDEditOutputStream extends FilterOutputStream {
 		if (this.methodMapping.containsKey(key)) {
 			ArrayList<Pair<String, String>> toInsert = this.methodMapping.get(key);
 			toInsert.add(value);
+			this.methodMapping.remove(key);
 			this.methodMapping.put(key, toInsert);
 		} else {
 			ArrayList<Pair<String, String>> toInsert = new ArrayList<>();
