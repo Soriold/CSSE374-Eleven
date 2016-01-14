@@ -45,7 +45,7 @@ public class GraphVizOutputStream extends FilterOutputStream {
 		}
 	}
 	
-	public void write(Model m) {
+	public void write(IModel m) {
 		ITraverser t = (ITraverser) m;
 		t.accept(this.visitor);
 	}
@@ -186,7 +186,7 @@ public class GraphVizOutputStream extends FilterOutputStream {
 			Parameter c = (Parameter) t;
 			String mod = c.getType().toString().replace("<", "\\<");
 			mod = mod.replace(">", "\\>");
-			this.write(mod);
+			this.write(mod + " ");
 		});
 	}
 

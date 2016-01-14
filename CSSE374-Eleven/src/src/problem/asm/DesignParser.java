@@ -53,8 +53,8 @@ public class DesignParser {
 			model.addClass(clazz);
 		}
 		sdeos.writeMethod(model, "src.problem.outputvisitor.Visitor.visit()");
-		gvos.close();
 		sdeos.close();
+		gvos.close();
 	}
 
 	public static IClass parse(String args, IModel model) throws IOException {
