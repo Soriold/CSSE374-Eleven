@@ -5,6 +5,8 @@ Milestone 2 update: There was only one major design change during this Milestone
 
 Milestone 2 Refactoring update: There was only one major design change during the refactoring after our Milestone 2 meeting. Previously, each of our model components had implemented a IGraphVizComponent interface and had a toGraphViz() method that generated the special text output for that component. After ASM parsing, our model would iterate over all of its components and gradually build this special GraphViz text output. Instead of doing this, we updated our design to use a visitor pattern to visit each model component and generate the GraphViz text output. Switching to this visitor pattern will make it much easier to generate new, different types of output in the future; we can reuse the same visitor design that is already in place.
 
+![alt tag](https://raw.github.com/username/projectname/branch/path/to/img.png)
+
 # Responsibilities:
 Ben Kimmel - Wrote ASM parsing and GraphViz text output code with Tayler. Helped Tayler with creating UML diagrams. Wrote return type and parameter Uses edge code.
 
