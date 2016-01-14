@@ -31,7 +31,7 @@ public class DesignParser {
 		Model model = new Model();
 		GraphVizOutputStream gvos = new GraphVizOutputStream(new FileOutputStream("GVOuput.txt"));
 		SDEditOutputStream sdeos = new SDEditOutputStream(new FileOutputStream("SDEditOutput.txt"));
-		
+
 		Scanner scanner = new Scanner(new File(args[0]));
 		scanner.useDelimiter("\n");
 		ArrayList<String> argumentsAL = new ArrayList<String>();
@@ -39,15 +39,15 @@ public class DesignParser {
 			argumentsAL.add(scanner.next());
 		}
 		scanner.close();
-		
-		String[] arguments = new String[]{};
+
+		String[] arguments = new String[] {};
 		arguments = argumentsAL.toArray(arguments);
-		
+
 		for (String className : arguments) {
 			IClass clazz = parse(className, model);
 			model.addClass(clazz);
 		}
-		sdeos.writeMethod(model, "java.util.Collections.shuffle()", 5);
+		sdeos.writeMethod(model, "src.problems.outputvisitor.SDEditOutputStream.writeMethod()", 2);
 		sdeos.close();
 		gvos.close();
 	}

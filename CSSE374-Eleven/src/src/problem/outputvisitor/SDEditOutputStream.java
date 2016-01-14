@@ -11,6 +11,7 @@ import java.util.Set;
 
 import src.problem.asm.Pair;
 import src.problem.components.Class;
+import src.problem.components.IMethodCall;
 import src.problem.components.Method;
 import src.problem.components.Model;
 
@@ -22,7 +23,6 @@ public class SDEditOutputStream extends FilterOutputStream {
 	private Set<String> methods;
 	private Set<String> clazzes;
 	private HashMap<Pair<String, String>, ArrayList<Pair<String, String>>> methodMapping;
-	private String clazz;
 
 	public SDEditOutputStream(OutputStream out) {
 		super(out);
@@ -101,7 +101,7 @@ public class SDEditOutputStream extends FilterOutputStream {
 		this.writeMethod(m, methodQualifier, 5);
 	}
 
-	public void write(Model m) {
+	private void write(Model m) {
 		ITraverser t = (ITraverser) m;
 		t.accept(this.visitor);
 	}
@@ -119,9 +119,9 @@ public class SDEditOutputStream extends FilterOutputStream {
 		this.visitor.addVisit(VisitType.Visit, Method.class, (ITraverser t) -> {
 			Method c = (Method) t;
 			this.methods.add(c.getName());
-			List<Pair<String, String>> methodCalls = c.getMethodCalls();
-			for (Pair<String, String> pair : methodCalls) {
-				this.insertMapping(c.getOwner(), c.getName(), pair.getRight(), pair.getLeft());
+			List<IMethodCall> methodCalls = c.getMethodCalls();
+			for (IMethodCall mc : methodCalls) {
+				this.insertMapping(mc.getSourceClass(), mc.getSourceMethod(), mc.getDestinationClass(), mc.getDestinationMethod());
 				// if (methods.contains(pair.getLeft())) {
 				// System.out.println("here");
 				// this.methodCalls.append(c.getOwner() + ":" + pair.getRight()
