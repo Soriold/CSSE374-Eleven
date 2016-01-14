@@ -10,7 +10,7 @@ import src.problem.components.Class;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.Opcodes;
 
-public class ClassFieldVisitorUnitTests {
+public class ClassMethodVisitorUnitTests {
 	//access: 1 = public, 2 = private, 4 = protected, anything else = default
 
 	@Test
@@ -54,48 +54,6 @@ public class ClassFieldVisitorUnitTests {
 		assertEquals(addedField.getVisibility(), "private");
 		assertTrue(addedField.hasGenericType());	
 		assertEquals(addedField.getGenericType(), "<IClass>");
-	}
-	
-	@Test
-	public void testBasicAssociationRelation() {
-		IModel model = new Model();
-		IClass clazz = new Class();
-		clazz.setName("Class1");
-		ClassVisitor cfv = new ClassFieldVisitor(Opcodes.ASM5, clazz, model);
-		
-		int access = 1;
-		String name = "testField";
-		String desc = "Ljava/lang/String;";
-		String signature = null;
-		Object value = null;
-		
-		cfv.visitField(access, name, desc, signature, value);
-		assertEquals(model.getRelations().size(), 1);
-		IRelation addedRelation = model.getRelations().iterator().next();
-		assertEquals(addedRelation.getSrc(), "Class1");
-		assertEquals(addedRelation.getDest(), "String");
-		assertEquals(addedRelation.getType(), RelationType.ASSOCIATION);
-	}
-	
-	@Test
-	public void testAssociationRelationWithGenerics() {
-		IModel model = new Model();
-		IClass clazz = new Class();
-		clazz.setName("Class1");
-		ClassVisitor cfv = new ClassFieldVisitor(Opcodes.ASM5, clazz, model);
-		
-		int access = 2;
-		String name = "testField";
-		String desc = "Ljava/lang/List;";
-		String signature = "Ljava/util/List<Lsrc/problem/components/IClass;>;";
-		Object value = null;
-		
-		cfv.visitField(access, name, desc, signature, value);
-		assertEquals(model.getRelations().size(), 1);
-		IRelation addedRelation = model.getRelations().iterator().next();
-		assertEquals(addedRelation.getSrc(), "Class1");
-		assertEquals(addedRelation.getDest(), "IClass");
-		assertEquals(addedRelation.getType(), RelationType.ASSOCIATION);
 	}
 
 }
