@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import src.problem.asm.ClassFieldVisitor;
+import src.problem.asm.ClassMethodVisitor;
 import src.problem.components.*;
 import src.problem.components.Class;
 import org.objectweb.asm.ClassVisitor;
@@ -17,15 +18,15 @@ public class ClassMethodVisitorUnitTests {
 	public void testBasicField() {
 		IModel model = new Model();
 		IClass clazz = new Class();
-		ClassVisitor cfv = new ClassFieldVisitor(Opcodes.ASM5, clazz, model);
+		ClassVisitor cmv = new ClassMethodVisitor(Opcodes.ASM5, clazz, model);
 		
 		int access = 1;
 		String name = "testField";
 		String desc = "Ljava/lang/String;";
 		String signature = null;
-		Object value = null;
+		String[] value = null;
 		
-		cfv.visitField(access, name, desc, signature, value);
+		cmv.visitMethod(access, name, desc, signature, value);
 		assertEquals(clazz.getFields().size(), 1);
 		IField addedField = clazz.getFields().get(0);
 		assertEquals(addedField.getName(), "testField");

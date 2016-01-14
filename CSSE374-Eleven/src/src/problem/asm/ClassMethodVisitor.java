@@ -26,7 +26,10 @@ public class ClassMethodVisitor extends ClassVisitor {
 
 	@Override
 	public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
-		System.out.println(signature);
+		System.out.println("access " + access);
+		System.out.println("name " + name);
+		System.out.println("desc " + desc);
+		System.out.println("sig " + signature);
 		MethodVisitor toDecorate = super.visitMethod(access, name, desc, signature, exceptions);
 		//System.out.println("method " + name);
 		// DONE: create an internal representation of the current method and
