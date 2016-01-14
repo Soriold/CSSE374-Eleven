@@ -29,7 +29,7 @@ public class DesignParser {
 	 */
 	public static void main(String[] args) throws IOException {
 		Model model = new Model();
-		GraphVizOutputStream gvos = new GraphVizOutputStream(new FileOutputStream("GVOuput.txt"));
+		GraphVizOutputStream gvos = new GraphVizOutputStream(new FileOutputStream("GVOutput.txt"));
 		SDEditOutputStream sdeos = new SDEditOutputStream(new FileOutputStream("SDEditOutput.txt"));
 
 		Scanner scanner = new Scanner(new File("DPconfig.txt"));
@@ -47,6 +47,7 @@ public class DesignParser {
 			IClass clazz = parse(className, model);
 			model.addClass(clazz);
 		}
+		gvos.write(model);
 		sdeos.writeMethod(model, "java.util.Collections.shuffle(List<T> list)", 2);
 		sdeos.close();
 		gvos.close();
