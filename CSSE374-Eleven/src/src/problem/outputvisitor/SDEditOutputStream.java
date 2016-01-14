@@ -3,33 +3,35 @@ package src.problem.outputvisitor;
 import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import src.problem.asm.Pair;
 import src.problem.components.Class;
-import src.problem.components.Field;
-import src.problem.components.IModel;
 import src.problem.components.Method;
 import src.problem.components.Model;
-import src.problem.components.Parameter;
-import src.problem.components.Relation;
 
 public class SDEditOutputStream extends FilterOutputStream {
 
 	private final IVisitor visitor;
-	private StringBuilder output;
+	private StringBuilder classDeclarations;
+	private StringBuilder methodCalls;
+	private Set<String> methods;
 
 	public SDEditOutputStream(OutputStream out) {
 		super(out);
 		this.visitor = new Visitor();
-		this.output = new StringBuilder();
+		this.classDeclarations = new StringBuilder();
+		this.methodCalls = new StringBuilder();
+		this.methods = new HashSet<String>();
 		this.setupVisitors();
 	}
 
 	private void setupVisitors() {
 		this.setupVisitClass();
-		this.setupPostVisitClass();
 		this.setupVisitMethod();
+		this.setupPostVisitModel();
 	}
 	
 	private void write(String m) {
@@ -47,29 +49,34 @@ public class SDEditOutputStream extends FilterOutputStream {
 
 	private void setupVisitClass() {
 		this.visitor.addVisit(VisitType.Visit, Class.class, (ITraverser t) -> {
-			System.out.println("here");
 			Class c = (Class)t;
-			this.write(c.getName() + ":" + c.getName());
-			this.write("\n");
+			this.classDeclarations.append(c.getName() + ":" + c.getName());
+			this.classDeclarations.append("\n");
+		});
+
+	}
+
+	private void setupVisitMethod() {
+		this.visitor.addVisit(VisitType.Visit, Method.class, (ITraverser t) -> {
+			Method c = (Method) t;
+			this.methods.add(c.getName());
+			List<Pair<String, String>> methodCalls = c.getMethodCalls();
+			for(Pair<String, String> pair : methodCalls) {
+				if(methods.contains(pair.getLeft())) {
+					System.out.println("here");
+					this.methodCalls.append(c.getOwner() + ":" + pair.getRight() + "." + pair.getLeft());
+					this.methodCalls.append("\n");
+				}
+			}
 		});
 
 	}
 	
-	private void setupPostVisitClass() {
-		this.visitor.addVisit(VisitType.Visit, Class.class, (ITraverser t) -> {
+	private void setupPostVisitModel() {
+		this.visitor.addVisit(VisitType.PostVisit, Model.class, (ITraverser t) -> {
+			this.write(this.classDeclarations.toString());
 			this.write("\n");
+			this.write(this.methodCalls.toString());
 		});
-	}
-
-	private void setupVisitMethod() {
-		this.visitor.addVisit(VisitType.PostVisit, Method.class, (ITraverser t) -> {
-			Method c = (Method) t;
-			List<Pair<String, String>> methodCalls = c.getMethodCalls();
-			for(Pair<String, String> pair : methodCalls) {
-				this.write(c.getOwner() + ":" + pair.getRight() + "." + pair.getLeft());
-				this.write("\n");
-			}
-		});
-
 	}
 }

@@ -24,5 +24,19 @@ public class Parameter implements IParameter {
 	public void accept(IVisitor v) {
 		v.visit(this);
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Parameter other = (Parameter) obj;
+		if (!type.equals(other.type))
+			return false;
+		return true;
+	}
 
 }

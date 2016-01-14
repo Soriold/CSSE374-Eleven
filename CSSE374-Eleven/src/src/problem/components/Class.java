@@ -83,6 +83,12 @@ public class Class implements IClass {
 	}
 
 	@Override
+	public boolean equals(Object obj) {
+		IClass c = (Class)obj;
+		return this.name.equals(c.getName());
+	}
+
+	@Override
 	public void accept(IVisitor v) {
 		v.preVisit(this);
 		for(IField f : this.fields) {
