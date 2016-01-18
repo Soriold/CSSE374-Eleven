@@ -1,1 +1,3 @@
-java.util.Collections
+integrationTests.TestClass
+integrationTests.TestClassTwo
+integrationTests.TestClassThree

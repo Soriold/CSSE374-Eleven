@@ -41,4 +41,15 @@ public class TestClass {
 	public ArrayList<String> method() {
 		return new ArrayList<String>();
 	}
+	
+	public void methodDepth0() {
+		TestClassTwo tc2 = new TestClassTwo();
+		int tempInt = tc2.methodDepth1();
+	}
+	
+	public String methodDepth4(String s) {
+		TestClassTwo tc2 = new TestClassTwo();
+		tc2.methodDepth5();
+		return "yay!";
+	}
 }

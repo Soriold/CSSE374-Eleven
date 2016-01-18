@@ -9,5 +9,15 @@ public class TestClassTwo {
 		TestSuperClass sub = new TestSubClass();
 		return sub;
 	}
+	
+	public int methodDepth1() {
+		TestClassThree tc3 = new TestClassThree();
+		tc3.methodDepth2();
+		return 5;
+	}
+	
+	public void methodDepth5() {
+		return;
+	}
 
 }

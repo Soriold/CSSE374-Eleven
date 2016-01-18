@@ -1,16 +1,8 @@
-Random:Random
-List:List
-Collections:Collections
-ListIterator:ListIterator
+TestClassTwo:TestClassTwo
+TestClassThree:TestClassThree
+TestClass:TestClass
 
-Collections:void=Random.create()
-Collections:void=Collections.shuffle(List Random )
-Collections:int=List.size()
-Collections:int=Random.nextInt(I )
-Collections:void=Collections.swap(List I I )
-Collections:Object=List.toArray()
-Collections:int=Random.nextInt(I )
-Collections:void=Collections.swap(Object I I )
-Collections:ListIterator=List.listIterator()
-Collections:Object=ListIterator.next()
-Collections:void=ListIterator.set(Object )
+TestClass:void=TestClassTwo.create()
+TestClass:int=TestClassTwo.methodDepth1()
+TestClassTwo:void=TestClassThree.create()
+TestClassTwo:void=TestClassThree.methodDepth2()

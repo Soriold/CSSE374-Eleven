@@ -1,99 +1,39 @@
 digraph G {fontname = "Bitstream Vera Sans" fontsize = 8
-node [fontname ="Bitstream Vera Sans" fontsize = 8 shape = "record"] edge [fontname = "Bitstream Vera Sans" fontsize = 8]Collections [label = "{Collections|- BINARYSEARCH_THRESHOLD : int\l
-- REVERSE_THRESHOLD : int\l
-- SHUFFLE_THRESHOLD : int\l
-- FILL_THRESHOLD : int\l
-- ROTATE_THRESHOLD : int\l
-- COPY_THRESHOLD : int\l
-- REPLACEALL_THRESHOLD : int\l
-- INDEXOFSUBLIST_THRESHOLD : int\l
-- r : Random\l
-+ EMPTY_SET : Set\l
-+ EMPTY_LIST : List\l
-+ EMPTY_MAP : Map\l
-|- \<init\>() : void\l
-+ sort(List ) : void\l
-+ sort(List Comparator ) : void\l
-+ binarySearch(List Object ) : int\l
-- indexedBinarySearch(List Object ) : int\l
-- iteratorBinarySearch(List Object ) : int\l
-- get(ListIterator int ) : Object\l
-+ binarySearch(List Object Comparator ) : int\l
-- indexedBinarySearch(List Object Comparator ) : int\l
-- iteratorBinarySearch(List Object Comparator ) : int\l
-+ reverse(List ) : void\l
-+ shuffle(List ) : void\l
-+ shuffle(List Random ) : void\l
-+ swap(List int int ) : void\l
-- swap(Object[] int int ) : void\l
-+ fill(List Object ) : void\l
-+ copy(List List ) : void\l
-+ min(Collection ) : Object\l
-+ min(Collection Comparator ) : Object\l
-+ max(Collection ) : Object\l
-+ max(Collection Comparator ) : Object\l
-+ rotate(List int ) : void\l
-- rotate1(List int ) : void\l
-- rotate2(List int ) : void\l
-+ replaceAll(List Object Object ) : boolean\l
-+ indexOfSubList(List List ) : int\l
-+ lastIndexOfSubList(List List ) : int\l
-+ unmodifiableCollection(Collection ) : Collection\l
-+ unmodifiableSet(Set ) : Set\l
-+ unmodifiableSortedSet(SortedSet ) : SortedSet\l
-+ unmodifiableNavigableSet(NavigableSet ) : NavigableSet\l
-+ unmodifiableList(List ) : List\l
-+ unmodifiableMap(Map ) : Map\l
-+ unmodifiableSortedMap(SortedMap ) : SortedMap\l
-+ unmodifiableNavigableMap(NavigableMap ) : NavigableMap\l
-+ synchronizedCollection(Collection ) : Collection\l
-synchronizedCollection(Collection Object ) : Collection\l
-+ synchronizedSet(Set ) : Set\l
-synchronizedSet(Set Object ) : Set\l
-+ synchronizedSortedSet(SortedSet ) : SortedSet\l
-+ synchronizedNavigableSet(NavigableSet ) : NavigableSet\l
-+ synchronizedList(List ) : List\l
-synchronizedList(List Object ) : List\l
-+ synchronizedMap(Map ) : Map\l
-+ synchronizedSortedMap(SortedMap ) : SortedMap\l
-+ synchronizedNavigableMap(NavigableMap ) : NavigableMap\l
-+ checkedCollection(Collection Class ) : Collection\l
-zeroLengthArray(Class ) : Object[]\l
-+ checkedQueue(Queue Class ) : Queue\l
-+ checkedSet(Set Class ) : Set\l
-+ checkedSortedSet(SortedSet Class ) : SortedSet\l
-+ checkedNavigableSet(NavigableSet Class ) : NavigableSet\l
-+ checkedList(List Class ) : List\l
-+ checkedMap(Map Class Class ) : Map\l
-+ checkedSortedMap(SortedMap Class Class ) : SortedMap\l
-+ checkedNavigableMap(NavigableMap Class Class ) : NavigableMap\l
-+ emptyIterator() : Iterator\l
-+ emptyListIterator() : ListIterator\l
-+ emptyEnumeration() : Enumeration\l
-+ emptySet() : Set\l
-+ emptySortedSet() : SortedSet\l
-+ emptyNavigableSet() : NavigableSet\l
-+ emptyList() : List\l
-+ emptyMap() : Map\l
-+ emptySortedMap() : SortedMap\l
-+ emptyNavigableMap() : NavigableMap\l
-+ singleton(Object ) : Set\l
-singletonIterator(Object ) : Iterator\l
-singletonSpliterator(Object ) : Spliterator\l
-+ singletonList(Object ) : List\l
-+ singletonMap(Object Object ) : Map\l
-+ nCopies(int Object ) : List\l
-+ reverseOrder() : Comparator\l
-+ reverseOrder(Comparator ) : Comparator\l
-+ enumeration(Collection ) : Enumeration\l
-+ list(Enumeration ) : ArrayList\l
-eq(Object Object ) : boolean\l
-+ frequency(Collection Object ) : int\l
-+ disjoint(Collection Collection ) : boolean\l
-+ addAll(Collection Object[] ) : boolean\l
-+ newSetFromMap(Map ) : Set\l
-+ asLifoQueue(Deque ) : Queue\l
-\<clinit\>() : void\l
+node [fontname ="Bitstream Vera Sans" fontsize = 8 shape = "record"] edge [fontname = "Bitstream Vera Sans" fontsize = 8]TestClass [label = "{TestClass|- testStringField : String\l
+- testIntField : int[]\l
++ testListField : List\<String\>\l
+# testClassTwo : TestClassTwo\l
+|+ \<init\>() : void\l
+- testPrivateMethod(int ) : void\l
+# testProtectedMethod(int double ) : void\l
++ testPublicMethod(String ) : void\l
++ testGetIntField() : int[]\l
++ testGetStringField() : String\l
++ testUsesReturn() : TestClassThree\l
++ testUsesArg(TestSuperClass ) : void\l
++ method() : ArrayList\l
++ methodDepth0() : void\l
++ methodDepth4(String ) : String\l
 }"]
+TestClassTwo [label = "{TestClassTwo|- testClasses : ArrayList\<TestClass\>\l
+|+ \<init\>() : void\l
++ testUsesEdgeCase() : TestSuperClass\l
++ methodDepth1() : int\l
++ methodDepth5() : void\l
+}"]
+TestClassThree [label = "{TestClassThree||+ \<init\>() : void\l
++ methodDepth2() : void\l
++ methodDepth3() : void\l
+}"]
+edge [ arrowhead = "vee" style = "dashed" ]
+TestClassTwo -> TestClassThree
+edge [ arrowhead = "vee" style = "solid" ]
+TestClass -> TestClassTwo
+edge [ arrowhead = "vee" style = "solid" ]
+TestClassTwo -> TestClass
+edge [ arrowhead = "vee" style = "dashed" ]
+TestClass -> TestClassThree
+edge [ arrowhead = "vee" style = "dashed" ]
+TestClassThree -> TestClass
 
 }
