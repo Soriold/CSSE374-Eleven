@@ -32,7 +32,7 @@ public class DesignParser {
 		GraphVizOutputStream gvos = new GraphVizOutputStream(new FileOutputStream("GVOutput.txt"));
 		SDEditOutputStream sdeos = new SDEditOutputStream(new FileOutputStream("SDEditOutput.txt"));
 
-		Scanner scanner = new Scanner(new File("DPconfig.txt"));
+		Scanner scanner = new Scanner(new File("pizzaArgs.txt"));
 		scanner.useDelimiter("\r\n");
 		ArrayList<String> argumentsAL = new ArrayList<String>();
 		while (scanner.hasNext()) {
