@@ -1,4 +1,4 @@
-package src.problem.outputvisitor;
+ package src.problem.outputvisitor;
 
 import java.io.FilterOutputStream;
 import java.io.IOException;

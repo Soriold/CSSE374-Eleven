@@ -70,7 +70,11 @@ public class GraphVizOutputStream extends FilterOutputStream {
 			Class c = (Class) t;
 			StringBuilder ret = new StringBuilder();
 			ret.append(c.getName());
-			ret.append(" [label = \"{");
+			ret.append("[");
+			if(c.getPattern() == PatternType.SINGLETON) {
+				ret.append("color=blue");
+			}
+			ret.append(" label = \"{");
 			if (c.getIsInterface()) {
 				ret.append("\\<\\<interface\\>\\>");
 				ret.append("\\n");
@@ -87,9 +91,9 @@ public class GraphVizOutputStream extends FilterOutputStream {
 	private String getPattern(PatternType pattern) {
 		switch (pattern) {
 		case NONE:
-			return "NOTHING HERE";
+			return "";
 		case SINGLETON:
-			return "\\<\\<Singleton\\>\\>";
+			return "\\n\\<\\<Singleton\\>\\>";
 		default:
 			return "";
 		}

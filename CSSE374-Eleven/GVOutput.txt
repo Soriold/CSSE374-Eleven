@@ -1,5 +1,5 @@
 digraph G {fontname = "Bitstream Vera Sans" fontsize = 8
-node [fontname ="Bitstream Vera Sans" fontsize = 8 shape = "record"] edge [fontname = "Bitstream Vera Sans" fontsize = 8]ChocolateBoiler [label = "{\<\<Singleton\>\>ChocolateBoiler|- empty : boolean\l
+node [fontname ="Bitstream Vera Sans" fontsize = 8 shape = "record"] edge [fontname = "Bitstream Vera Sans" fontsize = 8]ChocolateBoiler[color=blue label = "{ChocolateBoiler\n\<\<Singleton\>\>|- empty : boolean\l
 - boiled : boolean\l
 - uniqueInstance : ChocolateBoiler\l
 |- \<init\>() : void\l
@@ -10,7 +10,7 @@ node [fontname ="Bitstream Vera Sans" fontsize = 8 shape = "record"] edge [fontn
 + isEmpty() : boolean\l
 + isBoiled() : boolean\l
 }"]
-ChocolateController [label = "{NOTHING HEREChocolateController||+ \<init\>() : void\l
+ChocolateController[ label = "{ChocolateController||+ \<init\>() : void\l
 + main(String[] ) : void\l
 }"]
 edge [ arrowhead = "vee" style = "solid" ]

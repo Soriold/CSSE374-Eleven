@@ -49,7 +49,7 @@ public class DesignParser {
 //			System.out.println(clazz.getName());
 		}
 		gvos.write(model);
-		sdeos.writeMethod(model, "java.util.Collections.shuffle(List<T> list)", 3);
+		//sdeos.writeMethod(model, "java.util.Collections.shuffle(List<T> list)", 3);
 		sdeos.close();
 		gvos.close();
 	}

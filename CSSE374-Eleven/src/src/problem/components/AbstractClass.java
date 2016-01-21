@@ -5,7 +5,7 @@ import java.util.List;
 
 import src.problem.outputvisitor.ITraverser;
 import src.problem.outputvisitor.IVisitor;
-import src.problempatternrecognition.PatternRecognizer;
+import src.problem.patternrecognition.PatternRecognizer;
 
 public abstract class AbstractClass implements IClass {
 
