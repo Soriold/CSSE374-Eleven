@@ -141,6 +141,7 @@ public class Method implements IMethod, Comparable<Method> {
 
 	@Override
 	public boolean equals(Object obj) {
+		//System.out.println("comparing methods via .equals()");
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -168,7 +169,17 @@ public class Method implements IMethod, Comparable<Method> {
 
 	@Override
 	public int compareTo(Method o) {
-		return this.name.compareTo(o.getName());
+		int names = this.name.compareTo(o.name);
+		if (names != 0) return names;
+		else {
+			int owner = this.owner.compareTo(o.owner);
+			if (owner != 0) return owner;
+			else {
+				if (this.parameters.size() < o.parameters.size()) return -1;
+				else if (this.parameters.size() > o.parameters.size()) return 1;
+				else return 0;
+			}
+		}
 	}
 
 	

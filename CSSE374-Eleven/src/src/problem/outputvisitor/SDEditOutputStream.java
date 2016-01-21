@@ -54,8 +54,9 @@ public class SDEditOutputStream extends FilterOutputStream {
 	public void writeMethod(Model m, String methodQualifier, int depth) {
 		this.write(m);
 		IMethod methodToSequence = findMethod(methodQualifier);
+		//System.out.println("Accessing methods TreeMap");
 		methodToSequence = this.methods.get(methodToSequence);
-		this.writeMethodHelper(methodToSequence, depth - 1);
+		this.writeMethodHelper(methodToSequence, depth);
 		writeClasses();
 		this.write("\n");
 		this.write(this.methodCalls.toString());
@@ -78,9 +79,12 @@ public class SDEditOutputStream extends FilterOutputStream {
 		params = params.replace("(", newChar).replace(",", newChar).replace(")", newChar);
 		String[] paramArray = params.split(" ");
 		for(int i = 0; i < paramArray.length; i += 2) {
-			IParameter p = new Parameter();
-			p.setType(paramArray[i].trim());
-			ret.add(p);
+			if (!paramArray[i].trim().equals("")) {
+				IParameter p = new Parameter();
+				//System.out.println("user input params: " + paramArray[i] + "blah");
+				p.setType(paramArray[i].trim());
+				ret.add(p);
+			}
 		}
 		//System.out.println(methodSignature + "-->>>" + ret.toString());
 		return ret;
@@ -94,7 +98,7 @@ public class SDEditOutputStream extends FilterOutputStream {
 	}
 
 	private void writeMethodHelper(IMethod key, int depth) {
-		//FIXME:NP exception on key??
+		//System.out.println("***parsing body of: " + key.getName() + "(" + key.getParameters().toString()+")*** at depth: "+depth);
 		this.clazzes.add(key.getOwner());
 		if(this.methodMapping.get(key) == null) {
 			//System.out.println(key.getOwner() + "."+ key.getName() + " body is empty");
@@ -108,6 +112,8 @@ public class SDEditOutputStream extends FilterOutputStream {
 				this.makeMethodArrow(key, m);
 				if (! m.equals(key)) {
 					this.writeMethodHelper(m, depth - 1);
+				} else {
+					//System.out.println("same");
 				}
 			}
 		}
