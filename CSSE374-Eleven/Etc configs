@@ -1,0 +1,11 @@
+Etc configurations:
+
+Generate shuffle() seq:
+java.util.Collections
+
+DPconfig.txt true java.util.Collections.shuffle(List<T>) 3
+
+Generate project seq;
+*see projectArgs.txt
+
+DPconfig.txt true src.problem.outputvisitor.SDEditOutputStream.writeMethod(Model String int) 3

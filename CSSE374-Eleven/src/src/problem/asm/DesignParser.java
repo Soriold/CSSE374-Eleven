@@ -46,7 +46,9 @@ public class DesignParser {
 			model.addClass(clazz);
 		}
 		gvos.write(model);
-		sdeos.writeMethod(model, args[1], Integer.valueOf(args[2]));
+		if (Boolean.parseBoolean(args[1])) {
+			sdeos.writeMethod(model, "src.problem.outputvisitor.SDEditOutputStream.writeMethod(Model String int)", Integer.valueOf(args[3]));
+		}
 		sdeos.close();
 		gvos.close();
 	}

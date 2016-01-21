@@ -1,19 +1,514 @@
 digraph G {fontname = "Bitstream Vera Sans" fontsize = 8
-node [fontname ="Bitstream Vera Sans" fontsize = 8 shape = "record"] edge [fontname = "Bitstream Vera Sans" fontsize = 8]ChocolateBoiler[color=blue label = "{ChocolateBoiler\n\<\<Singleton\>\>|- empty : boolean\l
-- boiled : boolean\l
-- uniqueInstance : ChocolateBoiler\l
-|- \<init\>() : void\l
-+ getInstance() : ChocolateBoiler\l
-+ fill() : void\l
-+ drain() : void\l
-+ boil() : void\l
-+ isEmpty() : boolean\l
-+ isBoiled() : boolean\l
+node [fontname ="Bitstream Vera Sans" fontsize = 8 shape = "record"] edge [fontname = "Bitstream Vera Sans" fontsize = 8]ClassDeclarationVisitor[ label = "{ClassDeclarationVisitor|- clazz : IClass\l
+- model : IModel\l
+|+ \<init\>(int IClass IModel ) : void\l
++ visit(int int String String String String[] ) : void\l
+- simplifyClassName(String ) : String\l
 }"]
-ChocolateController[ label = "{ChocolateController||+ \<init\>() : void\l
+ClassFieldVisitor[ label = "{ClassFieldVisitor|- clazz : IClass\l
+- model : IModel\l
+|+ \<init\>(int IClass IModel ) : void\l
++ \<init\>(int ClassVisitor IClass IModel ) : void\l
++ visitField(int String String String Object ) : FieldVisitor\l
+- simplifyClassName(String ) : String\l
+- extractType(String ) : String\l
+}"]
+ClassMethodVisitor[ label = "{ClassMethodVisitor|- clazz : IClass\l
+- model : IModel\l
+|+ \<init\>(int IClass IModel ) : void\l
++ \<init\>(int ClassVisitor IClass IModel ) : void\l
++ visitMethod(int String String String String[] ) : MethodVisitor\l
+- addAccessLevel(int IMethod ) : void\l
+- addReturnType(String IMethod ) : void\l
+- addArguments(String IMethod ) : void\l
+- simplifyClassName(String ) : String\l
+}"]
+MethodBodyVisitor[ label = "{MethodBodyVisitor|- clazz : IClass\l
+- model : IModel\l
+- method : IMethod\l
+|+ \<init\>(int MethodVisitor IClass IModel IMethod ) : void\l
++ visitMethodInsn(int String String String boolean ) : void\l
+- simplifyClassName(String ) : String\l
+- getReturnType(String ) : String\l
+}"]
+DesignParser[ label = "{DesignParser||+ \<init\>() : void\l
 + main(String[] ) : void\l
++ parse(String IModel ) : IClass\l
+}"]
+Model[ label = "{Model|- classes : List\<IClass\>\l
+- relations : Set\<IRelation\>\l
+|+ \<init\>() : void\l
++ addClass(IClass ) : void\l
++ getClasses() : List\l
+- getClassNames() : ArrayList\l
++ getRelations() : Set\l
++ addRelation(IRelation ) : void\l
++ accept(IVisitor ) : void\l
+}"]
+IModel[ label = "{\<\<interface\>\>\nIModel||+ getClasses() : List\l
++ getRelations() : Set\l
++ addClass(IClass ) : void\l
++ addRelation(IRelation ) : void\l
+}"]
+Class[ label = "{Class|- name : String\l
+- fields : List\<IField\>\l
+- methods : List\<IMethod\>\l
+- isInterface : boolean\l
+- interfaces : List\<String\>\l
+- superClass : String\l
+- pattern : PatternType\l
+|+ \<init\>() : void\l
++ getName() : String\l
++ getFields() : List\l
++ getMethods() : List\l
++ setName(String ) : void\l
++ addField(IField ) : void\l
++ addMethod(IMethod ) : void\l
++ getInterfaces() : List\l
++ addInterface(String ) : void\l
++ getSuperClass() : String\l
++ setSuperClass(String ) : void\l
++ getIsInterface() : boolean\l
++ setIsInterface(boolean ) : void\l
++ equals(Object ) : boolean\l
++ accept(IVisitor ) : void\l
++ getPattern() : PatternType\l
+}"]
+IClass[ label = "{\<\<interface\>\>\nIClass||+ getName() : String\l
++ setName(String ) : void\l
++ getFields() : List\l
++ addField(IField ) : void\l
++ getMethods() : List\l
++ addMethod(IMethod ) : void\l
++ getInterfaces() : List\l
++ addInterface(String ) : void\l
++ getSuperClass() : String\l
++ setSuperClass(String ) : void\l
++ getIsInterface() : boolean\l
++ setIsInterface(boolean ) : void\l
+}"]
+Field[ label = "{Field|- name : String\l
+- type : String\l
+- visibility : String\l
+- modifiers : List\<String\>\l
+- hasGenericType : boolean\l
+- genericType : String\l
+|+ \<init\>() : void\l
++ getName() : String\l
++ setName(String ) : void\l
++ getType() : String\l
++ setType(String ) : void\l
++ getVisibility() : String\l
++ setVisibility(String ) : void\l
++ getModifiers() : List\l
++ addModifier(String ) : void\l
++ getGenericType() : String\l
++ setGenericType(String ) : void\l
++ hasGenericType() : boolean\l
++ setHasGenericType(boolean ) : void\l
++ accept(IVisitor ) : void\l
+}"]
+IField[ label = "{\<\<interface\>\>\nIField||+ getName() : String\l
++ setName(String ) : void\l
++ getType() : String\l
++ setType(String ) : void\l
++ getGenericType() : String\l
++ setGenericType(String ) : void\l
++ hasGenericType() : boolean\l
++ setHasGenericType(boolean ) : void\l
++ getVisibility() : String\l
++ setVisibility(String ) : void\l
++ getModifiers() : List\l
++ addModifier(String ) : void\l
+}"]
+Method[ label = "{Method|- name : String\l
+- owner : String\l
+- returnType : String\l
+- visibility : String\l
+- modifiers : List\<String\>\l
+- parameters : List\<IParameter\>\l
+- methodCalls : List\<IMethodCall\>\l
+|+ \<init\>() : void\l
++ getName() : String\l
++ setName(String ) : void\l
++ getOwner() : String\l
++ setOwner(String ) : void\l
++ getReturnType() : String\l
++ setReturnType(String ) : void\l
++ getVisibility() : String\l
++ setVisibility(String ) : void\l
++ getModifiers() : List\l
++ addModifier(String ) : void\l
++ getParameters() : List\l
++ addParameter(IParameter ) : void\l
++ getMethodCalls() : List\l
++ addMethodCall(IMethodCall ) : void\l
++ accept(IVisitor ) : void\l
++ hashCode() : int\l
++ equals(Object ) : boolean\l
++ compareTo(Method ) : int\l
++ compareTo(Object ) : int\l
+}"]
+IMethod[ label = "{\<\<interface\>\>\nIMethod||+ getName() : String\l
++ setName(String ) : void\l
++ getOwner() : String\l
++ setOwner(String ) : void\l
++ getReturnType() : String\l
++ setReturnType(String ) : void\l
++ getVisibility() : String\l
++ setVisibility(String ) : void\l
++ getModifiers() : List\l
++ addModifier(String ) : void\l
++ getParameters() : List\l
++ addParameter(IParameter ) : void\l
++ getMethodCalls() : List\l
++ addMethodCall(IMethodCall ) : void\l
+}"]
+Parameter[ label = "{Parameter|- type : String\l
+|+ \<init\>() : void\l
++ getType() : String\l
++ setType(String ) : void\l
++ accept(IVisitor ) : void\l
++ equals(Object ) : boolean\l
+}"]
+IParameter[ label = "{\<\<interface\>\>\nIParameter||+ getType() : String\l
++ setType(String ) : void\l
+}"]
+SDEditOutputStream[ label = "{SDEditOutputStream|- visitor : IVisitor\l
+- classDeclarations : StringBuilder\l
+- methodCalls : StringBuilder\l
+- methods : Map\<Method\>\l
+- clazzes : Set\<String\>\l
+- methodMapping : Map\<IMethod\>\l
+|+ \<init\>(OutputStream ) : void\l
+- setupVisitors() : void\l
+- write(String ) : void\l
++ writeMethod(Model String int ) : void\l
+- findMethod(String ) : IMethod\l
+- findParameters(String ) : ArrayList\l
+- writeClasses() : void\l
+- writeMethodHelper(IMethod int ) : void\l
+- makeMethodArrow(IMethod IMethod ) : void\l
+- findMethodName(String ) : String\l
+- findClass(String ) : String\l
++ writeMethod(Model String ) : void\l
+- write(Model ) : void\l
+- setupVisitClass() : void\l
+- setupVisitMethod() : void\l
+- insertMapping(IMethod IMethod ) : void\l
+- lambda$0(ITraverser ) : void\l
+- lambda$1(ITraverser ) : void\l
+}"]
+IRelation[ label = "{\<\<interface\>\>\nIRelation||+ getDest() : String\l
++ getSrc() : String\l
++ getType() : RelationType\l
++ setDest(String ) : void\l
++ setSrc(String ) : void\l
++ setType(RelationType ) : void\l
+}"]
+PatternType[ label = "{PatternType|+ NONE : PatternType\l
++ SINGLETON : PatternType\l
++ NOT_FOUND : PatternType\l
+- ENUM$VALUES : PatternType[]\l
+|\<clinit\>() : void\l
+- \<init\>(String int ) : void\l
++ values() : PatternType[]\l
++ valueOf(String ) : PatternType\l
+}"]
+Relation[ label = "{Relation|- dest : String\l
+- src : String\l
+- type : RelationType\l
+|+ \<init\>(String String RelationType ) : void\l
++ getDest() : String\l
++ getSrc() : String\l
++ getType() : RelationType\l
++ setDest(String ) : void\l
++ setSrc(String ) : void\l
++ setType(RelationType ) : void\l
++ equals(Object ) : boolean\l
++ hashCode() : int\l
++ accept(IVisitor ) : void\l
+}"]
+RelationType[ label = "{RelationType|+ EXTENDS : RelationType\l
++ IMPLEMENTS : RelationType\l
++ ASSOCIATION : RelationType\l
++ USES : RelationType\l
+- ENUM$VALUES : RelationType[]\l
+|\<clinit\>() : void\l
+- \<init\>(String int ) : void\l
++ values() : RelationType[]\l
++ valueOf(String ) : RelationType\l
+}"]
+GraphVizOutputStream[ label = "{GraphVizOutputStream|- visitor : IVisitor\l
+- $SWITCH_TABLE$src$problem$components$PatternType : int[]\l
+- $SWITCH_TABLE$src$problem$components$RelationType : int[]\l
+|+ \<init\>(OutputStream ) : void\l
+- setupVisitors() : void\l
+- write(String ) : void\l
++ write(IModel ) : void\l
+- setupPreVisitModel() : void\l
+- setupPostVisitModel() : void\l
+- setupPreVisitClass() : void\l
+- getPattern(PatternType ) : String\l
+- setupVisitClass() : void\l
+- setupPostVisitClass() : void\l
+- setupVisitField() : void\l
+- setupPreVisitMethod() : void\l
+- setupPostVisitMethod() : void\l
+- setupVisitRelationship() : void\l
+- setupVisitParameter() : void\l
+$SWITCH_TABLE$src$problem$components$PatternType() : int[]\l
+$SWITCH_TABLE$src$problem$components$RelationType() : int[]\l
+- lambda$0(ITraverser ) : void\l
+- lambda$1(ITraverser ) : void\l
+- lambda$2(ITraverser ) : void\l
+- lambda$3(ITraverser ) : void\l
+- lambda$4(ITraverser ) : void\l
+- lambda$5(ITraverser ) : void\l
+- lambda$6(ITraverser ) : void\l
+- lambda$7(ITraverser ) : void\l
+- lambda$8(ITraverser ) : void\l
+- lambda$9(ITraverser ) : void\l
+}"]
+ITraverser[ label = "{\<\<interface\>\>\nITraverser||+ accept(IVisitor ) : void\l
+}"]
+IVisitMethod[ label = "{\<\<interface\>\>\nIVisitMethod||+ execute(ITraverser ) : void\l
+}"]
+IVisitor[ label = "{\<\<interface\>\>\nIVisitor||+ preVisit(ITraverser ) : void\l
++ visit(ITraverser ) : void\l
++ postVisit(ITraverser ) : void\l
++ addVisit(VisitType Class IVisitMethod ) : void\l
++ removeVisit(VisitType Class ) : void\l
+}"]
+LookupKey[ label = "{LookupKey|- visitType : VisitType\l
+- clazz : Class\<\<*\>\l
+|+ \<init\>(VisitType Class ) : void\l
++ hashCode() : int\l
++ equals(Object ) : boolean\l
+}"]
+Visitor[ label = "{Visitor|keyToVisitMethod : Map\<IVisitMethod\>\l
+|+ \<init\>() : void\l
+- doVisit(VisitType ITraverser ) : void\l
++ preVisit(ITraverser ) : void\l
++ visit(ITraverser ) : void\l
++ postVisit(ITraverser ) : void\l
++ addVisit(VisitType Class IVisitMethod ) : void\l
++ removeVisit(VisitType Class ) : void\l
+}"]
+VisitType[ label = "{VisitType|+ PreVisit : VisitType\l
++ PostVisit : VisitType\l
++ Visit : VisitType\l
+- ENUM$VALUES : VisitType[]\l
+|\<clinit\>() : void\l
+- \<init\>(String int ) : void\l
++ values() : VisitType[]\l
++ valueOf(String ) : VisitType\l
+}"]
+IPatternSpotter[ label = "{\<\<interface\>\>\nIPatternSpotter||+ spot(IClass ) : PatternType\l
+}"]
+PatternRecognizer[ label = "{PatternRecognizer|- spotters : IPatternSpotter[]\l
+|\<clinit\>() : void\l
++ \<init\>() : void\l
++ recognize(IClass ) : PatternType\l
+}"]
+SingletonSpotter[ label = "{SingletonSpotter|- name : String\l
+|+ \<init\>() : void\l
++ spot(IClass ) : PatternType\l
+- checkMethods(List ) : boolean\l
+- checkForStaticGetterThatCallsConstructor(List ) : boolean\l
+- checkInstances(List ) : boolean\l
 }"]
 edge [ arrowhead = "vee" style = "solid" ]
-ChocolateBoiler -> ChocolateBoiler
+ClassFieldVisitor -> IModel
+edge [ arrowhead = "onormal" style = "solid" ]
+IClass -> ITraverser
+edge [ arrowhead = "vee" style = "dashed" ]
+IModel -> IRelation
+edge [ arrowhead = "onormal" style = "dashed" ]
+Relation -> IRelation
+edge [ arrowhead = "vee" style = "dashed" ]
+ClassMethodVisitor -> IMethod
+edge [ arrowhead = "vee" style = "dashed" ]
+Relation -> IVisitor
+edge [ arrowhead = "vee" style = "dashed" ]
+GraphVizOutputStream -> Visitor
+edge [ arrowhead = "vee" style = "dashed" ]
+DesignParser -> IClass
+edge [ arrowhead = "vee" style = "dashed" ]
+IPatternSpotter -> IClass
+edge [ arrowhead = "vee" style = "solid" ]
+ClassDeclarationVisitor -> IModel
+edge [ arrowhead = "vee" style = "dashed" ]
+Visitor -> Class
+edge [ arrowhead = "vee" style = "dashed" ]
+DesignParser -> ClassDeclarationVisitor
+edge [ arrowhead = "vee" style = "dashed" ]
+SDEditOutputStream -> Model
+edge [ arrowhead = "vee" style = "dashed" ]
+IVisitMethod -> ITraverser
+edge [ arrowhead = "vee" style = "dashed" ]
+IPatternSpotter -> PatternType
+edge [ arrowhead = "vee" style = "dashed" ]
+Method -> Method
+edge [ arrowhead = "vee" style = "dashed" ]
+DesignParser -> Class
+edge [ arrowhead = "vee" style = "dashed" ]
+SDEditOutputStream -> Parameter
+edge [ arrowhead = "onormal" style = "solid" ]
+IMethod -> ITraverser
+edge [ arrowhead = "vee" style = "dashed" ]
+SDEditOutputStream -> ITraverser
+edge [ arrowhead = "onormal" style = "solid" ]
+IRelation -> ITraverser
+edge [ arrowhead = "vee" style = "dashed" ]
+IVisitor -> IVisitMethod
+edge [ arrowhead = "vee" style = "dashed" ]
+ClassMethodVisitor -> Method
+edge [ arrowhead = "vee" style = "dashed" ]
+SingletonSpotter -> PatternType
+edge [ arrowhead = "vee" style = "dashed" ]
+MethodBodyVisitor -> Relation
+edge [ arrowhead = "onormal" style = "dashed" ]
+Class -> IClass
+edge [ arrowhead = "vee" style = "dashed" ]
+IClass -> IMethod
+edge [ arrowhead = "vee" style = "dashed" ]
+ClassFieldVisitor -> Field
+edge [ arrowhead = "vee" style = "dashed" ]
+PatternRecognizer -> PatternType
+edge [ arrowhead = "vee" style = "solid" ]
+Visitor -> IVisitMethod
+edge [ arrowhead = "onormal" style = "solid" ]
+IField -> ITraverser
+edge [ arrowhead = "onormal" style = "solid" ]
+IParameter -> ITraverser
+edge [ arrowhead = "vee" style = "solid" ]
+MethodBodyVisitor -> IModel
+edge [ arrowhead = "vee" style = "dashed" ]
+ClassDeclarationVisitor -> Relation
+edge [ arrowhead = "vee" style = "dashed" ]
+GraphVizOutputStream -> PatternType
+edge [ arrowhead = "vee" style = "solid" ]
+MethodBodyVisitor -> IMethod
+edge [ arrowhead = "vee" style = "dashed" ]
+IVisitor -> ITraverser
+edge [ arrowhead = "vee" style = "dashed" ]
+PatternRecognizer -> SingletonSpotter
+edge [ arrowhead = "vee" style = "dashed" ]
+IModel -> IClass
+edge [ arrowhead = "vee" style = "solid" ]
+SDEditOutputStream -> IVisitor
+edge [ arrowhead = "vee" style = "dashed" ]
+DesignParser -> SDEditOutputStream
+edge [ arrowhead = "vee" style = "solid" ]
+PatternType -> PatternType
+edge [ arrowhead = "vee" style = "solid" ]
+Class -> IField
+edge [ arrowhead = "vee" style = "solid" ]
+Class -> IMethod
+edge [ arrowhead = "vee" style = "solid" ]
+RelationType -> RelationType
+edge [ arrowhead = "vee" style = "solid" ]
+VisitType -> VisitType
+edge [ arrowhead = "onormal" style = "dashed" ]
+Visitor -> IVisitor
+edge [ arrowhead = "onormal" style = "dashed" ]
+Field -> IField
+edge [ arrowhead = "vee" style = "dashed" ]
+Field -> IVisitor
+edge [ arrowhead = "vee" style = "solid" ]
+Class -> PatternType
+edge [ arrowhead = "vee" style = "solid" ]
+SDEditOutputStream -> IMethod
+edge [ arrowhead = "vee" style = "dashed" ]
+Model -> IVisitor
+edge [ arrowhead = "vee" style = "dashed" ]
+Parameter -> IVisitor
+edge [ arrowhead = "vee" style = "dashed" ]
+DesignParser -> IModel
+edge [ arrowhead = "vee" style = "dashed" ]
+GraphVizOutputStream -> ITraverser
+edge [ arrowhead = "vee" style = "solid" ]
+MethodBodyVisitor -> IClass
+edge [ arrowhead = "vee" style = "solid" ]
+GraphVizOutputStream -> IVisitor
+edge [ arrowhead = "vee" style = "dashed" ]
+Class -> IVisitor
+edge [ arrowhead = "vee" style = "dashed" ]
+Visitor -> VisitType
+edge [ arrowhead = "vee" style = "dashed" ]
+DesignParser -> Model
+edge [ arrowhead = "vee" style = "solid" ]
+SDEditOutputStream -> Method
+edge [ arrowhead = "vee" style = "dashed" ]
+ClassMethodVisitor -> Parameter
+edge [ arrowhead = "vee" style = "dashed" ]
+DesignParser -> ClassFieldVisitor
+edge [ arrowhead = "vee" style = "dashed" ]
+SDEditOutputStream -> Visitor
+edge [ arrowhead = "vee" style = "solid" ]
+ClassDeclarationVisitor -> IClass
+edge [ arrowhead = "vee" style = "dashed" ]
+IRelation -> RelationType
+edge [ arrowhead = "vee" style = "solid" ]
+Method -> IParameter
+edge [ arrowhead = "vee" style = "solid" ]
+ClassMethodVisitor -> IClass
+edge [ arrowhead = "vee" style = "dashed" ]
+IClass -> IField
+edge [ arrowhead = "vee" style = "solid" ]
+ClassFieldVisitor -> IClass
+edge [ arrowhead = "vee" style = "dashed" ]
+DesignParser -> ClassMethodVisitor
+edge [ arrowhead = "onormal" style = "dashed" ]
+Method -> IMethod
+edge [ arrowhead = "onormal" style = "solid" ]
+IModel -> ITraverser
+edge [ arrowhead = "vee" style = "dashed" ]
+Method -> IVisitor
+edge [ arrowhead = "vee" style = "dashed" ]
+ITraverser -> IVisitor
+edge [ arrowhead = "vee" style = "solid" ]
+Model -> IClass
+edge [ arrowhead = "onormal" style = "dashed" ]
+Parameter -> IParameter
+edge [ arrowhead = "vee" style = "solid" ]
+Relation -> RelationType
+edge [ arrowhead = "vee" style = "dashed" ]
+Visitor -> LookupKey
+edge [ arrowhead = "vee" style = "dashed" ]
+ClassMethodVisitor -> MethodBodyVisitor
+edge [ arrowhead = "vee" style = "dashed" ]
+IMethod -> IParameter
+edge [ arrowhead = "vee" style = "dashed" ]
+DesignParser -> GraphVizOutputStream
+edge [ arrowhead = "vee" style = "dashed" ]
+SingletonSpotter -> IClass
+edge [ arrowhead = "vee" style = "solid" ]
+ClassMethodVisitor -> IModel
+edge [ arrowhead = "onormal" style = "dashed" ]
+SingletonSpotter -> IPatternSpotter
+edge [ arrowhead = "vee" style = "dashed" ]
+GraphVizOutputStream -> IModel
+edge [ arrowhead = "onormal" style = "dashed" ]
+Model -> IModel
+edge [ arrowhead = "vee" style = "solid" ]
+LookupKey -> VisitType
+edge [ arrowhead = "vee" style = "dashed" ]
+ClassFieldVisitor -> Relation
+edge [ arrowhead = "vee" style = "dashed" ]
+IVisitor -> Class
+edge [ arrowhead = "vee" style = "solid" ]
+Model -> IRelation
+edge [ arrowhead = "vee" style = "dashed" ]
+PatternRecognizer -> IClass
+edge [ arrowhead = "vee" style = "dashed" ]
+LookupKey -> Class
+edge [ arrowhead = "vee" style = "dashed" ]
+Visitor -> ITraverser
+edge [ arrowhead = "vee" style = "dashed" ]
+ClassMethodVisitor -> Relation
+edge [ arrowhead = "vee" style = "dashed" ]
+IVisitor -> VisitType
 
 }

@@ -1,0 +1,68 @@
+Set:Set
+StringBuilder:StringBuilder
+ArrayList:ArrayList
+String:String
+Method:Method
+SDEditOutputStream:SDEditOutputStream
+RuntimeException:RuntimeException
+Iterator:Iterator
+Object:Object
+IMethod:IMethod
+FilterOutputStream:FilterOutputStream
+Map:Map
+ITraverser:ITraverser
+
+SDEditOutputStream:void=SDEditOutputStream.writeMethod(Model String I )
+SDEditOutputStream:void=SDEditOutputStream.write(Model )
+SDEditOutputStream:[B=String.getBytes()
+SDEditOutputStream:void=FilterOutputStream.write([B )
+SDEditOutputStream:void=RuntimeException.create(Throwable )
+SDEditOutputStream:void=ITraverser.accept(IVisitor )
+SDEditOutputStream:IMethod=SDEditOutputStream.findMethod(String )
+SDEditOutputStream:void=Method.create()
+SDEditOutputStream:String=SDEditOutputStream.findClass(String )
+SDEditOutputStream:void=IMethod.setOwner(String )
+SDEditOutputStream:String=SDEditOutputStream.findMethodName(String )
+SDEditOutputStream:void=IMethod.setName(String )
+SDEditOutputStream:ArrayList=SDEditOutputStream.findParameters(String )
+SDEditOutputStream:Iterator=ArrayList.iterator()
+SDEditOutputStream:Object=Iterator.next()
+SDEditOutputStream:void=IMethod.addParameter(IParameter )
+SDEditOutputStream:boolean=Iterator.hasNext()
+SDEditOutputStream:Object=Map.get(Object )
+SDEditOutputStream:void=SDEditOutputStream.writeMethodHelper(IMethod I )
+SDEditOutputStream:String=IMethod.getOwner()
+SDEditOutputStream:boolean=Set.add(Object )
+SDEditOutputStream:Object=Map.get(Object )
+SDEditOutputStream:Object=Map.get(Object )
+SDEditOutputStream:Iterator=ArrayList.iterator()
+SDEditOutputStream:Object=Iterator.next()
+SDEditOutputStream:String=IMethod.getOwner()
+SDEditOutputStream:boolean=Set.add(Object )
+SDEditOutputStream:void=SDEditOutputStream.makeMethodArrow(IMethod IMethod )
+SDEditOutputStream:void=SDEditOutputStream.makeMethodArrow(IMethod IMethod )
+SDEditOutputStream:boolean=Object.equals(Object )
+SDEditOutputStream:void=SDEditOutputStream.writeMethodHelper(IMethod I )
+SDEditOutputStream:boolean=Iterator.hasNext()
+SDEditOutputStream:void=SDEditOutputStream.writeClasses()
+SDEditOutputStream:Iterator=Set.iterator()
+SDEditOutputStream:Object=Iterator.next()
+SDEditOutputStream:String=String.valueOf(Object )
+SDEditOutputStream:void=StringBuilder.create(String )
+SDEditOutputStream:StringBuilder=StringBuilder.append(String )
+SDEditOutputStream:StringBuilder=StringBuilder.append(String )
+SDEditOutputStream:String=StringBuilder.toString()
+SDEditOutputStream:void=SDEditOutputStream.write(String )
+SDEditOutputStream:void=SDEditOutputStream.write(String )
+SDEditOutputStream:boolean=Iterator.hasNext()
+SDEditOutputStream:void=SDEditOutputStream.write(String )
+SDEditOutputStream:[B=String.getBytes()
+SDEditOutputStream:void=FilterOutputStream.write([B )
+SDEditOutputStream:void=RuntimeException.create(Throwable )
+SDEditOutputStream:void=ITraverser.accept(IVisitor )
+SDEditOutputStream:String=StringBuilder.toString()
+SDEditOutputStream:void=SDEditOutputStream.write(String )
+SDEditOutputStream:[B=String.getBytes()
+SDEditOutputStream:void=FilterOutputStream.write([B )
+SDEditOutputStream:void=RuntimeException.create(Throwable )
+SDEditOutputStream:void=ITraverser.accept(IVisitor )

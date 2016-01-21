@@ -366,6 +366,7 @@ public class GVOSIntegrationTests {
 				"edge [ arrowhead = \"vee\" style = \"dashed\" ]\nChicagoPizzaIngredientFactory -> MarinaraSauce"));
 	}
 	
+	//Testing singleton detection
 	@Test
 	public void testDesktopSingleton() throws IOException {
 		IModel model = new Model();
