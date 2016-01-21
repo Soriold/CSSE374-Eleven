@@ -1,8 +1,20 @@
-# Design:
+This tool is designed to interpret a set of Java classes and generate an accurate UML diagram to describe the design of the sfotware. It is build atop ASM's Java Parsing Library. A visitor pattern is used to iteratively interpret the design hierarchy of the subject software. A basic decorator pattern is used in conjunction with the visitor pattern. An intermediate set of data container classes is used to create an intermediate representation of the software design as it is being visited and interpreted. After the entire design has been evaluated, the intermediate data containers are parsed into a special text output that can be used in GraphViz to generate a UML diagram. This tool can also be used to generate Sequence Diagrams to describe how the classes interact with each other. This is accomplished using the same visitor pattern as the UML Generator and does not require additional parsing. One parse can generate both the UML and Sequence Diagram.
 
-![alt tag](https://github.com/Soriold/CSSE374-Eleven/raw/master/CSSE374-Eleven/M2%20Project%20UML%20Diagrams/Auto-Generated%20UML%20Diagram.png)
+# Milestone 4:
 
-This tool is designed to interpret a set of Java classes and generate an accurate UML diagram to describe the design of the sfotware. It is build atop ASM's Java Parsing Library. A visitor pattern is used to iteratively interpret the design hierarchy of the subject software. A basic decorator pattern is used in conjunction with the visitor pattern. An intermediate set of data container classes is used to create an intermediate representation of the software design as it is being visited and interpreted. After the entire design has been evaluated, the intermediate data containers are parsed into a special text output that can be used in GraphViz to generate a UML diagram.
+In progress
+
+# Milestone 3:
+
+![alt tag](https://github.com/Soriold/CSSE374-Eleven/blob/master/CSSE374-Eleven/M3%20Project%20UML%20Diagrams/M3%20Manual%20UML.jpg?raw=true)
+
+![alt tag](https://github.com/Soriold/CSSE374-Eleven/blob/master/CSSE374-Eleven/M3%20Sequence%20Diagrams/Manual%20SVEdit%202Deep.jpg?raw=true)
+
+Milestone 3 update: The design now includes sequence diagram generation. This was accomplished by creating a new outputstream, "SDEditOutputStream" and a new instance variable in Method which contains all the methods that are called by that method. SDEditOutputStream uses this new variable to generate the sequence diagram. 
+
+# Milestone 1 and 2:
+
+![alt tag](https://github.com/Soriold/CSSE374-Eleven/blob/master/CSSE374-Eleven/M2%20Project%20UML%20Diagrams/M2%20Manually%20Created%20UML%20Diagram.png?raw=true)
 
 Milestone 2 update: There was only one major design change during this Milestone. In order to parse method bodies (to find "use" cases), we needed to create a special subclass of MethodVisitor (which we called MethodBodyVisitor). In MethodBodyVisitor, we overrided the visitMethodInsn() method to parse each method instruction and find each one that created a new object. They we added the classes of these created objects to a HashSet<String> in the current Class object. When generating the text output, we iterated over this set and generated the appropriate "uses" arrows. MethodBodyVisitor followed the same visitor and decorator patterns as the three other visitor objects. In ClassMethodVisitor's visitMethod() method, instead of returning the vanilla MethodVisitor we get from the call to super's visitMethod() method, we decorate it with a new MethodBodyVisitor and then return it.
 
