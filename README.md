@@ -2,7 +2,7 @@ This tool is designed to interpret a set of Java classes and generate an accurat
 
 # Milestone 4:
 
-In progress
+![alt tag](https://github.com/Soriold/CSSE374-Eleven/blob/master/CSSE374-Eleven/M4%20Project%20UML%20Diagrams/M4%20Manual%20UML.png?raw=true)
 
 # Milestone 3:
 
