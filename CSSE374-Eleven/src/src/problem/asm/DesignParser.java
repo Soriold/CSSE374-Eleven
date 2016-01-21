@@ -32,7 +32,7 @@ public class DesignParser {
 		GraphVizOutputStream gvos = new GraphVizOutputStream(new FileOutputStream("GVOutput.txt"));
 		SDEditOutputStream sdeos = new SDEditOutputStream(new FileOutputStream("SDEditOutput.txt"));
 
-		Scanner scanner = new Scanner(new File("pizzaArgs.txt"));
+		Scanner scanner = new Scanner(new File(args[0]));
 		scanner.useDelimiter("\r\n");
 		ArrayList<String> argumentsAL = new ArrayList<String>();
 		while (scanner.hasNext()) {
@@ -46,9 +46,10 @@ public class DesignParser {
 		for (String className : arguments) {
 			IClass clazz = parse(className, model);
 			model.addClass(clazz);
+//			System.out.println(clazz.getName());
 		}
 		gvos.write(model);
-		sdeos.writeMethod(model, "integrationTests.TestClass.methodDepth0()", 3);
+		sdeos.writeMethod(model, "java.util.Collections.shuffle(List<T> list)", 3);
 		sdeos.close();
 		gvos.close();
 	}

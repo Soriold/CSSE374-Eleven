@@ -28,32 +28,6 @@ public class Model implements IModel {
 		return this.classes;
 	}
 
-//	private String getEdges() {
-//		ArrayList<String> classNames = this.getClassNames();
-//		StringBuilder ret = new StringBuilder();
-//		for (IClass c : this.classes) {
-//			for(IRelation r : this.relations) {
-//				if(classNames.contains(r.getSrc()) && classNames.contains(r.getDest())) {
-//					switch(r.getType()) {
-//						case EXTENDS:
-//							ret.append("edge [ arrowhead = \"onormal\" style = \"solid\" ]\n" + r.getSrc() + " -$ " + r.getDest() + "\n");
-//							break;
-//						case IMPLEMENTS:
-//							ret.append("edge [ arrowhead = \"onormal\" style = \"dashed\" ]\n" + r.getSrc() + " -$ " + r.getDest() + "\n");
-//							break;
-//						case ASSOCIATION:
-//							ret.append("edge [ arrowhead = \"vee\" style = \"solid\" ]\n" + r.getSrc() + " -$ " + r.getDest() + "\n");
-//							break;
-//						case USES:
-//							ret.append("edge [ arrowhead = \"vee\" style = \"dashed\" ]\n" + r.getSrc() + " -$ " + r.getDest() + "\n");
-//							break;
-//					}
-//				}
-//			}
-//		}
-//		return ret.toString();
-//	}
-
 	private ArrayList<String> getClassNames() {
 		ArrayList<String> classNames = new ArrayList<>();
 		for (IClass c : this.classes) {

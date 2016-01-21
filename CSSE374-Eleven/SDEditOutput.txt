@@ -1,8 +1,0 @@
-TestClassTwo:TestClassTwo
-TestClassThree:TestClassThree
-TestClass:TestClass
-
-TestClass:void=TestClassTwo.create()
-TestClass:int=TestClassTwo.methodDepth1()
-TestClassTwo:void=TestClassThree.create()
-TestClassTwo:void=TestClassThree.methodDepth2()
