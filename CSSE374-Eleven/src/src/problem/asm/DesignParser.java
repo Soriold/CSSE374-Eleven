@@ -30,7 +30,7 @@ public class DesignParser {
 		GraphVizOutputStream gvos = new GraphVizOutputStream(new FileOutputStream("GVOutput.txt"));
 		SDEditOutputStream sdeos = new SDEditOutputStream(new FileOutputStream("SDEditOutput.txt"));
 
-		Scanner scanner = new Scanner(new File("DPconfig.txt"));
+		Scanner scanner = new Scanner(new File(args[0]));
 		scanner.useDelimiter("\r\n");
 		ArrayList<String> argumentsAL = new ArrayList<String>();
 		while (scanner.hasNext()) {
@@ -46,7 +46,9 @@ public class DesignParser {
 			model.addClass(clazz);
 		}
 		gvos.write(model);
-		//sdeos.writeMethod(model, "integrationTests.TestClass.methodDepth0()", 5);
+		if (Boolean.parseBoolean(args[1])) {
+			sdeos.writeMethod(model, "src.problem.outputvisitor.SDEditOutputStream.writeMethod(Model String int)", Integer.valueOf(args[3]));
+		}
 		sdeos.close();
 		gvos.close();
 	}
