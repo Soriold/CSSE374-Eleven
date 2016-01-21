@@ -1,12 +1,16 @@
 Desktop:Desktop
 HeadlessException:HeadlessException
 AppContext:AppContext
+SunToolkit:SunToolkit
+Toolkit:Toolkit
 GraphicsEnvironment:GraphicsEnvironment
 UnsupportedOperationException:UnsupportedOperationException
 
 Desktop:boolean=GraphicsEnvironment.isHeadless()
 Desktop:void=HeadlessException.create()
 Desktop:boolean=Desktop.isDesktopSupported()
+Desktop:Toolkit=Toolkit.getDefaultToolkit()
+Desktop:boolean=SunToolkit.isDesktopSupported()
 Desktop:void=UnsupportedOperationException.create(String )
 Desktop:AppContext=AppContext.getAppContext()
 Desktop:Object=AppContext.get(Object )
