@@ -10,17 +10,17 @@ import src.problem.components.IModel;
 import src.problem.components.Method;
 import src.problem.components.Model;
 import src.problem.components.Parameter;
+import src.problem.components.PatternType;
 import src.problem.components.Relation;
 
 public class GraphVizOutputStream extends FilterOutputStream {
 
 	private final IVisitor visitor;
-	private StringBuilder output;
+
 
 	public GraphVizOutputStream(OutputStream out) {
 		super(out);
 		this.visitor = new Visitor();
-		this.output = new StringBuilder();
 		this.setupVisitors();
 	}
 
@@ -76,11 +76,23 @@ public class GraphVizOutputStream extends FilterOutputStream {
 				ret.append("\\n");
 			}
 			ret.append(c.getName());
+			ret.append(this.getPattern(c.getPattern()));
 			ret.append("|");
 
 			this.write(ret.toString());
 		});
 
+	}
+
+	private String getPattern(PatternType pattern) {
+		switch (pattern) {
+		case NONE:
+			return "NOTHING HERE";
+		case SINGLETON:
+			return "\\<\\<Singleton\\>\\>";
+		default:
+			return "";
+		}
 	}
 
 	private void setupVisitClass() {

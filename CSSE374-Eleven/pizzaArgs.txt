@@ -1,6 +1,7 @@
 lab2_3.Cheese
 lab2_3.ChicagoPizzaIngredientFactory
-lab2_3.Clams,lab2_3.Dough
+lab2_3.Clams
+lab2_3.Dough
 lab2_3.FreshClams
 lab2_3.FrozenClams
 lab2_3.MarinaraSauce

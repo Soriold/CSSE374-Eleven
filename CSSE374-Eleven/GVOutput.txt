@@ -1,39 +1,19 @@
 digraph G {fontname = "Bitstream Vera Sans" fontsize = 8
-node [fontname ="Bitstream Vera Sans" fontsize = 8 shape = "record"] edge [fontname = "Bitstream Vera Sans" fontsize = 8]TestClass [label = "{TestClass|- testStringField : String\l
-- testIntField : int[]\l
-+ testListField : List\<String\>\l
-# testClassTwo : TestClassTwo\l
-|+ \<init\>() : void\l
-- testPrivateMethod(int ) : void\l
-# testProtectedMethod(int double ) : void\l
-+ testPublicMethod(String ) : void\l
-+ testGetIntField() : int[]\l
-+ testGetStringField() : String\l
-+ testUsesReturn() : TestClassThree\l
-+ testUsesArg(TestSuperClass ) : void\l
-+ method() : ArrayList\l
-+ methodDepth0() : void\l
-+ methodDepth4(String ) : String\l
+node [fontname ="Bitstream Vera Sans" fontsize = 8 shape = "record"] edge [fontname = "Bitstream Vera Sans" fontsize = 8]ChocolateBoiler [label = "{\<\<Singleton\>\>ChocolateBoiler|- empty : boolean\l
+- boiled : boolean\l
+- uniqueInstance : ChocolateBoiler\l
+|- \<init\>() : void\l
++ getInstance() : ChocolateBoiler\l
++ fill() : void\l
++ drain() : void\l
++ boil() : void\l
++ isEmpty() : boolean\l
++ isBoiled() : boolean\l
 }"]
-TestClassTwo [label = "{TestClassTwo|- testClasses : ArrayList\<TestClass\>\l
-|+ \<init\>() : void\l
-+ testUsesEdgeCase() : TestSuperClass\l
-+ methodDepth1() : int\l
-+ methodDepth5() : void\l
+ChocolateController [label = "{NOTHING HEREChocolateController||+ \<init\>() : void\l
++ main(String[] ) : void\l
 }"]
-TestClassThree [label = "{TestClassThree||+ \<init\>() : void\l
-+ methodDepth2() : void\l
-+ methodDepth3() : void\l
-}"]
-edge [ arrowhead = "vee" style = "dashed" ]
-TestClassTwo -> TestClassThree
 edge [ arrowhead = "vee" style = "solid" ]
-TestClass -> TestClassTwo
-edge [ arrowhead = "vee" style = "solid" ]
-TestClassTwo -> TestClass
-edge [ arrowhead = "vee" style = "dashed" ]
-TestClass -> TestClassThree
-edge [ arrowhead = "vee" style = "dashed" ]
-TestClassThree -> TestClass
+ChocolateBoiler -> ChocolateBoiler
 
 }

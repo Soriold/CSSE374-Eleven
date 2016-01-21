@@ -62,6 +62,10 @@ public class ClassMethodVisitor extends ClassVisitor {
 			level = "default";
 		}
 		
+		if((access & Opcodes.ACC_STATIC) != 0) {
+			method.addModifier("static");
+		}
+		
 		//System.out.println("access level: " + level);
 		//DONE: ADD this information to your representation of the current
 		// method.

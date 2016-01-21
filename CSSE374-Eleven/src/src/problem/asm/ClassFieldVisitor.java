@@ -56,6 +56,10 @@ public class ClassFieldVisitor extends ClassVisitor {
 			field.setVisibility("default");
 		}
 		
+		if((access & Opcodes.ACC_STATIC) != 0) {
+			field.addModifier("static");
+		}
+		
 		this.clazz.addField(field);
 		this.model.addRelation(relation);
 		
