@@ -1,4 +1,4 @@
-package src.problempatternrecognition;
+package src.problem.patternrecognition;
 
 import java.util.List;
 

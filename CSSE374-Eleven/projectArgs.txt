@@ -5,6 +5,7 @@ src.problem.asm.MethodBodyVisitor
 src.problem.asm.DesignParser
 src.problem.components.Model
 src.problem.components.IModel
+src.problem.components.AbstractClass
 src.problem.components.Class
 src.problem.components.IClass
 src.problem.components.Field
@@ -15,8 +16,10 @@ src.problem.components.Parameter
 src.problem.components.IParameter
 src.problem.outputvisitor.SDEditOutputStream
 src.problem.components.IRelation
+src.problem.components.PatternType
 src.problem.components.Relation
 src.problem.components.RelationType
+src.problem.components.SingletonClass
 src.problem.outputvisitor.GraphVizOutputStream
 src.problem.outputvisitor.ITraverser
 src.problem.outputvisitor.IVisitMethod
@@ -24,3 +27,6 @@ src.problem.outputvisitor.IVisitor
 src.problem.outputvisitor.LookupKey
 src.problem.outputvisitor.Visitor
 src.problem.outputvisitor.VisitType
+src.problem.patternrecognition.IPatternSpotter
+src.problem.patternrecognition.PatternRecognizer
+src.problem.patternrecognition.SingletonSpotter
