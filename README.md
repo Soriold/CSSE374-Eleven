@@ -6,7 +6,7 @@ This tool is designed to interpret a set of Java classes and generate an accurat
 
 ![alt tag](https://github.com/Soriold/CSSE374-Eleven/blob/master/CSSE374-Eleven/M4%20Project%20UML%20Diagrams/M4%20Manual%20UML.png?raw=true)
 
-Milestone 4 update: The design now includes the ability to detect Singletons, as well as support for adding additional stereotype detection. This is achieved through use of the strategy pattern, with each stereotype having it's own detector.
+Milestone 4 update: The design now includes the ability to detect Singletons, as well as support for adding additional pattern detection. The PatternRecognizer  This is achieved through use of the strategy pattern, with each design pattern having it's own detector. Pattern detection happens in Class.accept(IVisitor v). at the beginning of the call, the pattern of the class (a PatternType enum) is set with a call to the static method PatternRecognizer.recognize(IClass c). Inside PatternRecognizer there is a static list of IPatternSpotters (this is the strategy part of the implementation). Each IPatternSpotter has a single public method, spot(IClass c) that takes in a class, and returns the PatternType enum associated with the stereotype if the class fits the pattern, or PatternType.NOT\_FOUND if it does not. Inside the recognize() method we loop over the list of IPatternSpotters, applying each to the IClass parameter. Currently, if an IPatternSpotter returns something other than PatternType.NOT\_FOUND that value is returned immediately.
 
 ## Milestone 3:
 
