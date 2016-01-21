@@ -76,7 +76,7 @@ public class SDEditOutputStream extends FilterOutputStream {
 		ArrayList<IParameter> ret = new ArrayList<>();
 		String params = methodSignature.substring(methodSignature.indexOf("("), methodSignature.indexOf(")") + 1);
 		String newChar = "";
-		params = params.replace("(", newChar).replace(",", newChar).replace(")", newChar);
+		params = params.replace("(", newChar).replace(",", " ").replace(")", newChar);
 		String[] paramArray = params.split(" ");
 		for(int i = 0; i < paramArray.length; i += 2) {
 			if (!paramArray[i].trim().equals("")) {
