@@ -29,7 +29,7 @@ Ben Kimmel - Wrote ASM parsing and GraphViz text output code with Tayler. Helped
 
 Tayler How - Wrote ASM parsing code with Ben. Helped Ben with writing GraphViz text output code. Created & updated manual/auto-generated UML diagrams. Wrote code to detect and parse object instantiation inside method bodies for "uses" arrows. Wrote test cases for edge cases of use/associate arrows & factory test cases. Wrote integration test cases for sequence diagrams, troubleshot sequence diagram code. Created manual sequence diagram for Collections.shuffle(). Wrote integration tests for singleton detection, and troubleshot singleton detection code.
 
-Shayna Oriold - Wrote testing suite for parsing software. Also troubleshot Ben and Tayler's code. Wrote Association edge code. Wrote the parsing and processing code to produce basic sequence diagrams. Created manual sequence diagram for SDEditOutputStream.writeMethod().
+Shayna Oriold - Wrote testing suite for parsing software. Also troubleshot Ben and Tayler's code. Wrote Association edge code. Wrote the parsing and processing code to produce basic sequence diagrams. Created manual sequence diagram for SDEditOutputStream.writeMethod(). Created manual UML diagrams for all current milestones. Helped Taylor troubleshoot singleton detection code.
 
 All team members were equally involved in important matters such as software design decisions, etcetera.
 
