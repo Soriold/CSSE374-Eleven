@@ -8,6 +8,9 @@ In progress
 
 ![alt tag](https://github.com/Soriold/CSSE374-Eleven/blob/master/CSSE374-Eleven/M3%20Project%20UML%20Diagrams/M3%20Manual%20UML.jpg?raw=true)
 
+![alt tag](https://github.com/Soriold/CSSE374-Eleven/blob/master/CSSE374-Eleven/M3%20Sequence%20Diagrams/Manual%20SVEdit%202Deep.jpg?raw=true)
+Sequence Diagram of SDEditOutputStream.writeMethod()
+
 Milestone 3 update: The design now includes sequence diagram generation. This was accomplished by creating a new outputstream, "SDEditOutputStream" and a new instance variable in Method which contains all the methods that are called by that method. SDEditOutputStream uses this new variable to generate the sequence diagram. 
 
 # Milestone 1 and 2:
