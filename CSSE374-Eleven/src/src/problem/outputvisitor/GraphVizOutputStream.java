@@ -15,12 +15,10 @@ import src.problem.components.Relation;
 public class GraphVizOutputStream extends FilterOutputStream {
 
 	private final IVisitor visitor;
-	private StringBuilder output;
 
 	public GraphVizOutputStream(OutputStream out) {
 		super(out);
 		this.visitor = new Visitor();
-		this.output = new StringBuilder();
 		this.setupVisitors();
 	}
 
