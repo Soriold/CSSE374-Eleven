@@ -425,4 +425,38 @@ public class GVOSIntegrationTests {
 		
 		assertFalse(result.contains("FilterInputStream\\n\\<\\<Singleton\\>\\>"));
 	}
+	
+	@Test
+	public void testEagerSingleton() throws IOException {
+		IModel model = new Model();
+		IClass clazz = DesignParser.parse("integrationTests.TestEagerSingleton", model);
+		model.addClass(clazz);
+
+		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
+		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
+		gvos.write(model);
+		gvos.close();
+		String result = resultStream.toString();
+		
+		System.out.println(result);
+		
+		assertTrue(result.contains("TestEagerSingleton\\n\\<\\<Singleton\\>\\>"));
+	}
+	
+	@Test
+	public void testLazySingleton() throws IOException {
+		IModel model = new Model();
+		IClass clazz = DesignParser.parse("integrationTests.TestLazySingleton", model);
+		model.addClass(clazz);
+
+		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
+		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
+		gvos.write(model);
+		gvos.close();
+		String result = resultStream.toString();
+		
+		System.out.println(result);
+		
+		assertTrue(result.contains("TestLazySingleton\\n\\<\\<Singleton\\>\\>"));
+	}
 }
