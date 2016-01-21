@@ -46,7 +46,7 @@ public class DesignParser {
 			model.addClass(clazz);
 		}
 		gvos.write(model);
-		//sdeos.writeMethod(model, "integrationTests.TestClass.methodDepth0()", 5);
+		sdeos.writeMethod(model, "java.awt.Desktop.getDesktop()", 1);
 		sdeos.close();
 		gvos.close();
 	}

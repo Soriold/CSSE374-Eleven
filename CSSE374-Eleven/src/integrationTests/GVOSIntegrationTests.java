@@ -258,11 +258,7 @@ public class GVOSIntegrationTests {
 	// Testing tricky factory cases
 	@Test
 	public void testFactoryBasicClass() throws IOException {
-		String[] args = new String[] { "lab2_3.Cheese", "lab2_3.ChicagoPizzaIngredientFactory", "lab2_3.Clams",
-				"lab2_3.Dough", "lab2_3.FreshClams", "lab2_3.FrozenClams", "lab2_3.MarinaraSauce",
-				"lab2_3.MozzarellaCheese", "lab2_3.NYPizzaIngredientFactory", "lab2_3.NYPizzaStore",
-				"lab2_3.PizzaIngredientFactory", "lab2_3.PlumTomatoSauce", "lab2_3.ReggianoCheese", "lab2_3.Sauce",
-				"lab2_3.ThickCrustDough", "lab2_3.ThinCrustDough" };
+		String[] args = new String[] { "lab2_3.NYPizzaIngredientFactory"};
 
 		Model model = new Model();
 
@@ -276,9 +272,11 @@ public class GVOSIntegrationTests {
 		gvos.write(model);
 		gvos.close();
 		String result = resultStream.toString();
+		
+		System.out.println(result);
 
 		assertTrue(result.contains(
-				"NYPizzaIngredientFactory [label = \"{NYPizzaIngredientFactory||+ \\<init\\>() : void\\l\n+ createDough() : Dough\\l\n+ createSauce() : Sauce\\l\n+ createCheese() : Cheese\\l\n+ createVeggies() : Veggies[]\\l\n+ createPepperoni() : Pepperoni\\l\n+ createClam() : Clams\\l\n+ createVeggies() : Veggies[]\\l\n+ createPepperoni() : Pepperoni\\l\n}\"]"));
+				"NYPizzaIngredientFactory[ label = \"{NYPizzaIngredientFactory||+ \\<init\\>() : void\\l\n+ createDough() : Dough\\l\n+ createSauce() : Sauce\\l\n+ createCheese() : Cheese\\l\n+ createVeggies() : Veggies[]\\l\n+ createPepperoni() : Pepperoni\\l\n+ createClam() : Clams\\l\n+ createVeggies() : Veggies[]\\l\n+ createPepperoni() : Pepperoni\\l\n}\"]"));
 	}
 
 	@Test
@@ -366,5 +364,65 @@ public class GVOSIntegrationTests {
 				"edge [ arrowhead = \"vee\" style = \"dashed\" ]\nChicagoPizzaIngredientFactory -> PlumTomatoSauce"));
 		assertFalse(result.contains(
 				"edge [ arrowhead = \"vee\" style = \"dashed\" ]\nChicagoPizzaIngredientFactory -> MarinaraSauce"));
+	}
+	
+	@Test
+	public void testDesktopSingleton() throws IOException {
+		IModel model = new Model();
+		IClass clazz = DesignParser.parse("java.awt.Desktop", model);
+		model.addClass(clazz);
+
+		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
+		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
+		gvos.write(model);
+		gvos.close();
+		String result = resultStream.toString();
+		
+		assertTrue(result.contains("Desktop\\n\\<\\<Singleton\\>\\>"));
+	}
+	
+	@Test
+	public void testRuntimeSingleton() throws IOException {
+		IModel model = new Model();
+		IClass clazz = DesignParser.parse("java.lang.Runtime", model);
+		model.addClass(clazz);
+
+		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
+		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
+		gvos.write(model);
+		gvos.close();
+		String result = resultStream.toString();
+		
+		assertTrue(result.contains("Runtime\\n\\<\\<Singleton\\>\\>"));
+	}
+	
+	@Test
+	public void testCalendarNotSingleton() throws IOException {
+		IModel model = new Model();
+		IClass clazz = DesignParser.parse("java.util.Calendar", model);
+		model.addClass(clazz);
+
+		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
+		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
+		gvos.write(model);
+		gvos.close();
+		String result = resultStream.toString();
+		
+		assertFalse(result.contains("Calendar\\n\\<\\<Singleton\\>\\>"));
+	}
+	
+	@Test
+	public void testFilterInputStreamNotSingleton() throws IOException {
+		IModel model = new Model();
+		IClass clazz = DesignParser.parse("java.io.FilterInputStream", model);
+		model.addClass(clazz);
+
+		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
+		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
+		gvos.write(model);
+		gvos.close();
+		String result = resultStream.toString();
+		
+		assertFalse(result.contains("FilterInputStream\\n\\<\\<Singleton\\>\\>"));
 	}
 }

@@ -1,0 +1,14 @@
+Desktop:Desktop
+HeadlessException:HeadlessException
+AppContext:AppContext
+GraphicsEnvironment:GraphicsEnvironment
+UnsupportedOperationException:UnsupportedOperationException
+
+Desktop:boolean=GraphicsEnvironment.isHeadless()
+Desktop:void=HeadlessException.create()
+Desktop:boolean=Desktop.isDesktopSupported()
+Desktop:void=UnsupportedOperationException.create(String )
+Desktop:AppContext=AppContext.getAppContext()
+Desktop:Object=AppContext.get(Object )
+Desktop:void=Desktop.create()
+Desktop:Object=AppContext.put(Object Object )
