@@ -1,10 +1,12 @@
+# Design
+
 This tool is designed to interpret a set of Java classes and generate an accurate UML diagram to describe the design of the sfotware. It is build atop ASM's Java Parsing Library. A visitor pattern is used to iteratively interpret the design hierarchy of the subject software. A basic decorator pattern is used in conjunction with the visitor pattern. An intermediate set of data container classes is used to create an intermediate representation of the software design as it is being visited and interpreted. After the entire design has been evaluated, the intermediate data containers are parsed into a special text output that can be used in GraphViz to generate a UML diagram. This tool can also be used to generate Sequence Diagrams to describe how the classes interact with each other. This is accomplished using the same visitor pattern as the UML Generator and does not require additional parsing. One parse can generate both the UML and Sequence Diagram.
 
-# Milestone 4:
+Milestone 4:
 
 ![alt tag](https://github.com/Soriold/CSSE374-Eleven/blob/master/CSSE374-Eleven/M4%20Project%20UML%20Diagrams/M4%20Manual%20UML.png?raw=true)
 
-# Milestone 3:
+Milestone 3:
 
 ![alt tag](https://github.com/Soriold/CSSE374-Eleven/blob/master/CSSE374-Eleven/M3%20Project%20UML%20Diagrams/M3%20Manual%20UML.jpg?raw=true)
 
@@ -12,7 +14,7 @@ This tool is designed to interpret a set of Java classes and generate an accurat
 
 Milestone 3 update: The design now includes sequence diagram generation. This was accomplished by creating a new outputstream, "SDEditOutputStream" and a new instance variable in Method which contains all the methods that are called by that method. SDEditOutputStream uses this new variable to generate the sequence diagram. 
 
-# Milestone 1 and 2:
+Milestone 1 and 2:
 
 ![alt tag](https://github.com/Soriold/CSSE374-Eleven/blob/master/CSSE374-Eleven/M2%20Project%20UML%20Diagrams/M2%20Manually%20Created%20UML%20Diagram.png?raw=true)
 
@@ -30,4 +32,4 @@ Shayna Oriold - Wrote testing suite for parsing software. Also troubleshot Ben a
 All team members were equally involved in important matters such as software design decisions, etcetera.
 
 # Instructions: 
-To use this tool, run DesignParser with arguments of the configuration file you want to use, and the full method signature you wish to create a sequence diagram for. For example, under Run Configurations in Eclipse, we used the arguments "collectionsArgs.txt java.util.Collections.shuffle(List<T> list)" to generate the sequence diagram of java.util.Collections.shuffle(). After running DesignParser with the desired arguments, two text files are created: GVOutput.txt contains the GraphViz code to make a UML diagram of the parsed classes, and SDEditOutput.txt contains the SDEdit markup for the sequence diagram of the given method.
+To use this tool, run DesignParser with arguments of the configuration file you want to use, the full method signature you wish to create a sequence diagram for, and the depth you would like the sequence diagram to reach. For example, under Run Configurations in Eclipse, we used the arguments "collectionsArgs.txt java.util.Collections.shuffle(List<T> list) 3" to generate the sequence diagram of java.util.Collections.shuffle() at a depth of 3. After running DesignParser with the desired arguments, two text files are created: GVOutput.txt contains the GraphViz code to make a UML diagram of the parsed classes, and SDEditOutput.txt contains the SDEdit markup for the sequence diagram of the given method.
