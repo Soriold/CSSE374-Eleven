@@ -1,8 +1,6 @@
 package src.problem.asm;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -48,7 +46,7 @@ public class DesignParser {
 			model.addClass(clazz);
 		}
 		gvos.write(model);
-		sdeos.writeMethod(model, "integrationTests.TestClass.methodDepth0()", 5);
+		//sdeos.writeMethod(model, "integrationTests.TestClass.methodDepth0()", 5);
 		sdeos.close();
 		gvos.close();
 	}

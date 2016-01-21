@@ -1,3 +1,4 @@
-integrationTests.TestClass
-integrationTests.TestClassTwo
-integrationTests.TestClassThree
+java.awt.Desktop
+java.io.FilterInputStream
+java.lang.Runtime
+java.util.Calendar

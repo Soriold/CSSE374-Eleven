@@ -29,7 +29,7 @@ public class SingletonSpotter implements IPatternSpotter {
 
 	private boolean checkMethods(List<IMethod> methods) {
 		for(IMethod m : methods) {
-			if (m.getReturnType().equals(this.name)) {
+			if (m.getReturnType().contains(this.name)) {
 //				System.out.println("method matches class type");
 				if (m.getVisibility().equals("public")) {
 //					System.out.println("method public");
@@ -48,16 +48,17 @@ public class SingletonSpotter implements IPatternSpotter {
 
 	private boolean checkInstances(List<IField> fields) {
 		for(IField f : fields) {
-			if (f.getType().equals(this.name)) {
+			if (f.getType().contains(this.name)) {
 //				System.out.println("field matches class type");
 				if (f.getVisibility().equals("private")) {
 //					System.out.println("field private");
-					for(String s : f.getModifiers()) {
-						if(s.equals("static")) {
-//							System.out.println("field static");
-							return true;
-						}
-					}
+//					for(String s : f.getModifiers()) {
+//						if(s.equals("static")) {
+////							System.out.println("field static");
+//							return true;
+//						}
+//					}
+					return true;
 				}
 			}
 		}
