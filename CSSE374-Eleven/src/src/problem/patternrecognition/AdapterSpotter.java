@@ -42,32 +42,32 @@ public class AdapterSpotter implements IMultipleClassPatternSpotter {
 		IClass adapter = findClass(s);
 		IClass adaptee = null;
 		IClass target = null;
-		System.out.println("checking " + adapter.getName() + " for adaptors");
+		//System.out.println("checking " + adapter.getName() + " for adaptors");
 		for (IRelation r : filtered) {
 			//System.out.println("checking relation " + r.getSrc() + "->" + r.getDest() + " (" + r.getType() + ")");
 			if (r.getSrc().equals(s) && r.getType() == RelationType.ASSOCIATION) {
-				System.out.println("FOUND ADAPTEE!!! Relation " + r.getSrc() + "->" + r.getDest() + " (" + r.getType() + ")");
+				//System.out.println("FOUND ADAPTEE!!! Relation " + r.getSrc() + "->" + r.getDest() + " (" + r.getType() + ")");
 				adaptee = findClass(r.getDest());
-				if (adaptee != null) {
-					System.out.println("found adaptee: " + adaptee.getName());
-				}
+//				if (adaptee != null) {
+//					//System.out.println("found adaptee: " + adaptee.getName());
+//				}
 			}
 //			System.out.println("Relation " + r.getSrc() + "->" + r.getDest() + " (" + r.getType() + ") results: "
 //					+ r.getDest().equals(s) + ", " + (r.getType() == RelationType.IMPLEMENTS) + ", " + (r.getType() == RelationType.USES));
 			if (r.getSrc().equals(s) && r.getType() == RelationType.IMPLEMENTS) {
 				//System.out.println("FOUND TARGET!!! Relation " + r.getSrc() + "->" + r.getDest() + " (" + r.getType() + ")");
 				target = findClass(r.getDest());
-				if (target != null) {
-					System.out.println("found target: " + target.getName());
-				}
+//				if (target != null) {
+//					System.out.println("found target: " + target.getName());
+//				}
 
 			}
 		}
 		if (adaptee == null || target == null)
 			return false;
-		System.out.println("MADE IT");
+//		System.out.println("MADE IT");
 		for (IField f : adapter.getFields()) {
-			System.out.println("field " + f.getType() + " adaptee type " + adaptee.getName());
+//			System.out.println("field " + f.getType() + " adaptee type " + adaptee.getName());
 			if (f.getType().contains(adaptee.getName())) {
 				// set the appropriate Stereotype and PatternType fields
 				adapter.setStereotype("adapter");
@@ -76,11 +76,10 @@ public class AdapterSpotter implements IMultipleClassPatternSpotter {
 				adapter.setPattern(PatternType.ADAPTER);
 				adaptee.setPattern(PatternType.ADAPTER);
 				target.setPattern(PatternType.ADAPTER);
-				System.out.println("adapter alert");
+//				System.out.println("adapter alert");
 				return true;
 			}
 		}
-
 		return false;
 	}
 

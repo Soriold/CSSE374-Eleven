@@ -1,5 +1,5 @@
 package src.problem.components;
 
 public enum RelationType {
-	EXTENDS, IMPLEMENTS, ASSOCIATION, USES
+	EXTENDS, IMPLEMENTS, ASSOCIATION, USES, DECORATES
 }
