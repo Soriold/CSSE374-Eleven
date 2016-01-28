@@ -27,12 +27,15 @@ public class ClassFieldVisitor extends ClassVisitor {
 		FieldVisitor toDecorate = super.visitField(access, name, desc, signature, value);
 		String type = Type.getType(desc).getClassName();
 		type = simplifyClassName(type);
+		System.out.println(signature);
 		signature = extractType(signature);
+		System.out.println(Type.getType(signature));
 		
 		IRelation relation;
 		if(!signature.equals("")) {
 			String temp = signature.substring(1, signature.length() - 1);
-			relation = new Relation(this.clazz.getName(), temp, RelationType.ASSOCIATION);
+			//System.out.println("==>>" + type + "  " + temp + "  "+ signature);
+			relation = new Relation(this.clazz.getName(), type, RelationType.ASSOCIATION);
 		} else {
 			relation = new Relation(this.clazz.getName(), type, RelationType.ASSOCIATION);
 		}

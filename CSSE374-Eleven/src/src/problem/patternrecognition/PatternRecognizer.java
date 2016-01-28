@@ -6,7 +6,7 @@ import src.problem.components.Model;
 public class PatternRecognizer {
 
 	private static ISingleClassPatternSpotter[] spotters = { new SingletonSpotter() };
-	private static IMultipleClassPatternSpotter[] mSpotters = {};
+	private static IMultipleClassPatternSpotter[] mSpotters = { new AdapterSpotter() };
 
 	public static void recognize(IClass c) {
 		for (ISingleClassPatternSpotter s : spotters) {
@@ -18,5 +18,9 @@ public class PatternRecognizer {
 		for (IMultipleClassPatternSpotter s : mSpotters) {
 			s.spot(model);
 		}
+	}
+
+	public static void setSingleClassSpotters(ISingleClassPatternSpotter[] spotters) {
+		spotters = spotters;
 	}
 }

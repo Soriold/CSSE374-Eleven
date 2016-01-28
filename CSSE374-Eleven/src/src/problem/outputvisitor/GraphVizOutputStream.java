@@ -71,16 +71,14 @@ public class GraphVizOutputStream extends FilterOutputStream {
 			StringBuilder ret = new StringBuilder();
 			ret.append(c.getName());
 			ret.append("[");
-			if(c.getPattern() == PatternType.SINGLETON) {
-				ret.append("color=blue");
-			}
+			ret.append(this.getColor(c.getPattern()));
 			ret.append(" label = \"{");
 			if (c.getIsInterface()) {
 				ret.append("\\<\\<interface\\>\\>");
 				ret.append("\\n");
 			}
 			ret.append(c.getName());
-			ret.append(this.getPattern(c.getPattern()));
+			ret.append(this.getStereotype(c.getStereotype()));
 			ret.append("|");
 
 			this.write(ret.toString());
@@ -88,15 +86,25 @@ public class GraphVizOutputStream extends FilterOutputStream {
 
 	}
 
-	private String getPattern(PatternType pattern) {
-		switch (pattern) {
-		case NONE:
-			return "";
+	private Object getColor(PatternType pattern) {
+		switch(pattern) {
 		case SINGLETON:
-			return "\\n\\<\\<Singleton\\>\\>";
+			return "color=blue";
+		case DECORATOR:
+			return "color=green";
+		case ADAPTER:
+			return "color=red";
 		default:
 			return "";
 		}
+	}
+
+	private String getStereotype(String string) {
+		System.out.println("Spotted pattern " + string);
+		if(string == null) {
+			return "";
+		} 
+		return "\\n\\<\\<" + string + "\\>\\>";
 	}
 
 	private void setupVisitClass() {

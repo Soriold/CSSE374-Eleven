@@ -6,8 +6,7 @@ public class DecoratorSpotter implements IMultipleClassPatternSpotter {
 
 	@Override
 	public void spot(IModel c) {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 }
