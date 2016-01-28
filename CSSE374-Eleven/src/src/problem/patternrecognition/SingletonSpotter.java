@@ -20,7 +20,7 @@ public class SingletonSpotter implements ISingleClassPatternSpotter {
 		boolean hasStaticGetterThatCallsConstructor = this.checkForStaticGetterThatCallsConstructor(c.getMethods());
 		if (hasPrivateStaticInstance && hasPublicStaticMethod || hasStaticGetterThatCallsConstructor) {
 			c.setPattern(PatternType.SINGLETON);
-			c.setStereotype("singleton");
+			c.setStereotype("Singleton");
 		}
 	}
 

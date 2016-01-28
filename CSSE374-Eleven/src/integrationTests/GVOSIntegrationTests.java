@@ -10,6 +10,7 @@ import org.junit.Test;
 import src.problem.asm.DesignParser;
 import src.problem.components.Model;
 import src.problem.outputvisitor.GraphVizOutputStream;
+import src.problem.patternrecognition.PatternRecognizer;
 import src.problem.components.IClass;
 import src.problem.components.IModel;
 
@@ -84,6 +85,8 @@ public class GVOSIntegrationTests {
 		gvos.write(model);
 		gvos.close();
 		String result = resultStream.toString();
+		
+		System.out.println(result);
 
 		assertTrue(result.contains(
 				"edge [ arrowhead = \"onormal\" style = \"dashed\" ]\nTestInterfaceImplementation -> TestInterface"));
@@ -438,9 +441,7 @@ public class GVOSIntegrationTests {
 		gvos.write(model);
 		gvos.close();
 		String result = resultStream.toString();
-		
-		System.out.println(result);
-		
+				
 		assertTrue(result.contains("TestEagerSingleton\\n\\<\\<Singleton\\>\\>"));
 	}
 	
@@ -455,9 +456,63 @@ public class GVOSIntegrationTests {
 		gvos.write(model);
 		gvos.close();
 		String result = resultStream.toString();
+				
+		assertTrue(result.contains("TestLazySingleton\\n\\<\\<Singleton\\>\\>"));
+	}
+	
+	@Test
+	public void testAdapterLab2_1() throws IOException {
+		String[] args = new String[] { "lab2_1.DecryptionInputStream", "lab2_1.EncryptionOutputStream", "lab2_1.IDecryption", "lab2_1.IEncryption", "lab2_1.SubstitutionCipher", "lab2_1.TextEditorApp", "java.io.FilterInputStream", "java.io.FilterOutputStream", "java.io.InputStream", "java.io.OutputStream" };
+
+		Model model = new Model();
+
+		for (String className : args) {
+			IClass clazz = DesignParser.parse(className, model);
+			model.addClass(clazz);
+		}
+
+		PatternRecognizer.recognize(model);
+		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
+		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
+		gvos.write(model);
+		gvos.close();
+		String result = resultStream.toString();
+				
+		assertTrue(result.contains("DecryptionInputStream\\n\\<\\<decorator\\>\\>"));
+		assertTrue(result.contains("FilterInputStream\\n\\<\\<decorator\\>\\>"));
+		assertTrue(result.contains("InputStream\\n\\<\\<component\\>\\>"));
+		assertTrue(result.contains("edge [ arrowhead = \"vee\" style = \"solid\"  label=\"decorates\" ]\nFilterInputStream -> InputStream"));
+
+		assertTrue(result.contains("EncryptionOutputStream\\n\\<\\<decorator\\>\\>"));
+		assertTrue(result.contains("FilterOutputStream\\n\\<\\<decorator\\>\\>"));
+		assertTrue(result.contains("OutputStream\\n\\<\\<component\\>\\>"));
+		assertTrue(result.contains("edge [ arrowhead = \"vee\" style = \"solid\"  label=\"decorates\" ]\nFilterOutputStream -> OutputStream"));
+	}
+	
+	@Test
+	public void testDecoratorLab5_1() throws IOException {
+		String[] args = new String[] { "lab5_1.App", "lab5_1.ArrayListAdapter", "lab5_1.LinearTransformer", "java.util.Enumeration", "java.util.Iterator" };
+
+		Model model = new Model();
+
+		for (String className : args) {
+			IClass clazz = DesignParser.parse(className, model);
+			model.addClass(clazz);
+		}
+
+		PatternRecognizer.recognize(model);
+		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
+		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
+		gvos.write(model);
+		gvos.close();
+		String result = resultStream.toString();
 		
 		System.out.println(result);
-		
-		assertTrue(result.contains("TestLazySingleton\\n\\<\\<Singleton\\>\\>"));
+				
+		assertTrue(result.contains("ArrayListAdapter\\n\\<\\<adapter\\>\\>"));
+		assertTrue(result.contains("Enumeration\\n\\<\\<target\\>\\>"));
+		assertTrue(result.contains("Iterator\\n\\<\\<adaptee\\>\\>"));
+		assertTrue(result.contains("edge [ arrowhead = \"vee\" style = \"solid\"  label=\"adapts\" ]\nArrayListAdapter -> Iterator"));
+
 	}
 }

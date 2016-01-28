@@ -208,9 +208,9 @@ public class GraphVizOutputStream extends FilterOutputStream {
 			if (c.getLabel() == null) {
 				label = "";
 			} else {
-				label = " label=\"" + c.getLabel() + "\"";
+				label = " label=\"" + c.getLabel() + "\" ";
 			}
-			this.write("edge [ arrowhead = " + arrowhead + " style = " + style + label + "]\n" + c.getSrc() + " -> " + c.getDest() + "\n");
+			this.write("edge [ arrowhead = " + arrowhead + " style = " + style + " " + label + "]\n" + c.getSrc() + " -> " + c.getDest() + "\n");
 		});
 	}
 
