@@ -183,24 +183,34 @@ public class GraphVizOutputStream extends FilterOutputStream {
 	private void setupVisitRelationship() {
 		this.visitor.addVisit(VisitType.Visit, Relation.class, (ITraverser t) -> {
 			Relation c = (Relation) t;
+			String style, arrowhead, label;
 			switch (c.getType()) {
 				case EXTENDS:
-					this.write("edge [ arrowhead = \"onormal\" style = \"solid\"" + " label=\"" + c.getLabel() + "\"]\n" + c.getSrc() + " -> " + c.getDest()
-							+ "\n");
+					arrowhead = "\"onormal\"";
+					style = "\"solid\"";
 					break;
 				case IMPLEMENTS:
-					this.write("edge [ arrowhead = \"onormal\" style = \"dashed\"" + " label=\"" + c.getLabel() + "\"]\n" + c.getSrc() + " -> " + c.getDest()
-							+ "\n");
+					arrowhead = "\"onormal\"";
+					style = "\"dashed\"";
 					break;
 				case ASSOCIATION:
-					this.write(
-							"edge [ arrowhead = \"vee\" style = \"solid\"" + " label=\"" + c.getLabel() + "\"]\n" + c.getSrc() + " -> " + c.getDest() + "\n");
+					arrowhead = "\"vee\"";
+					style = "\"solid\"";
 					break;
 				case USES:
-					this.write(
-							"edge [ arrowhead = \"vee\" style = \"dashed\"" + " label=\"" + c.getLabel() + "\"]\n" + c.getSrc() + " -> " + c.getDest() + "\n");
+					arrowhead = "\"vee\"";
+					style = "\"dashed\"";
 					break;
+				default:
+					arrowhead = "";
+					style = "";
 			}
+			if (c.getLabel() == null) {
+				label = "";
+			} else {
+				label = " label=\"" + c.getLabel() + "\"";
+			}
+			this.write("edge [ arrowhead = " + arrowhead + " style = " + style + label + "]\n" + c.getSrc() + " -> " + c.getDest() + "\n");
 		});
 	}
 
