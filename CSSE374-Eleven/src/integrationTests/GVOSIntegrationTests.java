@@ -461,7 +461,7 @@ public class GVOSIntegrationTests {
 	}
 	
 	@Test
-	public void testAdapterLab2_1() throws IOException {
+	public void testDecoratorLab2_1() throws IOException {
 		String[] args = new String[] { "lab2_1.DecryptionInputStream", "lab2_1.EncryptionOutputStream", "lab2_1.IDecryption", "lab2_1.IEncryption", "lab2_1.SubstitutionCipher", "lab2_1.TextEditorApp", "java.io.FilterInputStream", "java.io.FilterOutputStream", "java.io.InputStream", "java.io.OutputStream" };
 
 		Model model = new Model();
@@ -490,7 +490,7 @@ public class GVOSIntegrationTests {
 	}
 	
 	@Test
-	public void testDecoratorLab5_1() throws IOException {
+	public void testAdapterLab5_1() throws IOException {
 		String[] args = new String[] { "lab5_1.App", "lab5_1.ArrayListAdapter", "lab5_1.LinearTransformer", "java.util.Enumeration", "java.util.Iterator" };
 
 		Model model = new Model();
@@ -513,6 +513,82 @@ public class GVOSIntegrationTests {
 		assertTrue(result.contains("Enumeration\\n\\<\\<target\\>\\>"));
 		assertTrue(result.contains("Iterator\\n\\<\\<adaptee\\>\\>"));
 		assertTrue(result.contains("edge [ arrowhead = \"vee\" style = \"solid\"  label=\"adapts\" ]\nArrayListAdapter -> Iterator"));
+	}
+	
+	@Test
+	public void testNotAdapterMouseAdapter() throws IOException {
+		String[] args = new String[] { "java.awt.event.MouseAdapter", "java.awt.event.MouseEvent", "java.awt.event.MouseListener", "java.awt.event.MouseMotionListener", "java.awt.event.MouseWheelListener", "java.util.EventListener", "javax.swing.ToolTipManager", "javax.swing.event.MouseInputAdapter" };
 
+		Model model = new Model();
+
+		for (String className : args) {
+			IClass clazz = DesignParser.parse(className, model);
+			model.addClass(clazz);
+		}
+
+		PatternRecognizer.recognize(model);
+		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
+		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
+		gvos.write(model);
+		gvos.close();
+		String result = resultStream.toString();
+		
+		System.out.println(result);
+				
+		assertFalse(result.contains("\\n\\<\\<adapter\\>\\>"));
+	}
+	
+	@Test
+	public void testAdapterInputStreamReader() throws IOException {
+		String[] args = new String[] { "java.io.InputStreamReader", "java.io.Reader", "java.io.InputStream", "java.io.FileReader", "java.io.BufferedReader" };
+
+		Model model = new Model();
+
+		for (String className : args) {
+			IClass clazz = DesignParser.parse(className, model);
+			model.addClass(clazz);
+		}
+
+		PatternRecognizer.recognize(model);
+		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
+		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
+		gvos.write(model);
+		gvos.close();
+		String result = resultStream.toString();
+		
+		System.out.println(result);
+				
+		assertTrue(result.contains("InputStreamReader\\n\\<\\<decorator\\>\\>"));
+		assertTrue(result.contains("BufferedReader\\n\\<\\<decorator\\>\\>"));
+		assertTrue(result.contains("Reader\\n\\<\\<component\\>\\>"));
+		assertTrue(result.contains("edge [ arrowhead = \"vee\" style = \"solid\"  label=\"decorates\" ]\nBufferedReader -> Reader"));
+	}
+	
+	@Test
+	public void testAdapterOutputStreamWriter() throws IOException {
+		String[] args = new String[] { "java.io.OutputStreamWriter", "java.io.OutputStream", "java.io.Writer", "java.io.FileWriter", "java.io.PrintWriter", "java.io.BufferedWriter" };
+
+		Model model = new Model();
+
+		for (String className : args) {
+			IClass clazz = DesignParser.parse(className, model);
+			model.addClass(clazz);
+		}
+
+		PatternRecognizer.recognize(model);
+		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
+		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
+		gvos.write(model);
+		gvos.close();
+		String result = resultStream.toString();
+		
+		System.out.println(result);
+				
+		assertTrue(result.contains("OutputStreamWriter\\n\\<\\<decorator\\>\\>"));
+		assertTrue(result.contains("FileWriter\\n\\<\\<decorator\\>\\>"));
+		assertTrue(result.contains("PrintWriter\\n\\<\\<decorator\\>\\>"));
+		assertTrue(result.contains("BufferedWriter\\n\\<\\<decorator\\>\\>"));
+		assertTrue(result.contains("Writer\\n\\<\\<component\\>\\>"));
+		assertTrue(result.contains("edge [ arrowhead = \"vee\" style = \"solid\"  label=\"decorates\" ]\nBufferedWriter -> Writer"));
 	}
 }
