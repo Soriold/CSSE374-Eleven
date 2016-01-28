@@ -1,19 +1,16 @@
 digraph G {fontname = "Bitstream Vera Sans" fontsize = 8
-node [fontname ="Bitstream Vera Sans" fontsize = 8 shape = "record"] edge [fontname = "Bitstream Vera Sans" fontsize = 8]ChocolateBoiler[ label = "{ChocolateBoiler\n\<\<singleton\>\>|- empty : boolean\l
-- boiled : boolean\l
-- uniqueInstance : ChocolateBoiler\l
-|- \<init\>() : void\l
-+ getInstance() : ChocolateBoiler\l
-+ fill() : void\l
-+ drain() : void\l
-+ boil() : void\l
-+ isEmpty() : boolean\l
-+ isBoiled() : boolean\l
+node [fontname ="Bitstream Vera Sans" fontsize = 8 shape = "record"] edge [fontname = "Bitstream Vera Sans" fontsize = 8]OutputStreamWriter[ label = "{OutputStreamWriter|- se : StreamEncoder\l
+|+ \<init\>(OutputStream String ) : void\l
++ \<init\>(OutputStream ) : void\l
++ \<init\>(OutputStream Charset ) : void\l
++ \<init\>(OutputStream CharsetEncoder ) : void\l
++ getEncoding() : String\l
+flushBuffer() : void\l
++ write(int ) : void\l
++ write(char[] int int ) : void\l
++ write(String int int ) : void\l
++ flush() : void\l
++ close() : void\l
 }"]
-ChocolateController[ label = "{ChocolateController||+ \<init\>() : void\l
-+ main(String[] ) : void\l
-}"]
-edge [ arrowhead = "vee" style = "solid"]
-ChocolateBoiler -> ChocolateBoiler
 
 }
