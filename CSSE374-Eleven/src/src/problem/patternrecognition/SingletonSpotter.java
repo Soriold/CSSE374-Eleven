@@ -6,6 +6,7 @@ import src.problem.components.IClass;
 import src.problem.components.IField;
 import src.problem.components.IMethod;
 import src.problem.components.IMethodCall;
+import src.problem.components.PatternType;
 
 public class SingletonSpotter implements ISingleClassPatternSpotter {
 
@@ -18,6 +19,7 @@ public class SingletonSpotter implements ISingleClassPatternSpotter {
 		boolean hasPublicStaticMethod = this.checkMethods(c.getMethods());
 		boolean hasStaticGetterThatCallsConstructor = this.checkForStaticGetterThatCallsConstructor(c.getMethods());
 		if (hasPrivateStaticInstance && hasPublicStaticMethod || hasStaticGetterThatCallsConstructor) {
+			c.setPattern(PatternType.SINGLETON);
 			c.setStereotype("singleton");
 		}
 	}
