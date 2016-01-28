@@ -6,7 +6,7 @@ This tool is designed to interpret a set of Java classes and generate an accurat
 
 ![alt tag](https://github.com/Soriold/CSSE374-Eleven/blob/master/CSSE374-Eleven/M5%20Project%20UML%20Diagrams/M5%20Manual%20UML.png?raw=true)
 
-Milestone 5 update: The design now includes the ability to detect Adapter and Decorator patterns, as well as support for any pattern detection that involves multiple classes. The IPatternSpotter interface was seperated into two classes, IMultipleClassesPatternSpotter and ISingleClassPatternSpotter to distinguish between what type of pattern is being searched for. Other than the splitting of the interface, pattern detection works very similair to how it did in the previous milestone.
+Milestone 5 update: The design now includes the ability to detect Adapter and Decorator patterns, as well as support for any pattern detection that involves multiple classes. The IPatternSpotter interface was seperated into two classes, IMultipleClassesPatternSpotter and ISingleClassPatternSpotter to distinguish between what type of pattern is being searched for. Other than the splitting of the interface, pattern detection works very similar to how it did in the previous milestone.
 
 ## Milestone 4:
 
