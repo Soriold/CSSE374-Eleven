@@ -100,7 +100,6 @@ public class GraphVizOutputStream extends FilterOutputStream {
 	}
 
 	private String getStereotype(String string) {
-		System.out.println("Spotted pattern " + string);
 		if(string == null) {
 			return "";
 		} 
