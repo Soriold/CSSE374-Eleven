@@ -8,7 +8,7 @@ import src.problem.components.IMethod;
 import src.problem.components.IMethodCall;
 import src.problem.components.PatternType;
 
-public class SingletonSpotter implements IPatternSpotter {
+public class SingletonSpotter implements ISingleClassPatternSpotter {
 	
 	private String name;
 

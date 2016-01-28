@@ -14,6 +14,7 @@ import src.problem.components.IModel;
 import src.problem.components.Model;
 import src.problem.outputvisitor.GraphVizOutputStream;
 import src.problem.outputvisitor.SDEditOutputStream;
+import src.problem.patternrecognition.PatternRecognizer;
 
 public class DesignParser {
 	/**
@@ -45,6 +46,7 @@ public class DesignParser {
 			IClass clazz = parse(className, model);
 			model.addClass(clazz);
 		}
+		PatternRecognizer.recognize(model);
 		gvos.write(model);
 		if (Boolean.parseBoolean(args[1])) {
 			sdeos.writeMethod(model, args[2], Integer.valueOf(args[3]));
