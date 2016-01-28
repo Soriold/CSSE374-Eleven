@@ -77,9 +77,15 @@ public class AdapterSpotter implements IMultipleClassPatternSpotter {
 				adaptee.setPattern(PatternType.ADAPTER);
 				target.setPattern(PatternType.ADAPTER);
 //				System.out.println("adapter alert");
+				for(IRelation r : m.getRelations()) {
+					if(r.getSrc().equals(s) && r.getDest().equals(adaptee.getName()) && r.getType() == RelationType.ASSOCIATION) {
+						r.setLabel("adapts");
+					}
+				}
 				return true;
 			}
 		}
+		
 		return false;
 	}
 

@@ -7,12 +7,14 @@ public class Relation implements IRelation {
 	private String dest;
 	private String src;
 	private RelationType type;
+	private String label;
 
 	public Relation(String src, String dest, RelationType type) {
 		super();
 		this.dest = dest;
 		this.src = src;
 		this.type = type;
+		this.label = "";
 	}
 
 	@Override
@@ -73,5 +75,15 @@ public class Relation implements IRelation {
 	@Override
 	public void accept(IVisitor v) {
 		v.visit(this);
+	}
+
+	@Override
+	public void setLabel(String s) {
+		this.label = s;
+	}
+
+	@Override
+	public String getLabel() {
+		return this.label;
 	}
 }

@@ -10,10 +10,6 @@ import src.problem.components.*;
 public class DecoratorSpotter implements IMultipleClassPatternSpotter {
 	private IModel model;
 
-	public DecoratorSpotter() {
-		// TODO Auto-generated constructor stub
-	}
-
 	@Override
 	public void spot(IModel model) {
 		this.model = model;
@@ -23,8 +19,26 @@ public class DecoratorSpotter implements IMultipleClassPatternSpotter {
 			List<String> aggs = getAggregates(constructorParams, fields);
 			checkForDecorator(model, clazz, aggs);
 		}
+		checkForSubClasses(model);
 	}
 	
+	private void checkForSubClasses(IModel model) {
+		for(IRelation r : model.getRelations()) {
+			if(r.getType() == RelationType.EXTENDS || r.getType() == RelationType.IMPLEMENTS) {
+				IClass c = findClass(r.getDest());
+				if(c != null) {
+					if(c.getPattern() == PatternType.DECORATOR) {
+						c = findClass(r.getSrc());
+						if(c != null) {
+							c.setPattern(PatternType.DECORATOR);
+							c.setStereotype("decorator");
+						}
+					}
+				}
+			}
+		}
+	}
+
 	private List<IParameter> getConstructorParams(IClass clazz) {
 		for (IMethod method : clazz.getMethods()) {
 			if (method.getName().equals("<init>")) {
@@ -73,13 +87,16 @@ public class DecoratorSpotter implements IMultipleClassPatternSpotter {
 				//change relation to "decorates" relation
 				for (IRelation relation : relations) {
 					if (relation.getSrc().equals(clazz.getName()) && relation.getDest().equals(decoratee)) {
-						relation.setType(RelationType.DECORATES);
+						if(relation.getType() == RelationType.ASSOCIATION) {
+							relation.setLabel("decorates");
+						}
 					}
 				}
-				
+
 				//add "component" stereotype to decoratee class
 				for (IClass c : model.getClasses()) {
 					if (c.getName().equals(decoratee)) {
+						System.out.println("decoratee: " + decoratee);
 						c.setStereotype("component");
 						c.setPattern(PatternType.DECORATOR);
 					}
@@ -88,5 +105,14 @@ public class DecoratorSpotter implements IMultipleClassPatternSpotter {
 				return;
 			}
 		}
+	}
+	
+	private IClass findClass(String s) {
+		for (IClass c : model.getClasses()) {
+			if (c.getName().equals(s)) {
+				return c;
+			}
+		}
+		return null;
 	}
 }

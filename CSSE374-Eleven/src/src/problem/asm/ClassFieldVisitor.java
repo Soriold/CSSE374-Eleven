@@ -29,7 +29,6 @@ public class ClassFieldVisitor extends ClassVisitor {
 		type = simplifyClassName(type);
 		System.out.println(signature);
 		signature = extractType(signature);
-		System.out.println(Type.getType(signature));
 		
 		IRelation relation;
 		if(!signature.equals("")) {

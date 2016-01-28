@@ -14,5 +14,9 @@ public interface IRelation extends ITraverser {
 	public void setSrc(String src);
 
 	public void setType(RelationType type);
+	
+	public void setLabel(String s);
+	
+	public String getLabel();
 
 }

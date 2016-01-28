@@ -185,20 +185,20 @@ public class GraphVizOutputStream extends FilterOutputStream {
 			Relation c = (Relation) t;
 			switch (c.getType()) {
 				case EXTENDS:
-					this.write("edge [ arrowhead = \"onormal\" style = \"solid\" ]\n" + c.getSrc() + " -> " + c.getDest()
+					this.write("edge [ arrowhead = \"onormal\" style = \"solid\"" + " label=\"" + c.getLabel() + "\"]\n" + c.getSrc() + " -> " + c.getDest()
 							+ "\n");
 					break;
 				case IMPLEMENTS:
-					this.write("edge [ arrowhead = \"onormal\" style = \"dashed\" ]\n" + c.getSrc() + " -> " + c.getDest()
+					this.write("edge [ arrowhead = \"onormal\" style = \"dashed\"" + " label=\"" + c.getLabel() + "\"]\n" + c.getSrc() + " -> " + c.getDest()
 							+ "\n");
 					break;
 				case ASSOCIATION:
 					this.write(
-							"edge [ arrowhead = \"vee\" style = \"solid\" ]\n" + c.getSrc() + " -> " + c.getDest() + "\n");
+							"edge [ arrowhead = \"vee\" style = \"solid\"" + " label=\"" + c.getLabel() + "\"]\n" + c.getSrc() + " -> " + c.getDest() + "\n");
 					break;
 				case USES:
 					this.write(
-							"edge [ arrowhead = \"vee\" style = \"dashed\" ]\n" + c.getSrc() + " -> " + c.getDest() + "\n");
+							"edge [ arrowhead = \"vee\" style = \"dashed\"" + " label=\"" + c.getLabel() + "\"]\n" + c.getSrc() + " -> " + c.getDest() + "\n");
 					break;
 			}
 		});
