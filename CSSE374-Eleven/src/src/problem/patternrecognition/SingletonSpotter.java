@@ -6,39 +6,28 @@ import src.problem.components.IClass;
 import src.problem.components.IField;
 import src.problem.components.IMethod;
 import src.problem.components.IMethodCall;
-import src.problem.components.PatternType;
 
 public class SingletonSpotter implements ISingleClassPatternSpotter {
-	
+
 	private String name;
 
 	@Override
-	public PatternType spot(IClass c) {
+	public void spot(IClass c) {
 		this.name = c.getName();
-//		System.out.println("pattern detecting for: " + this.name);
-		PatternType ret = PatternType.NOT_FOUND;
 		boolean hasPrivateStaticInstance = this.checkInstances(c.getFields());
 		boolean hasPublicStaticMethod = this.checkMethods(c.getMethods());
 		boolean hasStaticGetterThatCallsConstructor = this.checkForStaticGetterThatCallsConstructor(c.getMethods());
-//		System.out.println("after processing method is " + hasPublicStaticMethod);
-//		System.out.println("after processing instance is " + hasPrivateStaticInstance);
-		if(hasPrivateStaticInstance && hasPublicStaticMethod || hasStaticGetterThatCallsConstructor) {
-			ret = PatternType.SINGLETON;
+		if (hasPrivateStaticInstance && hasPublicStaticMethod || hasStaticGetterThatCallsConstructor) {
+			c.setStereotype("singleton");
 		}
-		//System.out.println(ret.toString());
-		return ret;
 	}
 
 	private boolean checkMethods(List<IMethod> methods) {
-		for(IMethod m : methods) {
+		for (IMethod m : methods) {
 			if (m.getReturnType().equals(this.name)) {
-//				System.out.println("method matches class type");
 				if (m.getVisibility().equals("public")) {
-//					System.out.println("method public");
-					for(String s : m.getModifiers()) {
-						//System.out.println("Class: " + this.name + " Method: " + m.getName() + " Modifier: " + s);
-						if(s.equals("static")) {
-//							System.out.println("method static");
+					for (String s : m.getModifiers()) {
+						if (s.equals("static")) {
 							return true;
 						}
 					}
@@ -47,19 +36,16 @@ public class SingletonSpotter implements ISingleClassPatternSpotter {
 		}
 		return false;
 	}
-	
+
 	private boolean checkForStaticGetterThatCallsConstructor(List<IMethod> methods) {
-		for(IMethod m : methods) {
+		for (IMethod m : methods) {
 			if (m.getReturnType().equals(this.name)) {
-//				System.out.println("method matches class type");
 				if (m.getVisibility().equals("public")) {
-//					System.out.println("method public");
-					for(String s : m.getModifiers()) {
-						//System.out.println("Class: " + this.name + " Method: " + m.getName() + " Modifier: " + s);
-						if(s.equals("static")) {
-//							System.out.println("method static");
+					for (String s : m.getModifiers()) {
+						if (s.equals("static")) {
 							for (IMethodCall mc : m.getMethodCalls()) {
-								if (mc.getDestMethod().getOwner().equals(this.name) && mc.getDestMethod().getName().equals("create")) {
+								if (mc.getDestMethod().getOwner().equals(this.name)
+										&& mc.getDestMethod().getName().equals("create")) {
 									return true;
 								}
 							}
@@ -72,14 +58,11 @@ public class SingletonSpotter implements ISingleClassPatternSpotter {
 	}
 
 	private boolean checkInstances(List<IField> fields) {
-		for(IField f : fields) {
+		for (IField f : fields) {
 			if (f.getType().equals(this.name)) {
-//				System.out.println("field matches class type");
 				if (f.getVisibility().equals("private")) {
-//					System.out.println("field private");
-					for(String s : f.getModifiers()) {
-						if(s.equals("static")) {
-////							System.out.println("field static");
+					for (String s : f.getModifiers()) {
+						if (s.equals("static")) {
 							return true;
 						}
 					}

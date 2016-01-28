@@ -5,7 +5,6 @@ import java.util.List;
 
 import src.problem.outputvisitor.ITraverser;
 import src.problem.outputvisitor.IVisitor;
-import src.problem.patternrecognition.PatternRecognizer;
 
 public class Class implements IClass {
 
@@ -16,6 +15,7 @@ public class Class implements IClass {
 	private List<String> interfaces;
 	private String superClass;
 	private PatternType pattern;
+	private String stereotype;
 
 	public Class() {
 		this.fields = new ArrayList<IField>();
@@ -93,7 +93,6 @@ public class Class implements IClass {
 
 	@Override
 	public void accept(IVisitor v) {
-		this.pattern = PatternRecognizer.recognize(this);
 		v.preVisit(this);
 		for(IField f : this.fields) {
 			ITraverser t = (ITraverser) f;
@@ -109,5 +108,20 @@ public class Class implements IClass {
 	
 	public PatternType getPattern() {
 		return this.pattern;
+	}
+
+	@Override
+	public void setStereotype(String string) {
+		this.stereotype = string;
+	}
+
+	@Override
+	public String getStereotype() {
+		return this.stereotype;
+	}
+
+	@Override
+	public void setPattern(PatternType pattern) {
+		this.pattern = pattern;
 	}
 }
