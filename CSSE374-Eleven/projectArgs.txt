@@ -25,6 +25,9 @@ src.problem.outputvisitor.IVisitor
 src.problem.outputvisitor.LookupKey
 src.problem.outputvisitor.Visitor
 src.problem.outputvisitor.VisitType
-src.problem.patternrecognition.IPatternSpotter
+src.problem.patternrecognition.ISingleClassPatternSpotter
+src.problem.patternrecognition.IMultipleClassPatternSpotter
+src.problem.patternrecognition.AdapterSpotter
+src.problem.patternrecognition.DecoratorSpotter
 src.problem.patternrecognition.PatternRecognizer
 src.problem.patternrecognition.SingletonSpotter

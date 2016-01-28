@@ -67,8 +67,7 @@ public class AdapterSpotter implements IMultipleClassPatternSpotter {
 			return false;
 //		System.out.println("MADE IT");
 		for (IField f : adapter.getFields()) {
-//			System.out.println("field " + f.getType() + " adaptee type " + adaptee.getName());
-			if (f.getType().contains(adaptee.getName())) {
+			if (f.getType().equals(adaptee.getName())) {
 				// set the appropriate Stereotype and PatternType fields
 				adapter.setStereotype("adapter");
 				adaptee.setStereotype("adaptee");

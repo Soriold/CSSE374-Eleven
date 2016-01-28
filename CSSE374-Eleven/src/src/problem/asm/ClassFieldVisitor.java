@@ -29,17 +29,22 @@ public class ClassFieldVisitor extends ClassVisitor {
 		type = simplifyClassName(type);
 		System.out.println(signature);
 		signature = extractType(signature);
-		
+		System.out.println(type);
 		IRelation relation;
 		if(!signature.equals("")) {
-			String temp = signature.substring(1, signature.length() - 1);
-			//System.out.println("==>>" + type + "  " + temp + "  "+ signature);
-			relation = new Relation(this.clazz.getName(), type, RelationType.ASSOCIATION);
+			if(signature.contains("<<")) {
+				relation = new Relation(this.clazz.getName(), type, RelationType.ASSOCIATION);
+			} else {
+				String temp = signature.substring(1, signature.length() - 1);
+				//System.out.println("==>>" + type + "  " + temp + "  "+ signature);
+				relation = new Relation(this.clazz.getName(), temp, RelationType.ASSOCIATION);
+				type += signature;
+			}
 		} else {
 			relation = new Relation(this.clazz.getName(), type, RelationType.ASSOCIATION);
+			type += signature;
 		}
 		
-		type += signature;
 		
 		IField field = new Field();
 		if(!signature.equals("")) {
