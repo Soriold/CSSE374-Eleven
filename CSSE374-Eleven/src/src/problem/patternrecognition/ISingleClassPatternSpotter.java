@@ -5,5 +5,5 @@ import src.problem.components.PatternType;
 
 public interface ISingleClassPatternSpotter {
 	
-	public PatternType spot(IClass c);
+	public void spot(IClass c);
 }
