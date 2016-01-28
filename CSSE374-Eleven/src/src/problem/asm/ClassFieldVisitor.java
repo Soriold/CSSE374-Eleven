@@ -27,7 +27,7 @@ public class ClassFieldVisitor extends ClassVisitor {
 		FieldVisitor toDecorate = super.visitField(access, name, desc, signature, value);
 		String type = Type.getType(desc).getClassName();
 		type = simplifyClassName(type);
-		System.out.println(signature);
+		//System.out.println(signature);
 		signature = extractType(signature);
 		
 		IRelation relation;

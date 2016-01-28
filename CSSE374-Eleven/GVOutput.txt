@@ -1,92 +1,33 @@
 digraph G {fontname = "Bitstream Vera Sans" fontsize = 8
-node [fontname ="Bitstream Vera Sans" fontsize = 8 shape = "record"] edge [fontname = "Bitstream Vera Sans" fontsize = 8]DecryptionInputStream[color=green label = "{DecryptionInputStream\n\<\<decorator\>\>|- decryptor : IDecryption\l
-|+ \<init\>(InputStream IDecryption ) : void\l
-+ read() : int\l
-+ read(byte[] int int ) : int\l
-}"]
-EncryptionOutputStream[color=green label = "{EncryptionOutputStream\n\<\<decorator\>\>|- encryptor : IEncryption\l
-|+ \<init\>(OutputStream IEncryption ) : void\l
-+ write(int ) : void\l
-}"]
-IDecryption[ label = "{\<\<interface\>\>\nIDecryption||+ decrypt(char ) : char\l
-}"]
-IEncryption[ label = "{\<\<interface\>\>\nIEncryption||+ encrypt(char ) : char\l
-}"]
-SubstitutionCipher[ label = "{SubstitutionCipher|- encryptionKey : char[]\l
-- decryptionKey : char[]\l
-|+ \<init\>() : void\l
-+ encrypt(char ) : char\l
-+ decrypt(char ) : char\l
-}"]
-TextEditorApp[ label = "{TextEditorApp||+ \<init\>() : void\l
+node [fontname ="Bitstream Vera Sans" fontsize = 8 shape = "record"] edge [fontname = "Bitstream Vera Sans" fontsize = 8]App[ label = "{App||+ \<init\>() : void\l
 + main(String[] ) : void\l
 }"]
-FilterInputStream[color=green label = "{FilterInputStream\n\<\<decorator\>\>|# in : InputStream\l
-|# \<init\>(InputStream ) : void\l
-+ read() : int\l
-+ read(byte[] ) : int\l
-+ read(byte[] int int ) : int\l
-+ skip(long ) : long\l
-+ available() : int\l
-+ close() : void\l
-+ mark(int ) : void\l
-+ reset() : void\l
-+ markSupported() : boolean\l
+ArrayListAdapter[color=red label = "{ArrayListAdapter\n\<\<adapter\>\>|- iterator : Iterator\<\<TE\>\l
+|+ \<init\>(Iterator ) : void\l
++ hasMoreElements() : boolean\l
++ nextElement() : Object\l
 }"]
-FilterOutputStream[color=green label = "{FilterOutputStream\n\<\<decorator\>\>|# out : OutputStream\l
-|+ \<init\>(OutputStream ) : void\l
-+ write(int ) : void\l
-+ write(byte[] ) : void\l
-+ write(byte[] int int ) : void\l
-+ flush() : void\l
-+ close() : void\l
+LinearTransformer[ label = "{LinearTransformer|- enumTion : Enumeration\<\<TT\>\l
+|+ \<init\>(Enumeration ) : void\l
++ transform(OutputStream ) : void\l
 }"]
-InputStream[color=green label = "{InputStream\n\<\<component\>\>|- MAX_SKIP_BUFFER_SIZE : int\l
-|+ \<init\>() : void\l
-+ read() : int\l
-+ read(byte[] ) : int\l
-+ read(byte[] int int ) : int\l
-+ skip(long ) : long\l
-+ available() : int\l
-+ close() : void\l
-+ mark(int ) : void\l
-+ reset() : void\l
-+ markSupported() : boolean\l
+Enumeration[color=red label = "{\<\<interface\>\>\nEnumeration\n\<\<target\>\>||+ hasMoreElements() : boolean\l
++ nextElement() : Object\l
 }"]
-OutputStream[color=green label = "{OutputStream\n\<\<component\>\>||+ \<init\>() : void\l
-+ write(int ) : void\l
-+ write(byte[] ) : void\l
-+ write(byte[] int int ) : void\l
-+ flush() : void\l
-+ close() : void\l
+Iterator[color=red label = "{\<\<interface\>\>\nIterator\n\<\<adaptee\>\>||+ hasNext() : boolean\l
++ next() : Object\l
++ remove() : void\l
++ forEachRemaining(Consumer ) : void\l
 }"]
-edge [ arrowhead = "vee" style = "solid" label="decorates"]
-FilterOutputStream -> OutputStream
-edge [ arrowhead = "onormal" style = "solid" label=""]
-EncryptionOutputStream -> FilterOutputStream
-edge [ arrowhead = "vee" style = "solid" label=""]
-DecryptionInputStream -> IDecryption
-edge [ arrowhead = "vee" style = "solid" label="decorates"]
-FilterInputStream -> InputStream
-edge [ arrowhead = "vee" style = "dashed" label=""]
-DecryptionInputStream -> FilterInputStream
-edge [ arrowhead = "onormal" style = "dashed" label=""]
-SubstitutionCipher -> IEncryption
-edge [ arrowhead = "vee" style = "dashed" label=""]
-DecryptionInputStream -> InputStream
-edge [ arrowhead = "onormal" style = "solid" label=""]
-FilterInputStream -> InputStream
-edge [ arrowhead = "vee" style = "dashed" label=""]
-EncryptionOutputStream -> OutputStream
-edge [ arrowhead = "vee" style = "dashed" label=""]
-EncryptionOutputStream -> FilterOutputStream
-edge [ arrowhead = "onormal" style = "dashed" label=""]
-SubstitutionCipher -> IDecryption
-edge [ arrowhead = "onormal" style = "solid" label=""]
-FilterOutputStream -> OutputStream
-edge [ arrowhead = "onormal" style = "solid" label=""]
-DecryptionInputStream -> FilterInputStream
-edge [ arrowhead = "vee" style = "solid" label=""]
-EncryptionOutputStream -> IEncryption
+edge [ arrowhead = "vee" style = "dashed"]
+App -> ArrayListAdapter
+edge [ arrowhead = "vee" style = "dashed"]
+App -> LinearTransformer
+edge [ arrowhead = "vee" style = "solid"]
+LinearTransformer -> Enumeration
+edge [ arrowhead = "vee" style = "solid" label="adapts"]
+ArrayListAdapter -> Iterator
+edge [ arrowhead = "onormal" style = "dashed"]
+ArrayListAdapter -> Enumeration
 
 }

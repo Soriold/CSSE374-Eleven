@@ -14,7 +14,6 @@ public class Relation implements IRelation {
 		this.dest = dest;
 		this.src = src;
 		this.type = type;
-		this.label = "";
 	}
 
 	@Override
