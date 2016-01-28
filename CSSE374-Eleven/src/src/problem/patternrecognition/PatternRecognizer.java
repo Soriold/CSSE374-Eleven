@@ -18,9 +18,6 @@ public class PatternRecognizer {
 		for (IMultipleClassPatternSpotter s : mSpotters) {
 			s.spot(model);
 		}
-		for (IClass c : model.getClasses()) {
-			recognize(c);
-		}
 	}
 
 	public static void setSingleClassSpotters(ISingleClassPatternSpotter[] spotters) {
