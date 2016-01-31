@@ -5,7 +5,7 @@ import java.util.Set;
 
 import src.problem.components.*;
 
-public class AdapterSpotter implements IMultipleClassPatternSpotter {
+public class AdapterSpotter implements IPatternSpotter {
 
 	private IModel m;
 

@@ -2,7 +2,7 @@ package src.problem.patternrecognition;
 
 import src.problem.components.IModel;
 
-public interface IMultipleClassPatternSpotter {
+public interface IPatternSpotter {
 
-	public void spot(IModel c);
+	public void spot(IModel m);
 }

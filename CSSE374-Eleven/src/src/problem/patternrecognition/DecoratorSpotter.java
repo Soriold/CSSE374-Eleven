@@ -7,7 +7,7 @@ import java.util.Set;
 
 import src.problem.components.*;
 
-public class DecoratorSpotter implements IMultipleClassPatternSpotter {
+public class DecoratorSpotter implements IPatternSpotter {
 	private IModel model;
 
 	@Override
