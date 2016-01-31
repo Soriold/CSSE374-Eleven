@@ -86,10 +86,10 @@ public class GVOSIntegrationTests {
 		gvos.close();
 		String result = resultStream.toString();
 		
-		System.out.println(result);
+		//System.out.println(result);
 
 		assertTrue(result.contains(
-				"edge [ arrowhead = \"onormal\" style = \"dashed\" ]\nTestInterfaceImplementation -> TestInterface"));
+				"edge [ arrowhead = \"onormal\" style = \"dashed\"  label=\"\"]\nTestInterfaceImplementation -> TestInterface"));
 	}
 
 	@Test
@@ -110,7 +110,7 @@ public class GVOSIntegrationTests {
 		String result = resultStream.toString();
 
 		assertTrue(
-				result.contains("edge [ arrowhead = \"onormal\" style = \"solid\" ]\nTestSubClass -> TestSuperClass"));
+				result.contains("edge [ arrowhead = \"onormal\" style = \"solid\"  label=\"\"]\nTestSubClass -> TestSuperClass"));
 	}
 
 	@Test
@@ -131,7 +131,7 @@ public class GVOSIntegrationTests {
 		String result = resultStream.toString();
 
 		assertTrue(result
-				.contains("edge [ arrowhead = \"onormal\" style = \"solid\" ]\nTestInterfaceTwo -> TestInterface"));
+				.contains("edge [ arrowhead = \"onormal\" style = \"solid\"  label=\"\"]\nTestInterfaceTwo -> TestInterface"));
 
 	}
 
@@ -152,7 +152,7 @@ public class GVOSIntegrationTests {
 		gvos.close();
 		String result = resultStream.toString();
 
-		assertTrue(result.contains("edge [ arrowhead = \"vee\" style = \"solid\" ]\nTestClass -> TestClassTwo"));
+		assertTrue(result.contains("edge [ arrowhead = \"vee\" style = \"solid\"  label=\"\"]\nTestClass -> TestClassTwo"));
 	}
 
 	@Test
@@ -172,7 +172,7 @@ public class GVOSIntegrationTests {
 		gvos.close();
 		String result = resultStream.toString();
 
-		assertTrue(result.contains("edge [ arrowhead = \"vee\" style = \"solid\" ]\nTestClassTwo -> TestClass"));
+		assertTrue(result.contains("edge [ arrowhead = \"vee\" style = \"solid\"  label=\"\"]\nTestClassTwo -> TestClass"));
 	}
 
 	@Test
@@ -192,7 +192,7 @@ public class GVOSIntegrationTests {
 		gvos.close();
 		String result = resultStream.toString();
 		
-		assertTrue(result.contains("edge [ arrowhead = \"vee\" style = \"dashed\" ]\nTestClass -> TestClassThree"));
+		assertTrue(result.contains("edge [ arrowhead = \"vee\" style = \"dashed\"  label=\"\"]\nTestClass -> TestClassThree"));
 	}
 
 	@Test
@@ -212,7 +212,7 @@ public class GVOSIntegrationTests {
 		gvos.close();
 		String result = resultStream.toString();
 
-		assertTrue(result.contains("edge [ arrowhead = \"vee\" style = \"dashed\" ]\nTestClass -> TestSuperClass"));
+		assertTrue(result.contains("edge [ arrowhead = \"vee\" style = \"dashed\"  label=\"\"]\nTestClass -> TestSuperClass"));
 	}
 
 	@Test
@@ -233,8 +233,8 @@ public class GVOSIntegrationTests {
 		gvos.close();
 		String result = resultStream.toString();
 
-		assertTrue(result.contains("edge [ arrowhead = \"vee\" style = \"dashed\" ]\nTestClassTwo -> TestSuperClass"));
-		assertTrue(result.contains("edge [ arrowhead = \"vee\" style = \"dashed\" ]\nTestClassTwo -> TestSubClass"));
+		assertTrue(result.contains("edge [ arrowhead = \"vee\" style = \"dashed\"  label=\"\"]\nTestClassTwo -> TestSuperClass"));
+		assertTrue(result.contains("edge [ arrowhead = \"vee\" style = \"dashed\"  label=\"\"]\nTestClassTwo -> TestSubClass"));
 	}
 	
 	@Test
@@ -254,8 +254,8 @@ public class GVOSIntegrationTests {
 		gvos.close();
 		String result = resultStream.toString();
 
-		assertTrue(result.contains("edge [ arrowhead = \"vee\" style = \"solid\" ]\nTestClass -> TestClassTwo"));
-		assertFalse(result.contains("edge [ arrowhead = \"vee\" style = \"dashed\" ]\nTestClass -> TestClassTwo"));
+		assertTrue(result.contains("edge [ arrowhead = \"vee\" style = \"solid\"  label=\"\"]\nTestClass -> TestClassTwo"));
+		assertFalse(result.contains("edge [ arrowhead = \"vee\" style = \"dashed\"  label=\"\"]\nTestClass -> TestClassTwo"));
 	}
 
 	// Testing tricky factory cases
@@ -276,7 +276,7 @@ public class GVOSIntegrationTests {
 		gvos.close();
 		String result = resultStream.toString();
 		
-		System.out.println(result);
+		//System.out.println(result);
 
 		assertTrue(result.contains(
 				"NYPizzaIngredientFactory[ label = \"{NYPizzaIngredientFactory||+ \\<init\\>() : void\\l\n+ createDough() : Dough\\l\n+ createSauce() : Sauce\\l\n+ createCheese() : Cheese\\l\n+ createVeggies() : Veggies[]\\l\n+ createPepperoni() : Pepperoni\\l\n+ createClam() : Clams\\l\n+ createVeggies() : Veggies[]\\l\n+ createPepperoni() : Pepperoni\\l\n}\"]"));
@@ -304,11 +304,11 @@ public class GVOSIntegrationTests {
 		String result = resultStream.toString();
 
 		assertTrue(result.contains(
-				"edge [ arrowhead = \"onormal\" style = \"dashed\" ]\nNYPizzaIngredientFactory -> PizzaIngredientFactory"));
+				"edge [ arrowhead = \"onormal\" style = \"dashed\"  label=\"\"]\nNYPizzaIngredientFactory -> PizzaIngredientFactory"));
 		assertTrue(result.contains(
-				"edge [ arrowhead = \"onormal\" style = \"dashed\" ]\nChicagoPizzaIngredientFactory -> PizzaIngredientFactory"));
-		assertTrue(result.contains("edge [ arrowhead = \"onormal\" style = \"dashed\" ]\nMozzarellaCheese -> Cheese"));
-		assertTrue(result.contains("edge [ arrowhead = \"onormal\" style = \"dashed\" ]\nPlumTomatoSauce -> Sauce"));
+				"edge [ arrowhead = \"onormal\" style = \"dashed\"  label=\"\"]\nChicagoPizzaIngredientFactory -> PizzaIngredientFactory"));
+		assertTrue(result.contains("edge [ arrowhead = \"onormal\" style = \"dashed\"  label=\"\"]\nMozzarellaCheese -> Cheese"));
+		assertTrue(result.contains("edge [ arrowhead = \"onormal\" style = \"dashed\"  label=\"\"]\nPlumTomatoSauce -> Sauce"));
 	}
 
 	@Test
@@ -331,11 +331,11 @@ public class GVOSIntegrationTests {
 		gvos.write(model);
 		gvos.close();
 		String result = resultStream.toString();
-
+		//System.out.println(result);
 		assertTrue(
-				result.contains("edge [ arrowhead = \"vee\" style = \"dashed\" ]\nNYPizzaIngredientFactory -> Cheese"));
+				result.contains("edge [ arrowhead = \"vee\" style = \"dashed\"  label=\"\"]\nNYPizzaIngredientFactory -> Cheese"));
 		assertTrue(result
-				.contains("edge [ arrowhead = \"vee\" style = \"dashed\" ]\nChicagoPizzaIngredientFactory -> Sauce"));
+				.contains("edge [ arrowhead = \"vee\" style = \"dashed\"  label=\"\"]\nChicagoPizzaIngredientFactory -> Sauce"));
 	}
 
 	@Test
@@ -360,13 +360,13 @@ public class GVOSIntegrationTests {
 		String result = resultStream.toString();
 
 		assertTrue(result.contains(
-				"edge [ arrowhead = \"vee\" style = \"dashed\" ]\nNYPizzaIngredientFactory -> ReggianoCheese"));
+				"edge [ arrowhead = \"vee\" style = \"dashed\"  label=\"\"]\nNYPizzaIngredientFactory -> ReggianoCheese"));
 		assertFalse(result.contains(
-				"edge [ arrowhead = \"vee\" style = \"dashed\" ]\nNYPizzaIngredientFactory -> MozzarellaCheese"));
+				"edge [ arrowhead = \"vee\" style = \"dashed\"  label=\"\"]\nNYPizzaIngredientFactory -> MozzarellaCheese"));
 		assertTrue(result.contains(
-				"edge [ arrowhead = \"vee\" style = \"dashed\" ]\nChicagoPizzaIngredientFactory -> PlumTomatoSauce"));
+				"edge [ arrowhead = \"vee\" style = \"dashed\"  label=\"\"]\nChicagoPizzaIngredientFactory -> PlumTomatoSauce"));
 		assertFalse(result.contains(
-				"edge [ arrowhead = \"vee\" style = \"dashed\" ]\nChicagoPizzaIngredientFactory -> MarinaraSauce"));
+				"edge [ arrowhead = \"vee\" style = \"dashed\"  label=\"\"]\nChicagoPizzaIngredientFactory -> MarinaraSauce"));
 	}
 	
 	//Testing singleton detection
@@ -375,13 +375,13 @@ public class GVOSIntegrationTests {
 		IModel model = new Model();
 		IClass clazz = DesignParser.parse("java.awt.Desktop", model);
 		model.addClass(clazz);
-
+		PatternRecognizer.recognize((Model) model);
 		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
 		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
 		gvos.write(model);
 		gvos.close();
 		String result = resultStream.toString();
-		
+		//System.out.println(result);
 		assertTrue(result.contains("Desktop\\n\\<\\<Singleton\\>\\>"));
 	}
 	
@@ -390,7 +390,7 @@ public class GVOSIntegrationTests {
 		IModel model = new Model();
 		IClass clazz = DesignParser.parse("java.lang.Runtime", model);
 		model.addClass(clazz);
-
+		PatternRecognizer.recognize((Model) model);
 		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
 		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
 		gvos.write(model);
@@ -405,7 +405,7 @@ public class GVOSIntegrationTests {
 		IModel model = new Model();
 		IClass clazz = DesignParser.parse("java.util.Calendar", model);
 		model.addClass(clazz);
-
+		PatternRecognizer.recognize((Model) model);
 		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
 		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
 		gvos.write(model);
@@ -420,7 +420,7 @@ public class GVOSIntegrationTests {
 		IModel model = new Model();
 		IClass clazz = DesignParser.parse("java.io.FilterInputStream", model);
 		model.addClass(clazz);
-
+		PatternRecognizer.recognize((Model) model);
 		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
 		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
 		gvos.write(model);
@@ -435,7 +435,7 @@ public class GVOSIntegrationTests {
 		IModel model = new Model();
 		IClass clazz = DesignParser.parse("integrationTests.TestEagerSingleton", model);
 		model.addClass(clazz);
-
+		PatternRecognizer.recognize((Model) model);
 		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
 		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
 		gvos.write(model);
@@ -450,13 +450,13 @@ public class GVOSIntegrationTests {
 		IModel model = new Model();
 		IClass clazz = DesignParser.parse("integrationTests.TestLazySingleton", model);
 		model.addClass(clazz);
-
+		PatternRecognizer.recognize((Model) model);
 		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
 		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
 		gvos.write(model);
 		gvos.close();
 		String result = resultStream.toString();
-				
+		
 		assertTrue(result.contains("TestLazySingleton\\n\\<\\<Singleton\\>\\>"));
 	}
 	
@@ -507,7 +507,7 @@ public class GVOSIntegrationTests {
 		gvos.close();
 		String result = resultStream.toString();
 		
-		System.out.println(result);
+		//System.out.println(result);
 				
 		assertTrue(result.contains("ArrayListAdapter\\n\\<\\<adapter\\>\\>"));
 		assertTrue(result.contains("Enumeration\\n\\<\\<target\\>\\>"));
@@ -533,7 +533,7 @@ public class GVOSIntegrationTests {
 		gvos.close();
 		String result = resultStream.toString();
 		
-		System.out.println(result);
+		//System.out.println(result);
 				
 		assertFalse(result.contains("\\n\\<\\<adapter\\>\\>"));
 	}
@@ -556,7 +556,7 @@ public class GVOSIntegrationTests {
 		gvos.close();
 		String result = resultStream.toString();
 		
-		System.out.println(result);
+		//System.out.println(result);
 				
 		assertTrue(result.contains("InputStreamReader\\n\\<\\<decorator\\>\\>"));
 		assertTrue(result.contains("BufferedReader\\n\\<\\<decorator\\>\\>"));
@@ -582,7 +582,7 @@ public class GVOSIntegrationTests {
 		gvos.close();
 		String result = resultStream.toString();
 		
-		System.out.println(result);
+		//System.out.println(result);
 				
 		assertTrue(result.contains("OutputStreamWriter\\n\\<\\<decorator\\>\\>"));
 		assertTrue(result.contains("FileWriter\\n\\<\\<decorator\\>\\>"));
