@@ -2,6 +2,7 @@ package src.problem.patternrecognition;
 
 import java.util.List;
 
+import src.problem.components.ClassDecorator;
 import src.problem.components.IClass;
 import src.problem.components.IField;
 import src.problem.components.IMethod;
@@ -19,8 +20,9 @@ public class SingletonSpotter implements IPatternSpotter {
 		boolean hasPublicStaticMethod = this.checkMethods(c.getMethods());
 		boolean hasStaticGetterThatCallsConstructor = this.checkForStaticGetterThatCallsConstructor(c.getMethods());
 		if (hasPrivateStaticInstance && hasPublicStaticMethod || hasStaticGetterThatCallsConstructor) {
-			c.setPattern(PatternType.SINGLETON);
-			c.setStereotype("Singleton");
+			ClassDecorator clazz = new ClassDecorator(c);
+			clazz.setPattern(PatternType.SINGLETON);
+			clazz.setStereotype("Singleton");
 		}
 	}
 

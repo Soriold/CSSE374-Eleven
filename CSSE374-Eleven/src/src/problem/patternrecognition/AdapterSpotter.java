@@ -69,12 +69,21 @@ public class AdapterSpotter implements IPatternSpotter {
 		for (IField f : adapter.getFields()) {
 			if (f.getType().equals(adaptee.getName())) {
 				// set the appropriate Stereotype and PatternType fields
-				adapter.setStereotype("adapter");
-				adaptee.setStereotype("adaptee");
-				target.setStereotype("target");
-				adapter.setPattern(PatternType.ADAPTER);
-				adaptee.setPattern(PatternType.ADAPTER);
-				target.setPattern(PatternType.ADAPTER);
+				ClassDecorator adapterClass = new ClassDecorator(adapter);
+				ClassDecorator adapteeClass = new ClassDecorator(adaptee);
+				ClassDecorator targetClass = new ClassDecorator(target);
+				adapterClass.setStereotype("adapter");
+				adapteeClass.setStereotype("adaptee");
+				targetClass.setStereotype("target");
+				adapterClass.setPattern(PatternType.ADAPTER);
+				adapteeClass.setPattern(PatternType.ADAPTER);
+				targetClass.setPattern(PatternType.ADAPTER);
+				m.getClasses().remove(adapter);
+				m.getClasses().remove(adaptee);
+				m.getClasses().remove(target);
+				m.getClasses().add(adapteeClass);
+				m.getClasses().add(adapterClass);
+				m.getClasses().add(targetClass);
 //				System.out.println("adapter alert");
 				for(IRelation r : m.getRelations()) {
 					if(r.getSrc().equals(s) && r.getDest().equals(adaptee.getName()) && r.getType() == RelationType.ASSOCIATION) {

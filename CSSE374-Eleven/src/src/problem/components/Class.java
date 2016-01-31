@@ -14,15 +14,12 @@ public class Class implements IClass {
 	private boolean isInterface;
 	private List<String> interfaces;
 	private String superClass;
-	private PatternType pattern;
-	private String stereotype;
 
 	public Class() {
 		this.fields = new ArrayList<IField>();
 		this.methods = new ArrayList<IMethod>();
 		this.interfaces = new ArrayList<String>();
 		this.isInterface = false;
-		this.pattern = PatternType.NONE;
 	}
 
 	@Override
@@ -104,24 +101,5 @@ public class Class implements IClass {
 			t.accept(v);
 		}
 		v.postVisit(this);		
-	}
-	
-	public PatternType getPattern() {
-		return this.pattern;
-	}
-
-	@Override
-	public void setStereotype(String string) {
-		this.stereotype = string;
-	}
-
-	@Override
-	public String getStereotype() {
-		return this.stereotype;
-	}
-
-	@Override
-	public void setPattern(PatternType pattern) {
-		this.pattern = pattern;
 	}
 }
