@@ -206,7 +206,7 @@ public class GraphVizOutputStream extends FilterOutputStream {
 					style = "";
 			}
 			if (c.getLabel() == null) {
-				label = " label=\"\"" ;
+				label = "";
 			} else {
 				label = " label=\"" + c.getLabel() + "\" ";
 			}

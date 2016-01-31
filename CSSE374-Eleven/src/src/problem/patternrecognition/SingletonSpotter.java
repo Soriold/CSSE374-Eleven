@@ -6,14 +6,14 @@ import src.problem.components.IClass;
 import src.problem.components.IField;
 import src.problem.components.IMethod;
 import src.problem.components.IMethodCall;
-import src.problem.components.IModel;
 import src.problem.components.PatternType;
 
-public class SingletonSpotter implements IPatternSpotter {
+public class SingletonSpotter implements ISingleClassPatternSpotter {
 
 	private String name;
 
-	private void spot(IClass c) {
+	@Override
+	public void spot(IClass c) {
 		this.name = c.getName();
 		boolean hasPrivateStaticInstance = this.checkInstances(c.getFields());
 		boolean hasPublicStaticMethod = this.checkMethods(c.getMethods());
@@ -73,13 +73,6 @@ public class SingletonSpotter implements IPatternSpotter {
 			}
 		}
 		return false;
-	}
-
-	@Override
-	public void spot(IModel m) {
-		for(IClass c : m.getClasses()) {
-			spot(c);
-		}
 	}
 
 }

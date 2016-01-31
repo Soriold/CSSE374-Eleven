@@ -72,6 +72,7 @@ public class DesignParser {
 		// Tell the Reader to use our (heavily decorated) ClassVisitor to
 		// visit the class
 		reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
+		PatternRecognizer.recognize(clazz);
 		return clazz;
 	}
 }
