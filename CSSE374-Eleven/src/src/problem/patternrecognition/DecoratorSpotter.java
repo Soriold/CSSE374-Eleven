@@ -26,16 +26,12 @@ public class DecoratorSpotter implements IPatternSpotter {
 		for(IRelation r : model.getRelations()) {
 			if(r.getType() == RelationType.EXTENDS || r.getType() == RelationType.IMPLEMENTS) {
 				IClass c = findClass(r.getDest());
-				if(c != null && c.getClass().isAssignableFrom(ClassDecorator.class)) {
-					ClassDecorator clazz = (ClassDecorator)c;
-					if(clazz.getPattern() == PatternType.DECORATOR) {
+				if(c != null) {
+					if(c.getPattern() == PatternType.DECORATOR) {
 						c = findClass(r.getSrc());
 						if(c != null) {
-							clazz = new ClassDecorator(c);
-							clazz.setPattern(PatternType.DECORATOR);
-							clazz.setStereotype("decorator");
-							model.getClasses().remove(c);
-							model.getClasses().add(clazz);
+							c.setPattern(PatternType.DECORATOR);
+							c.setStereotype("decorator");
 						}
 					}
 				}
@@ -85,15 +81,12 @@ public class DecoratorSpotter implements IPatternSpotter {
 				decoratee = agg;
 				
 				//add decorator stereotype and pattern type to class
-				ClassDecorator c = new ClassDecorator(clazz);
-				c.setStereotype("decorator");
-				c.setPattern(PatternType.DECORATOR);
-				model.getClasses().remove(clazz);
-				model.getClasses().add(c);
+				clazz.setStereotype("decorator");
+				clazz.setPattern(PatternType.DECORATOR);
 				
 				//change relation to "decorates" relation
 				for (IRelation relation : relations) {
-					if (relation.getSrc().equals(c.getName()) && relation.getDest().equals(decoratee)) {
+					if (relation.getSrc().equals(clazz.getName()) && relation.getDest().equals(decoratee)) {
 						if(relation.getType() == RelationType.ASSOCIATION) {
 							relation.setLabel("decorates");
 						}
@@ -101,14 +94,11 @@ public class DecoratorSpotter implements IPatternSpotter {
 				}
 
 				//add "component" stereotype to decoratee class
-				for (IClass c2 : model.getClasses()) {
-					if (c2.getName().equals(decoratee)) {
+				for (IClass c : model.getClasses()) {
+					if (c.getName().equals(decoratee)) {
 						System.out.println("decoratee: " + decoratee);
-						ClassDecorator clazz2 = new ClassDecorator(c2);
-						clazz2.setStereotype("component");
-						clazz2.setPattern(PatternType.DECORATOR);
-						model.getClasses().remove(c2);
-						model.getClasses().add(clazz2);
+						c.setStereotype("component");
+						c.setPattern(PatternType.DECORATOR);
 					}
 				}
 				

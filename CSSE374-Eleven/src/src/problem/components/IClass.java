@@ -30,4 +30,12 @@ public interface IClass extends ITraverser{
 
 	public void setIsInterface(boolean isInterface);
 
+	public void setStereotype(String string);
+	
+	public String getStereotype();
+	
+	public void setPattern(PatternType pattern);
+	
+	public PatternType getPattern();
+
 }
