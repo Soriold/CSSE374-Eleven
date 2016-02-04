@@ -276,7 +276,7 @@ public class GVOSIntegrationTests {
 		gvos.close();
 		String result = resultStream.toString();
 		
-		//System.out.println(result);
+		System.out.println(result);
 
 		assertTrue(result.contains(
 				"NYPizzaIngredientFactory[ label = \"{NYPizzaIngredientFactory||+ \\<init\\>() : void\\l\n+ createDough() : Dough\\l\n+ createSauce() : Sauce\\l\n+ createCheese() : Cheese\\l\n+ createVeggies() : Veggies[]\\l\n+ createPepperoni() : Pepperoni\\l\n+ createClam() : Clams\\l\n+ createVeggies() : Veggies[]\\l\n+ createPepperoni() : Pepperoni\\l\n}\"]"));
