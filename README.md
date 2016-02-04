@@ -4,7 +4,7 @@ This tool is designed to interpret a set of Java classes and generate an accurat
 
 ## Mileston 6:
 
-![alt tag](https://github.com/Soriold/CSSE374-Eleven/blob/master/CSSE374-Eleven/M5%20Project%20UML%20Diagrams/M5%20Manual%20UML.png?raw=true)
+![alt tag](https://raw.githubusercontent.com/Soriold/CSSE374-Eleven/master/CSSE374-Eleven/M6%20Project%20UML%20Diagrams/M6%20Manual%20UML.png)
 
 Milestone 6 update: The design now includes the ability to detect the Composite pattern. IMultipleClassPatternSpotter and ISingleClassSpotter were re-merged into IPatternSpotter. Pattern detection now always takes the entire parsed model, but otherwise operates very similarly to the previous milestones.
 
