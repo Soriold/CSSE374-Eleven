@@ -539,7 +539,7 @@ public class GVOSIntegrationTests {
 	}
 	
 	@Test
-	public void testAdapterInputStreamReader() throws IOException {
+	public void testDecoratorInputStreamReader() throws IOException {
 		String[] args = new String[] { "java.io.InputStreamReader", "java.io.Reader", "java.io.InputStream", "java.io.FileReader", "java.io.BufferedReader" };
 
 		Model model = new Model();
@@ -565,7 +565,7 @@ public class GVOSIntegrationTests {
 	}
 	
 	@Test
-	public void testAdapterOutputStreamWriter() throws IOException {
+	public void testDecoratorOutputStreamWriter() throws IOException {
 		String[] args = new String[] { "java.io.OutputStreamWriter", "java.io.OutputStream", "java.io.Writer", "java.io.FileWriter", "java.io.PrintWriter", "java.io.BufferedWriter" };
 
 		Model model = new Model();
@@ -590,5 +590,35 @@ public class GVOSIntegrationTests {
 		assertTrue(result.contains("BufferedWriter\\n\\<\\<decorator\\>\\>"));
 		assertTrue(result.contains("Writer\\n\\<\\<component\\>\\>"));
 		assertTrue(result.contains("edge [ arrowhead = \"vee\" style = \"solid\"  label=\"decorates\" ]\nBufferedWriter -> Writer"));
+	}
+	
+	@Test
+	public void testCompositeLab7_2() throws IOException {
+		String[] args = new String[] { "lab7_2.AbstractSprite", "lab7_2.AnimationPanel", "lab7_2.AnimatorApp", "lab7_2.CircleSprite", "lab7_2.CompositeSprite", "lab7_2.CompositeSpriteIterator", "lab7_2.CrystalBall", "lab7_2.ISprite", "lab7_2.MainWindow", "lab7_2.NullSpriteIterator", "lab7_2.RectangleSprite", "lab7_2.RectangleTower", "lab7_2.SpriteFactory" };
+
+		Model model = new Model();
+
+		for (String className : args) {
+			IClass clazz = DesignParser.parse(className, model);
+			model.addClass(clazz);
+		}
+
+		PatternRecognizer.recognize(model);
+		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
+		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
+		gvos.write(model);
+		gvos.close();
+		String result = resultStream.toString();
+		
+		System.out.println(result);
+				
+		assertTrue(result.contains("ISprite\\n\\<\\<component\\>\\>"));
+		assertTrue(result.contains("AbstractSprite\\n\\<\\<component\\>\\>"));
+		assertTrue(result.contains("CompositeSprite\\n\\<\\<composite\\>\\>"));
+		assertTrue(result.contains("RectangleTower\\n\\<\\<composite\\>\\>"));
+		assertTrue(result.contains("CrystalBall\\n\\<\\<composite\\>\\>"));
+		assertTrue(result.contains("CircleSprite\\n\\<\\<leaf\\>\\>"));
+		assertTrue(result.contains("RectangleSprite\\n\\<\\<leaf\\>\\>"));
+
 	}
 }
