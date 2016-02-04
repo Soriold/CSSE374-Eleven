@@ -5,8 +5,6 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import edu.roshulman.csse374.editor.TextEditor;
-
 public class TextEditorApp {
 	public static void main(String[] args) throws Exception {
 		SubstitutionCipher cipher = new SubstitutionCipher();
