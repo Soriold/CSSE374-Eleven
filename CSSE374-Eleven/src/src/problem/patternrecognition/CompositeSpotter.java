@@ -31,7 +31,16 @@ public class CompositeSpotter implements IPatternSpotter {
 		// get all inherited classes (extended or implemented)
 		for (IRelation relation : relations) {
 			if (relation.getSrc().equals(clazz.getName())) {
-				if (relation.getType() == RelationType.EXTENDS || relation.getType() == RelationType.IMPLEMENTS) {
+				if (relation.getType() == RelationType.EXTENDS) {
+					IClass c = findClass(relation.getDest());
+					inherits.add(relation.getDest());
+					if(c != null && !c.getIsInterface()) {
+						for(String c2 : c.getInterfaces()) {
+							inherits.add(c2);
+						}
+					}
+					inherits.add(relation.getDest());
+				} else if(relation.getType() == RelationType.IMPLEMENTS) {
 					inherits.add(relation.getDest());
 				}
 			}
@@ -39,15 +48,17 @@ public class CompositeSpotter implements IPatternSpotter {
 
 		// detect decoration by cross-referencing inheritances and aggregates
 		for (IField field : clazz.getFields()) {
-			if (field.hasGenericType()) {
-				if (inherits.contains(field.getGenericType())) {
-					component = field.getGenericType();
 
+			if (field.hasGenericType()) {
+				String type = field.getGenericType().replace("<", "");
+				type = type.replace(">", "");
+				if (inherits.contains(type)) {
+					component = type;
 					clazz.setStereotype("composite");
 					clazz.setPattern(PatternType.COMPOSITE);
 
 					for (IClass clazz2 : model.getClasses()) {
-						if (clazz2.getName().equals(component)) {
+						if (clazz2.getName().equals(type)) {
 							clazz2.setStereotype("component");
 							clazz2.setPattern(PatternType.COMPOSITE);
 						}
@@ -62,11 +73,23 @@ public class CompositeSpotter implements IPatternSpotter {
 	private void checkForSubClasses(IModel model) {
 		for (IRelation r : model.getRelations()) {
 			if (r.getType() == RelationType.EXTENDS || r.getType() == RelationType.IMPLEMENTS) {
+				IClass src = findClass(r.getSrc());
+				if(src != null) {
+					if(src.getPattern() == PatternType.COMPOSITE) {
+						IClass dest = findClass(r.getDest());
+						if(dest != null) {
+							if(src.getStereotype().equals("composite")) {
+								dest.setStereotype("component");
+							}
+						}
+					}
+				}
+				
+				
 				IClass dest = findClass(r.getDest());
 				if (dest != null ) {
 					if (dest.getPattern() == PatternType.COMPOSITE) {
-						IClass src = findClass(r.getSrc());
-						if (src != null) {
+						if (src != null && src.getPattern() != PatternType.COMPOSITE) {
 							src.setPattern(PatternType.COMPOSITE);
 							if (dest.getStereotype().equals("composite")) {
 								src.setStereotype("composite");
