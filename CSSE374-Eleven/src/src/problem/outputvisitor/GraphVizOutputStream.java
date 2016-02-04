@@ -52,7 +52,7 @@ public class GraphVizOutputStream extends FilterOutputStream {
 
 	private void setupPreVisitModel() {
 		this.visitor.addVisit(VisitType.PreVisit, Model.class, (ITraverser t) -> {
-			this.write("digraph G {fontname = \"Bitstream Vera Sans\" fontsize = 8\nnode [fontname ="
+			this.write("digraph G {fontname = \"Bitstream Vera Sans\" fontsize = 8\ngraph [splines=ortho, nodesep=1]\nnode [fontname ="
 					+ "\"Bitstream Vera Sans\" fontsize = 8 shape = \"record\"] edge [fontname = "
 					+ "\"Bitstream Vera Sans\" fontsize = 8]");
 		});

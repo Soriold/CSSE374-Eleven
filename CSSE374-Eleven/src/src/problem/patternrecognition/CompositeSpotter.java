@@ -18,12 +18,12 @@ public class CompositeSpotter implements IPatternSpotter {
 		this.model = model;
 		for (IClass clazz : this.model.getClasses()) {
 
-			checkForDecorator(model, clazz);
+			checkForComposite(model, clazz);
 		}
 		checkForSubClasses(model);
 	}
 
-	private void checkForDecorator(IModel model, IClass clazz) {
+	private void checkForComposite(IModel model, IClass clazz) {
 		String component = "";
 		Set<String> inherits = new HashSet<String>();
 		Set<IRelation> relations = model.getRelations();
