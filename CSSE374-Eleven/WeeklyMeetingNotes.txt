@@ -1,0 +1,12 @@
+***Milestone 5 Meeting***
+- Singleton detection: use existing visitor outputstream to improve detection efficieny
+- Multiclass parsing: existing model detection framework is good
+- Use decorators to indicate patterns (ie SingletonClass decorator for IClass)
+
+
+
+***Milestone 6 Meeting***
+- Try using visitor to detect single classes (extend IVistor and IPatternSpotter)
+- Change GVoutput to use fill color
+- Replace enums with configuration files (PatternType and RelationType)
+- Improve Integration Tests: create skeleton classes to test composite detection, try changing them checking again
