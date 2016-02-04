@@ -65,7 +65,7 @@ public class SDEOSIntegrationTests {
 	@Test
 	public void testHasMethodCallsDepth5() throws IOException {
 		IModel model = new Model();
-		String[] clazzes = new String[]{ "integrationTests.TestClass", "integrationTests.TestClassTwo", "integrationTests.TestClassThree" };
+		String[] clazzes = new String[]{ "testClasses.TestClass", "testClasses.TestClassTwo", "testClasses.TestClassThree" };
 		for (String s : clazzes) {
 			IClass clazz = DesignParser.parse(s, model);
 			model.addClass(clazz);
@@ -73,7 +73,7 @@ public class SDEOSIntegrationTests {
 
 		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
 		SDEditOutputStream sdeos = new SDEditOutputStream(resultStream);
-		sdeos.writeMethod((Model) model,"integrationTests.TestClass.methodDepth0()", 5);
+		sdeos.writeMethod((Model) model,"testClasses.TestClass.methodDepth0()", 5);
 		sdeos.close();
 		String result = resultStream.toString();
 

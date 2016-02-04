@@ -1,4 +1,4 @@
-package integrationTests;
+package testClasses;
 
 public class TestLazySingleton {
 	private static volatile TestLazySingleton instance;

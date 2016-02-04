@@ -19,7 +19,7 @@ public class GVOSIntegrationTests {
 	@Test
 	public void testFields() throws IOException {
 		IModel model = new Model();
-		IClass clazz = DesignParser.parse("integrationTests.TestClass", model);
+		IClass clazz = DesignParser.parse("testClasses.TestClass", model);
 		model.addClass(clazz);
 
 		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
@@ -37,7 +37,7 @@ public class GVOSIntegrationTests {
 	@Test
 	public void testMethods() throws IOException {
 		IModel model = new Model();
-		IClass clazz = DesignParser.parse("integrationTests.TestClass", model);
+		IClass clazz = DesignParser.parse("testClasses.TestClass", model);
 		model.addClass(clazz);
 
 		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
@@ -56,7 +56,7 @@ public class GVOSIntegrationTests {
 	@Test
 	public void testClass() throws IOException {
 		IModel model = new Model();
-		IClass clazz = DesignParser.parse("integrationTests.TestClass", model);
+		IClass clazz = DesignParser.parse("testClasses.TestClass", model);
 		model.addClass(clazz);
 
 		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
@@ -70,8 +70,8 @@ public class GVOSIntegrationTests {
 
 	@Test
 	public void testImplements() throws IOException {
-		String[] args = new String[] { "integrationTests.TestInterface",
-				"integrationTests.TestInterfaceImplementation" };
+		String[] args = new String[] { "testClasses.TestInterface",
+				"testClasses.TestInterfaceImplementation" };
 
 		Model model = new Model();
 
@@ -94,7 +94,7 @@ public class GVOSIntegrationTests {
 
 	@Test
 	public void testInheritance() throws IOException {
-		String[] args = new String[] { "integrationTests.TestSuperClass", "integrationTests.TestSubClass" };
+		String[] args = new String[] { "testClasses.TestSuperClass", "testClasses.TestSubClass" };
 
 		Model model = new Model();
 
@@ -115,7 +115,7 @@ public class GVOSIntegrationTests {
 
 	@Test
 	public void testInterfaceExtendsInterface() throws IOException {
-		String[] args = new String[] { "integrationTests.TestInterface", "integrationTests.TestInterfaceTwo" };
+		String[] args = new String[] { "testClasses.TestInterface", "testClasses.TestInterfaceTwo" };
 
 		Model model = new Model();
 
@@ -137,7 +137,7 @@ public class GVOSIntegrationTests {
 
 	@Test
 	public void testAssociation() throws IOException {
-		String[] args = new String[] { "integrationTests.TestClass", "integrationTests.TestClassTwo" };
+		String[] args = new String[] { "testClasses.TestClass", "testClasses.TestClassTwo" };
 
 		Model model = new Model();
 
@@ -157,7 +157,7 @@ public class GVOSIntegrationTests {
 
 	@Test
 	public void testAssociationInArrayList() throws IOException {
-		String[] args = new String[] { "integrationTests.TestClass", "integrationTests.TestClassTwo" };
+		String[] args = new String[] { "testClasses.TestClass", "testClasses.TestClassTwo" };
 
 		Model model = new Model();
 
@@ -177,7 +177,7 @@ public class GVOSIntegrationTests {
 
 	@Test
 	public void testUsesReturn() throws IOException {
-		String[] args = new String[] { "integrationTests.TestClass", "integrationTests.TestClassThree" };
+		String[] args = new String[] { "testClasses.TestClass", "testClasses.TestClassThree" };
 
 		Model model = new Model();
 
@@ -197,7 +197,7 @@ public class GVOSIntegrationTests {
 
 	@Test
 	public void testUsesArg() throws IOException {
-		String[] args = new String[] { "integrationTests.TestClass", "integrationTests.TestSuperClass" };
+		String[] args = new String[] { "testClasses.TestClass", "testClasses.TestSuperClass" };
 
 		Model model = new Model();
 
@@ -217,8 +217,8 @@ public class GVOSIntegrationTests {
 
 	@Test
 	public void testUsesEdgeCaseInstanceCreation() throws IOException {
-		String[] args = new String[] { "integrationTests.TestClassTwo", "integrationTests.TestSuperClass",
-				"integrationTests.TestSubClass" };
+		String[] args = new String[] { "testClasses.TestClassTwo", "testClasses.TestSuperClass",
+				"testClasses.TestSubClass" };
 
 		Model model = new Model();
 
@@ -239,7 +239,7 @@ public class GVOSIntegrationTests {
 	
 	@Test
 	public void testAssociationTakesPriorityOverUses() throws IOException {
-		String[] args = new String[] { "integrationTests.TestClass", "integrationTests.TestClassTwo" };
+		String[] args = new String[] { "testClasses.TestClass", "testClasses.TestClassTwo" };
 
 		Model model = new Model();
 
@@ -433,7 +433,7 @@ public class GVOSIntegrationTests {
 	@Test
 	public void testEagerSingleton() throws IOException {
 		IModel model = new Model();
-		IClass clazz = DesignParser.parse("integrationTests.TestEagerSingleton", model);
+		IClass clazz = DesignParser.parse("testClasses.TestEagerSingleton", model);
 		model.addClass(clazz);
 		PatternRecognizer.recognize((Model) model);
 		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
@@ -448,7 +448,7 @@ public class GVOSIntegrationTests {
 	@Test
 	public void testLazySingleton() throws IOException {
 		IModel model = new Model();
-		IClass clazz = DesignParser.parse("integrationTests.TestLazySingleton", model);
+		IClass clazz = DesignParser.parse("testClasses.TestLazySingleton", model);
 		model.addClass(clazz);
 		PatternRecognizer.recognize((Model) model);
 		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
