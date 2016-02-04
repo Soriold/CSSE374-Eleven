@@ -506,9 +506,7 @@ public class GVOSIntegrationTests {
 		gvos.write(model);
 		gvos.close();
 		String result = resultStream.toString();
-		
-		//System.out.println(result);
-				
+						
 		assertTrue(result.contains("ArrayListAdapter\\n\\<\\<adapter\\>\\>"));
 		assertTrue(result.contains("Enumeration\\n\\<\\<target\\>\\>"));
 		assertTrue(result.contains("Iterator\\n\\<\\<adaptee\\>\\>"));
@@ -532,9 +530,7 @@ public class GVOSIntegrationTests {
 		gvos.write(model);
 		gvos.close();
 		String result = resultStream.toString();
-		
-		//System.out.println(result);
-				
+						
 		assertFalse(result.contains("\\n\\<\\<adapter\\>\\>"));
 	}
 	
@@ -555,9 +551,7 @@ public class GVOSIntegrationTests {
 		gvos.write(model);
 		gvos.close();
 		String result = resultStream.toString();
-		
-		//System.out.println(result);
-				
+						
 		assertTrue(result.contains("InputStreamReader\\n\\<\\<decorator\\>\\>"));
 		assertTrue(result.contains("BufferedReader\\n\\<\\<decorator\\>\\>"));
 		assertTrue(result.contains("Reader\\n\\<\\<component\\>\\>"));
@@ -581,9 +575,7 @@ public class GVOSIntegrationTests {
 		gvos.write(model);
 		gvos.close();
 		String result = resultStream.toString();
-		
-		//System.out.println(result);
-				
+						
 		assertTrue(result.contains("OutputStreamWriter\\n\\<\\<decorator\\>\\>"));
 		assertTrue(result.contains("FileWriter\\n\\<\\<decorator\\>\\>"));
 		assertTrue(result.contains("PrintWriter\\n\\<\\<decorator\\>\\>"));
@@ -610,8 +602,8 @@ public class GVOSIntegrationTests {
 		gvos.close();
 		String result = resultStream.toString();
 		
-		System.out.println(result);
-				
+		//System.out.println(result);
+						
 		assertTrue(result.contains("ISprite\\n\\<\\<component\\>\\>"));
 		assertTrue(result.contains("AbstractSprite\\n\\<\\<component\\>\\>"));
 		assertTrue(result.contains("CompositeSprite\\n\\<\\<composite\\>\\>"));
@@ -619,6 +611,56 @@ public class GVOSIntegrationTests {
 		assertTrue(result.contains("CrystalBall\\n\\<\\<composite\\>\\>"));
 		assertTrue(result.contains("CircleSprite\\n\\<\\<leaf\\>\\>"));
 		assertTrue(result.contains("RectangleSprite\\n\\<\\<leaf\\>\\>"));
+	}
+	
+	@Test
+	public void testCompositeAWT() throws IOException {
+		String[] args = new String[] { "java.awt.Container", "java.awt.Component", "java.awt.Canvas", "java.awt.List", "java.awt.Scrollbar", "java.awt.Button" };
 
+		Model model = new Model();
+
+		for (String className : args) {
+			IClass clazz = DesignParser.parse(className, model);
+			model.addClass(clazz);
+		}
+
+		PatternRecognizer.recognize(model);
+		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
+		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
+		gvos.write(model);
+		gvos.close();
+		String result = resultStream.toString();
+						
+		assertTrue(result.contains("Component\\n\\<\\<component\\>\\>"));
+		assertTrue(result.contains("Container\\n\\<\\<composite\\>\\>"));
+		assertTrue(result.contains("Canvas\\n\\<\\<leaf\\>\\>"));
+		assertTrue(result.contains("List\\n\\<\\<leaf\\>\\>"));
+		assertTrue(result.contains("Scrollbar\\n\\<\\<leaf\\>\\>"));
+		assertTrue(result.contains("Button\\n\\<\\<leaf\\>\\>"));
+	}
+	
+	@Test
+	public void testCompositeSwing() throws IOException {
+		String[] args = new String[] { "java.awt.Container", "java.awt.Component", "javax.swing.JLabel", "javax.swing.JPanel", "javax.swing.JComponent" };
+
+		Model model = new Model();
+
+		for (String className : args) {
+			IClass clazz = DesignParser.parse(className, model);
+			model.addClass(clazz);
+		}
+
+		PatternRecognizer.recognize(model);
+		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
+		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
+		gvos.write(model);
+		gvos.close();
+		String result = resultStream.toString();
+						
+		assertTrue(result.contains("Component\\n\\<\\<component\\>\\>"));
+		assertTrue(result.contains("Container\\n\\<\\<composite\\>\\>"));
+		assertTrue(result.contains("JLabel\\n\\<\\<composite\\>\\>"));
+		assertTrue(result.contains("JPanel\\n\\<\\<composite\\>\\>"));
+		assertTrue(result.contains("JComponent\\n\\<\\<composite\\>\\>"));
 	}
 }
