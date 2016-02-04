@@ -1,5 +1,5 @@
 digraph G {fontname = "Bitstream Vera Sans" fontsize = 8
-node [fontname ="Bitstream Vera Sans" fontsize = 8 shape = "record"] edge [fontname = "Bitstream Vera Sans" fontsize = 8]AbstractSprite[ label = "{AbstractSprite|# dx : double\l
+node [fontname ="Bitstream Vera Sans" fontsize = 8 shape = "record"] edge [fontname = "Bitstream Vera Sans" fontsize = 8]AbstractSprite[ label = "{AbstractSprite\n\<\<component\>\>|# dx : double\l
 # dy : double\l
 # shape : Shape\l
 |+ \<init\>(double double double double ) : void\l
@@ -28,10 +28,10 @@ access$2(AnimationPanel ) : long\l
 AnimatorApp[ label = "{AnimatorApp||+ \<init\>() : void\l
 + main(String[] ) : void\l
 }"]
-CircleSprite[ label = "{CircleSprite||+ \<init\>(double double double double ) : void\l
+CircleSprite[ label = "{CircleSprite\n\<\<leaf\>\>||+ \<init\>(double double double double ) : void\l
 + move(Dimension ) : void\l
 }"]
-CompositeSprite[ label = "{CompositeSprite|children : List\<ISprite\>\l
+CompositeSprite[ label = "{CompositeSprite\n\<\<composite\>\>|children : List\<ISprite\>\l
 |+ \<init\>(double double double double ) : void\l
 + iterator() : Iterator\l
 + add(ISprite ) : void\l
@@ -46,9 +46,9 @@ CompositeSpriteIterator[ label = "{CompositeSpriteIterator|- stack : Stack\<ISpr
 + remove() : void\l
 + next() : Object\l
 }"]
-CrystalBall[ label = "{CrystalBall||+ \<init\>(double double double double ) : void\l
+CrystalBall[ label = "{CrystalBall\n\<\<composite\>\>||+ \<init\>(double double double double ) : void\l
 }"]
-ISprite[ label = "{\<\<interface\>\>\nISprite||+ move(Dimension ) : void\l
+ISprite[ label = "{\<\<interface\>\>\nISprite\n\<\<component\>\>||+ move(Dimension ) : void\l
 + getShape() : Shape\l
 + add(ISprite ) : void\l
 + remove(ISprite ) : void\l
@@ -74,10 +74,10 @@ NullSpriteIterator[ label = "{NullSpriteIterator||+ \<init\>() : void\l
 + remove() : void\l
 + next() : Object\l
 }"]
-RectangleSprite[ label = "{RectangleSprite||+ \<init\>(double double double double ) : void\l
+RectangleSprite[ label = "{RectangleSprite\n\<\<leaf\>\>||+ \<init\>(double double double double ) : void\l
 + move(Dimension ) : void\l
 }"]
-RectangleTower[ label = "{RectangleTower||+ \<init\>(double double double double ) : void\l
+RectangleTower[ label = "{RectangleTower\n\<\<composite\>\>||+ \<init\>(double double double double ) : void\l
 }"]
 SpriteFactory[ label = "{SpriteFactory|+ DX : double\l
 + DY : double\l
