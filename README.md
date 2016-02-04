@@ -2,6 +2,12 @@
 
 This tool is designed to interpret a set of Java classes and generate an accurate UML diagram to describe the design of the sfotware. It is build atop ASM's Java Parsing Library. A visitor pattern is used to iteratively interpret the design hierarchy of the subject software. A basic strategy pattern is used in conjunction with the visitor pattern to detect code stereotypes. An intermediate set of data container classes is used to create an intermediate representation of the software design as it is being visited and interpreted. After the entire design has been evaluated, the intermediate data containers are parsed into a special text output that can be used in GraphViz to generate a UML diagram. This tool can also be used to generate Sequence Diagrams to describe how the classes interact with each other. This is accomplished using the same visitor pattern as the UML Generator and does not require additional parsing. One parse can generate both the UML and Sequence Diagram.
 
+## Mileston 6:
+
+![alt tag](https://github.com/Soriold/CSSE374-Eleven/blob/master/CSSE374-Eleven/M5%20Project%20UML%20Diagrams/M5%20Manual%20UML.png?raw=true)
+
+Milestone 6 update: The design now includes the ability to detect the Composite pattern. IMultipleClassPatternSpotter and ISingleClassSpotter were re-merged into IPatternSpotter. Pattern detection now always takes the entire parsed model, but otherwise operates very similarly to the previous milestones.
+
 ## Milestone 5:
 
 ![alt tag](https://github.com/Soriold/CSSE374-Eleven/blob/master/CSSE374-Eleven/M5%20Project%20UML%20Diagrams/M5%20Manual%20UML.png?raw=true)
@@ -41,4 +47,4 @@ Simplified the current UML Diagrams.
 All team members were equally involved in important matters such as software design decisions, etcetera.
 
 # Instructions: 
-To use this tool, run DesignParser with arguments of the configuration file you want to use, the full method signature you wish to create a sequence diagram for, and the depth you would like the sequence diagram to reach. For example, under Run Configurations in Eclipse, we used the arguments "collectionsArgs.txt java.util.Collections.shuffle(List<T> list) 3" to generate the sequence diagram of java.util.Collections.shuffle() at a depth of 3. After running DesignParser with the desired arguments, two text files are created: GVOutput.txt contains the GraphViz code to make a UML diagram of the parsed classes, and SDEditOutput.txt contains the SDEdit markup for the sequence diagram of the given method.
+DesignParser now takes four arguments. The first argument is the file that contains the fully qualified names of the classes you want to parse. The second argument is either "true" or "false", depending on whether you want to generate a sequence diagram. If you do want to generate a sequence diagram, and have set the second argument to "true", the third argument should be the fully qualified name of the method you want to generate a diagram for, including the method parameters. the fourth and final argument should be the number of levels of recursion that you want for the sequence diagram. Be careful setting the levels of recursion, as the diagram may grow very quickly. For example, under Run Configurations in Eclipse, we used the arguments "collectionsArgs.txt true java.util.Collections.shuffle(List<T> list) 3" to generate the sequence diagram of java.util.Collections.shuffle() at a depth of 3. After running DesignParser with the desired arguments, two text files are created: GVOutput.txt contains the GraphViz code to make a UML diagram of the parsed classes, and SDEditOutput.txt contains the SDEdit markup for the sequence diagram of the given method.
