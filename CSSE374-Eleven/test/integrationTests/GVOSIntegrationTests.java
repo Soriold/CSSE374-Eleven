@@ -613,6 +613,7 @@ public class GVOSIntegrationTests {
 		System.out.println(result);
 				
 		assertTrue(result.contains("ISprite\\n\\<\\<component\\>\\>"));
+		assertTrue(result.contains("AbstractSprite\\n\\<\\<component\\>\\>"));
 		assertTrue(result.contains("CompositeSprite\\n\\<\\<composite\\>\\>"));
 		assertTrue(result.contains("RectangleTower\\n\\<\\<composite\\>\\>"));
 		assertTrue(result.contains("CrystalBall\\n\\<\\<composite\\>\\>"));

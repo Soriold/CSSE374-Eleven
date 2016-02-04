@@ -80,6 +80,7 @@ public class CompositeSpotter implements IPatternSpotter {
 						if(dest != null) {
 							if(src.getStereotype().equals("composite")) {
 								dest.setStereotype("component");
+								dest.setPattern(PatternType.COMPOSITE);
 							}
 						}
 					}
