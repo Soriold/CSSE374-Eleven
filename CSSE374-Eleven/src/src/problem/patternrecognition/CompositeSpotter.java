@@ -3,7 +3,6 @@ package src.problem.patternrecognition;
 import java.util.HashSet;
 import java.util.Set;
 
-import src.problem.components.ClassDecorator;
 import src.problem.components.IClass;
 import src.problem.components.IField;
 import src.problem.components.IModel;
@@ -44,22 +43,13 @@ public class CompositeSpotter implements IPatternSpotter {
 				if (inherits.contains(field.getGenericType())) {
 					component = field.getGenericType();
 
-					// add decorator stereotype and pattern type to class
-					ClassDecorator cd = new ClassDecorator(clazz);
-					cd.setStereotype("composite");
-					cd.setPattern(PatternType.COMPOSITE);
-					model.getClasses().remove(clazz);
-					model.getClasses().add(cd);
+					clazz.setStereotype("composite");
+					clazz.setPattern(PatternType.COMPOSITE);
 
-					// add "component" stereotype to decoratee class
 					for (IClass clazz2 : model.getClasses()) {
 						if (clazz2.getName().equals(component)) {
-							System.out.println("composite component: " + component);
-							ClassDecorator cd2 = new ClassDecorator(clazz2);
-							cd2.setStereotype("component");
-							cd2.setPattern(PatternType.COMPOSITE);
-							model.getClasses().remove(clazz2);
-							model.getClasses().add(cd2);
+							clazz2.setStereotype("component");
+							clazz2.setPattern(PatternType.COMPOSITE);
 						}
 					}
 
@@ -73,20 +63,16 @@ public class CompositeSpotter implements IPatternSpotter {
 		for (IRelation r : model.getRelations()) {
 			if (r.getType() == RelationType.EXTENDS || r.getType() == RelationType.IMPLEMENTS) {
 				IClass dest = findClass(r.getDest());
-				if (dest != null && dest.getClass().isAssignableFrom(ClassDecorator.class)) {
-					ClassDecorator cd = (ClassDecorator) dest;
-					if (cd.getPattern() == PatternType.COMPOSITE) {
+				if (dest != null ) {
+					if (dest.getPattern() == PatternType.COMPOSITE) {
 						IClass src = findClass(r.getSrc());
 						if (src != null) {
-							ClassDecorator cd2 = new ClassDecorator(src);
-							cd2.setPattern(PatternType.COMPOSITE);
-							if (cd.getStereotype().equals("composite")) {
-								cd2.setStereotype("composite");
+							src.setPattern(PatternType.COMPOSITE);
+							if (dest.getStereotype().equals("composite")) {
+								src.setStereotype("composite");
 							} else {
-								cd2.setStereotype("leaf");
+								src.setStereotype("leaf");
 							}
-							model.getClasses().remove(src);
-							model.getClasses().add(cd2);
 						}
 					}
 				}
