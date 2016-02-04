@@ -94,6 +94,8 @@ public class GraphVizOutputStream extends FilterOutputStream {
 			return "color=green";
 		case ADAPTER:
 			return "color=red";
+		case COMPOSITE:
+			return "color=yellow";
 		default:
 			return "";
 		}
