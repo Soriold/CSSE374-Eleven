@@ -96,7 +96,7 @@ public class DecoratorSpotter implements IPatternSpotter {
 				//add "component" stereotype to decoratee class
 				for (IClass c : model.getClasses()) {
 					if (c.getName().equals(decoratee)) {
-						System.out.println("decoratee: " + decoratee);
+						//System.out.println("decoratee: " + decoratee);
 						c.setStereotype("component");
 						c.setPattern(PatternType.DECORATOR);
 					}
