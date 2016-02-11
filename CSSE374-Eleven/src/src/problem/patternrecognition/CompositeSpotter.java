@@ -33,13 +33,13 @@ public class CompositeSpotter implements IPatternSpotter {
 				if (relation.getType().equals("EXTENDS")) {
 					IClass c = findClass(relation.getDest());
 					inherits.add(relation.getDest());
-					if(c != null && !c.getIsInterface()) {
-						for(String c2 : c.getInterfaces()) {
+					if (c != null && !c.getIsInterface()) {
+						for (String c2 : c.getInterfaces()) {
 							inherits.add(c2);
 						}
 					}
 					inherits.add(relation.getDest());
-				} else if(relation.getType().equals("IMPLEMENTS")) {
+				} else if (relation.getType().equals("IMPLEMENTS")) {
 					inherits.add(relation.getDest());
 				}
 			}
@@ -73,26 +73,31 @@ public class CompositeSpotter implements IPatternSpotter {
 		for (IRelation r : model.getRelations()) {
 			if (r.getType().equals("EXTENDS") || r.getType().equals("IMPLEMENTS")) {
 				IClass src = findClass(r.getSrc());
-				if(src != null) {
-					if(src.getPattern() == PatternType.COMPOSITE) {
+				if (src != null) {
+					if (src.getPattern() == PatternType.COMPOSITE) {
 						IClass dest = findClass(r.getDest());
-						if(dest != null) {
-							if(src.getStereotype().equals("composite")) {
-								dest.setStereotype("component");
-								dest.setPattern(PatternType.COMPOSITE);
+						if (dest != null) {
+							if (src.getStereotype().equals("composite")) {
+								if (dest.getStereotype() == null || !dest.getStereotype().equals("composite")) {
+									dest.setStereotype("component");
+									dest.setPattern(PatternType.COMPOSITE);
+								}
 							}
 						}
 					}
 				}
-				
-				
+
 				IClass dest = findClass(r.getDest());
-				if (dest != null ) {
+				if (dest != null) {
 					if (dest.getPattern() == PatternType.COMPOSITE) {
 						if (src != null && src.getPattern() != PatternType.COMPOSITE) {
 							src.setPattern(PatternType.COMPOSITE);
 							if (dest.getStereotype().equals("composite")) {
-								src.setStereotype("composite");
+								if (src.getStereotype() == null || !src.getStereotype().equals("composite")) {
+									src.setStereotype("composite");
+									checkForSubClasses(model);
+									return;
+								}
 							} else {
 								src.setStereotype("leaf");
 							}

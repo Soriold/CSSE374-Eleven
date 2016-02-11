@@ -574,7 +574,7 @@ public class GVOSIntegrationTests {
 		gvos.write(model);
 		gvos.close();
 		String result = resultStream.toString();
-						
+								
 		assertTrue(result.contains("OutputStreamWriter\\n\\<\\<decorator\\>\\>"));
 		assertTrue(result.contains("FileWriter\\n\\<\\<decorator\\>\\>"));
 		assertTrue(result.contains("PrintWriter\\n\\<\\<decorator\\>\\>"));
@@ -609,7 +609,7 @@ public class GVOSIntegrationTests {
 		assertTrue(result.contains("RectangleTower\\n\\<\\<composite\\>\\>"));
 		assertTrue(result.contains("CrystalBall\\n\\<\\<composite\\>\\>"));
 		assertTrue(result.contains("RectangleSprite\\n\\<\\<leaf\\>\\>"));
-		//assertTrue(result.contains("CircleSprite\\n\\<\\<leaf\\>\\>"));
+		assertTrue(result.contains("CircleSprite\\n\\<\\<leaf\\>\\>"));
 	}
 	
 	@Test
@@ -655,7 +655,9 @@ public class GVOSIntegrationTests {
 		gvos.write(model);
 		gvos.close();
 		String result = resultStream.toString();
-						
+		
+		System.out.println(result);
+		
 		assertTrue(result.contains("Component\\n\\<\\<component\\>\\>"));
 		assertTrue(result.contains("Container\\n\\<\\<composite\\>\\>"));
 		assertTrue(result.contains("JLabel\\n\\<\\<composite\\>\\>"));

@@ -25,13 +25,17 @@ public class DecoratorSpotter implements IPatternSpotter {
 	private void checkForSubClasses(IModel model) {
 		for(IRelation r : model.getRelations()) {
 			if(r.getType().equals("EXTENDS") || r.getType().equals("IMPLEMENTS")) {
-				IClass c = findClass(r.getDest());
-				if(c != null) {
-					if(c.getPattern() == PatternType.DECORATOR) {
-						c = findClass(r.getSrc());
-						if(c != null) {
-							c.setPattern(PatternType.DECORATOR);
-							c.setStereotype("decorator");
+				IClass dest = findClass(r.getDest());
+				if(dest != null) {
+					if(dest.getPattern() == PatternType.DECORATOR) {
+						IClass src = findClass(r.getSrc());
+						if(src != null) {
+							if (src.getStereotype() == null || !src.getStereotype().equals("decorator")) {
+								src.setPattern(PatternType.DECORATOR);
+								src.setStereotype("decorator");
+								checkForSubClasses(model);
+								return;
+							}
 						}
 					}
 				}
