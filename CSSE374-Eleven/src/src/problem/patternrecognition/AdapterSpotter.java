@@ -72,9 +72,9 @@ public class AdapterSpotter implements IPatternSpotter {
 				adapter.setStereotype("adapter");
 				adaptee.setStereotype("adaptee");
 				target.setStereotype("target");
-				adapter.setPattern(PatternType.ADAPTER);
-				adaptee.setPattern(PatternType.ADAPTER);
-				target.setPattern(PatternType.ADAPTER);
+				adapter.setPattern("ADAPTER");
+				adaptee.setPattern("ADAPTER");
+				target.setPattern("ADAPTER");
 //				System.out.println("adapter alert");
 				for(IRelation r : m.getRelations()) {
 					if(r.getSrc().equals(s) && r.getDest().equals(adaptee.getName()) && r.getType().equals("ASSOCIATION")) {

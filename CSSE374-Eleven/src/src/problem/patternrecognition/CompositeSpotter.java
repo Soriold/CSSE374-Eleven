@@ -7,7 +7,6 @@ import src.problem.components.IClass;
 import src.problem.components.IField;
 import src.problem.components.IModel;
 import src.problem.components.IRelation;
-import src.problem.components.PatternType;
 
 public class CompositeSpotter implements IPatternSpotter {
 	private IModel model;
@@ -54,12 +53,12 @@ public class CompositeSpotter implements IPatternSpotter {
 				if (inherits.contains(type)) {
 					component = type;
 					clazz.setStereotype("composite");
-					clazz.setPattern(PatternType.COMPOSITE);
+					clazz.setPattern("COMPOSITE");
 
 					for (IClass clazz2 : model.getClasses()) {
 						if (clazz2.getName().equals(type)) {
 							clazz2.setStereotype("component");
-							clazz2.setPattern(PatternType.COMPOSITE);
+							clazz2.setPattern("COMPOSITE");
 						}
 					}
 
@@ -74,12 +73,12 @@ public class CompositeSpotter implements IPatternSpotter {
 			if (r.getType().equals("EXTENDS") || r.getType().equals("IMPLEMENTS")) {
 				IClass src = findClass(r.getSrc());
 				if(src != null) {
-					if(src.getPattern() == PatternType.COMPOSITE) {
+					if(src.getPattern().equals("COMPOSITE")) {
 						IClass dest = findClass(r.getDest());
 						if(dest != null) {
 							if(src.getStereotype().equals("composite")) {
 								dest.setStereotype("component");
-								dest.setPattern(PatternType.COMPOSITE);
+								dest.setPattern("COMPOSITE");
 							}
 						}
 					}
@@ -88,9 +87,9 @@ public class CompositeSpotter implements IPatternSpotter {
 				
 				IClass dest = findClass(r.getDest());
 				if (dest != null ) {
-					if (dest.getPattern() == PatternType.COMPOSITE) {
-						if (src != null && src.getPattern() != PatternType.COMPOSITE) {
-							src.setPattern(PatternType.COMPOSITE);
+					if (dest.getPattern().equals("COMPOSITE")) {
+						if (src != null && !src.getPattern().equals("COMPOSITE")) {
+							src.setPattern("COMPOSITE");
 							if (dest.getStereotype().equals("composite")) {
 								src.setStereotype("composite");
 							} else {

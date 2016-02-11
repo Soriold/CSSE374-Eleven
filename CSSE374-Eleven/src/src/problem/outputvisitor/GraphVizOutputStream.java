@@ -1,7 +1,6 @@
 package src.problem.outputvisitor;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FilterOutputStream;
 import java.io.IOException;
@@ -15,13 +14,13 @@ import src.problem.components.IModel;
 import src.problem.components.Method;
 import src.problem.components.Model;
 import src.problem.components.Parameter;
-import src.problem.components.PatternType;
 import src.problem.components.Relation;
 
 public class GraphVizOutputStream extends FilterOutputStream {
 
 	private final IVisitor visitor;
 	private Map<String, String> relationTypeOutput;
+	private Map<String, String> patternTypeOutput;
 
 
 	public GraphVizOutputStream(OutputStream out) {
@@ -29,11 +28,23 @@ public class GraphVizOutputStream extends FilterOutputStream {
 		this.visitor = new Visitor();
 		this.setupVisitors();
 		relationTypeOutput = new HashMap<String, String>();
+		patternTypeOutput = new HashMap<String, String>();
 		try {
 			loadRelationTypeOutput();
+			loadPatternTypeOutput();
 		} catch (IOException e) {
-			System.out.println("Error loading relation type configuration.");
+			System.out.println("Error loading configurations.");
 		}
+	}
+
+	private void loadPatternTypeOutput() throws IOException {
+		BufferedReader in = new BufferedReader(new FileReader("patternTypesConfig.txt"));
+        String line = "";
+        while ((line = in.readLine()) != null) {
+        	String[] current = line.split("-");
+        	relationTypeOutput.put(current[0], current[1]);
+        }
+        in.close();
 	}
 
 	private void loadRelationTypeOutput() throws IOException {
@@ -108,17 +119,11 @@ public class GraphVizOutputStream extends FilterOutputStream {
 
 	}
 
-	private Object getColor(PatternType pattern) {
-		switch(pattern) {
-		case SINGLETON:
-			return "style=filled fillcolor=blue";
-		case DECORATOR:
-			return "style=filled fillcolor=green";
-		case ADAPTER:
-			return "style=filled fillcolor=red";
-		case COMPOSITE:
-			return "style=filled fillcolor=yellow";
-		default:
+	private Object getColor(String pattern) {
+		if(patternTypeOutput.containsKey(pattern)) {
+			String[] output = relationTypeOutput.get(pattern).split("-");
+			return "style=filled fillcolor=" + output[1];
+		} else {
 			return "";
 		}
 	}

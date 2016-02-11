@@ -1,6 +1,7 @@
 package src.problem.components;
 
 import java.util.List;
+import java.util.Set;
 
 import src.problem.outputvisitor.ITraverser;
 
@@ -34,8 +35,10 @@ public interface IClass extends ITraverser{
 	
 	public String getStereotype();
 	
-	public void setPattern(PatternType pattern);
+	public void setPattern(String pattern);
 	
-	public PatternType getPattern();
+	public String getPattern();
+	
+	public Set<String> getPatternTypes();
 
 }
