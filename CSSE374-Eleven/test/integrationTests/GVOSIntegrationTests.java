@@ -655,13 +655,39 @@ public class GVOSIntegrationTests {
 		gvos.write(model);
 		gvos.close();
 		String result = resultStream.toString();
-		
-		System.out.println(result);
-		
+				
 		assertTrue(result.contains("Component\\n\\<\\<component\\>\\>"));
 		assertTrue(result.contains("Container\\n\\<\\<composite\\>\\>"));
 		assertTrue(result.contains("JLabel\\n\\<\\<composite\\>\\>"));
 		assertTrue(result.contains("JPanel\\n\\<\\<composite\\>\\>"));
 		assertTrue(result.contains("JComponent\\n\\<\\<composite\\>\\>"));
+	}
+	
+	@Test
+	public void testCompositeTestClasses() throws IOException {
+		String[] args = new String[] { "testClasses.TestCompositeComponent", "testClasses.TestCompositeComposite1", "testClasses.TestCompositeComposite2", "testClasses.TestCompositeComposite3", "testClasses.TestCompositeLeaf1", "testClasses.TestCompositeLeaf2" };
+
+		Model model = new Model();
+
+		for (String className : args) {
+			IClass clazz = DesignParser.parse(className, model);
+			model.addClass(clazz);
+		}
+
+		PatternRecognizer.recognize(model);
+		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
+		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
+		gvos.write(model);
+		gvos.close();
+		String result = resultStream.toString();
+		
+		System.out.println(result);
+				
+		assertTrue(result.contains("TestCompositeComponent\\n\\<\\<component\\>\\>"));
+		assertTrue(result.contains("TestCompositeComposite1\\n\\<\\<composite\\>\\>"));
+		assertTrue(result.contains("TestCompositeComposite2\\n\\<\\<composite\\>\\>"));
+		assertTrue(result.contains("TestCompositeComposite3\\n\\<\\<composite\\>\\>"));
+		assertTrue(result.contains("TestCompositeLeaf1\\n\\<\\<leaf\\>\\>"));
+		assertTrue(result.contains("TestCompositeLeaf2\\n\\<\\<leaf\\>\\>"));
 	}
 }

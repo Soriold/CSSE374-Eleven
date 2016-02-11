@@ -61,8 +61,21 @@ public class CompositeSpotter implements IPatternSpotter {
 							clazz2.setPattern("COMPOSITE");
 						}
 					}
+				}
+			} else if (field.getType().contains("[]")) {
+				String type = field.getType().replace("[", "");
+				type = type.replace("]", "");
+				if (inherits.contains(type)) {
+					component = type;
+					clazz.setStereotype("composite");
+					clazz.setPattern("COMPOSITE");
 
-					return;
+					for (IClass clazz2 : model.getClasses()) {
+						if (clazz2.getName().equals(type)) {
+							clazz2.setStereotype("component");
+							clazz2.setPattern("COMPOSITE");
+						}
+					}
 				}
 			}
 		}

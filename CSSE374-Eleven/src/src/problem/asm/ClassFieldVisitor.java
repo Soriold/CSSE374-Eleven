@@ -52,6 +52,7 @@ public class ClassFieldVisitor extends ClassVisitor {
 		}
 		field.setName(name);
 		field.setType(type);
+		System.out.println("class: "+this.clazz.getName()+ " field type: "+type);
 		if ((access & Opcodes.ACC_PUBLIC) != 0) {
 			field.setVisibility("public");
 		} else if ((access & Opcodes.ACC_PROTECTED) != 0) {
