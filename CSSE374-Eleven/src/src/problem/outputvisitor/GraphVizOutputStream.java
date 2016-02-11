@@ -89,13 +89,13 @@ public class GraphVizOutputStream extends FilterOutputStream {
 	private Object getColor(PatternType pattern) {
 		switch(pattern) {
 		case SINGLETON:
-			return "color=blue";
+			return "style=filled fillcolor=blue";
 		case DECORATOR:
-			return "color=green";
+			return "style=filled fillcolor=green";
 		case ADAPTER:
-			return "color=red";
+			return "style=filled fillcolor=red";
 		case COMPOSITE:
-			return "color=yellow";
+			return "style=filled fillcolor=yellow";
 		default:
 			return "";
 		}
