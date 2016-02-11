@@ -27,11 +27,11 @@ public class DecoratorSpotter implements IPatternSpotter {
 			if(r.getType().equals("EXTENDS") || r.getType().equals("IMPLEMENTS")) {
 				IClass dest = findClass(r.getDest());
 				if(dest != null) {
-					if(dest.getPattern() == PatternType.DECORATOR) {
+					if(dest.getPattern().equals("DECORATOR")) {
 						IClass src = findClass(r.getSrc());
 						if(src != null) {
 							if (src.getStereotype() == null || !src.getStereotype().equals("decorator")) {
-								src.setPattern(PatternType.DECORATOR);
+								src.setPattern("DECORATOR");
 								src.setStereotype("decorator");
 								checkForSubClasses(model);
 								return;
@@ -86,7 +86,7 @@ public class DecoratorSpotter implements IPatternSpotter {
 				
 				//add decorator stereotype and pattern type to class
 				clazz.setStereotype("decorator");
-				clazz.setPattern(PatternType.DECORATOR);
+				clazz.setPattern("DECORATOR");
 				
 				//change relation to "decorates" relation
 				for (IRelation relation : relations) {
@@ -102,7 +102,7 @@ public class DecoratorSpotter implements IPatternSpotter {
 					if (c.getName().equals(decoratee)) {
 						//System.out.println("decoratee: " + decoratee);
 						c.setStereotype("component");
-						c.setPattern(PatternType.DECORATOR);
+						c.setPattern("DECORATOR");
 					}
 				}
 				
