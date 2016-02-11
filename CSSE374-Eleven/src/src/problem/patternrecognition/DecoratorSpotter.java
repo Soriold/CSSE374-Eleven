@@ -24,7 +24,7 @@ public class DecoratorSpotter implements IPatternSpotter {
 	
 	private void checkForSubClasses(IModel model) {
 		for(IRelation r : model.getRelations()) {
-			if(r.getType() == RelationType.EXTENDS || r.getType() == RelationType.IMPLEMENTS) {
+			if(r.getType().equals("EXTENDS") || r.getType().equals("IMPLEMENTS")) {
 				IClass c = findClass(r.getDest());
 				if(c != null) {
 					if(c.getPattern() == PatternType.DECORATOR) {
@@ -69,7 +69,7 @@ public class DecoratorSpotter implements IPatternSpotter {
 		//get all inherited classes (extended or implemented)
 		for (IRelation relation : relations) {
 			if (relation.getSrc().equals(clazz.getName())) {
-				if (relation.getType() == RelationType.EXTENDS || relation.getType() == RelationType.IMPLEMENTS) {
+				if (relation.getType().equals("EXTENDS") || relation.getType().equals("IMPLEMENTS")) {
 					inherits.add(relation.getDest());
 				}
 			}
@@ -87,7 +87,7 @@ public class DecoratorSpotter implements IPatternSpotter {
 				//change relation to "decorates" relation
 				for (IRelation relation : relations) {
 					if (relation.getSrc().equals(clazz.getName()) && relation.getDest().equals(decoratee)) {
-						if(relation.getType() == RelationType.ASSOCIATION) {
+						if(relation.getType().equals("ASSOCIATION")) {
 							relation.setLabel("decorates");
 						}
 					}

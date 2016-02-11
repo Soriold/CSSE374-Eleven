@@ -32,15 +32,15 @@ public class ClassFieldVisitor extends ClassVisitor {
 		IRelation relation;
 		if(!signature.equals("")) {
 			if(signature.contains("<<")) {
-				relation = new Relation(this.clazz.getName(), type, RelationType.ASSOCIATION);
+				relation = new Relation(this.clazz.getName(), type, "ASSOCIATION");
 			} else {
 				String temp = signature.substring(1, signature.length() - 1);
 				//System.out.println("==>>" + type + "  " + temp + "  "+ signature);
-				relation = new Relation(this.clazz.getName(), temp, RelationType.ASSOCIATION);
+				relation = new Relation(this.clazz.getName(), temp, "ASSOCIATION");
 				type += signature;
 			}
 		} else {
-			relation = new Relation(this.clazz.getName(), type, RelationType.ASSOCIATION);
+			relation = new Relation(this.clazz.getName(), type, "ASSOCIATION");
 			type += signature;
 		}
 		

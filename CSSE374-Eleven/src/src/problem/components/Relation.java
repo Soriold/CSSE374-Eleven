@@ -1,19 +1,46 @@
 package src.problem.components;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
+
 import src.problem.outputvisitor.IVisitor;
 
 public class Relation implements IRelation {
 
 	private String dest;
 	private String src;
-	private RelationType type;
+	private String type;
 	private String label;
+	private Set<String> relationTypes;
 
-	public Relation(String src, String dest, RelationType type) {
+	public Relation(String src, String dest, String type) {
 		super();
 		this.dest = dest;
 		this.src = src;
-		this.type = type;
+		relationTypes = new HashSet<String>();
+		try {
+			loadRelationTypes();
+		} catch (IOException e) {
+			System.out.println("Error loading config file for relation types.");
+		}
+		if(relationTypes.contains(type)) {
+			this.type = type;
+		} else {
+			this.type = "";
+		}
+	}
+
+	private void loadRelationTypes() throws IOException {
+		BufferedReader in = new BufferedReader(new FileReader("relationTypesConfig.txt"));
+        String line = "";
+        while ((line = in.readLine()) != null) {
+        	String[] current = line.split("-");
+        	relationTypes.add(current[0]);
+        }
+        in.close();
 	}
 
 	@Override
@@ -27,7 +54,7 @@ public class Relation implements IRelation {
 	}
 
 	@Override
-	public RelationType getType() {
+	public String getType() {
 		return type;
 	}
 
@@ -42,8 +69,10 @@ public class Relation implements IRelation {
 	}
 
 	@Override
-	public void setType(RelationType type) {
-		this.type = type;
+	public void setType(String type) {
+		if(relationTypes.contains(type)) {
+			this.type = type;
+		}
 	}
 
 	@Override
@@ -51,9 +80,13 @@ public class Relation implements IRelation {
 		IRelation relation = (Relation) obj;
 		boolean destEquals = this.dest.equals(relation.getDest());
 		boolean srcEquals = this.src.equals(relation.getSrc());
-		boolean typeEquals = this.type == relation.getType()
-				|| this.type == RelationType.ASSOCIATION && relation.getType() == RelationType.USES
-				|| this.type == RelationType.USES && relation.getType() == RelationType.ASSOCIATION;
+		boolean typeEquals = this.type.equals(relation.getType())
+				|| this.type.equals("ASSOCIATION") && relation.getType().equals("USES")
+				|| this.type.equals("USES") && relation.getType().equals("ASSOCIATION");
+		boolean result = destEquals && srcEquals && typeEquals;
+		if(result && this.type.equals("USES") && relation.getType().equals("ASSOCIATION")) {
+			this.type = "ASSOCIATION";
+		}
 		return destEquals && srcEquals && typeEquals;
 	}
 	
@@ -63,8 +96,8 @@ public class Relation implements IRelation {
 		int result = 1;
 		result = prime * result + ((dest == null) ? 0 : dest.hashCode());
 		result = prime * result + ((src == null) ? 0 : src.hashCode());
-		if(type == RelationType.USES) {
-			result = prime * result + ((type == null) ? 0 : RelationType.ASSOCIATION.hashCode());
+		if(type.equals("USES")) {
+			result = prime * result + ((type == null) ? 0 : "ASSOCIATION".hashCode());
 		} else {
 			result = prime * result + ((type == null) ? 0 : type.hashCode());
 		}
@@ -84,5 +117,10 @@ public class Relation implements IRelation {
 	@Override
 	public String getLabel() {
 		return this.label;
+	}
+
+	@Override
+	public Set<String> getRelationTypes() {
+		return this.relationTypes;
 	}
 }

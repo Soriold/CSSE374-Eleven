@@ -74,7 +74,7 @@ public class ClassFieldVisitorUnitTests {
 		IRelation addedRelation = model.getRelations().iterator().next();
 		assertEquals(addedRelation.getSrc(), "Class1");
 		assertEquals(addedRelation.getDest(), "String");
-		assertEquals(addedRelation.getType(), RelationType.ASSOCIATION);
+		assertEquals(addedRelation.getType(), "ASSOCIATION");
 	}
 	
 	@Test
@@ -95,7 +95,7 @@ public class ClassFieldVisitorUnitTests {
 		IRelation addedRelation = model.getRelations().iterator().next();
 		assertEquals(addedRelation.getSrc(), "Class1");
 		assertEquals(addedRelation.getDest(), "IClass");
-		assertEquals(addedRelation.getType(), RelationType.ASSOCIATION);
+		assertEquals(addedRelation.getType(), "ASSOCIATION");
 	}
 
 }

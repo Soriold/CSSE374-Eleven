@@ -151,7 +151,6 @@ public class GVOSIntegrationTests {
 		gvos.write(model);
 		gvos.close();
 		String result = resultStream.toString();
-
 		assertTrue(result.contains("edge [ arrowhead = \"vee\" style = \"solid\"  label=\"\"]\nTestClass -> TestClassTwo"));
 	}
 

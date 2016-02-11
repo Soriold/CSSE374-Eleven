@@ -9,7 +9,6 @@ import src.problem.components.IModel;
 import src.problem.components.IRelation;
 import src.problem.components.MethodCall;
 import src.problem.components.Relation;
-import src.problem.components.RelationType;
 
 public class MethodBodyVisitor extends MethodVisitor {
 	
@@ -31,7 +30,7 @@ public class MethodBodyVisitor extends MethodVisitor {
 		owner = simplifyClassName(owner);
 		MethodCall mc = new MethodCall(this.method, owner, name);
 		if (name.equals("<init>")) {
-			IRelation relation = new Relation(classname, owner, RelationType.USES);
+			IRelation relation = new Relation(classname, owner, "USES");
 			this.model.addRelation(relation);
 			mc.setDestinationMethod("create");
 		}

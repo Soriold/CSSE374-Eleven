@@ -18,15 +18,15 @@ public class AdapterSpotter implements IPatternSpotter {
 		Set<String> assocclasses = new HashSet<String>();
 		for (IRelation r : relations) {
 			//System.out.println(r.getDest());
-			if (r.getType() == RelationType.IMPLEMENTS) {
+			if (r.getType().equals("IMPLEMENTS")) {
 				filtered.add(r);
 				impclasses.add(r.getSrc());
 			}
-			if (r.getType() == RelationType.ASSOCIATION) {
+			if (r.getType().equals("ASSOCIATION")) {
 				filtered.add(r);
 				assocclasses.add(r.getSrc());
 			}
-			if (r.getType() == RelationType.USES) {
+			if (r.getType().equals("USES")) {
 				filtered.add(r);
 				impclasses.add(r.getSrc());
 			}
@@ -45,7 +45,7 @@ public class AdapterSpotter implements IPatternSpotter {
 		//System.out.println("checking " + adapter.getName() + " for adaptors");
 		for (IRelation r : filtered) {
 			//System.out.println("checking relation " + r.getSrc() + "->" + r.getDest() + " (" + r.getType() + ")");
-			if (r.getSrc().equals(s) && r.getType() == RelationType.ASSOCIATION) {
+			if (r.getSrc().equals(s) && r.getType().equals("ASSOCIATION")) {
 				//System.out.println("FOUND ADAPTEE!!! Relation " + r.getSrc() + "->" + r.getDest() + " (" + r.getType() + ")");
 				adaptee = findClass(r.getDest());
 //				if (adaptee != null) {
@@ -54,7 +54,7 @@ public class AdapterSpotter implements IPatternSpotter {
 			}
 //			System.out.println("Relation " + r.getSrc() + "->" + r.getDest() + " (" + r.getType() + ") results: "
 //					+ r.getDest().equals(s) + ", " + (r.getType() == RelationType.IMPLEMENTS) + ", " + (r.getType() == RelationType.USES));
-			if (r.getSrc().equals(s) && r.getType() == RelationType.IMPLEMENTS) {
+			if (r.getSrc().equals(s) && r.getType().equals("IMPLEMENTS")) {
 				//System.out.println("FOUND TARGET!!! Relation " + r.getSrc() + "->" + r.getDest() + " (" + r.getType() + ")");
 				target = findClass(r.getDest());
 //				if (target != null) {
@@ -77,7 +77,7 @@ public class AdapterSpotter implements IPatternSpotter {
 				target.setPattern(PatternType.ADAPTER);
 //				System.out.println("adapter alert");
 				for(IRelation r : m.getRelations()) {
-					if(r.getSrc().equals(s) && r.getDest().equals(adaptee.getName()) && r.getType() == RelationType.ASSOCIATION) {
+					if(r.getSrc().equals(s) && r.getDest().equals(adaptee.getName()) && r.getType().equals("ASSOCIATION")) {
 						r.setLabel("adapts");
 					}
 				}

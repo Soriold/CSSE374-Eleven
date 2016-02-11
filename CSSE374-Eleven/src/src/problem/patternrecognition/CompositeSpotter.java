@@ -8,7 +8,6 @@ import src.problem.components.IField;
 import src.problem.components.IModel;
 import src.problem.components.IRelation;
 import src.problem.components.PatternType;
-import src.problem.components.RelationType;
 
 public class CompositeSpotter implements IPatternSpotter {
 	private IModel model;
@@ -31,7 +30,7 @@ public class CompositeSpotter implements IPatternSpotter {
 		// get all inherited classes (extended or implemented)
 		for (IRelation relation : relations) {
 			if (relation.getSrc().equals(clazz.getName())) {
-				if (relation.getType() == RelationType.EXTENDS) {
+				if (relation.getType().equals("EXTENDS")) {
 					IClass c = findClass(relation.getDest());
 					inherits.add(relation.getDest());
 					if(c != null && !c.getIsInterface()) {
@@ -40,7 +39,7 @@ public class CompositeSpotter implements IPatternSpotter {
 						}
 					}
 					inherits.add(relation.getDest());
-				} else if(relation.getType() == RelationType.IMPLEMENTS) {
+				} else if(relation.getType().equals("IMPLEMENTS")) {
 					inherits.add(relation.getDest());
 				}
 			}
@@ -72,7 +71,7 @@ public class CompositeSpotter implements IPatternSpotter {
 
 	private void checkForSubClasses(IModel model) {
 		for (IRelation r : model.getRelations()) {
-			if (r.getType() == RelationType.EXTENDS || r.getType() == RelationType.IMPLEMENTS) {
+			if (r.getType().equals("EXTENDS") || r.getType().equals("IMPLEMENTS")) {
 				IClass src = findClass(r.getSrc());
 				if(src != null) {
 					if(src.getPattern() == PatternType.COMPOSITE) {

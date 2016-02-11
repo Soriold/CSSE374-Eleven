@@ -42,6 +42,6 @@ public class MethodBodyVisitorUnitTests {
 		IRelation rel = it.next();
 		assertEquals(rel.getSrc(), "Clazz");
 		assertEquals(rel.getDest(), "TestClass");
-		assertEquals(rel.getType(), RelationType.USES);
+		assertEquals(rel.getType(), "USES");
 	}
 }

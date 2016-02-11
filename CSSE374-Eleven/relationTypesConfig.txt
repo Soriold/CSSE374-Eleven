@@ -1,0 +1,4 @@
+EXTENDS-"onormal"-"solid"
+IMPLEMENTS-"onormal"-"dashed"
+ASSOCIATION-"vee"-"solid"
+USES-"vee"-"dashed"

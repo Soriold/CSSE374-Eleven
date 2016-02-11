@@ -26,7 +26,7 @@ public class ClassDeclarationVisitor extends ClassVisitor {
 		clazz.setName(name);
 		clazz.setSuperClass(superName);
 		if(superName != null) {
-			relation = new Relation(this.clazz.getName(), superName, RelationType.EXTENDS);
+			relation = new Relation(this.clazz.getName(), superName, "EXTENDS");
 		}
 		
 		if ((access & Opcodes.ACC_INTERFACE) != 0) {
@@ -38,9 +38,9 @@ public class ClassDeclarationVisitor extends ClassVisitor {
 			i = simplifyClassName(i);
 			clazz.addInterface(i);
 			if (clazz.getIsInterface()) {
-				relation = new Relation(this.clazz.getName(), i, RelationType.EXTENDS);
+				relation = new Relation(this.clazz.getName(), i, "EXTENDS");
 			} else {
-				relation = new Relation(this.clazz.getName(), i, RelationType.IMPLEMENTS);
+				relation = new Relation(this.clazz.getName(), i, "IMPLEMENTS");
 			}
 			this.model.addRelation(relation);
 		}

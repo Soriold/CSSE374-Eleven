@@ -1,8 +1,13 @@
 package src.problem.outputvisitor;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import src.problem.components.Class;
 import src.problem.components.Field;
@@ -16,12 +21,29 @@ import src.problem.components.Relation;
 public class GraphVizOutputStream extends FilterOutputStream {
 
 	private final IVisitor visitor;
+	private Map<String, String> relationTypeOutput;
 
 
 	public GraphVizOutputStream(OutputStream out) {
 		super(out);
 		this.visitor = new Visitor();
 		this.setupVisitors();
+		relationTypeOutput = new HashMap<String, String>();
+		try {
+			loadRelationTypeOutput();
+		} catch (IOException e) {
+			System.out.println("Error loading relation type configuration.");
+		}
+	}
+
+	private void loadRelationTypeOutput() throws IOException {
+		BufferedReader in = new BufferedReader(new FileReader("relationTypesConfig.txt"));
+        String line = "";
+        while ((line = in.readLine()) != null) {
+        	String[] current = line.split("-");
+        	relationTypeOutput.put(current[0], current[1] + "-" + current[2]);
+        }
+        in.close();
 	}
 
 	private void setupVisitors() {
@@ -186,26 +208,14 @@ public class GraphVizOutputStream extends FilterOutputStream {
 		this.visitor.addVisit(VisitType.Visit, Relation.class, (ITraverser t) -> {
 			Relation c = (Relation) t;
 			String style, arrowhead, label;
-			switch (c.getType()) {
-				case EXTENDS:
-					arrowhead = "\"onormal\"";
-					style = "\"solid\"";
-					break;
-				case IMPLEMENTS:
-					arrowhead = "\"onormal\"";
-					style = "\"dashed\"";
-					break;
-				case ASSOCIATION:
-					arrowhead = "\"vee\"";
-					style = "\"solid\"";
-					break;
-				case USES:
-					arrowhead = "\"vee\"";
-					style = "\"dashed\"";
-					break;
-				default:
-					arrowhead = "";
-					style = "";
+			String type = c.getType();
+			if(relationTypeOutput.containsKey(type)) {
+				String[] output = relationTypeOutput.get(type).split("-");
+				arrowhead = output[0];
+				style = output[1];
+			} else {
+				arrowhead = "";
+				style = "";
 			}
 			if (c.getLabel() == null) {
 				label = " label=\"\"" ;
