@@ -7,7 +7,7 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import src.problem.asm.DesignParser;
+import src.problem.visible.DesignParser;
 import src.problem.components.Model;
 import src.problem.outputvisitor.GraphVizOutputStream;
 import src.problem.patternrecognition.PatternRecognizer;
@@ -15,11 +15,17 @@ import src.problem.components.IClass;
 import src.problem.components.IModel;
 
 public class GVOSIntegrationTests {
+	
+	private DesignParser p;
+	
+	public GVOSIntegrationTests() {
+		p = DesignParser.getInstance();
+	}
 
 	@Test
 	public void testFields() throws IOException {
 		IModel model = new Model();
-		IClass clazz = DesignParser.parse("testClasses.TestClass", model);
+		IClass clazz = p.parse("testClasses.TestClass", model);
 		model.addClass(clazz);
 
 		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
@@ -37,7 +43,7 @@ public class GVOSIntegrationTests {
 	@Test
 	public void testMethods() throws IOException {
 		IModel model = new Model();
-		IClass clazz = DesignParser.parse("testClasses.TestClass", model);
+		IClass clazz = p.parse("testClasses.TestClass", model);
 		model.addClass(clazz);
 
 		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
@@ -56,7 +62,7 @@ public class GVOSIntegrationTests {
 	@Test
 	public void testClass() throws IOException {
 		IModel model = new Model();
-		IClass clazz = DesignParser.parse("testClasses.TestClass", model);
+		IClass clazz = p.parse("testClasses.TestClass", model);
 		model.addClass(clazz);
 
 		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
@@ -76,7 +82,7 @@ public class GVOSIntegrationTests {
 		Model model = new Model();
 
 		for (String className : args) {
-			IClass clazz = DesignParser.parse(className, model);
+			IClass clazz = p.parse(className, model);
 			model.addClass(clazz);
 		}
 
@@ -99,7 +105,7 @@ public class GVOSIntegrationTests {
 		Model model = new Model();
 
 		for (String className : args) {
-			IClass clazz = DesignParser.parse(className, model);
+			IClass clazz = p.parse(className, model);
 			model.addClass(clazz);
 		}
 
@@ -120,7 +126,7 @@ public class GVOSIntegrationTests {
 		Model model = new Model();
 
 		for (String className : args) {
-			IClass clazz = DesignParser.parse(className, model);
+			IClass clazz = p.parse(className, model);
 			model.addClass(clazz);
 		}
 
@@ -142,7 +148,7 @@ public class GVOSIntegrationTests {
 		Model model = new Model();
 
 		for (String className : args) {
-			IClass clazz = DesignParser.parse(className, model);
+			IClass clazz = p.parse(className, model);
 			model.addClass(clazz);
 		}
 
@@ -161,7 +167,7 @@ public class GVOSIntegrationTests {
 		Model model = new Model();
 
 		for (String className : args) {
-			IClass clazz = DesignParser.parse(className, model);
+			IClass clazz = p.parse(className, model);
 			model.addClass(clazz);
 		}
 
@@ -181,7 +187,7 @@ public class GVOSIntegrationTests {
 		Model model = new Model();
 
 		for (String className : args) {
-			IClass clazz = DesignParser.parse(className, model);
+			IClass clazz = p.parse(className, model);
 			model.addClass(clazz);
 		}
 
@@ -201,7 +207,7 @@ public class GVOSIntegrationTests {
 		Model model = new Model();
 
 		for (String className : args) {
-			IClass clazz = DesignParser.parse(className, model);
+			IClass clazz = p.parse(className, model);
 			model.addClass(clazz);
 		}
 
@@ -222,7 +228,7 @@ public class GVOSIntegrationTests {
 		Model model = new Model();
 
 		for (String className : args) {
-			IClass clazz = DesignParser.parse(className, model);
+			IClass clazz = p.parse(className, model);
 			model.addClass(clazz);
 		}
 
@@ -243,7 +249,7 @@ public class GVOSIntegrationTests {
 		Model model = new Model();
 
 		for (String className : args) {
-			IClass clazz = DesignParser.parse(className, model);
+			IClass clazz = p.parse(className, model);
 			model.addClass(clazz);
 		}
 
@@ -265,7 +271,7 @@ public class GVOSIntegrationTests {
 		Model model = new Model();
 
 		for (String className : args) {
-			IClass clazz = DesignParser.parse(className, model);
+			IClass clazz = p.parse(className, model);
 			model.addClass(clazz);
 		}
 
@@ -292,7 +298,7 @@ public class GVOSIntegrationTests {
 		Model model = new Model();
 
 		for (String className : args) {
-			IClass clazz = DesignParser.parse(className, model);
+			IClass clazz = p.parse(className, model);
 			model.addClass(clazz);
 		}
 
@@ -321,7 +327,7 @@ public class GVOSIntegrationTests {
 		Model model = new Model();
 
 		for (String className : args) {
-			IClass clazz = DesignParser.parse(className, model);
+			IClass clazz = p.parse(className, model);
 			model.addClass(clazz);
 		}
 
@@ -348,7 +354,7 @@ public class GVOSIntegrationTests {
 		Model model = new Model();
 
 		for (String className : args) {
-			IClass clazz = DesignParser.parse(className, model);
+			IClass clazz = p.parse(className, model);
 			model.addClass(clazz);
 		}
 
@@ -372,7 +378,7 @@ public class GVOSIntegrationTests {
 	@Test
 	public void testDesktopSingleton() throws IOException {
 		IModel model = new Model();
-		IClass clazz = DesignParser.parse("java.awt.Desktop", model);
+		IClass clazz = p.parse("java.awt.Desktop", model);
 		model.addClass(clazz);
 		PatternRecognizer.recognize((Model) model);
 		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
@@ -387,7 +393,7 @@ public class GVOSIntegrationTests {
 	@Test
 	public void testRuntimeSingleton() throws IOException {
 		IModel model = new Model();
-		IClass clazz = DesignParser.parse("java.lang.Runtime", model);
+		IClass clazz = p.parse("java.lang.Runtime", model);
 		model.addClass(clazz);
 		PatternRecognizer.recognize((Model) model);
 		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
@@ -402,7 +408,7 @@ public class GVOSIntegrationTests {
 	@Test
 	public void testCalendarNotSingleton() throws IOException {
 		IModel model = new Model();
-		IClass clazz = DesignParser.parse("java.util.Calendar", model);
+		IClass clazz = p.parse("java.util.Calendar", model);
 		model.addClass(clazz);
 		PatternRecognizer.recognize((Model) model);
 		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
@@ -417,7 +423,7 @@ public class GVOSIntegrationTests {
 	@Test
 	public void testFilterInputStreamNotSingleton() throws IOException {
 		IModel model = new Model();
-		IClass clazz = DesignParser.parse("java.io.FilterInputStream", model);
+		IClass clazz = p.parse("java.io.FilterInputStream", model);
 		model.addClass(clazz);
 		PatternRecognizer.recognize((Model) model);
 		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
@@ -432,7 +438,7 @@ public class GVOSIntegrationTests {
 	@Test
 	public void testEagerSingleton() throws IOException {
 		IModel model = new Model();
-		IClass clazz = DesignParser.parse("testClasses.TestEagerSingleton", model);
+		IClass clazz = p.parse("testClasses.TestEagerSingleton", model);
 		model.addClass(clazz);
 		PatternRecognizer.recognize((Model) model);
 		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
@@ -447,7 +453,7 @@ public class GVOSIntegrationTests {
 	@Test
 	public void testLazySingleton() throws IOException {
 		IModel model = new Model();
-		IClass clazz = DesignParser.parse("testClasses.TestLazySingleton", model);
+		IClass clazz = p.parse("testClasses.TestLazySingleton", model);
 		model.addClass(clazz);
 		PatternRecognizer.recognize((Model) model);
 		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
@@ -466,7 +472,7 @@ public class GVOSIntegrationTests {
 		Model model = new Model();
 
 		for (String className : args) {
-			IClass clazz = DesignParser.parse(className, model);
+			IClass clazz = p.parse(className, model);
 			model.addClass(clazz);
 		}
 
@@ -495,7 +501,7 @@ public class GVOSIntegrationTests {
 		Model model = new Model();
 
 		for (String className : args) {
-			IClass clazz = DesignParser.parse(className, model);
+			IClass clazz = p.parse(className, model);
 			model.addClass(clazz);
 		}
 
@@ -519,7 +525,7 @@ public class GVOSIntegrationTests {
 		Model model = new Model();
 
 		for (String className : args) {
-			IClass clazz = DesignParser.parse(className, model);
+			IClass clazz = p.parse(className, model);
 			model.addClass(clazz);
 		}
 
@@ -540,7 +546,7 @@ public class GVOSIntegrationTests {
 		Model model = new Model();
 
 		for (String className : args) {
-			IClass clazz = DesignParser.parse(className, model);
+			IClass clazz = p.parse(className, model);
 			model.addClass(clazz);
 		}
 
@@ -564,7 +570,7 @@ public class GVOSIntegrationTests {
 		Model model = new Model();
 
 		for (String className : args) {
-			IClass clazz = DesignParser.parse(className, model);
+			IClass clazz = p.parse(className, model);
 			model.addClass(clazz);
 		}
 
@@ -590,7 +596,7 @@ public class GVOSIntegrationTests {
 		Model model = new Model();
 
 		for (String className : args) {
-			IClass clazz = DesignParser.parse(className, model);
+			IClass clazz = p.parse(className, model);
 			model.addClass(clazz);
 		}
 
@@ -619,7 +625,7 @@ public class GVOSIntegrationTests {
 		Model model = new Model();
 
 		for (String className : args) {
-			IClass clazz = DesignParser.parse(className, model);
+			IClass clazz = p.parse(className, model);
 			model.addClass(clazz);
 		}
 
@@ -645,7 +651,7 @@ public class GVOSIntegrationTests {
 		Model model = new Model();
 
 		for (String className : args) {
-			IClass clazz = DesignParser.parse(className, model);
+			IClass clazz = p.parse(className, model);
 			model.addClass(clazz);
 		}
 
@@ -670,7 +676,7 @@ public class GVOSIntegrationTests {
 		Model model = new Model();
 
 		for (String className : args) {
-			IClass clazz = DesignParser.parse(className, model);
+			IClass clazz = p.parse(className, model);
 			model.addClass(clazz);
 		}
 

@@ -1,3 +1,203 @@
 digraph G {fontname = "Bitstream Vera Sans" fontsize = 8
-node [fontname ="Bitstream Vera Sans" fontsize = 8 shape = "record"] edge [fontname = "Bitstream Vera Sans" fontsize = 8]
+node [fontname ="Bitstream Vera Sans" fontsize = 8 shape = "record"] edge [fontname = "Bitstream Vera Sans" fontsize = 8]DecryptionInputStream[style=filled fillcolor=green label = "{DecryptionInputStream\n\<\<decorator\>\>|- decryptor : IDecryption\l
+|+ \<init\>(InputStream IDecryption ) : void\l
++ read() : int\l
++ read(byte[] int int ) : int\l
+}"]
+EncryptionOutputStream[style=filled fillcolor=green label = "{EncryptionOutputStream\n\<\<decorator\>\>|- encryptor : IEncryption\l
+|+ \<init\>(OutputStream IEncryption ) : void\l
++ write(int ) : void\l
+}"]
+IDecryption[ label = "{\<\<interface\>\>\nIDecryption||+ decrypt(char ) : char\l
+}"]
+IEncryption[ label = "{\<\<interface\>\>\nIEncryption||+ encrypt(char ) : char\l
+}"]
+SubstitutionCipher[ label = "{SubstitutionCipher|- encryptionKey : char[]\l
+- decryptionKey : char[]\l
+|+ \<init\>() : void\l
++ encrypt(char ) : char\l
++ decrypt(char ) : char\l
+}"]
+TextEditorApp[ label = "{TextEditorApp||+ \<init\>() : void\l
++ main(String[] ) : void\l
+}"]
+FilterInputStream[style=filled fillcolor=green label = "{FilterInputStream\n\<\<decorator\>\>|# in : InputStream\l
+|# \<init\>(InputStream ) : void\l
++ read() : int\l
++ read(byte[] ) : int\l
++ read(byte[] int int ) : int\l
++ skip(long ) : long\l
++ available() : int\l
++ close() : void\l
++ mark(int ) : void\l
++ reset() : void\l
++ markSupported() : boolean\l
+}"]
+FilterOutputStream[style=filled fillcolor=green label = "{FilterOutputStream\n\<\<decorator\>\>|# out : OutputStream\l
+|+ \<init\>(OutputStream ) : void\l
++ write(int ) : void\l
++ write(byte[] ) : void\l
++ write(byte[] int int ) : void\l
++ flush() : void\l
++ close() : void\l
+}"]
+InputStream[style=filled fillcolor=green label = "{InputStream\n\<\<component\>\>|- MAX_SKIP_BUFFER_SIZE : int\l
+|+ \<init\>() : void\l
++ read() : int\l
++ read(byte[] ) : int\l
++ read(byte[] int int ) : int\l
++ skip(long ) : long\l
++ available() : int\l
++ close() : void\l
++ mark(int ) : void\l
++ reset() : void\l
++ markSupported() : boolean\l
+}"]
+OutputStream[style=filled fillcolor=green label = "{OutputStream\n\<\<component\>\>||+ \<init\>() : void\l
++ write(int ) : void\l
++ write(byte[] ) : void\l
++ write(byte[] int int ) : void\l
++ flush() : void\l
++ close() : void\l
+}"]
+AmazonParser[ label = "{AmazonParser||+ \<init\>() : void\l
++ parse(String ) : HashMap\l
++ getCompanyID() : String\l
+}"]
+DataDisplay1[ label = "{DataDisplay1|this$0 : DataDisplay\l
+|\<init\>(DataDisplay ) : void\l
++ actionPerformed(ActionEvent ) : void\l
+}"]
+DataDisplay2[ label = "{DataDisplay2|this$0 : DataDisplay\l
+|\<init\>(DataDisplay ) : void\l
++ run() : void\l
+}"]
+DataDisplay[ label = "{DataDisplay|# company : String\l
+# data : String\l
+# frame : JFrame\l
+# topPanel : JPanel\l
+# txtField : JTextField\l
+# button : JButton\l
+# scrollPane : JScrollPane\l
+# textArea : JTextArea\l
+# label : JLabel\l
+- standardizer : NewDataStandardizer\l
+|+ \<init\>() : void\l
+# createAndShowGUI() : void\l
++ execute() : void\l
++ parse(String ) : void\l
++ getCompany() : String\l
++ getData() : String\l
++ main(String[] ) : void\l
+}"]
+DataParser[ label = "{\<\<interface\>\>\nDataParser||+ parse(String ) : HashMap\l
++ getCompanyID() : String\l
+}"]
+DataStandardizer1[ label = "{DataStandardizer1|this$0 : DataStandardizer\l
+|\<init\>(DataStandardizer ) : void\l
++ actionPerformed(ActionEvent ) : void\l
+}"]
+DataStandardizer2[ label = "{DataStandardizer2|this$0 : DataStandardizer\l
+|\<init\>(DataStandardizer ) : void\l
++ run() : void\l
+}"]
+DataStandardizer[ label = "{DataStandardizer|# company : String\l
+# data : String\l
+# frame : JFrame\l
+# topPanel : JPanel\l
+# txtField : JTextField\l
+# button : JButton\l
+# scrollPane : JScrollPane\l
+# textArea : JTextArea\l
+# label : JLabel\l
+|+ \<init\>() : void\l
+# createAndShowGUI() : void\l
++ execute() : void\l
++ parse(String ) : void\l
++ getCompany() : String\l
++ getData() : String\l
++ main(String[] ) : void\l
+}"]
+DataStandardizerTest[ label = "{DataStandardizerTest||+ \<init\>() : void\l
++ testParseGoogle() : void\l
++ testParseMicrosoft() : void\l
++ testParseAmazon() : void\l
+}"]
+GoogleParser[ label = "{GoogleParser||+ \<init\>() : void\l
++ parse(String ) : HashMap\l
++ getCompanyID() : String\l
+}"]
+MicrosoftParser[ label = "{MicrosoftParser||+ \<init\>() : void\l
++ parse(String ) : HashMap\l
++ getCompanyID() : String\l
+}"]
+NewDataStandardizer[ label = "{NewDataStandardizer|- parsers : DataParser[]\l
+|\<clinit\>() : void\l
++ \<init\>() : void\l
++ standardize(String ) : String\l
++ getCompany(String ) : String\l
+}"]
+edge [ arrowhead = "onormal" style = "solid"  label=""]
+DecryptionInputStream -> FilterInputStream
+edge [ arrowhead = "vee" style = "dashed"  label=""]
+EncryptionOutputStream -> FilterOutputStream
+edge [ arrowhead = "onormal" style = "dashed"  label=""]
+SubstitutionCipher -> IEncryption
+edge [ arrowhead = "vee" style = "dashed"  label=""]
+DataDisplay -> DataDisplay
+edge [ arrowhead = "vee" style = "solid"  label=""]
+EncryptionOutputStream -> IEncryption
+edge [ arrowhead = "vee" style = "dashed"  label=""]
+NewDataStandardizer -> GoogleParser
+edge [ arrowhead = "onormal" style = "dashed"  label=""]
+GoogleParser -> DataParser
+edge [ arrowhead = "vee" style = "dashed"  label=""]
+EncryptionOutputStream -> OutputStream
+edge [ arrowhead = "onormal" style = "dashed"  label=""]
+AmazonParser -> DataParser
+edge [ arrowhead = "vee" style = "solid"  label=""]
+DataDisplay2 -> DataDisplay
+edge [ arrowhead = "vee" style = "dashed"  label=""]
+DataStandardizer -> DataStandardizer
+edge [ arrowhead = "vee" style = "solid"  label="decorates" ]
+FilterOutputStream -> OutputStream
+edge [ arrowhead = "onormal" style = "solid"  label=""]
+FilterOutputStream -> OutputStream
+edge [ arrowhead = "vee" style = "dashed"  label=""]
+TextEditorApp -> EncryptionOutputStream
+edge [ arrowhead = "onormal" style = "dashed"  label=""]
+SubstitutionCipher -> IDecryption
+edge [ arrowhead = "vee" style = "solid"  label=""]
+DataDisplay1 -> DataDisplay
+edge [ arrowhead = "vee" style = "dashed"  label=""]
+TextEditorApp -> DecryptionInputStream
+edge [ arrowhead = "vee" style = "solid"  label=""]
+DataStandardizer2 -> DataStandardizer
+edge [ arrowhead = "onormal" style = "dashed"  label=""]
+MicrosoftParser -> DataParser
+edge [ arrowhead = "vee" style = "dashed"  label=""]
+NewDataStandardizer -> MicrosoftParser
+edge [ arrowhead = "onormal" style = "solid"  label=""]
+FilterInputStream -> InputStream
+edge [ arrowhead = "vee" style = "dashed"  label=""]
+NewDataStandardizer -> AmazonParser
+edge [ arrowhead = "vee" style = "solid"  label="decorates" ]
+FilterInputStream -> InputStream
+edge [ arrowhead = "vee" style = "dashed"  label=""]
+DataStandardizerTest -> NewDataStandardizer
+edge [ arrowhead = "vee" style = "solid"  label=""]
+DecryptionInputStream -> IDecryption
+edge [ arrowhead = "onormal" style = "solid"  label=""]
+EncryptionOutputStream -> FilterOutputStream
+edge [ arrowhead = "vee" style = "dashed"  label=""]
+DecryptionInputStream -> InputStream
+edge [ arrowhead = "vee" style = "dashed"  label=""]
+TextEditorApp -> SubstitutionCipher
+edge [ arrowhead = "vee" style = "solid"  label=""]
+DataDisplay -> NewDataStandardizer
+edge [ arrowhead = "vee" style = "solid"  label=""]
+DataStandardizer1 -> DataStandardizer
+edge [ arrowhead = "vee" style = "dashed"  label=""]
+DecryptionInputStream -> FilterInputStream
+
 }

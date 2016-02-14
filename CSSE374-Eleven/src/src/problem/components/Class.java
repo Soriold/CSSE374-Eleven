@@ -49,7 +49,7 @@ public class Class implements IClass {
 
 	@Override
 	public String getName() {
-		return name;
+		return name.replace("$", "");
 	}
 
 	@Override
