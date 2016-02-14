@@ -1,9 +1,7 @@
 package src.problem.visible;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
@@ -16,7 +14,12 @@ import org.objectweb.asm.Opcodes;
 import src.problem.asm.ClassDeclarationVisitor;
 import src.problem.asm.ClassFieldVisitor;
 import src.problem.asm.ClassMethodVisitor;
-import src.problem.commands.*;
+import src.problem.commands.AdapterDetector;
+import src.problem.commands.CompositeDetector;
+import src.problem.commands.DecoratorDetector;
+import src.problem.commands.DotGenerator;
+import src.problem.commands.IPhase;
+import src.problem.commands.SingletonDetector;
 import src.problem.components.Class;
 import src.problem.components.IClass;
 import src.problem.components.IModel;
