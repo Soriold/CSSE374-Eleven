@@ -64,31 +64,7 @@ public class WindowFrame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		contentPane.setSize(new Dimension(this.getWidth(), this.getHeight()));
-		
-		DesignParser dp = new DesignParser();
-		m = new Model();
-		GraphVizOutputStream gvos = new GraphVizOutputStream(new FileOutputStream("GVOutput.txt"));
-
-		Scanner scanner = new Scanner(new File("lab7-2Args.txt"));
-		scanner.useDelimiter("\r\n");
-		ArrayList<String> argumentsAL = new ArrayList<String>();
-		while (scanner.hasNext()) {
-			argumentsAL.add(scanner.next());
-		}
-		scanner.close();
-
-		String[] arguments = new String[] {};
-		arguments = argumentsAL.toArray(arguments);
-
-		for (String className : arguments) {
-			IClass clazz = dp.parse(className, m);
-			m.addClass(clazz);
-		}
-		PatternRecognizer.recognize(m);
-		gvos.write(m);
-		gvos.close();
-		
+		contentPane.setSize(new Dimension(this.getWidth(), this.getHeight()));	
 		
 		ClassListPanel classListPanel = new ClassListPanel(m);
 		contentPane.add(classListPanel);
