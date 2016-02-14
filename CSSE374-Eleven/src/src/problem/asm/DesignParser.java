@@ -1,22 +1,49 @@
 package src.problem.asm;
 
-import java.io.*;
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Properties;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.Opcodes;
 
+import src.problem.commands.AdapterDetector;
+import src.problem.commands.CompositeDetector;
+import src.problem.commands.DecoratorDetector;
+import src.problem.commands.DotGenerator;
+import src.problem.commands.IPhase;
+import src.problem.commands.SingletonDetector;
 import src.problem.components.Class;
 import src.problem.components.IClass;
 import src.problem.components.IModel;
 import src.problem.components.Model;
-import src.problem.outputvisitor.GraphVizOutputStream;
-import src.problem.outputvisitor.SDEditOutputStream;
-import src.problem.patternrecognition.PatternRecognizer;
 
 public class DesignParser {
+
+	private static String[] reqArgs = { "Output-Directory", "Dot-Path", "Phases" };
+	private static HashMap<String, IPhase> phaseExecutables;
+
+	static {
+		phaseExecutables = new HashMap<>();
+		phaseExecutables.put("DOT-Generation", new DotGenerator());
+		phaseExecutables.put("Decorator-Detection", new DecoratorDetector());
+		phaseExecutables.put("Composite-Detection", new CompositeDetector());
+		phaseExecutables.put("Singleton-Detection", new SingletonDetector());
+		phaseExecutables.put("Adapter-Detection", new AdapterDetector());
+	}
+
 	/**
 	 * Reads in a list of Java Classes and reverse engineers their design.
 	 *
@@ -24,53 +51,78 @@ public class DesignParser {
 	 *            the names of the classes, separated by spaces. For example:
 	 *            java DesignParser java.lang.String
 	 *            edu.rosehulman.csse374.ClassFieldVisitor java.lang.Math
-	 * @throws IOException
+	 * @throws Exception
 	 */
-	public static void main(String[] args) throws IOException {
-		Model model = new Model();
-		GraphVizOutputStream gvos = new GraphVizOutputStream(new FileOutputStream("GVOutput.txt"));
-		SDEditOutputStream sdeos = new SDEditOutputStream(new FileOutputStream("SDEditOutput.txt"));
+	public static void main(String[] args) throws Exception {
+		Properties defaultProps = new Properties();
+		FileInputStream in = new FileInputStream("default.properties");
+		defaultProps.load(in);
+		in.close();
+		System.out.println(Arrays.toString(findClasses("S:\\GitHub\\CSSE374-Eleven\\CSSE374-Eleven\\CSSE374-Eleven\\asm-all-5.0.4.jar")));
+		run(defaultProps);
+	}
 
-		Scanner scanner = new Scanner(new File(args[0]));
-		scanner.useDelimiter("\r\n");
-		ArrayList<String> argumentsAL = new ArrayList<String>();
-		while (scanner.hasNext()) {
-			argumentsAL.add(scanner.next());
+	public static void run(Properties prop) throws Exception {
+		String[] inputClasses = {};
+		if (!prop.keySet().containsAll(Arrays.asList(reqArgs))) {
+			throw new IllegalArgumentException("Incomplete arguments");
+		} else if (!prop.keySet().contains("Input-Classes") && prop.keySet().contains("Input-Folder")) {
+			String inputPath = prop.getProperty("Input-Folder");
+			if (inputPath != null) {
+				Files.copy(Paths.get(inputPath), Paths.get("currentSrc"), REPLACE_EXISTING);
+			}
+			inputClasses = findClasses("currentSrc");
+		} else if (!prop.keySet().contains("Input-Folder") && prop.keySet().contains("Input-Classes")) {
+			inputClasses = prop.getProperty("Input-Classes").split(",");
 		}
-		scanner.close();
 
-		String[] arguments = new String[] {};
-		arguments = argumentsAL.toArray(arguments);
+		String[] phases = prop.getProperty("Phases").split(",");
 
-		for (String className : arguments) {
-			IClass clazz = parse(className, model);
+		if (phases.length == 0 || !phases[0].equals("Class-Loading")) {
+			throw new IllegalArgumentException("Invalid order of phases. Class-Loading must happen first.");
+		}
+
+		Model model = new Model();
+
+		for (String className : inputClasses) {
+			IClass clazz = parse(className.trim(), model);
 			model.addClass(clazz);
 		}
-		PatternRecognizer.recognize(model);
-		gvos.write(model);
-		if (Boolean.parseBoolean(args[1])) {
-			sdeos.writeMethod(model, args[2], Integer.valueOf(args[3]));
+
+		for (int i = 1; i < phases.length; i++) {
+			phaseExecutables.get(phases[i].trim()).executeOn(model, prop);
 		}
-		sdeos.close();
-		gvos.close();
+
+	}
+
+	private static String[] findClasses(String path) throws Exception {
+		List<String> classNames = new ArrayList<String>();
+		ZipInputStream zip = new ZipInputStream(new FileInputStream(path));
+		for (ZipEntry entry = zip.getNextEntry(); entry != null; entry = zip.getNextEntry()) {
+		    if (!entry.isDirectory() && entry.getName().endsWith(".class")) {
+		        // This ZipEntry represents a class. Now, what class does it represent?
+		        String className = entry.getName().replace('/', '.'); // including ".class"
+		        classNames.add(className.substring(0, className.length() - ".class".length()));
+		    }
+		}
+		String[] ret = new String[classNames.size()];
+		int c = 0;
+		for(String s : classNames) {
+			ret[c] = s;
+			c++;
+		}
+		zip.close();
+		return ret;
 	}
 
 	public static IClass parse(String args, IModel model) throws IOException {
 		IClass clazz = new Class();
 
-		// ASM's ClassReader does the heavy lifting of parsing the compiled
-		// Java class
 		ClassReader reader = new ClassReader(args);
-		// make class declaration visitor to get superclass and interfaces
 		ClassVisitor decVisitor = new ClassDeclarationVisitor(Opcodes.ASM5, clazz, model);
-		// DECORATE declaration visitor with field visitor
 		ClassVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5, decVisitor, clazz, model);
-		// DECORATE field visitor with method visitor
 		ClassVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5, fieldVisitor, clazz, model);
-		// TODO: add more DECORATORS here in later milestones to accomplish
-		// specific tasks
-		// Tell the Reader to use our (heavily decorated) ClassVisitor to
-		// visit the class
+
 		reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
 		return clazz;
 	}

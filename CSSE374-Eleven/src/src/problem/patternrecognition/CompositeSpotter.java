@@ -22,6 +22,7 @@ public class CompositeSpotter implements IPatternSpotter {
 	}
 
 	private void checkForComposite(IModel model, IClass clazz) {
+		@SuppressWarnings("unused")
 		String component = "";
 		Set<String> inherits = new HashSet<String>();
 		Set<IRelation> relations = model.getRelations();
