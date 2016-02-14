@@ -609,7 +609,6 @@ public class GVOSIntegrationTests {
 		assertTrue(result.contains("CompositeSprite\\n\\<\\<composite\\>\\>"));
 		assertTrue(result.contains("RectangleTower\\n\\<\\<composite\\>\\>"));
 		assertTrue(result.contains("CrystalBall\\n\\<\\<composite\\>\\>"));
-		//assertTrue(result.contains("CircleSprite\\n\\<\\<leaf\\>\\>"));
 		assertTrue(result.contains("RectangleSprite\\n\\<\\<leaf\\>\\>"));
 	}
 	
