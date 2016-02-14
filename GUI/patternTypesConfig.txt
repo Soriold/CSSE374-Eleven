@@ -1,0 +1,4 @@
+SINGLETON-blue
+DECORATOR-green
+ADAPTER-red
+COMPOSITE-yellow

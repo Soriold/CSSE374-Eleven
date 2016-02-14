@@ -1,0 +1,69 @@
+
+(dot.exe:9480): Pango-WARNING **: couldn't load font "Bitstream Vera Sans Not-Rotated 8", falling back to "Sans Not-Rotated 8", expect ugly output.
+Warning: syntax ambiguity - badly delimited number '8n' in line 1 of temp.dot splits into two tokens
+
+(dot.exe:3088): Pango-WARNING **: couldn't load font "Bitstream Vera Sans Not-Rotated 8", falling back to "Sans Not-Rotated 8", expect ugly output.
+Warning: syntax ambiguity - badly delimited number '8n' in line 1 of temp.dot splits into two tokens
+
+(dot.exe:5864): Pango-WARNING **: couldn't load font "Bitstream Vera Sans Not-Rotated 8", falling back to "Sans Not-Rotated 8", expect ugly output.
+Warning: syntax ambiguity - badly delimited number '8n' in line 1 of temp.dot splits into two tokens
+
+(dot.exe:5856): Pango-WARNING **: couldn't load font "Bitstream Vera Sans Not-Rotated 8", falling back to "Sans Not-Rotated 8", expect ugly output.
+Warning: syntax ambiguity - badly delimited number '8n' in line 1 of temp.dot splits into two tokens
+
+(dot.exe:10720): Pango-WARNING **: couldn't load font "Bitstream Vera Sans Not-Rotated 8", falling back to "Sans Not-Rotated 8", expect ugly output.
+Warning: syntax ambiguity - badly delimited number '8n' in line 1 of temp.dot splits into two tokens
+
+(dot.exe:5692): Pango-WARNING **: couldn't load font "Bitstream Vera Sans Not-Rotated 8", falling back to "Sans Not-Rotated 8", expect ugly output.
+Warning: syntax ambiguity - badly delimited number '8n' in line 1 of temp.dot splits into two tokens
+
+(dot.exe:6388): Pango-WARNING **: couldn't load font "Bitstream Vera Sans Not-Rotated 8", falling back to "Sans Not-Rotated 8", expect ugly output.
+Warning: syntax ambiguity - badly delimited number '8n' in line 1 of temp.dot splits into two tokens
+
+(dot.exe:9668): Pango-WARNING **: couldn't load font "Bitstream Vera Sans Not-Rotated 8", falling back to "Sans Not-Rotated 8", expect ugly output.
+Warning: syntax ambiguity - badly delimited number '8n' in line 1 of temp.dot splits into two tokens
+
+(dot.exe:1736): Pango-WARNING **: couldn't load font "Bitstream Vera Sans Not-Rotated 8", falling back to "Sans Not-Rotated 8", expect ugly output.
+Warning: syntax ambiguity - badly delimited number '8n' in line 1 of temp.dot splits into two tokens
+
+(dot.exe:4100): Pango-WARNING **: couldn't load font "Bitstream Vera Sans Not-Rotated 8", falling back to "Sans Not-Rotated 8", expect ugly output.
+Warning: syntax ambiguity - badly delimited number '8n' in line 1 of temp.dot splits into two tokens
+
+(dot.exe:3612): Pango-WARNING **: couldn't load font "Bitstream Vera Sans Not-Rotated 8", falling back to "Sans Not-Rotated 8", expect ugly output.
+Warning: syntax ambiguity - badly delimited number '8n' in line 1 of temp.dot splits into two tokens
+
+(dot.exe:5748): Pango-WARNING **: couldn't load font "Bitstream Vera Sans Not-Rotated 8", falling back to "Sans Not-Rotated 8", expect ugly output.
+Warning: syntax ambiguity - badly delimited number '8n' in line 1 of temp.dot splits into two tokens
+
+(dot.exe:9352): Pango-WARNING **: couldn't load font "Bitstream Vera Sans Not-Rotated 8", falling back to "Sans Not-Rotated 8", expect ugly output.
+Warning: syntax ambiguity - badly delimited number '8n' in line 1 of temp.dot splits into two tokens
+
+(dot.exe:1620): Pango-WARNING **: couldn't load font "Bitstream Vera Sans Not-Rotated 8", falling back to "Sans Not-Rotated 8", expect ugly output.
+Warning: syntax ambiguity - badly delimited number '8n' in line 1 of temp.dot splits into two tokens
+
+(dot.exe:9600): Pango-WARNING **: couldn't load font "Bitstream Vera Sans Not-Rotated 8", falling back to "Sans Not-Rotated 8", expect ugly output.
+Warning: syntax ambiguity - badly delimited number '8n' in line 1 of temp.dot splits into two tokens
+
+(dot.exe:11016): Pango-WARNING **: couldn't load font "Bitstream Vera Sans Not-Rotated 8", falling back to "Sans Not-Rotated 8", expect ugly output.
+Warning: syntax ambiguity - badly delimited number '8n' in line 1 of temp.dot splits into two tokens
+
+(dot.exe:11132): Pango-WARNING **: couldn't load font "Bitstream Vera Sans Not-Rotated 8", falling back to "Sans Not-Rotated 8", expect ugly output.
+Warning: syntax ambiguity - badly delimited number '8n' in line 1 of temp.dot splits into two tokens
+
+(dot.exe:5484): Pango-WARNING **: couldn't load font "Bitstream Vera Sans Not-Rotated 8", falling back to "Sans Not-Rotated 8", expect ugly output.
+Warning: syntax ambiguity - badly delimited number '8n' in line 1 of temp.dot splits into two tokens
+
+(dot.exe:6700): Pango-WARNING **: couldn't load font "Bitstream Vera Sans Not-Rotated 8", falling back to "Sans Not-Rotated 8", expect ugly output.
+Warning: syntax ambiguity - badly delimited number '8n' in line 1 of temp.dot splits into two tokens
+
+(dot.exe:7944): Pango-WARNING **: couldn't load font "Bitstream Vera Sans Not-Rotated 8", falling back to "Sans Not-Rotated 8", expect ugly output.
+Warning: syntax ambiguity - badly delimited number '8n' in line 1 of temp.dot splits into two tokens
+
+(dot.exe:6332): Pango-WARNING **: couldn't load font "Bitstream Vera Sans Not-Rotated 8", falling back to "Sans Not-Rotated 8", expect ugly output.
+Warning: syntax ambiguity - badly delimited number '8n' in line 1 of temp.dot splits into two tokens
+
+(dot.exe:5276): Pango-WARNING **: couldn't load font "Bitstream Vera Sans Not-Rotated 8", falling back to "Sans Not-Rotated 8", expect ugly output.
+Warning: syntax ambiguity - badly delimited number '8n' in line 1 of temp.dot splits into two tokens
+
+(dot.exe:8728): Pango-WARNING **: couldn't load font "Bitstream Vera Sans Not-Rotated 8", falling back to "Sans Not-Rotated 8", expect ugly output.
+Warning: syntax ambiguity - badly delimited number '8n' in line 1 of temp.dot splits into two tokens
