@@ -11,16 +11,40 @@ import src.problem.components.IModel;
 public class SingletonSpotter implements IPatternSpotter {
 
 	private String name;
+	private boolean requiresGetInstanceMethod = false;
 
 	private void spot(IClass c) {
 		this.name = c.getName();
 		boolean hasPrivateStaticInstance = this.checkInstances(c.getFields());
 		boolean hasPublicStaticMethod = this.checkMethods(c.getMethods());
 		boolean hasStaticGetterThatCallsConstructor = this.checkForStaticGetterThatCallsConstructor(c.getMethods());
+		boolean hasGetInstance = this.checkForGetInstance(c.getMethods());
 		if (hasPrivateStaticInstance && hasPublicStaticMethod || hasStaticGetterThatCallsConstructor) {
-			c.setPattern("SINGLETON");
-			c.setStereotype("Singleton");
+			if (this.requiresGetInstanceMethod) {
+				if (hasGetInstance) {
+					c.setPattern("SINGLETON");
+					c.setStereotype("Singleton");
+				}
+			} else {
+				c.setPattern("SINGLETON");
+				c.setStereotype("Singleton");
+			}
 		}
+	}
+
+	private boolean checkForGetInstance(List<IMethod> methods) {
+		for (IMethod m : methods) {
+			if (m.getName().equals("getInstance")) {
+				if (m.getReturnType().equals(this.name)) {
+					if (m.getVisibility().equals("public")) {
+						if (m.getModifiers().contains("static")) {
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
 	}
 
 	private boolean checkMethods(List<IMethod> methods) {
@@ -76,7 +100,7 @@ public class SingletonSpotter implements IPatternSpotter {
 
 	@Override
 	public void spot(IModel m) {
-		for(IClass c : m.getClasses()) {
+		for (IClass c : m.getClasses()) {
 			spot(c);
 		}
 	}
