@@ -81,8 +81,8 @@ public class Relation implements IRelation {
 		boolean destEquals = this.dest.equals(relation.getDest());
 		boolean srcEquals = this.src.equals(relation.getSrc());
 		boolean typeEquals = this.type.equals(relation.getType())
-				|| this.type.equals("ASSOCIATION") && relation.getType().equals("USES")
-				|| this.type.equals("USES") && relation.getType().equals("ASSOCIATION");
+				|| (this.type.equals("ASSOCIATION") && relation.getType().equals("USES"))
+				|| (this.type.equals("USES") && relation.getType().equals("ASSOCIATION"));
 		boolean result = destEquals && srcEquals && typeEquals;
 		if(result && this.type.equals("USES") && relation.getType().equals("ASSOCIATION")) {
 			this.type = "ASSOCIATION";
