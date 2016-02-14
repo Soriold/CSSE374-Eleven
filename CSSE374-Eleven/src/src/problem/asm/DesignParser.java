@@ -2,6 +2,7 @@ package src.problem.asm;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -32,16 +33,34 @@ import src.problem.components.Model;
 
 public class DesignParser {
 
-	private static String[] reqArgs = { "Output-Directory", "Dot-Path", "Phases" };
-	private static HashMap<String, IPhase> phaseExecutables;
+	private volatile static DesignParser instance;
 
-	static {
-		phaseExecutables = new HashMap<>();
-		phaseExecutables.put("DOT-Generation", new DotGenerator());
-		phaseExecutables.put("Decorator-Detection", new DecoratorDetector());
-		phaseExecutables.put("Composite-Detection", new CompositeDetector());
-		phaseExecutables.put("Singleton-Detection", new SingletonDetector());
-		phaseExecutables.put("Adapter-Detection", new AdapterDetector());
+	private ArrayList<String> reqArgs;
+	private HashMap<String, IPhase> phaseExecutables;
+
+	private DesignParser() {
+		this.phaseExecutables = new HashMap<>();
+		this.phaseExecutables.put("DOT-Generation", new DotGenerator());
+		this.phaseExecutables.put("Decorator-Detection", new DecoratorDetector());
+		this.phaseExecutables.put("Composite-Detection", new CompositeDetector());
+		this.phaseExecutables.put("Singleton-Detection", new SingletonDetector());
+		this.phaseExecutables.put("Adapter-Detection", new AdapterDetector());
+
+		this.reqArgs = new ArrayList<String>();
+		this.reqArgs.add("Output-Directory");
+		this.reqArgs.add("Dot-Path");
+		this.reqArgs.add("Phases");
+	}
+
+	public static DesignParser getInstance() {
+		if (instance == null) {
+			synchronized (DesignParser.class) {
+				if (instance == null) {
+					instance = new DesignParser();
+				}
+			}
+		}
+		return instance;
 	}
 
 	/**
@@ -58,23 +77,15 @@ public class DesignParser {
 		FileInputStream in = new FileInputStream("default.properties");
 		defaultProps.load(in);
 		in.close();
-		System.out.println(Arrays.toString(findClasses("S:\\GitHub\\CSSE374-Eleven\\CSSE374-Eleven\\CSSE374-Eleven\\asm-all-5.0.4.jar")));
-		run(defaultProps);
+		DesignParser p = DesignParser.getInstance();
+//		System.out.println(Arrays.toString(
+//				findClasses("S:\\GitHub\\CSSE374-Eleven\\CSSE374-Eleven\\CSSE374-Eleven\\asm-all-5.0.4.jar")));
+		p.run(defaultProps);
 	}
 
-	public static void run(Properties prop) throws Exception {
+	public void run(Properties prop) throws Exception {
 		String[] inputClasses = {};
-		if (!prop.keySet().containsAll(Arrays.asList(reqArgs))) {
-			throw new IllegalArgumentException("Incomplete arguments");
-		} else if (!prop.keySet().contains("Input-Classes") && prop.keySet().contains("Input-Folder")) {
-			String inputPath = prop.getProperty("Input-Folder");
-			if (inputPath != null) {
-				Files.copy(Paths.get(inputPath), Paths.get("currentSrc"), REPLACE_EXISTING);
-			}
-			inputClasses = findClasses("currentSrc");
-		} else if (!prop.keySet().contains("Input-Folder") && prop.keySet().contains("Input-Classes")) {
-			inputClasses = prop.getProperty("Input-Classes").split(",");
-		}
+		inputClasses = getInput(prop);
 
 		String[] phases = prop.getProperty("Phases").split(",");
 
@@ -90,32 +101,94 @@ public class DesignParser {
 		}
 
 		for (int i = 1; i < phases.length; i++) {
-			phaseExecutables.get(phases[i].trim()).executeOn(model, prop);
+			this.phaseExecutables.get(phases[i].trim()).executeOn(model, prop);
 		}
 
 	}
 
-	private static String[] findClasses(String path) throws Exception {
-		List<String> classNames = new ArrayList<String>();
-		ZipInputStream zip = new ZipInputStream(new FileInputStream(path));
-		for (ZipEntry entry = zip.getNextEntry(); entry != null; entry = zip.getNextEntry()) {
-		    if (!entry.isDirectory() && entry.getName().endsWith(".class")) {
-		        // This ZipEntry represents a class. Now, what class does it represent?
-		        String className = entry.getName().replace('/', '.'); // including ".class"
-		        classNames.add(className.substring(0, className.length() - ".class".length()));
-		    }
+	private String[] getInput(Properties prop) throws IOException, Exception {
+
+		String[] inputClasses = null;
+
+		if (!prop.keySet().containsAll(this.reqArgs)) {
+			System.out.println(this.reqArgs.toString());
+			System.out.println(prop.keySet().toString());
+			throw new IllegalArgumentException("Incomplete arguments");
+
+		} else if (!prop.keySet().contains("Input-Classes") && prop.keySet().contains("Input-Folder")) {
+			String inputPath = prop.getProperty("Input-Folder");
+			inputClasses = getClassesFromInputFolder(inputPath);
+
+		} else if (!prop.keySet().contains("Input-Folder") && prop.keySet().contains("Input-Classes")) {
+			inputClasses = prop.getProperty("Input-Classes").split(",");
+
+		} else if (prop.keySet().contains("Input-Classes") && prop.keySet().contains("Input-Folder")) {
+			String inputPath = prop.getProperty("Input-Folder");
+			ArrayList<String> temp = new ArrayList<String>();
+			temp.addAll(Arrays.asList(getClassesFromInputFolder(inputPath)));
+			String[] cl = prop.getProperty("Input-Classes").split(",");
+			temp.addAll(Arrays.asList(cl));
+
+		} else {
+			throw new IllegalArgumentException("Incomplete arguments");
 		}
+
+		return inputClasses;
+	}
+
+	private String[] getClassesFromInputFolder(String inputPath) throws IOException, Exception {
+		String[] inputClasses;
+		System.out.println(inputPath);
+		if (inputPath != null) {
+			System.out.println("copying");
+			//Files.copy(Paths.get(inputPath), Paths.get("currentSrc\\"), REPLACE_EXISTING);
+		}
+		inputClasses = findClasses("currentSrc");
+		return inputClasses;
+	}
+
+	private String[] findClasses(String path) throws Exception {
+		List<String> classNames = null;
+		System.out.println("PATH: " + path);
+		if (path.endsWith(".jar")) {
+			classNames = findClassesFromJar(path);
+		} else {
+			classNames = findClassesFromFolder(path);
+		}
+
 		String[] ret = new String[classNames.size()];
 		int c = 0;
-		for(String s : classNames) {
+		for (String s : classNames) {
 			ret[c] = s;
 			c++;
 		}
-		zip.close();
 		return ret;
 	}
 
-	public static IClass parse(String args, IModel model) throws IOException {
+	private List<String> findClassesFromFolder(String path) {
+		System.out.println("path " + path);
+		File folder = new File(path);
+		for (File fileEntry : folder.listFiles()) {
+			System.out.println(fileEntry.getName());
+		}
+		return new ArrayList<String>();
+	}
+
+	private List<String> findClassesFromJar(String path) throws FileNotFoundException, IOException {
+		List<String> classNames;
+		classNames = new ArrayList<String>();
+		ZipInputStream zip = new ZipInputStream(new FileInputStream(path));
+		for (ZipEntry entry = zip.getNextEntry(); entry != null; entry = zip.getNextEntry()) {
+			if (!entry.isDirectory() && entry.getName().endsWith(".class")) {
+				String className = entry.getName().replace('/', '.');
+				classNames.add(className.substring(0, className.length() - ".class".length()));
+			}
+		}
+		zip.close();
+		return classNames;
+	}
+
+	private IClass parse(String args, IModel model) throws IOException {
 		IClass clazz = new Class();
 
 		ClassReader reader = new ClassReader(args);
