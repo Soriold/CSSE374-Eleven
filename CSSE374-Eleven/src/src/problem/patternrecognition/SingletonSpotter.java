@@ -34,7 +34,9 @@ public class SingletonSpotter extends AbstractDesignAnalyzer {
 	}
 
 	private void parseParameters() {
-		this.requiresGetInstanceMethod = Boolean.parseBoolean(this.params.get("Singleton-RequireGetInstance"));
+		if (this.params.get("Singleton-RequireGetInstance") != null) {
+			this.requiresGetInstanceMethod = Boolean.parseBoolean(this.params.get("Singleton-RequireGetInstance"));
+		}
 	}
 
 	private boolean checkForGetInstance(List<IMethod> methods) {

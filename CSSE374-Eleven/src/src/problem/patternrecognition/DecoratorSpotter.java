@@ -26,7 +26,9 @@ public class DecoratorSpotter extends AbstractDesignAnalyzer {
 	}
 
 	private void parseParameters() {
-		this.methodDelegation = Integer.parseInt(this.params.get("Decorator-MethodDelegation"));
+		if (this.params.get("Decorator-MethodDelegation") != null) {
+			this.methodDelegation = Integer.parseInt(this.params.get("Decorator-MethodDelegation"));
+		}
 
 	}
 
