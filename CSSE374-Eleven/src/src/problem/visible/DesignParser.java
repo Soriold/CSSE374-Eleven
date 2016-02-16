@@ -1,6 +1,13 @@
 package src.problem.visible;
 
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
+import java.lang.ProcessBuilder.Redirect;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +38,13 @@ public class DesignParser {
 
 	private ArrayList<String> reqArgs;
 	private HashMap<String, IPhase> phaseExecutables;
+	private IModel model;
+	private String currentParseClass;
+	private String currentPhase;
+
+	public HashMap<String, IPhase> getPhaseExecutables() {
+		return phaseExecutables;
+	}
 
 	private DesignParser() {
 		this.phaseExecutables = new HashMap<>();
@@ -76,22 +90,39 @@ public class DesignParser {
 			throw new IllegalArgumentException("Invalid order of phases. Class-Loading must happen first.");
 		}
 
-		Model model = new Model();
+		this.model = new Model();
+
+		currentPhase = phases[0];
 
 		for (String className : inputClasses) {
+			currentParseClass = className;
 			IClass clazz = parse(className.trim(), model);
 			model.addClass(clazz);
 		}
 
 		for (byte[] clazz : importedClasses) {
 			IClass pClass = parse(clazz, model);
+			currentParseClass = pClass.getName();
 			model.addClass(pClass);
 		}
 
+		currentParseClass = null;
+
 		for (int i = 1; i < phases.length; i++) {
+			currentPhase = phases[i];
 			this.phaseExecutables.get(phases[i].trim()).executeOn(model, prop);
 		}
 
+		currentPhase = null;
+
+	}
+
+	public String getCurrentParseClass() {
+		return currentParseClass;
+	}
+
+	public String getCurrentPhase() {
+		return currentPhase;
 	}
 
 	private void checkParameters(Properties prop) {
@@ -102,7 +133,8 @@ public class DesignParser {
 			}
 		}
 		if (!(keys.contains("Input-Classes") || keys.contains("Input-Folder"))) {
-			throw new IllegalArgumentException("Incomplete Arguments : You must include at least one of Input-Classes or Input-Folder");
+			throw new IllegalArgumentException(
+					"Incomplete Arguments : You must include at least one of Input-Classes or Input-Folder");
 		}
 	}
 
@@ -129,8 +161,38 @@ public class DesignParser {
 		reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
 		return clazz;
 	}
-	
+
 	public void addPhase(String callName, IPhase phase) {
 		this.phaseExecutables.put(callName, phase);
+	}
+
+	@SuppressWarnings("unused")
+	public static void generateGV(String arg) {
+		String path = "temp.dot";
+
+		try (final BufferedWriter writer = Files.newBufferedWriter(Paths.get(path), StandardCharsets.UTF_8,
+				StandardOpenOption.CREATE);) {
+			writer.write(arg);
+			writer.flush();
+			writer.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ProcessBuilder pb = new ProcessBuilder("graphviz-2.38\\release\\bin\\dot.exe", "-Tpng", "temp.dot", "-o",
+				"input-output\\uml.png");
+		try {
+			File log = new File("errorLog.txt");
+			pb.redirectErrorStream(true);
+			pb.redirectOutput(Redirect.appendTo(log));
+			Process p = pb.start();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public IModel getModel() {
+		return this.model;
 	}
 }
