@@ -1,5 +1,5 @@
 digraph G {fontname = "Bitstream Vera Sans" fontsize = 8
-node [fontname ="Bitstream Vera Sans" fontsize = 8 shape = "record"] edge [fontname = "Bitstream Vera Sans" fontsize = 8]DecryptionInputStream[style=filled fillcolor=green label = "{DecryptionInputStream\n\<\<decorator\>\>|- decryptor : IDecryption\l
+ node [fontname ="Bitstream Vera Sans" fontsize = 8 shape = "record"] edge [fontname = "Bitstream Vera Sans" fontsize = 8]DecryptionInputStream[style=filled fillcolor=green label = "{DecryptionInputStream\n\<\<decorator\>\>|- decryptor : IDecryption\l
 |+ \<init\>(InputStream IDecryption ) : void\l
 + read() : int\l
 + read(byte[] int int ) : int\l

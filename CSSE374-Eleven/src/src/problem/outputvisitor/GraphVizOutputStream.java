@@ -81,14 +81,14 @@ public class GraphVizOutputStream extends FilterOutputStream {
 	}
 	
 	public void write(IModel m) {
-		m.validateRelations();
+		//m.validateRelations();
 		ITraverser t = (ITraverser) m;
 		t.accept(this.visitor);
 	}
 
 	private void setupPreVisitModel() {
 		this.visitor.addVisit(VisitType.PreVisit, Model.class, (ITraverser t) -> {
-			this.write("digraph G {fontname = \"Bitstream Vera Sans\" fontsize = 8\nnode [fontname ="
+			this.write("digraph G {fontname = \"Bitstream Vera Sans\" fontsize = 8\n node [fontname ="
 					+ "\"Bitstream Vera Sans\" fontsize = 8 shape = \"record\"] edge [fontname = "
 					+ "\"Bitstream Vera Sans\" fontsize = 8]");
 		});
