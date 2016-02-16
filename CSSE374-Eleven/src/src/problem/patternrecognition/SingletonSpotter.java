@@ -8,12 +8,13 @@ import src.problem.components.IMethod;
 import src.problem.components.IMethodCall;
 import src.problem.components.IModel;
 
-public class SingletonSpotter implements IPatternSpotter {
+public class SingletonSpotter extends AbstractDesignAnalyzer {
 
 	private String name;
 	private boolean requiresGetInstanceMethod = false;
 
 	private void spot(IClass c) {
+		parseParameters();
 		this.name = c.getName();
 		boolean hasPrivateStaticInstance = this.checkInstances(c.getFields());
 		boolean hasPublicStaticMethod = this.checkMethods(c.getMethods());
@@ -29,6 +30,12 @@ public class SingletonSpotter implements IPatternSpotter {
 				c.setPattern("SINGLETON");
 				c.setStereotype("Singleton");
 			}
+		}
+	}
+
+	private void parseParameters() {
+		if (this.params.get("Singleton-RequireGetInstance") != null) {
+			this.requiresGetInstanceMethod = Boolean.parseBoolean(this.params.get("Singleton-RequireGetInstance"));
 		}
 	}
 

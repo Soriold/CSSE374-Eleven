@@ -8,13 +8,12 @@ import src.problem.components.IField;
 import src.problem.components.IModel;
 import src.problem.components.IRelation;
 
-public class CompositeSpotter implements IPatternSpotter {
-	private IModel model;
+public class CompositeSpotter extends AbstractDesignAnalyzer {
 
 	@Override
 	public void spot(IModel model) {
-		this.model = model;
-		for (IClass clazz : this.model.getClasses()) {
+		this.m = model;
+		for (IClass clazz : this.m.getClasses()) {
 
 			checkForComposite(model, clazz);
 		}
@@ -122,7 +121,7 @@ public class CompositeSpotter implements IPatternSpotter {
 	}
 
 	private IClass findClass(String s) {
-		for (IClass c : model.getClasses()) {
+		for (IClass c : m.getClasses()) {
 			if (c.getName().equals(s)) {
 				return c;
 			}

@@ -93,7 +93,7 @@ public class DesignParser {
 		this.model = new Model();
 
 		currentPhase = phases[0];
-		
+
 		for (String className : inputClasses) {
 			currentParseClass = className;
 			IClass clazz = parse(className.trim(), model);
@@ -105,14 +105,14 @@ public class DesignParser {
 			currentParseClass = pClass.getName();
 			model.addClass(pClass);
 		}
-		
+
 		currentParseClass = null;
 
 		for (int i = 1; i < phases.length; i++) {
 			currentPhase = phases[i];
 			this.phaseExecutables.get(phases[i].trim()).executeOn(model, prop);
 		}
-		
+
 		currentPhase = null;
 
 	}
@@ -133,7 +133,8 @@ public class DesignParser {
 			}
 		}
 		if (!(keys.contains("Input-Classes") || keys.contains("Input-Folder"))) {
-			throw new IllegalArgumentException("Incomplete Arguments : You must include at least one of Input-Classes or Input-Folder");
+			throw new IllegalArgumentException(
+					"Incomplete Arguments : You must include at least one of Input-Classes or Input-Folder");
 		}
 	}
 
@@ -160,12 +161,17 @@ public class DesignParser {
 		reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
 		return clazz;
 	}
-	
+
+	public void addPhase(String callName, IPhase phase) {
+		this.phaseExecutables.put(callName, phase);
+	}
+
+	@SuppressWarnings("unused")
 	public static void generateGV(String arg) {
 		String path = "temp.dot";
-		
-		try (final BufferedWriter writer = Files.newBufferedWriter(Paths.get(path), StandardCharsets.UTF_8, StandardOpenOption.CREATE);)
-		{
+
+		try (final BufferedWriter writer = Files.newBufferedWriter(Paths.get(path), StandardCharsets.UTF_8,
+				StandardOpenOption.CREATE);) {
 			writer.write(arg);
 			writer.flush();
 			writer.close();
@@ -173,7 +179,8 @@ public class DesignParser {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		ProcessBuilder pb = new ProcessBuilder("graphviz-2.38\\release\\bin\\dot.exe", "-Tpng", "temp.dot", "-o", "input-output\\uml.png");
+		ProcessBuilder pb = new ProcessBuilder("graphviz-2.38\\release\\bin\\dot.exe", "-Tpng", "temp.dot", "-o",
+				"input-output\\uml.png");
 		try {
 			File log = new File("errorLog.txt");
 			pb.redirectErrorStream(true);
@@ -184,7 +191,7 @@ public class DesignParser {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public IModel getModel() {
 		return this.model;
 	}
