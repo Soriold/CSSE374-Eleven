@@ -81,6 +81,7 @@ public class GraphVizOutputStream extends FilterOutputStream {
 	}
 	
 	public void write(IModel m) {
+		m.validateRelations();
 		ITraverser t = (ITraverser) m;
 		t.accept(this.visitor);
 	}

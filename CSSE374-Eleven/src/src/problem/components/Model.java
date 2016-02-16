@@ -8,7 +8,6 @@ import java.util.Set;
 import src.problem.outputvisitor.ITraverser;
 import src.problem.outputvisitor.IVisitor;
 
-
 public class Model implements IModel {
 	private List<IClass> classes;
 	private Set<IRelation> relations;
@@ -17,12 +16,12 @@ public class Model implements IModel {
 		this.classes = new ArrayList<IClass>();
 		this.relations = new HashSet<IRelation>();
 	}
-	
+
 	@Override
 	public void addClass(IClass clazz) {
 		this.classes.add(clazz);
 	}
-	
+
 	@Override
 	public List<IClass> getClasses() {
 		return this.classes;
@@ -35,13 +34,29 @@ public class Model implements IModel {
 		}
 		return classNames;
 	}
-	
+
 	public Set<IRelation> getRelations() {
 		return this.relations;
 	}
 
 	public void addRelation(IRelation relation) {
 		this.relations.add(relation);
+	}
+
+	public void validateRelations() {
+		for (IRelation r : this.relations) {
+			if(!hasClassWithName(r.getSrc()) || !hasClassWithName(r.getDest())) {
+				this.relations.remove(r);
+			}
+		}
+	}
+
+	public boolean hasClassWithName(String name) {
+		for (IClass clazz : this.classes) {
+			if (clazz.getName().equals(name))
+				return true;
+		}
+		return false;
 	}
 
 	@Override
@@ -53,7 +68,7 @@ public class Model implements IModel {
 		}
 		ArrayList<String> classNames = getClassNames();
 		for (IRelation r : this.relations) {
-			if(classNames.contains(r.getSrc()) && classNames.contains(r.getDest())) {
+			if (classNames.contains(r.getSrc()) && classNames.contains(r.getDest())) {
 				ITraverser t = (ITraverser) r;
 				t.accept(v);
 			}
