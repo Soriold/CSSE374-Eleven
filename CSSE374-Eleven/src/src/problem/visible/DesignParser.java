@@ -39,6 +39,12 @@ public class DesignParser {
 	private ArrayList<String> reqArgs;
 	private HashMap<String, IPhase> phaseExecutables;
 	private IModel model;
+	private String currentParseClass;
+	private String currentPhase;
+
+	public HashMap<String, IPhase> getPhaseExecutables() {
+		return phaseExecutables;
+	}
 
 	private DesignParser() {
 		this.phaseExecutables = new HashMap<>();
@@ -86,20 +92,37 @@ public class DesignParser {
 
 		this.model = new Model();
 
+		currentPhase = phases[0];
+		
 		for (String className : inputClasses) {
+			currentParseClass = className;
 			IClass clazz = parse(className.trim(), model);
 			model.addClass(clazz);
 		}
 
 		for (byte[] clazz : importedClasses) {
 			IClass pClass = parse(clazz, model);
+			currentParseClass = pClass.getName();
 			model.addClass(pClass);
 		}
+		
+		currentParseClass = null;
 
 		for (int i = 1; i < phases.length; i++) {
+			currentPhase = phases[i];
 			this.phaseExecutables.get(phases[i].trim()).executeOn(model, prop);
 		}
+		
+		currentPhase = null;
 
+	}
+
+	public String getCurrentParseClass() {
+		return currentParseClass;
+	}
+
+	public String getCurrentPhase() {
+		return currentPhase;
 	}
 
 	private void checkParameters(Properties prop) {

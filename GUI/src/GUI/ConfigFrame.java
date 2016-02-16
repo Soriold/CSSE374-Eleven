@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.Set;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -75,6 +76,8 @@ public class ConfigFrame extends JFrame {
 		
 		JButton btnAnalyze = new JButton("Analyze");
 		
+		JProgressBar progressBar = new JProgressBar();
+		
 		btnAnalyze.addActionListener(new ActionListener() {
 
 			@Override
@@ -82,19 +85,40 @@ public class ConfigFrame extends JFrame {
 				
 				DesignParser dp = DesignParser.getInstance();
 				
-				Properties defaultProps = new Properties();
+				Properties props = new Properties();
 				try {
-					FileInputStream in = new FileInputStream(configPath);
-					defaultProps.load(in);
+					System.out.println(configFile.getAbsolutePath());
+					FileInputStream in = new FileInputStream(configFile.getAbsolutePath());
+					props.load(in);
+					System.out.println(props);
 					in.close();
-					DesignParser p = DesignParser.getInstance();
-					p.run(defaultProps);
+					
+					AnalyzeThread analyzer = new AnalyzeThread(dp, props);
+			        Thread t = new Thread(analyzer);
+			        t.start();
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				while(dp.getCurrentPhase() == null) {
+					progressBarText.setText("Beginning parse...");
+				}
+				String[] phases = props.getProperty("Phases").split(",");
 				
-				closeConfigFrame();
+				while(dp.getCurrentPhase() != null && dp.getCurrentPhase().equals("Class-Loading")) {
+					progressBarText.setText("Running Class-Loading on " + dp.getCurrentParseClass());
+					progressBar.setValue(100 / phases.length);
+				}
+				
+				for(int i = 1; i < phases.length; i++) {
+					while(dp.getCurrentPhase() != null && dp.getCurrentPhase().equals(phases[i])) {
+						progressBarText.setText("Running " + phases[i]);
+						progressBar.setValue((i+1)*100 / phases.length);
+					}
+				}
+				
+				progressBarText.setText("Done!");
+				
 				try {
 					WindowFrame frame = new WindowFrame();
 					frame.setVisible(true);
@@ -106,7 +130,6 @@ public class ConfigFrame extends JFrame {
 			
 		});
 		
-		JProgressBar progressBar = new JProgressBar();
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
