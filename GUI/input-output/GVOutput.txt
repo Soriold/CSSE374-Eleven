@@ -60,39 +60,39 @@ OutputStream[style=filled fillcolor=green label = "{OutputStream\n\<\<component\
 + flush() : void\l
 + close() : void\l
 }"]
-edge [ arrowhead = "onormal" style = "solid"  label=""]
+ edge [ arrowhead = "onormal" style = "solid"  label=""]
 DecryptionInputStream -> FilterInputStream
-edge [ arrowhead = "vee" style = "dashed"  label=""]
+ edge [ arrowhead = "vee" style = "dashed"  label=""]
 EncryptionOutputStream -> FilterOutputStream
-edge [ arrowhead = "vee" style = "dashed"  label=""]
+ edge [ arrowhead = "vee" style = "dashed"  label=""]
 TextEditorApp -> DecryptionInputStream
-edge [ arrowhead = "onormal" style = "dashed"  label=""]
+ edge [ arrowhead = "onormal" style = "dashed"  label=""]
 SubstitutionCipher -> IEncryption
-edge [ arrowhead = "onormal" style = "solid"  label=""]
+ edge [ arrowhead = "onormal" style = "solid"  label=""]
 FilterInputStream -> InputStream
-edge [ arrowhead = "vee" style = "solid"  label=""]
+ edge [ arrowhead = "vee" style = "solid"  label=""]
 EncryptionOutputStream -> IEncryption
-edge [ arrowhead = "vee" style = "solid"  label="decorates" ]
+ edge [ arrowhead = "vee" style = "solid"  label="decorates" ]
 FilterInputStream -> InputStream
-edge [ arrowhead = "vee" style = "dashed"  label=""]
+ edge [ arrowhead = "vee" style = "dashed"  label=""]
 EncryptionOutputStream -> OutputStream
-edge [ arrowhead = "vee" style = "solid"  label=""]
+ edge [ arrowhead = "vee" style = "solid"  label=""]
 DecryptionInputStream -> IDecryption
-edge [ arrowhead = "onormal" style = "solid"  label=""]
+ edge [ arrowhead = "onormal" style = "solid"  label=""]
 EncryptionOutputStream -> FilterOutputStream
-edge [ arrowhead = "vee" style = "dashed"  label=""]
+ edge [ arrowhead = "vee" style = "dashed"  label=""]
 DecryptionInputStream -> InputStream
-edge [ arrowhead = "vee" style = "solid"  label="decorates" ]
+ edge [ arrowhead = "vee" style = "solid"  label="decorates" ]
 FilterOutputStream -> OutputStream
-edge [ arrowhead = "vee" style = "dashed"  label=""]
+ edge [ arrowhead = "vee" style = "dashed"  label=""]
 TextEditorApp -> SubstitutionCipher
-edge [ arrowhead = "onormal" style = "solid"  label=""]
+ edge [ arrowhead = "onormal" style = "solid"  label=""]
 FilterOutputStream -> OutputStream
-edge [ arrowhead = "vee" style = "dashed"  label=""]
+ edge [ arrowhead = "vee" style = "dashed"  label=""]
 TextEditorApp -> EncryptionOutputStream
-edge [ arrowhead = "onormal" style = "dashed"  label=""]
+ edge [ arrowhead = "onormal" style = "dashed"  label=""]
 SubstitutionCipher -> IDecryption
-edge [ arrowhead = "vee" style = "dashed"  label=""]
+ edge [ arrowhead = "vee" style = "dashed"  label=""]
 DecryptionInputStream -> FilterInputStream
 
 }

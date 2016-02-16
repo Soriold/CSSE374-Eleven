@@ -44,10 +44,14 @@ public class Model implements IModel {
 	}
 
 	public void validateRelations() {
+		ArrayList<IRelation> relationsToRemove = new ArrayList<IRelation>();
 		for (IRelation r : this.relations) {
 			if(!hasClassWithName(r.getSrc()) || !hasClassWithName(r.getDest())) {
-				this.relations.remove(r);
+				relationsToRemove.add(r);
 			}
+		}
+		for (IRelation r2 : relationsToRemove) {
+			this.relations.remove(r2);
 		}
 	}
 

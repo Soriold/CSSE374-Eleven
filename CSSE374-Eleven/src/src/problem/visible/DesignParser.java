@@ -150,7 +150,7 @@ public class DesignParser {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		ProcessBuilder pb = new ProcessBuilder("dot.exe", "-Tpng", "temp.dot", "-o", "input-output\\uml.png");
+		ProcessBuilder pb = new ProcessBuilder("graphviz-2.38\\release\\bin\\dot.exe", "-Tpng", "temp.dot", "-o", "input-output\\uml.png");
 		try {
 			File log = new File("errorLog.txt");
 			pb.redirectErrorStream(true);

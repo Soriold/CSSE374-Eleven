@@ -231,7 +231,7 @@ public class GraphVizOutputStream extends FilterOutputStream {
 			} else {
 				label = " label=\"" + c.getLabel() + "\" ";
 			}
-			this.write("edge [ arrowhead = " + arrowhead + " style = " + style + " " + label + "]\n" + c.getSrc() + " -> " + c.getDest() + "\n");
+			this.write(" edge [ arrowhead = " + arrowhead + " style = " + style + " " + label + "]\n" + c.getSrc() + " -> " + c.getDest() + "\n");
 		});
 	}
 
