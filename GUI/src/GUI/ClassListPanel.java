@@ -84,7 +84,7 @@ public class ClassListPanel extends JScrollPane {
 		this.setViewportView(buttonPanel);
 	}
 
-	private void findClassesWithPattern(String s, Model m, DefaultMutableTreeNode node) {
+	private void findClassesWithPattern(String s, IModel m, DefaultMutableTreeNode node) {
 		for(IClass c : m.getClasses()) {
 			if(c.getPattern().equals(s)) {
 				node.add(new DefaultMutableTreeNode(c.getName()));
