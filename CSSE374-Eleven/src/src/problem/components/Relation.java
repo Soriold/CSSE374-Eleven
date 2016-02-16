@@ -26,7 +26,7 @@ public class Relation implements IRelation {
 		} catch (IOException e) {
 			System.out.println("Error loading config file for relation types.");
 		}
-		if(relationTypes.contains(type)) {
+		if (relationTypes.contains(type)) {
 			this.type = type;
 		} else {
 			this.type = "";
@@ -35,12 +35,12 @@ public class Relation implements IRelation {
 
 	private void loadRelationTypes() throws IOException {
 		BufferedReader in = new BufferedReader(new FileReader("relationTypesConfig.txt"));
-        String line = "";
-        while ((line = in.readLine()) != null) {
-        	String[] current = line.split("-");
-        	relationTypes.add(current[0]);
-        }
-        in.close();
+		String line = "";
+		while ((line = in.readLine()) != null) {
+			String[] current = line.split("-");
+			relationTypes.add(current[0]);
+		}
+		in.close();
 	}
 
 	@Override
@@ -70,13 +70,15 @@ public class Relation implements IRelation {
 
 	@Override
 	public void setType(String type) {
-		if(relationTypes.contains(type)) {
+		if (relationTypes.contains(type)) {
 			this.type = type;
 		}
 	}
 
 	@Override
 	public boolean equals(Object obj) {
+		if (obj == null)
+			return false;
 		IRelation relation = (Relation) obj;
 		boolean destEquals = this.dest.equals(relation.getDest());
 		boolean srcEquals = this.src.equals(relation.getSrc());
@@ -84,19 +86,19 @@ public class Relation implements IRelation {
 				|| (this.type.equals("ASSOCIATION") && relation.getType().equals("USES"))
 				|| (this.type.equals("USES") && relation.getType().equals("ASSOCIATION"));
 		boolean result = destEquals && srcEquals && typeEquals;
-		if(result && this.type.equals("USES") && relation.getType().equals("ASSOCIATION")) {
+		if (result && this.type.equals("USES") && relation.getType().equals("ASSOCIATION")) {
 			this.type = "ASSOCIATION";
 		}
-		return destEquals && srcEquals && typeEquals;
+		return result;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((dest == null) ? 0 : dest.hashCode());
 		result = prime * result + ((src == null) ? 0 : src.hashCode());
-		if(type.equals("USES")) {
+		if (type.equals("USES")) {
 			result = prime * result + ((type == null) ? 0 : "ASSOCIATION".hashCode());
 		} else {
 			result = prime * result + ((type == null) ? 0 : type.hashCode());
