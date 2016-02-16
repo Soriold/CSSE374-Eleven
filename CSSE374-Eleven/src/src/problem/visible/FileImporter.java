@@ -11,6 +11,7 @@ public class FileImporter {
 
 	public static List<byte[]> getClassesFromInputFolder(String inputPath) throws IOException, Exception {
 		List<byte[]> inputClasses;
+
 		inputClasses = findClassesFromFolder(inputPath);
 		return inputClasses;
 	}

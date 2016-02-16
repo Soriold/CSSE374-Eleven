@@ -40,7 +40,6 @@ public class ClassListPanel extends JScrollPane {
 		BufferedReader in = new BufferedReader(new FileReader("patternTypesConfig.txt"));
         String line = "";
         while ((line = in.readLine()) != null) {
-        	System.out.println(line);
         	String[] current = line.split("-");
         	patterns.add(current[0]);
         }

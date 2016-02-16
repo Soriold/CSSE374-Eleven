@@ -1,10 +1,9 @@
 package GUI;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import src.problem.visible.DesignParser;
@@ -14,7 +13,6 @@ import java.awt.FlowLayout;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.Properties;
 import java.awt.Dimension;
 
@@ -41,8 +39,6 @@ public class WindowFrame extends JFrame {
 		defaultProps.load(in);
 		in.close();
 		DesignParser dp = DesignParser.getInstance();
-//		System.out.println(Arrays.toString(
-//				findClasses("S:\\GitHub\\CSSE374-Eleven\\CSSE374-Eleven\\CSSE374-Eleven\\asm-all-5.0.4.jar")));
 		dp.run(defaultProps);
 		
 		IModel m = dp.getModel();
@@ -60,7 +56,7 @@ public class WindowFrame extends JFrame {
 		contentPane.add(classListPanel);
 		classListPanel.setPreferredSize(new Dimension((int) (contentPane.getWidth()*.25), contentPane.getHeight() - 65));
 
-		UMLPanel UMLPanel = new UMLPanel(new JLabel(new ImageProxy("input-output\\uml.png")));
+		JScrollPane UMLPanel = new JScrollPane(new JLabel(new ImageProxy("input-output\\uml.png")));
 		contentPane.add(UMLPanel);
 		UMLPanel.setPreferredSize(new Dimension((int) (contentPane.getWidth()*.7), contentPane.getHeight() - 65));
 	}
