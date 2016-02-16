@@ -22,6 +22,7 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
 
 import src.problem.components.IClass;
+import src.problem.components.IModel;
 import src.problem.components.Model;
 
 import com.jidesoft.swing.*;
@@ -33,7 +34,7 @@ public class ClassListPanel extends JScrollPane {
 	private ArrayList<String> patterns;
 	private CheckBoxTree tree;
 
-	public ClassListPanel(Model m) throws IOException {
+	public ClassListPanel(IModel m) throws IOException {
 		patterns = new ArrayList<String>();
 		
 		BufferedReader in = new BufferedReader(new FileReader("patternTypesConfig.txt"));

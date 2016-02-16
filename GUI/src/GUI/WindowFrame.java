@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import src.problem.asm.DesignParser;
+import src.problem.visible.DesignParser;
 import src.problem.components.IClass;
 import src.problem.components.Model;
 import src.problem.outputvisitor.GraphVizOutputStream;
@@ -82,7 +82,7 @@ public class WindowFrame extends JFrame {
 //				findClasses("S:\\GitHub\\CSSE374-Eleven\\CSSE374-Eleven\\CSSE374-Eleven\\asm-all-5.0.4.jar")));
 		dp.run(defaultProps);
 		
-		Model m = dp.getModel();
+		IModel m = dp.getModel();
 		
 		BufferedReader reader = new BufferedReader(new FileReader("input-output\\GVOutput.txt"));
         StringBuilder b = new StringBuilder();
