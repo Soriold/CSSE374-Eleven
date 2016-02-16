@@ -87,17 +87,15 @@ public class ConfigFrame extends JFrame {
 				
 				Properties props = new Properties();
 				try {
-					System.out.println(configFile.getAbsolutePath());
 					FileInputStream in = new FileInputStream(configFile.getAbsolutePath());
 					props.load(in);
 					System.out.println(props);
 					in.close();
 					
-					AnalyzeThread analyzer = new AnalyzeThread(dp, props);
+					Analyzer analyzer = new Analyzer(dp, props);
 			        Thread t = new Thread(analyzer);
 			        t.start();
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				while(dp.getCurrentPhase() == null) {

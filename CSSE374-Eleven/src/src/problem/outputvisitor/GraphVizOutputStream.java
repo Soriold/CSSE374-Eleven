@@ -42,10 +42,8 @@ public class GraphVizOutputStream extends FilterOutputStream {
         String line = "";
         while ((line = in.readLine()) != null) {
         	String[] current = line.split("-");
-        	System.out.println(current[0]);
         	patternTypeOutput.put(current[0], current[1]);
         }
-        System.out.println(patternTypeOutput.toString());
         in.close();
 	}
 
@@ -123,7 +121,6 @@ public class GraphVizOutputStream extends FilterOutputStream {
 	}
 
 	private Object getColor(String pattern) {
-		System.out.println(patternTypeOutput.toString());
 		if(patternTypeOutput.containsKey(pattern)) {
 			String output = patternTypeOutput.get(pattern);
 			return "style=filled fillcolor=" + output;

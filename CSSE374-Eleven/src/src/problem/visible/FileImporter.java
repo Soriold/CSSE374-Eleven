@@ -13,7 +13,6 @@ public class FileImporter {
 
 	public static List<byte[]> getClassesFromInputFolder(String inputPath) throws IOException, Exception {
 		List<byte[]> inputClasses;
-		System.out.println(inputPath);
 //		if (inputPath != null) {
 //			System.out.println("copying");
 //			Files.copy(Paths.get(inputPath), Paths.get("currentSrc\\"), StandardCopyOption.REPLACE_EXISTING);
@@ -24,7 +23,6 @@ public class FileImporter {
 
 	private static List<byte[]> findClasses(String path) throws Exception {
 		List<byte[]> classNames = null;
-		System.out.println("PATH: " + path);
 		// if (path.endsWith(".jar")) {
 		// classNames = findClassesFromJar(path);
 		// } else {

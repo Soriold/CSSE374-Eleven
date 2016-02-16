@@ -11,7 +11,6 @@ public class DecoratorDetector implements IPhase {
 	public void executeOn(IModel m, Properties prop) throws Exception {
 		DecoratorSpotter s = new DecoratorSpotter();
 		s.spot(m);
-		System.out.println("decorating!");
 	}
 
 }
