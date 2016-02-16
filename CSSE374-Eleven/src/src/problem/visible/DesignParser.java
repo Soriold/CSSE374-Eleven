@@ -129,4 +129,8 @@ public class DesignParser {
 		reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
 		return clazz;
 	}
+	
+	public void addPhase(String callName, IPhase phase) {
+		this.phaseExecutables.put(callName, phase);
+	}
 }

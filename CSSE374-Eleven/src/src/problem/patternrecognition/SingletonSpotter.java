@@ -8,7 +8,7 @@ import src.problem.components.IMethod;
 import src.problem.components.IMethodCall;
 import src.problem.components.IModel;
 
-public class SingletonSpotter implements IPatternSpotter {
+public class SingletonSpotter extends AbstractDesignAnalyzer {
 
 	private String name;
 	private boolean requiresGetInstanceMethod = false;

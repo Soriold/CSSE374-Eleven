@@ -7,13 +7,12 @@ import java.util.Set;
 
 import src.problem.components.*;
 
-public class DecoratorSpotter implements IPatternSpotter {
-	private IModel model;
+public class DecoratorSpotter extends AbstractDesignAnalyzer {
 
 	@Override
 	public void spot(IModel model) {
-		this.model = model;
-		for (IClass clazz : this.model.getClasses()) {
+		this.m = model;
+		for (IClass clazz : this.m.getClasses()) {
 			List<IParameter> constructorParams = getConstructorParams(clazz);
 			List<IField> fields = clazz.getFields();
 			List<String> aggs = getAggregates(constructorParams, fields);
@@ -112,7 +111,7 @@ public class DecoratorSpotter implements IPatternSpotter {
 	}
 	
 	private IClass findClass(String s) {
-		for (IClass c : model.getClasses()) {
+		for (IClass c : m.getClasses()) {
 			if (c.getName().equals(s)) {
 				return c;
 			}

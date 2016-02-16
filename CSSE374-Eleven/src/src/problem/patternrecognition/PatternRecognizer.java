@@ -4,11 +4,11 @@ import src.problem.components.Model;
 
 public class PatternRecognizer {
 
-	private static IPatternSpotter[] mSpotters = { new AdapterSpotter(), new DecoratorSpotter(),
+	private static IDesignAnalyzer[] mSpotters = { new AdapterSpotter(), new DecoratorSpotter(),
 			new SingletonSpotter(), new CompositeSpotter() };
 
 	public static void recognize(Model model) {
-		for (IPatternSpotter s : mSpotters) {
+		for (IDesignAnalyzer s : mSpotters) {
 			s.spot(model);
 		}
 	}

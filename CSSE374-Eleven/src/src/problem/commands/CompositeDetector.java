@@ -10,7 +10,6 @@ public class CompositeDetector implements IPhase {
 	@Override
 	public void executeOn(IModel m, Properties prop) throws Exception {
 		CompositeSpotter s = new CompositeSpotter();
-		
 		s.spot(m);
 
 	}

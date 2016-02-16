@@ -27,7 +27,6 @@ public class ClassFieldVisitor extends ClassVisitor {
 		FieldVisitor toDecorate = super.visitField(access, name, desc, signature, value);
 		String type = Type.getType(desc).getClassName();
 		type = simplifyClassName(type);
-		//System.out.println(signature);
 		signature = extractType(signature);
 		IRelation relation;
 		if(!signature.equals("")) {
@@ -35,7 +34,6 @@ public class ClassFieldVisitor extends ClassVisitor {
 				relation = new Relation(this.clazz.getName(), type, "ASSOCIATION");
 			} else {
 				String temp = signature.substring(1, signature.length() - 1);
-				//System.out.println("==>>" + type + "  " + temp + "  "+ signature);
 				relation = new Relation(this.clazz.getName(), temp, "ASSOCIATION");
 				type += signature;
 			}
@@ -52,7 +50,6 @@ public class ClassFieldVisitor extends ClassVisitor {
 		}
 		field.setName(name);
 		field.setType(type);
-		System.out.println("class: "+this.clazz.getName()+ " field type: "+type);
 		if ((access & Opcodes.ACC_PUBLIC) != 0) {
 			field.setVisibility("public");
 		} else if ((access & Opcodes.ACC_PROTECTED) != 0) {
