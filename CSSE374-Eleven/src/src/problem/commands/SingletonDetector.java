@@ -1,7 +1,6 @@
 package src.problem.commands;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Properties;
 
 import src.problem.components.IModel;
@@ -17,9 +16,9 @@ public class SingletonDetector implements IPhase {
 
 	}
 
-	private List<String> getParameters(Properties prop) {
-		List<String> ret = new ArrayList<String>();
-		ret.add(prop.getProperty("Singleton-RequireGetInstance"));
+	private HashMap<String, String> getParameters(Properties prop) {
+		HashMap<String, String> ret = new HashMap<String, String>();
+		ret.put("Singleton-RequireGetInstance", prop.getProperty("Singleton-RequireGetInstance"));
 		return ret;
 	}
 

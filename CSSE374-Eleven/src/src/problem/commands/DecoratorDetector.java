@@ -1,7 +1,6 @@
 package src.problem.commands;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Properties;
 
 import src.problem.components.IModel;
@@ -15,10 +14,11 @@ public class DecoratorDetector implements IPhase {
 		s.setParameters(getParameters(prop));
 		s.spot(m);
 	}
+
 	
-	private List<String> getParameters(Properties prop) {
-		List<String> ret = new ArrayList<String>();
-		ret.add(prop.getProperty("Decorator-MethodDelegation"));
+	private HashMap<String, String> getParameters(Properties prop) {
+		HashMap<String, String> ret = new HashMap<String, String>();
+		ret.put("Decorator-MethodDelegation", prop.getProperty("Decorator-MethodDelegation"));
 		return ret;
 	}
 

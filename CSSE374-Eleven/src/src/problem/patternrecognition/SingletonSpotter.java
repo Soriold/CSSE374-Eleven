@@ -14,6 +14,7 @@ public class SingletonSpotter extends AbstractDesignAnalyzer {
 	private boolean requiresGetInstanceMethod = false;
 
 	private void spot(IClass c) {
+		parseParameters();
 		this.name = c.getName();
 		boolean hasPrivateStaticInstance = this.checkInstances(c.getFields());
 		boolean hasPublicStaticMethod = this.checkMethods(c.getMethods());
@@ -30,6 +31,10 @@ public class SingletonSpotter extends AbstractDesignAnalyzer {
 				c.setStereotype("Singleton");
 			}
 		}
+	}
+
+	private void parseParameters() {
+		this.requiresGetInstanceMethod = Boolean.parseBoolean(this.params.get("Singleton-RequireGetInstance"));
 	}
 
 	private boolean checkForGetInstance(List<IMethod> methods) {
