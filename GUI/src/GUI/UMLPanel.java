@@ -20,19 +20,4 @@ public class UMLPanel extends JScrollPane {
 		super(arg0);
 	}
 
-	private BufferedImage image;
-	
-	@Override
-	protected void paintComponent(Graphics g) {
-		 try {
-			image = ImageIO.read(new File("input-output\\uml.png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-         JLabel picLabel = new JLabel(new ImageIcon(image));
-         this.add(picLabel);
-	}
-    
-
 }

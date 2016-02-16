@@ -5,5 +5,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="lib" path="Parser.jar"/>
 	<classpathentry kind="lib" path="C:/Users/orioldsm/Documents/GitHub/CSSE374-Eleven/CSSE374-Eleven/asm-all-5.0.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/orioldsm/Downloads/jide-common.jar/jide-common.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
