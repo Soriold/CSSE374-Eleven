@@ -9,9 +9,13 @@ import src.problem.components.*;
 
 public class DecoratorSpotter extends AbstractDesignAnalyzer {
 
+	@SuppressWarnings("unused")
+	private int methodDelegation;
+
 	@Override
 	public void spot(IModel model) {
 		this.m = model;
+		parseParameters();
 		for (IClass clazz : this.m.getClasses()) {
 			List<IParameter> constructorParams = getConstructorParams(clazz);
 			List<IField> fields = clazz.getFields();
@@ -20,15 +24,20 @@ public class DecoratorSpotter extends AbstractDesignAnalyzer {
 		}
 		checkForSubClasses(model);
 	}
-	
+
+	private void parseParameters() {
+		this.methodDelegation = Integer.parseInt(this.params.get("Decorator-MethodDelegation"));
+
+	}
+
 	private void checkForSubClasses(IModel model) {
-		for(IRelation r : model.getRelations()) {
-			if(r.getType().equals("EXTENDS") || r.getType().equals("IMPLEMENTS")) {
+		for (IRelation r : model.getRelations()) {
+			if (r.getType().equals("EXTENDS") || r.getType().equals("IMPLEMENTS")) {
 				IClass dest = findClass(r.getDest());
-				if(dest != null) {
-					if(dest.getPattern().equals("DECORATOR")) {
+				if (dest != null) {
+					if (dest.getPattern().equals("DECORATOR")) {
 						IClass src = findClass(r.getSrc());
-						if(src != null) {
+						if (src != null) {
 							if (src.getStereotype() == null || !src.getStereotype().equals("decorator")) {
 								src.setPattern("DECORATOR");
 								src.setStereotype("decorator");
@@ -51,7 +60,7 @@ public class DecoratorSpotter extends AbstractDesignAnalyzer {
 		List<IParameter> none = new ArrayList<IParameter>();
 		return none;
 	}
-	
+
 	private List<String> getAggregates(List<IParameter> params, List<IField> fields) {
 		List<String> aggs = new ArrayList<String>();
 		for (IParameter param : params) {
@@ -63,13 +72,13 @@ public class DecoratorSpotter extends AbstractDesignAnalyzer {
 		}
 		return aggs;
 	}
-	
+
 	private void checkForDecorator(IModel model, IClass clazz, List<String> aggs) {
 		String decoratee = "";
 		Set<String> inherits = new HashSet<String>();
 		Set<IRelation> relations = model.getRelations();
-		
-		//get all inherited classes (extended or implemented)
+
+		// get all inherited classes (extended or implemented)
 		for (IRelation relation : relations) {
 			if (relation.getSrc().equals(clazz.getName())) {
 				if (relation.getType().equals("EXTENDS") || relation.getType().equals("IMPLEMENTS")) {
@@ -77,39 +86,39 @@ public class DecoratorSpotter extends AbstractDesignAnalyzer {
 				}
 			}
 		}
-		
-		//detect decoration by cross-referencing inheritances and aggregates
+
+		// detect decoration by cross-referencing inheritances and aggregates
 		for (String agg : aggs) {
 			if (inherits.contains(agg)) {
 				decoratee = agg;
-				
-				//add decorator stereotype and pattern type to class
+
+				// add decorator stereotype and pattern type to class
 				clazz.setStereotype("decorator");
 				clazz.setPattern("DECORATOR");
-				
-				//change relation to "decorates" relation
+
+				// change relation to "decorates" relation
 				for (IRelation relation : relations) {
 					if (relation.getSrc().equals(clazz.getName()) && relation.getDest().equals(decoratee)) {
-						if(relation.getType().equals("ASSOCIATION")) {
+						if (relation.getType().equals("ASSOCIATION")) {
 							relation.setLabel("decorates");
 						}
 					}
 				}
 
-				//add "component" stereotype to decoratee class
+				// add "component" stereotype to decoratee class
 				for (IClass c : model.getClasses()) {
 					if (c.getName().equals(decoratee)) {
-						//System.out.println("decoratee: " + decoratee);
+						// System.out.println("decoratee: " + decoratee);
 						c.setStereotype("component");
 						c.setPattern("DECORATOR");
 					}
 				}
-				
+
 				return;
 			}
 		}
 	}
-	
+
 	private IClass findClass(String s) {
 		for (IClass c : m.getClasses()) {
 			if (c.getName().equals(s)) {
