@@ -138,8 +138,8 @@ public class DesignParser {
 		return clazz;
 	}
 	
-	private static void generateGV(String arg) {
-		String path = "C:\\Users\\howtc\\Desktop\\graphviz\\release\\bin\\temp.dot";
+	public static void generateGV(String arg) {
+		String path = "temp.dot";
 		
 		try (final BufferedWriter writer = Files.newBufferedWriter(Paths.get(path), StandardCharsets.UTF_8, StandardOpenOption.CREATE);)
 		{
@@ -150,9 +150,9 @@ public class DesignParser {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		ProcessBuilder pb = new ProcessBuilder("C:\\Users\\howtc\\Desktop\\graphviz\\release\\bin\\dot.exe", "-Tpng", "C:\\Users\\howtc\\Desktop\\graphviz\\release\\bin\\temp.dot", "-o", "C:\\Users\\howtc\\Desktop\\out.png");
+		ProcessBuilder pb = new ProcessBuilder("dot.exe", "-Tpng", "temp.dot", "-o", "input-output\\uml.png");
 		try {
-			File log = new File("C:\\Users\\howtc\\Desktop\\errorLog.txt");
+			File log = new File("errorLog.txt");
 			pb.redirectErrorStream(true);
 			pb.redirectOutput(Redirect.appendTo(log));
 			Process p = pb.start();

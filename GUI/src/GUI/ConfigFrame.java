@@ -6,6 +6,8 @@ import javax.swing.JLabel;
 
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.swing.GroupLayout;
@@ -13,6 +15,8 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JProgressBar;
 
 public class ConfigFrame extends JFrame {
+	
+	private String configFile;
 	
 	/**
 	 * Launch the application.
@@ -38,6 +42,25 @@ public class ConfigFrame extends JFrame {
 		JButton btnLoadConfig = new JButton("Load Config");
 		
 		JButton btnAnalyze = new JButton("Analyze");
+		
+		btnAnalyze.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				//analyze shit here
+				
+				closeConfigFrame();
+				try {
+					WindowFrame frame = new WindowFrame();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+		});
 		
 		JLabel progressBarText = new JLabel("Info on progress...");
 		
@@ -75,5 +98,9 @@ public class ConfigFrame extends JFrame {
 		);
 		getContentPane().setPreferredSize(new Dimension(this.getWidth(), this.getHeight()));
 		getContentPane().setLayout(groupLayout);
+	}
+
+	protected void closeConfigFrame() {
+		this.dispose();
 	}
 }

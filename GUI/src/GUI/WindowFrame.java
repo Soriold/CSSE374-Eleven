@@ -1,6 +1,5 @@
 package GUI;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -9,56 +8,20 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import src.problem.visible.DesignParser;
-import src.problem.components.IClass;
+import src.problem.components.IModel;
 import src.problem.components.Model;
-import src.problem.outputvisitor.GraphVizOutputStream;
-import src.problem.outputvisitor.SDEditOutputStream;
-import src.problem.patternrecognition.PatternRecognizer;
-
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-
-import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Properties;
-import java.util.Scanner;
 import java.awt.Dimension;
-import javax.swing.JTree;
-import javax.swing.JList;
 
 public class WindowFrame extends JFrame {
 
 	private JPanel contentPane;
 	public Model m;
-
-	/**
-	 * Launch the application.
-	 * @throws IOException 
-	 */
-	public static void main(String[] args) throws IOException {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					WindowFrame frame = new WindowFrame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
