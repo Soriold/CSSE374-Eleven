@@ -89,7 +89,6 @@ public class ConfigFrame extends JFrame {
 				try {
 					FileInputStream in = new FileInputStream(configFile.getAbsolutePath());
 					props.load(in);
-					System.out.println(props);
 					in.close();
 					
 					Analyzer analyzer = new Analyzer(dp, props);
