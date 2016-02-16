@@ -1,6 +1,13 @@
 package src.problem.visible;
 
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
+import java.lang.ProcessBuilder.Redirect;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +38,7 @@ public class DesignParser {
 
 	private ArrayList<String> reqArgs;
 	private HashMap<String, IPhase> phaseExecutables;
+	private IModel model;
 
 	private DesignParser() {
 		this.phaseExecutables = new HashMap<>();
@@ -76,7 +84,7 @@ public class DesignParser {
 			throw new IllegalArgumentException("Invalid order of phases. Class-Loading must happen first.");
 		}
 
-		Model model = new Model();
+		this.model = new Model();
 
 		for (String className : inputClasses) {
 			IClass clazz = parse(className.trim(), model);
@@ -128,5 +136,33 @@ public class DesignParser {
 
 		reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
 		return clazz;
+	}
+	
+	private static void generateGV(String arg) {
+		String path = "C:\\Users\\howtc\\Desktop\\graphviz\\release\\bin\\temp.dot";
+		
+		try (final BufferedWriter writer = Files.newBufferedWriter(Paths.get(path), StandardCharsets.UTF_8, StandardOpenOption.CREATE);)
+		{
+			writer.write(arg);
+			writer.flush();
+			writer.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ProcessBuilder pb = new ProcessBuilder("C:\\Users\\howtc\\Desktop\\graphviz\\release\\bin\\dot.exe", "-Tpng", "C:\\Users\\howtc\\Desktop\\graphviz\\release\\bin\\temp.dot", "-o", "C:\\Users\\howtc\\Desktop\\out.png");
+		try {
+			File log = new File("C:\\Users\\howtc\\Desktop\\errorLog.txt");
+			pb.redirectErrorStream(true);
+			pb.redirectOutput(Redirect.appendTo(log));
+			Process p = pb.start();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public IModel getModel() {
+		return this.model;
 	}
 }
