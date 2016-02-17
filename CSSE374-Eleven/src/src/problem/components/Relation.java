@@ -1,9 +1,5 @@
 package src.problem.components;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.HashSet;
 import java.util.Set;
 
 import src.problem.outputvisitor.IVisitor;
@@ -14,33 +10,17 @@ public class Relation implements IRelation {
 	private String src;
 	private String type;
 	private String label;
-	private Set<String> relationTypes;
+	private static Set<String> relationTypes;
 
 	public Relation(String src, String dest, String type) {
 		super();
 		this.dest = dest;
 		this.src = src;
-		relationTypes = new HashSet<String>();
-		try {
-			loadRelationTypes();
-		} catch (IOException e) {
-			System.out.println("Error loading config file for relation types.");
-		}
 		if (relationTypes.contains(type)) {
 			this.type = type;
 		} else {
 			this.type = "";
 		}
-	}
-
-	private void loadRelationTypes() throws IOException {
-		BufferedReader in = new BufferedReader(new FileReader("relationTypesConfig.txt"));
-		String line = "";
-		while ((line = in.readLine()) != null) {
-			String[] current = line.split("-");
-			relationTypes.add(current[0]);
-		}
-		in.close();
 	}
 
 	@Override
@@ -123,6 +103,10 @@ public class Relation implements IRelation {
 
 	@Override
 	public Set<String> getRelationTypes() {
-		return this.relationTypes;
+		return relationTypes;
+	}
+
+	public static void setRelationTypes(Set<String> types) {
+		relationTypes = types;
 	}
 }

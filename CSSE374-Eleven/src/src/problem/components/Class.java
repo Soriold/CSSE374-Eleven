@@ -1,10 +1,6 @@
 package src.problem.components;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -21,30 +17,14 @@ public class Class implements IClass {
 	private String superClass;
 	private String pattern;
 	private String stereotype;
-	private Set<String> patternTypes;
+	private static Set<String> patternTypes;
 
 	public Class() {
 		this.fields = new ArrayList<IField>();
 		this.methods = new ArrayList<IMethod>();
 		this.interfaces = new ArrayList<String>();
 		this.isInterface = false;
-		patternTypes = new HashSet<String>();
-		try {
-			loadPatternTypes();
-		} catch (IOException e) {
-			System.out.println("Error loading pattern type configuration.");
-		}
 		this.pattern = "NONE";
-	}
-
-	private void loadPatternTypes() throws IOException {
-		BufferedReader in = new BufferedReader(new FileReader("patternTypesConfig.txt"));
-        String line = "";
-        while ((line = in.readLine()) != null) {
-        	String[] current = line.split("-");
-        	patternTypes.add(current[0]);
-        }
-        in.close();
 	}
 
 	@Override
@@ -109,14 +89,14 @@ public class Class implements IClass {
 
 	@Override
 	public boolean equals(Object obj) {
-		IClass c = (Class)obj;
+		IClass c = (Class) obj;
 		return this.name.equals(c.getName());
 	}
 
 	@Override
 	public void accept(IVisitor v) {
 		v.preVisit(this);
-		for(IField f : this.fields) {
+		for (IField f : this.fields) {
 			ITraverser t = (ITraverser) f;
 			t.accept(v);
 		}
@@ -125,9 +105,9 @@ public class Class implements IClass {
 			ITraverser t = (ITraverser) m;
 			t.accept(v);
 		}
-		v.postVisit(this);		
+		v.postVisit(this);
 	}
-	
+
 	public String getPattern() {
 		return this.pattern;
 	}
@@ -144,7 +124,7 @@ public class Class implements IClass {
 
 	@Override
 	public void setPattern(String pattern) {
-		if(patternTypes.contains(pattern)) {
+		if (patternTypes.contains(pattern)) {
 			this.pattern = pattern;
 		}
 	}
@@ -152,5 +132,9 @@ public class Class implements IClass {
 	@Override
 	public Set<String> getPatternTypes() {
 		return patternTypes;
+	}
+
+	public static void setPatternTypes(Set<String> types) {
+		patternTypes = types;
 	}
 }

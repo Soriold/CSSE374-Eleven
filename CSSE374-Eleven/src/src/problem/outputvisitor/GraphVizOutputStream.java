@@ -1,11 +1,8 @@
 package src.problem.outputvisitor;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.HashMap;
 import java.util.Map;
 
 import src.problem.components.Class;
@@ -19,42 +16,21 @@ import src.problem.components.Relation;
 public class GraphVizOutputStream extends FilterOutputStream {
 
 	private final IVisitor visitor;
-	private Map<String, String> relationTypeOutput;
-	private Map<String, String> patternTypeOutput;
+	private static Map<String, String> relationTypeOutput;
+	private static Map<String, String> patternTypeOutput;
 
+	public static void setRelationTypes(Map<String, String> relationTypeOutput) {
+		GraphVizOutputStream.relationTypeOutput = relationTypeOutput;
+	}
+
+	public static void setPatternTypes(Map<String, String> patternTypeOutput) {
+		GraphVizOutputStream.patternTypeOutput = patternTypeOutput;
+	}
 
 	public GraphVizOutputStream(OutputStream out) {
 		super(out);
 		this.visitor = new Visitor();
 		this.setupVisitors();
-		relationTypeOutput = new HashMap<String, String>();
-		patternTypeOutput = new HashMap<String, String>();
-		try {
-			loadRelationTypeOutput();
-			loadPatternTypeOutput();
-		} catch (IOException e) {
-			System.out.println("Error loading configurations.");
-		}
-	}
-
-	private void loadPatternTypeOutput() throws IOException {
-		BufferedReader in = new BufferedReader(new FileReader("patternTypesConfig.txt"));
-        String line = "";
-        while ((line = in.readLine()) != null) {
-        	String[] current = line.split("-");
-        	patternTypeOutput.put(current[0], current[1]);
-        }
-        in.close();
-	}
-
-	private void loadRelationTypeOutput() throws IOException {
-		BufferedReader in = new BufferedReader(new FileReader("relationTypesConfig.txt"));
-        String line = "";
-        while ((line = in.readLine()) != null) {
-        	String[] current = line.split("-");
-        	relationTypeOutput.put(current[0], current[1] + "-" + current[2]);
-        }
-        in.close();
 	}
 
 	private void setupVisitors() {
@@ -69,7 +45,7 @@ public class GraphVizOutputStream extends FilterOutputStream {
 		this.setupVisitParameter();
 		this.setupVisitRelationship();
 	}
-	
+
 	private void write(String m) {
 		try {
 			super.write(m.getBytes());
@@ -77,9 +53,8 @@ public class GraphVizOutputStream extends FilterOutputStream {
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 	public void write(IModel m) {
-		//m.validateRelations();
 		ITraverser t = (ITraverser) m;
 		t.accept(this.visitor);
 	}
@@ -121,7 +96,7 @@ public class GraphVizOutputStream extends FilterOutputStream {
 	}
 
 	private Object getColor(String pattern) {
-		if(patternTypeOutput.containsKey(pattern)) {
+		if (patternTypeOutput.containsKey(pattern)) {
 			String output = patternTypeOutput.get(pattern);
 			return "style=filled fillcolor=" + output;
 		} else {
@@ -130,9 +105,9 @@ public class GraphVizOutputStream extends FilterOutputStream {
 	}
 
 	private String getStereotype(String string) {
-		if(string == null) {
+		if (string == null) {
 			return "";
-		} 
+		}
 		return "\\n\\<\\<" + string + "\\>\\>";
 	}
 
@@ -154,7 +129,7 @@ public class GraphVizOutputStream extends FilterOutputStream {
 		this.visitor.addVisit(VisitType.Visit, Field.class, (ITraverser t) -> {
 			Field c = (Field) t;
 			StringBuilder ret = new StringBuilder();
-	
+
 			if (c.getVisibility().equals("public")) {
 				ret.append("+ ");
 			} else if (c.getVisibility().equals("private")) {
@@ -162,7 +137,7 @@ public class GraphVizOutputStream extends FilterOutputStream {
 			} else if (c.getVisibility().equals("protected")) {
 				ret.append("# ");
 			}
-	
+
 			ret.append(c.getName());
 			ret.append(" : ");
 			ret.append(c.getType());
@@ -171,7 +146,7 @@ public class GraphVizOutputStream extends FilterOutputStream {
 			mod = mod.replace(">", "\\>");
 			this.write(mod);
 		});
-	
+
 	}
 
 	private void setupPreVisitMethod() {
@@ -202,7 +177,7 @@ public class GraphVizOutputStream extends FilterOutputStream {
 			ret.append(") : ");
 			ret.append(c.getReturnType());
 			ret.append("\\l\n");
-			
+
 			String mod = ret.toString().replace("<", "\\<");
 			mod = mod.replace(">", "\\>");
 			this.write(mod);
@@ -213,22 +188,19 @@ public class GraphVizOutputStream extends FilterOutputStream {
 	private void setupVisitRelationship() {
 		this.visitor.addVisit(VisitType.Visit, Relation.class, (ITraverser t) -> {
 			Relation c = (Relation) t;
-			String style, arrowhead, label;
+			String style, label;
 			String type = c.getType();
-			if(relationTypeOutput.containsKey(type)) {
-				String[] output = relationTypeOutput.get(type).split("-");
-				arrowhead = output[0];
-				style = output[1];
+			if (relationTypeOutput.containsKey(type)) {
+				style = relationTypeOutput.get(type);
 			} else {
-				arrowhead = "";
 				style = "";
 			}
 			if (c.getLabel() == null) {
-				label = " label=\"\"" ;
+				label = " label=\"\"";
 			} else {
 				label = " label=\"" + c.getLabel() + "\" ";
 			}
-			this.write(" edge [ arrowhead = " + arrowhead + " style = " + style + " " + label + "]\n" + c.getSrc() + " -> " + c.getDest() + "\n");
+			this.write(" edge [ " + style + " " + label + "]\n" + c.getSrc() + " -> " + c.getDest() + "\n");
 		});
 	}
 

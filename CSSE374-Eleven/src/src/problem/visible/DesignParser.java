@@ -31,6 +31,7 @@ import src.problem.components.Class;
 import src.problem.components.IClass;
 import src.problem.components.IModel;
 import src.problem.components.Model;
+import src.problem.components.Relation;
 
 public class DesignParser {
 
@@ -41,10 +42,6 @@ public class DesignParser {
 	private IModel model;
 	private String currentParseClass;
 	private String currentPhase;
-
-	public HashMap<String, IPhase> getPhaseExecutables() {
-		return phaseExecutables;
-	}
 
 	private DesignParser() {
 		this.phaseExecutables = new HashMap<>();
@@ -58,6 +55,8 @@ public class DesignParser {
 		this.reqArgs.add("Output-Directory");
 		this.reqArgs.add("Dot-Path");
 		this.reqArgs.add("Phases");
+		this.reqArgs.add("Pattern-Types");
+		this.reqArgs.add("Relation-Types");
 	}
 
 	public static DesignParser getInstance() {
@@ -90,6 +89,12 @@ public class DesignParser {
 			throw new IllegalArgumentException("Invalid order of phases. Class-Loading must happen first.");
 		}
 
+		String patternPath = prop.getProperty("Pattern-Types", null);
+		Class.setPatternTypes(EnumExtractor.extractKeys(patternPath));
+
+		String relationPath = prop.getProperty("Relation-Types", null);
+		Relation.setRelationTypes(EnumExtractor.extractKeys(relationPath));
+
 		this.model = new Model();
 
 		currentPhase = phases[0];
@@ -117,12 +122,26 @@ public class DesignParser {
 
 	}
 
-	public String getCurrentParseClass() {
-		return currentParseClass;
+	public IClass parse(String args, IModel model) throws IOException {
+		ClassReader reader = new ClassReader(args);
+		return parse(reader, model);
 	}
 
-	public String getCurrentPhase() {
-		return currentPhase;
+	public IClass parse(byte[] args, IModel model) throws IOException {
+		ClassReader reader = new ClassReader(args);
+		return parse(reader, model);
+
+	}
+
+	private IClass parse(ClassReader reader, IModel model) {
+		IClass clazz = new Class();
+
+		ClassVisitor decVisitor = new ClassDeclarationVisitor(Opcodes.ASM5, clazz, model);
+		ClassVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5, decVisitor, clazz, model);
+		ClassVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5, fieldVisitor, clazz, model);
+
+		reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
+		return clazz;
 	}
 
 	private void checkParameters(Properties prop) {
@@ -136,34 +155,6 @@ public class DesignParser {
 			throw new IllegalArgumentException(
 					"Incomplete Arguments : You must include at least one of Input-Classes or Input-Folder");
 		}
-	}
-
-	public IClass parse(String args, IModel model) throws IOException {
-		IClass clazz = new Class();
-
-		ClassReader reader = new ClassReader(args);
-		ClassVisitor decVisitor = new ClassDeclarationVisitor(Opcodes.ASM5, clazz, model);
-		ClassVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5, decVisitor, clazz, model);
-		ClassVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5, fieldVisitor, clazz, model);
-
-		reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
-		return clazz;
-	}
-
-	public IClass parse(byte[] args, IModel model) throws IOException {
-		IClass clazz = new Class();
-
-		ClassReader reader = new ClassReader(args);
-		ClassVisitor decVisitor = new ClassDeclarationVisitor(Opcodes.ASM5, clazz, model);
-		ClassVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5, decVisitor, clazz, model);
-		ClassVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5, fieldVisitor, clazz, model);
-
-		reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
-		return clazz;
-	}
-
-	public void addPhase(String callName, IPhase phase) {
-		this.phaseExecutables.put(callName, phase);
 	}
 
 	@SuppressWarnings("unused")
@@ -187,12 +178,27 @@ public class DesignParser {
 			pb.redirectOutput(Redirect.appendTo(log));
 			Process p = pb.start();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
+	public void addPhaseExecutable(String callName, IPhase phase) {
+		this.phaseExecutables.put(callName, phase);
+	}
+
 	public IModel getModel() {
 		return this.model;
+	}
+
+	public String getCurrentPhase() {
+		return currentPhase;
+	}
+
+	public String getCurrentParseClass() {
+		return currentParseClass;
+	}
+
+	public HashMap<String, IPhase> getPhaseExecutables() {
+		return phaseExecutables;
 	}
 }
