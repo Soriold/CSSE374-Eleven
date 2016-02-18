@@ -1,5 +1,6 @@
 package GUI;
 
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -123,8 +124,30 @@ public class WindowFrame extends JFrame {
 		JMenuItem mnHelp = new JMenu("Help");
 		menuBar.add(mnHelp);
 		JMenuItem mntmInstructions = new JMenuItem("Instructions");
+		mntmInstructions.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					Desktop.getDesktop().open(new File("docs\\Supporting Documentation.pdf"));
+				} catch (Exception exception) {
+					JOptionPane.showMessageDialog(contentPane, "Error opening help file.");
+				}
+			}
+			
+		});
 		mnHelp.add(mntmInstructions);
 		JMenuItem mntmAbout = new JMenuItem("About");
+		mntmAbout.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(contentPane, 
+						"Version 1.0 (2016)\nCreated by Ben Kimmel, Tayler How, and Shayna Oriold.", 
+						"About UML Generator", JOptionPane.INFORMATION_MESSAGE);
+			}
+			
+		});
 		mnHelp.add(mntmAbout);
 	}
 
