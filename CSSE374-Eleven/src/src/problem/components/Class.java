@@ -7,7 +7,7 @@ import java.util.Set;
 import src.problem.outputvisitor.ITraverser;
 import src.problem.outputvisitor.IVisitor;
 
-public class Class implements IClass {
+public class Class extends AbstractTaggable implements IClass {
 
 	private String name;
 	private List<IField> fields;

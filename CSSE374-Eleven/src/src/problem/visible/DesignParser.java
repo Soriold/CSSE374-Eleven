@@ -30,6 +30,7 @@ import src.problem.commands.SingletonDetector;
 import src.problem.components.Class;
 import src.problem.components.IClass;
 import src.problem.components.IModel;
+import src.problem.components.ITaggable;
 import src.problem.components.Model;
 import src.problem.components.Relation;
 
@@ -94,6 +95,9 @@ public class DesignParser {
 
 		String relationPath = prop.getProperty("Relation-Types", null);
 		Relation.setRelationTypes(EnumExtractor.extractKeys(relationPath));
+		
+		String tagPath = prop.getProperty("Tag-Types", null);
+		ITaggable.setTagTypes(EnumExtractor.extractKeys(tagPath));
 
 		this.model = new Model();
 

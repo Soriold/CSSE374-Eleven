@@ -4,6 +4,7 @@ import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Map;
+import java.util.Set;
 
 import src.problem.components.Class;
 import src.problem.components.Field;
@@ -18,6 +19,11 @@ public class GraphVizOutputStream extends FilterOutputStream {
 	private final IVisitor visitor;
 	private static Map<String, String> relationTypeOutput;
 	private static Map<String, String> patternTypeOutput;
+	private static Map<String, String> tagTypeOutput;
+
+	public static void setTagTypes(Map<String, String> tagTypeOutput) {
+		GraphVizOutputStream.tagTypeOutput = tagTypeOutput;
+	}
 
 	public static void setRelationTypes(Map<String, String> relationTypeOutput) {
 		GraphVizOutputStream.relationTypeOutput = relationTypeOutput;
@@ -81,6 +87,7 @@ public class GraphVizOutputStream extends FilterOutputStream {
 			ret.append(c.getName());
 			ret.append("[");
 			ret.append(this.getColor(c.getPattern()));
+			ret.append(this.getTagAttribute(c.getTags()));
 			ret.append(" label = \"{");
 			if (c.getIsInterface()) {
 				ret.append("\\<\\<interface\\>\\>");
@@ -93,6 +100,20 @@ public class GraphVizOutputStream extends FilterOutputStream {
 			this.write(ret.toString());
 		});
 
+	}
+
+	private String getTagAttribute(Set<String> tags) {
+		if (tags == null || tags.isEmpty()) {
+			return "";
+		}
+		StringBuilder ret = new StringBuilder();
+		for (String string : tags) {
+			ret.append(" ");
+			ret.append(tagTypeOutput.get(string));
+			ret.append(" ");
+		}
+
+		return ret.toString();
 	}
 
 	private Object getColor(String pattern) {
@@ -200,7 +221,8 @@ public class GraphVizOutputStream extends FilterOutputStream {
 			} else {
 				label = " label=\"" + c.getLabel() + "\" ";
 			}
-			this.write(" edge [ " + style + " " + label + "]\n" + c.getSrc() + " -> " + c.getDest() + "\n");
+			this.write(" edge [ " + style + " " + this.getTagAttribute(c.getTags()) + " " + label + "]\n" + c.getSrc()
+					+ " -> " + c.getDest() + "\n");
 		});
 	}
 

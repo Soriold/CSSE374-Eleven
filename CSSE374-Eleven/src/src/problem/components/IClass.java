@@ -5,7 +5,7 @@ import java.util.Set;
 
 import src.problem.outputvisitor.ITraverser;
 
-public interface IClass extends ITraverser{
+public interface IClass extends ITraverser, ITaggable{
 
 	public String getName();
 

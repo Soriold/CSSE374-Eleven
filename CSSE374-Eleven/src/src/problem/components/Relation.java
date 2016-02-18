@@ -4,7 +4,7 @@ import java.util.Set;
 
 import src.problem.outputvisitor.IVisitor;
 
-public class Relation implements IRelation {
+public class Relation extends AbstractTaggable implements IRelation {
 
 	private String dest;
 	private String src;

@@ -4,7 +4,7 @@ import java.util.Set;
 
 import src.problem.outputvisitor.ITraverser;
 
-public interface IRelation extends ITraverser {
+public interface IRelation extends ITraverser, ITaggable {
 	public String getDest();
 
 	public String getSrc();

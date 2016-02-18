@@ -17,9 +17,11 @@ public class DotGenerator implements IPhase {
 		
 		String patternPath = prop.getProperty("Pattern-Types", null);
 		String relationPath = prop.getProperty("Relation-Types", null);
+		String tagPath = prop.getProperty("Tag-Types", null);
 		
 		GraphVizOutputStream.setPatternTypes(EnumExtractor.extractKVPairs(patternPath));
 		GraphVizOutputStream.setRelationTypes(EnumExtractor.extractKVPairs(relationPath));
+		GraphVizOutputStream.setTagTypes(EnumExtractor.extractKVPairs(tagPath));
 		
 		gvos.write(m);
 		gvos.close();

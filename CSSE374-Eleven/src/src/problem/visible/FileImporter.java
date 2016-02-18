@@ -11,16 +11,8 @@ import java.util.List;
 public class FileImporter {
 
 	public static List<byte[]> getClassesFromInputFolder(String inputPath) throws IOException, Exception {
-		List<byte[]> inputClasses;
-
-		inputClasses = findClassesFromFolder(inputPath);
-		return inputClasses;
-	}
-
-	private static List<byte[]> findClassesFromFolder(String path) throws IOException {
-
 		List<byte[]> ret = new ArrayList<byte[]>();
-		File folder = new File(path);
+		File folder = new File(inputPath);
 		if(folder.listFiles() == null) {
 			throw new FileNotFoundException("No files in the given folder.");
 		}
