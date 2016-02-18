@@ -1,27 +1,15 @@
 digraph G {fontname = "Bitstream Vera Sans" fontsize = 8
- node [fontname ="Bitstream Vera Sans" fontsize = 8 shape = "record"] edge [fontname = "Bitstream Vera Sans" fontsize = 8]TestClass[ label = "{TestClass|- testStringField : String\l
-- testIntField : int[]\l
-+ testListField : List\<String\>\l
-# testClassTwo : TestClassTwo\l
-|+ \<init\>() : void\l
-- testPrivateMethod(int ) : void\l
-# testProtectedMethod(int double ) : void\l
-+ testPublicMethod(String ) : void\l
-+ testGetIntField() : int[]\l
-+ testGetStringField() : String\l
-+ testUsesReturn() : TestClassThree\l
-+ testUsesArg(TestSuperClass ) : void\l
-+ method() : ArrayList\l
-+ methodDepth0() : void\l
-+ methodDepth4(String ) : String\l
+ node [fontname ="Bitstream Vera Sans" fontsize = 8 shape = "record"] edge [fontname = "Bitstream Vera Sans" fontsize = 8]FilterInputStream[ label = "{FilterInputStream|# in : InputStream\l
+|# \<init\>(InputStream ) : void\l
++ read() : int\l
++ read(byte[] ) : int\l
++ read(byte[] int int ) : int\l
++ skip(long ) : long\l
++ available() : int\l
++ close() : void\l
++ mark(int ) : void\l
++ reset() : void\l
++ markSupported() : boolean\l
 }"]
-TestClassThree[ label = "{TestClassThree||+ \<init\>() : void\l
-+ methodDepth2() : void\l
-+ methodDepth3() : void\l
-}"]
- edge [ arrowhead = vee style = dashed  label=""]
- TestClass -> TestClassThree
- edge [ arrowhead = vee style = dashed  label=""]
- TestClassThree -> TestClass
 
 }
