@@ -315,8 +315,6 @@ public class GVOSIntegrationTests {
         
 		String result = b.toString();
 		
-		System.out.println(result);
-
 		assertTrue(result.contains(
 				"edge [ arrowhead = vee style = dashed  label=\"\"] TestClassTwo -> TestSuperClass"));
 		assertTrue(result
@@ -658,98 +656,108 @@ public class GVOSIntegrationTests {
 
 	@Test
 	public void testAdapterLab5_1() throws IOException {
-		String[] args = new String[] { "lab5_1.App", "lab5_1.ArrayListAdapter", "lab5_1.LinearTransformer",
-				"java.util.Enumeration", "java.util.Iterator" };
-
-		Model model = new Model();
-
-		for (String className : args) {
-			IClass clazz = p.parse(className, model);
-			model.addClass(clazz);
+		Properties prop = new Properties();
+		FileInputStream fis = new FileInputStream(new File("testing\\testing-input\\testAdapterLab5_1.properties"));
+		prop.load(fis);
+		fis.close();
+		try {
+			p.run(prop);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-
-		PatternRecognizer.recognize(model);
-		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
-		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
-		gvos.write(model);
-		gvos.close();
-		String result = resultStream.toString();
+		
+		BufferedReader reader = new BufferedReader(new FileReader("testing\\testing-output\\GVOutput.txt"));
+        StringBuilder b = new StringBuilder();
+        String line = "";
+        while ((line = reader.readLine()) != null) {
+        	b.append(line);
+        }
+        reader.close();
+        
+		String result = b.toString();
 
 		assertTrue(result.contains("ArrayListAdapter\\n\\<\\<adapter\\>\\>"));
 		assertTrue(result.contains("Enumeration\\n\\<\\<target\\>\\>"));
 		assertTrue(result.contains("Iterator\\n\\<\\<adaptee\\>\\>"));
 		assertTrue(result.contains(
-				"edge [ arrowhead = \"vee\" style = \"solid\"  label=\"adapts\" ]\nArrayListAdapter -> Iterator"));
+				"edge [ arrowhead = vee style = solid  label=\"adapts\" ] ArrayListAdapter -> Iterator"));
 	}
 
 	@Test
 	public void testNotAdapterMouseAdapter() throws IOException {
-		String[] args = new String[] { "java.awt.event.MouseAdapter", "java.awt.event.MouseEvent",
-				"java.awt.event.MouseListener", "java.awt.event.MouseMotionListener",
-				"java.awt.event.MouseWheelListener", "java.util.EventListener", "javax.swing.ToolTipManager",
-				"javax.swing.event.MouseInputAdapter" };
-
-		Model model = new Model();
-
-		for (String className : args) {
-			IClass clazz = p.parse(className, model);
-			model.addClass(clazz);
+		Properties prop = new Properties();
+		FileInputStream fis = new FileInputStream(new File("testing\\testing-input\\testNotAdapterMouseAdapter.properties"));
+		prop.load(fis);
+		fis.close();
+		try {
+			p.run(prop);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-
-		PatternRecognizer.recognize(model);
-		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
-		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
-		gvos.write(model);
-		gvos.close();
-		String result = resultStream.toString();
+		
+		BufferedReader reader = new BufferedReader(new FileReader("testing\\testing-output\\GVOutput.txt"));
+        StringBuilder b = new StringBuilder();
+        String line = "";
+        while ((line = reader.readLine()) != null) {
+        	b.append(line);
+        }
+        reader.close();
+        
+		String result = b.toString();
 
 		assertFalse(result.contains("\\n\\<\\<adapter\\>\\>"));
 	}
 
 	@Test
 	public void testDecoratorInputStreamReader() throws IOException {
-		String[] args = new String[] { "java.io.InputStreamReader", "java.io.Reader", "java.io.InputStream",
-				"java.io.FileReader", "java.io.BufferedReader" };
-
-		Model model = new Model();
-
-		for (String className : args) {
-			IClass clazz = p.parse(className, model);
-			model.addClass(clazz);
+		Properties prop = new Properties();
+		FileInputStream fis = new FileInputStream(new File("testing\\testing-input\\testDecoratorInputStreamReader.properties"));
+		prop.load(fis);
+		fis.close();
+		try {
+			p.run(prop);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-
-		PatternRecognizer.recognize(model);
-		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
-		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
-		gvos.write(model);
-		gvos.close();
-		String result = resultStream.toString();
+		
+		BufferedReader reader = new BufferedReader(new FileReader("testing\\testing-output\\GVOutput.txt"));
+        StringBuilder b = new StringBuilder();
+        String line = "";
+        while ((line = reader.readLine()) != null) {
+        	b.append(line);
+        }
+        reader.close();
+        
+		String result = b.toString();
 
 		assertTrue(result.contains("InputStreamReader\\n\\<\\<decorator\\>\\>"));
 		assertTrue(result.contains("BufferedReader\\n\\<\\<decorator\\>\\>"));
 		assertTrue(result.contains("Reader\\n\\<\\<component\\>\\>"));
 		assertTrue(result.contains(
-				"edge [ arrowhead = \"vee\" style = \"solid\"  label=\"decorates\" ]\nBufferedReader -> Reader"));
+				"edge [ arrowhead = vee style = solid  label=\"decorates\" ] BufferedReader -> Reader"));
 	}
 
 	@Test
 	public void testDecoratorOutputStreamWriter() throws IOException {
-		String[] args = new String[] { "java.io.OutputStreamWriter", "java.io.OutputStream", "java.io.Writer",
-				"java.io.FileWriter", "java.io.PrintWriter", "java.io.BufferedWriter" };
-
-		Model model = new Model();
-
-		for (String className : args) {
-			IClass clazz = p.parse(className, model);
-			model.addClass(clazz);
+		Properties prop = new Properties();
+		FileInputStream fis = new FileInputStream(new File("testing\\testing-input\\testDecoratorOutputStreamWriter.properties"));
+		prop.load(fis);
+		fis.close();
+		try {
+			p.run(prop);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-
-		PatternRecognizer.recognize(model);
-		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
-		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
-		gvos.write(model);
-		gvos.close();
-		String result = resultStream.toString();
+		
+		BufferedReader reader = new BufferedReader(new FileReader("testing\\testing-output\\GVOutput.txt"));
+        StringBuilder b = new StringBuilder();
+        String line = "";
+        while ((line = reader.readLine()) != null) {
+        	b.append(line);
+        }
+        reader.close();
+        
+		String result = b.toString();
 
 		assertTrue(result.contains("OutputStreamWriter\\n\\<\\<decorator\\>\\>"));
 		assertTrue(result.contains("FileWriter\\n\\<\\<decorator\\>\\>"));
@@ -757,31 +765,30 @@ public class GVOSIntegrationTests {
 		assertTrue(result.contains("BufferedWriter\\n\\<\\<decorator\\>\\>"));
 		assertTrue(result.contains("Writer\\n\\<\\<component\\>\\>"));
 		assertTrue(result.contains(
-				"edge [ arrowhead = \"vee\" style = \"solid\"  label=\"decorates\" ]\nBufferedWriter -> Writer"));
+				"edge [ arrowhead = vee style = solid  label=\"decorates\" ] BufferedWriter -> Writer"));
 	}
 
 	@Test
 	public void testCompositeLab7_2() throws IOException {
-		String[] args = new String[] { "lab7_2.AbstractSprite", "lab7_2.AnimationPanel", "lab7_2.AnimatorApp",
-				"lab7_2.CircleSprite", "lab7_2.CompositeSprite", "lab7_2.CompositeSpriteIterator", "lab7_2.CrystalBall",
-				"lab7_2.ISprite", "lab7_2.MainWindow", "lab7_2.NullSpriteIterator", "lab7_2.RectangleSprite",
-				"lab7_2.RectangleTower", "lab7_2.SpriteFactory" };
-
-		Model model = new Model();
-
-		for (String className : args) {
-			IClass clazz = p.parse(className, model);
-			model.addClass(clazz);
+		Properties prop = new Properties();
+		FileInputStream fis = new FileInputStream(new File("testing\\testing-input\\testCompositeLab7_2.properties"));
+		prop.load(fis);
+		fis.close();
+		try {
+			p.run(prop);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-
-		PatternRecognizer.recognize(model);
-		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
-		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
-		gvos.write(model);
-		gvos.close();
-		String result = resultStream.toString();
-
-		// System.out.println(result);
+		
+		BufferedReader reader = new BufferedReader(new FileReader("testing\\testing-output\\GVOutput.txt"));
+        StringBuilder b = new StringBuilder();
+        String line = "";
+        while ((line = reader.readLine()) != null) {
+        	b.append(line);
+        }
+        reader.close();
+        
+		String result = b.toString();
 
 		assertTrue(result.contains("ISprite\\n\\<\\<component\\>\\>"));
 		assertTrue(result.contains("AbstractSprite\\n\\<\\<component\\>\\>"));
@@ -794,22 +801,25 @@ public class GVOSIntegrationTests {
 
 	@Test
 	public void testCompositeAWT() throws IOException {
-		String[] args = new String[] { "java.awt.Container", "java.awt.Component", "java.awt.Canvas", "java.awt.List",
-				"java.awt.Scrollbar", "java.awt.Button" };
-
-		Model model = new Model();
-
-		for (String className : args) {
-			IClass clazz = p.parse(className, model);
-			model.addClass(clazz);
+		Properties prop = new Properties();
+		FileInputStream fis = new FileInputStream(new File("testing\\testing-input\\testCompositeAWT.properties"));
+		prop.load(fis);
+		fis.close();
+		try {
+			p.run(prop);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-
-		PatternRecognizer.recognize(model);
-		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
-		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
-		gvos.write(model);
-		gvos.close();
-		String result = resultStream.toString();
+		
+		BufferedReader reader = new BufferedReader(new FileReader("testing\\testing-output\\GVOutput.txt"));
+        StringBuilder b = new StringBuilder();
+        String line = "";
+        while ((line = reader.readLine()) != null) {
+        	b.append(line);
+        }
+        reader.close();
+        
+		String result = b.toString();
 
 		assertTrue(result.contains("Component\\n\\<\\<component\\>\\>"));
 		assertTrue(result.contains("Container\\n\\<\\<composite\\>\\>"));
@@ -821,22 +831,25 @@ public class GVOSIntegrationTests {
 
 	@Test
 	public void testCompositeSwing() throws IOException {
-		String[] args = new String[] { "java.awt.Container", "java.awt.Component", "javax.swing.JLabel",
-				"javax.swing.JPanel", "javax.swing.JComponent" };
-
-		Model model = new Model();
-
-		for (String className : args) {
-			IClass clazz = p.parse(className, model);
-			model.addClass(clazz);
+		Properties prop = new Properties();
+		FileInputStream fis = new FileInputStream(new File("testing\\testing-input\\testCompositeSwing.properties"));
+		prop.load(fis);
+		fis.close();
+		try {
+			p.run(prop);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-
-		PatternRecognizer.recognize(model);
-		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
-		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
-		gvos.write(model);
-		gvos.close();
-		String result = resultStream.toString();
+		
+		BufferedReader reader = new BufferedReader(new FileReader("testing\\testing-output\\GVOutput.txt"));
+        StringBuilder b = new StringBuilder();
+        String line = "";
+        while ((line = reader.readLine()) != null) {
+        	b.append(line);
+        }
+        reader.close();
+        
+		String result = b.toString();
 
 		assertTrue(result.contains("Component\\n\\<\\<component\\>\\>"));
 		assertTrue(result.contains("Container\\n\\<\\<composite\\>\\>"));
@@ -847,25 +860,25 @@ public class GVOSIntegrationTests {
 
 	@Test
 	public void testCompositeTestClasses() throws IOException {
-		String[] args = new String[] { "testClasses.TestCompositeComponent", "testClasses.TestCompositeComposite1",
-				"testClasses.TestCompositeComposite2", "testClasses.TestCompositeComposite3",
-				"testClasses.TestCompositeLeaf1", "testClasses.TestCompositeLeaf2" };
-
-		Model model = new Model();
-
-		for (String className : args) {
-			IClass clazz = p.parse(className, model);
-			model.addClass(clazz);
+		Properties prop = new Properties();
+		FileInputStream fis = new FileInputStream(new File("testing\\testing-input\\testCompositeTestClasses.properties"));
+		prop.load(fis);
+		fis.close();
+		try {
+			p.run(prop);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-
-		PatternRecognizer.recognize(model);
-		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
-		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
-		gvos.write(model);
-		gvos.close();
-		String result = resultStream.toString();
-
-		System.out.println(result);
+		
+		BufferedReader reader = new BufferedReader(new FileReader("testing\\testing-output\\GVOutput.txt"));
+        StringBuilder b = new StringBuilder();
+        String line = "";
+        while ((line = reader.readLine()) != null) {
+        	b.append(line);
+        }
+        reader.close();
+        
+		String result = b.toString();
 
 		assertTrue(result.contains("TestCompositeComponent\\n\\<\\<component\\>\\>"));
 		assertTrue(result.contains("TestCompositeComposite1\\n\\<\\<composite\\>\\>"));
