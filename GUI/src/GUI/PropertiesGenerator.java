@@ -10,11 +10,38 @@ import src.problem.components.IClass;
 public class PropertiesGenerator {
 
 	public static Properties getPropertiesFromClasses(List<IClass> classes, Properties prop) {
+		Properties p;
 		if (prop.getProperty("Input-Folder").contains(",")) {
-			return getPropertiesFromManyFiles(classes, prop);
+			p = getPropertiesFromManyFiles(classes, prop);
 		} else {
-			return getPropertiesFromFolder(classes, prop);
+			p = getPropertiesFromFolder(classes, prop);
 		}
+		p = correctInputClasses(classes, p);
+		return p;
+	}
+
+	private static Properties correctInputClasses(List<IClass> classes, Properties p) {
+		String[] currentClasses = p.getProperty("Input-Classes").split(",");
+		StringBuilder sb = new StringBuilder();
+		ArrayList<String> newClasses = new ArrayList<String>();
+		List<String> classNames = getClassNames(classes);
+		for(String s : currentClasses) {
+			if(contains(classNames, s)) {
+				sb.append(s + ",");
+				newClasses.add(s);
+			}
+		}
+		String ctp = cleanSB(sb);
+		p.setProperty("Input-Classes", ctp);
+		return p;
+	}
+
+	private static String cleanSB(StringBuilder sb) {
+		String ctp = sb.toString();
+		if (ctp.length() > 0) {
+			ctp = ctp.substring(0, ctp.length() - 1);
+		}
+		return ctp;
 	}
 
 	private static Properties getPropertiesFromFolder(List<IClass> classes, Properties prop) {
@@ -46,9 +73,7 @@ public class PropertiesGenerator {
 
 	private static Properties buildProperties(Properties prop, StringBuilder sb) {
 		Properties ret = (Properties) prop.clone();
-		String ctp = sb.toString();
-		ctp = ctp.substring(0, ctp.length() - 1);
-		ret.setProperty("Input-Folder", ctp);
+		ret.setProperty("Input-Folder", cleanSB(sb));
 		return ret;
 	}
 
