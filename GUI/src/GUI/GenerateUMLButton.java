@@ -39,6 +39,7 @@ public class GenerateUMLButton extends JButton {
 	private ArrayList<String> getSelectedCheckBoxes() {
 		CheckBoxTreeSelectionModel model = tree.getCheckBoxTreeSelectionModel();
 		TreePath[] paths = tree.getSelectionPaths();
+		System.out.println(paths);
 		for(int i = 0; i < paths.length; i++) {
 			DefaultMutableTreeNode node = (DefaultMutableTreeNode) paths[i].getLastPathComponent();
 			String className = (String) node.getUserObject();
@@ -47,6 +48,7 @@ public class GenerateUMLButton extends JButton {
 		DefaultMutableTreeNode root = (DefaultMutableTreeNode) tree.getModel().getRoot();
 		return null;
 	}
+	
 	
 	
 

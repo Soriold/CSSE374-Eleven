@@ -17,9 +17,13 @@ import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
 
 import src.problem.components.IClass;
 import src.problem.components.IModel;
@@ -49,8 +53,10 @@ public class ClassListPanel extends JScrollPane {
 
 	private void createCheckBoxTree(IModel m) {
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Patterns");
-		DefaultTreeModel model = new DefaultTreeModel(root);
-		tree = new CheckBoxTree(model);
+	    TreeModel treeModel = new DefaultTreeModel(root);
+		CheckBoxTreeSelectionModel model = new CheckBoxTreeSelectionModel(treeModel);
+		tree = new CheckBoxTree();
+		tree.setSelectionModel(model);
 
 		for (String s : patterns) {
 			DefaultMutableTreeNode node = new DefaultMutableTreeNode(s);
@@ -63,6 +69,44 @@ public class ClassListPanel extends JScrollPane {
 		expandAllNodes(tree, 0, tree.getRowCount());
 
 		tree.getCheckBoxTreeSelectionModel().addSelectionPath(tree.getPathForRow(0));
+		
+//		tree.getCheckBoxTreeSelectionModel().addTreeSelectionListener(new TreeSelectionListener() {
+//            public void valueChanged(TreeSelectionEvent e) {
+//                TreePath[] paths = e.getPaths();
+//                for (TreePath path : paths) {
+//                    model.addElement((e.isAddedPath(path) ? "Added - " : "Removed - ") + path);
+//                }
+//                eventsModel.addElement("---------------");
+//                eventsList.ensureIndexIsVisible(eventsModel.size() - 1);
+//
+//                TreePath[] treePaths = _tree.getCheckBoxTreeSelectionModel().getSelectionPaths();
+//                DefaultListModel selectedModel = new DefaultListModel();
+//                if (treePaths != null) {
+//                    for (TreePath path : treePaths) {
+//                        selectedModel.addElement(path);
+//                        for (TreePath childPath : getChildrenElement(path)) {
+//                            selectedModel.addElement(childPath);
+//                        }
+//                    }
+//                }
+//                selectedList.setModel(selectedModel);
+//            }
+//
+//            private List<TreePath> getChildrenElement(TreePath parentPath) {
+//                List<TreePath> childList = new ArrayList<TreePath>();
+//                Object parentNode = parentPath.getLastPathComponent();
+//                int childCount = _tree.getModel().getChildCount(parentNode);
+//                for (int i = 0; i < childCount; i++) {
+//                    Object child = _tree.getModel().getChild(parentNode, i);
+//                    final TreePath childPath = parentPath.pathByAddingChild(child);
+//                    childList.add(childPath);
+//                    childList.addAll(getChildrenElement(childPath));
+//                }
+//                return childList;
+//            }
+//        });
+
+		
 		this.setColumnHeaderView(tree);
 	}
 
