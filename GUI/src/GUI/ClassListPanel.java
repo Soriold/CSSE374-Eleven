@@ -1,8 +1,5 @@
 package gui;
 
-import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -11,8 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import javax.swing.JButton;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -20,23 +15,25 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 
+import com.jidesoft.swing.CheckBoxTree;
+import com.jidesoft.swing.CheckBoxTreeSelectionModel;
+
 import src.problem.components.IClass;
 import src.problem.components.IModel;
-import src.problem.visible.DesignParser;
-
-import com.jidesoft.swing.*;
 
 public class ClassListPanel extends JScrollPane {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8525384631048678405L;
 	private ArrayList<String> patterns;
 	private CheckBoxTree tree;
-	private Properties props;
 	private List<IClass> selectedClasses;
 	private IModel m;
 
 	public ClassListPanel(IModel m, Properties props) throws IOException {
 		patterns = new ArrayList<String>();
-		this.props = props;
 		this.selectedClasses = new ArrayList<IClass>();
 
 		loadPatterns();
