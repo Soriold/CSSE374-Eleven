@@ -147,8 +147,8 @@ public class ConfigFrame extends JFrame {
 					progressBarText.setText("Done!");
 					try {
 						String outputPath = props.getProperty("Output-Directory");
-						WindowFrame frame = new WindowFrame(outputPath, props);
-						frame.setVisible(true);
+						WindowFrame wframe = new WindowFrame(outputPath, props, frame);
+						wframe.setVisible(true);
 					} catch (Exception e) {
 						//do nothing
 					}

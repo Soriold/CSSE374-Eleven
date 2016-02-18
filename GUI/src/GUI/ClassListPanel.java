@@ -109,44 +109,7 @@ public class ClassListPanel extends JScrollPane {
 		expandAllNodes(tree, 0, tree.getRowCount());
 
 		tree.getCheckBoxTreeSelectionModel().addSelectionPath(tree.getPathForRow(0));
-		
-//		tree.getCheckBoxTreeSelectionModel().addTreeSelectionListener(new TreeSelectionListener() {
-//            public void valueChanged(TreeSelectionEvent e) {
-//                TreePath[] paths = e.getPaths();
-//                for (TreePath path : paths) {
-//                    model.addElement((e.isAddedPath(path) ? "Added - " : "Removed - ") + path);
-//                }
-//                eventsModel.addElement("---------------");
-//                eventsList.ensureIndexIsVisible(eventsModel.size() - 1);
-//
-//                TreePath[] treePaths = _tree.getCheckBoxTreeSelectionModel().getSelectionPaths();
-//                DefaultListModel selectedModel = new DefaultListModel();
-//                if (treePaths != null) {
-//                    for (TreePath path : treePaths) {
-//                        selectedModel.addElement(path);
-//                        for (TreePath childPath : getChildrenElement(path)) {
-//                            selectedModel.addElement(childPath);
-//                        }
-//                    }
-//                }
-//                selectedList.setModel(selectedModel);
-//            }
-//
-//            private List<TreePath> getChildrenElement(TreePath parentPath) {
-//                List<TreePath> childList = new ArrayList<TreePath>();
-//                Object parentNode = parentPath.getLastPathComponent();
-//                int childCount = _tree.getModel().getChildCount(parentNode);
-//                for (int i = 0; i < childCount; i++) {
-//                    Object child = _tree.getModel().getChild(parentNode, i);
-//                    final TreePath childPath = parentPath.pathByAddingChild(child);
-//                    childList.add(childPath);
-//                    childList.addAll(getChildrenElement(childPath));
-//                }
-//                return childList;
-//            }
-//        });
 
-		
 		this.setColumnHeaderView(tree);
 	}
 
