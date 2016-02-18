@@ -104,7 +104,7 @@ public class GraphVizOutputStream extends FilterOutputStream {
 
 	private String getTagAttribute(Set<String> tags) {
 		if (tags == null || tags.isEmpty()) {
-			return "color=black";
+			return " color=black ";
 		}
 		StringBuilder ret = new StringBuilder();
 		for (String string : tags) {
