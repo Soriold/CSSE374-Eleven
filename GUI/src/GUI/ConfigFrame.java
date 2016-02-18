@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -24,6 +25,7 @@ import src.problem.visible.DesignParser;
 
 public class ConfigFrame extends JFrame {
 	
+	private JFrame frame = this;
 	private File configFile;
 	private String configPath;
 	
@@ -86,18 +88,18 @@ public class ConfigFrame extends JFrame {
 				DesignParser dp = DesignParser.getInstance();
 				
 				Properties props = new Properties();
+				Analyzer analyzer = new Analyzer(dp, props, frame);
 				try {
 					FileInputStream in = new FileInputStream(configFile.getAbsolutePath());
 					props.load(in);
 					in.close();
 					
-					Analyzer analyzer = new Analyzer(dp, props);
 			        Thread t = new Thread(analyzer);
 			        t.start();
 				} catch (Exception e1) {
-					e1.printStackTrace();
+					//do nothing
 				}
-				while(dp.getCurrentPhase() == null) {
+				while(analyzer.getError() == null && dp.getCurrentPhase() == null) {
 					progressBarText.setText("Beginning parse...");
 				}
 				String[] phases = props.getProperty("Phases").split(",");
@@ -113,15 +115,19 @@ public class ConfigFrame extends JFrame {
 						progressBar.setValue((i+1)*100 / phases.length);
 					}
 				}
-				
-				progressBarText.setText("Done!");
-				
+		        if(analyzer.getError() != null) {
+					JOptionPane.showMessageDialog(frame,
+						    "Invalid properties file format.\n" + analyzer.getError());
+					progressBarText.setText("Invalid properties file.");
+		        }else {
+					progressBarText.setText("Done!");
+		        }
+
 				try {
 					WindowFrame frame = new WindowFrame();
 					frame.setVisible(true);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					//do nothing
 				}
 			}
 			

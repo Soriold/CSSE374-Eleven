@@ -18,3 +18,15 @@ Error: temp.dot: syntax error in line 1 near 'putStream'
 
 (dot.exe:6180): Pango-WARNING **: couldn't load font "Bitstream Vera Sans Not-Rotated 8", falling back to "Sans Not-Rotated 8", expect ugly output.
 Error: temp.dot: syntax error in line 1 near 'putStream'
+
+(dot.exe:10524): Pango-WARNING **: couldn't load font "Bitstream Vera Sans Not-Rotated 8", falling back to "Sans Not-Rotated 8", expect ugly output.
+Error: temp.dot: syntax error in line 1 near 'yle'
+
+(dot.exe:3088): Pango-WARNING **: couldn't load font "Bitstream Vera Sans Not-Rotated 8", falling back to "Sans Not-Rotated 8", expect ugly output.
+Error: temp.dot: syntax error in line 1 near 'yle'
+
+(dot.exe:6000): Pango-WARNING **: couldn't load font "Bitstream Vera Sans Not-Rotated 8", falling back to "Sans Not-Rotated 8", expect ugly output.
+Error: temp.dot: syntax error in line 1 near 'yle'
+
+(dot.exe:2400): Pango-WARNING **: couldn't load font "Bitstream Vera Sans Not-Rotated 8", falling back to "Sans Not-Rotated 8", expect ugly output.
+Error: temp.dot: syntax error in line 1 near 'yle'

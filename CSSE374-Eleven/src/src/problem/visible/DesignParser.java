@@ -157,31 +157,6 @@ public class DesignParser {
 		}
 	}
 
-	@SuppressWarnings("unused")
-	public static void generateGV(String arg) {
-		String path = "temp.dot";
-
-		try (final BufferedWriter writer = Files.newBufferedWriter(Paths.get(path), StandardCharsets.UTF_8,
-				StandardOpenOption.CREATE);) {
-			writer.write(arg);
-			writer.flush();
-			writer.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		ProcessBuilder pb = new ProcessBuilder("graphviz-2.38\\release\\bin\\dot.exe", "-Tpng", "temp.dot", "-o",
-				"input-output\\uml.png");
-		try {
-			File log = new File("errorLog.txt");
-			pb.redirectErrorStream(true);
-			pb.redirectOutput(Redirect.appendTo(log));
-			Process p = pb.start();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
 	public void addPhaseExecutable(String callName, IPhase phase) {
 		this.phaseExecutables.put(callName, phase);
 	}

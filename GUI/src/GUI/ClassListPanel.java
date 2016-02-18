@@ -50,32 +50,19 @@ public class ClassListPanel extends JScrollPane {
         tree = new CheckBoxTree(model);
         
 		for (String s : patterns) {
-			JCheckBox current = new JCheckBox();
-			current.setLabel(s);
-			current.setSelected(true);
 			DefaultMutableTreeNode node = new DefaultMutableTreeNode(s);
 			findClassesWithPattern(s, m, node);
 			root.add(node);
-			//newModel.insertNodeInto(node, root, horizontalScrollBarPolicy);
-			//newModel.insertNodeInto(findClassesWithPattern(s, m), node, horizontalScrollBarPolicy);
 		}
 		DefaultMutableTreeNode node = new DefaultMutableTreeNode("NONE");
 		findClassesWithPattern("NONE", m, node);
 		root.add(node);
 		expandAllNodes(tree, 0, tree.getRowCount());
+		
+		tree.getCheckBoxTreeSelectionModel().addSelectionPath(tree.getPathForRow(0));
 		this.setColumnHeaderView(tree);
 		
-		JButton generate = new JButton("Generate UML");
-		generate.setPreferredSize(new Dimension(150, 25));
-		generate.setVisible(true);
-		generate.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// generate UML
-			}
-			
-		});
+		GenerateUMLButton generate = new GenerateUMLButton("Generate UML", tree);
 		
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new BorderLayout(0, 0));

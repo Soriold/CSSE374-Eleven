@@ -11,8 +11,16 @@ import src.problem.components.IModel;
 import src.problem.components.Model;
 import java.awt.FlowLayout;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
+import java.io.IOException;
+import java.lang.ProcessBuilder.Redirect;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.Properties;
 import java.awt.Dimension;
 
@@ -50,7 +58,7 @@ public class WindowFrame extends JFrame {
         	b.append(line);
         }
         reader.close();
-		dp.generateGV(b.toString());
+		generateGV(b.toString());
 		
 		ClassListPanel classListPanel = new ClassListPanel(m);
 		contentPane.add(classListPanel);
@@ -59,6 +67,30 @@ public class WindowFrame extends JFrame {
 		JScrollPane UMLPanel = new JScrollPane(new JLabel(new ImageProxy("input-output\\uml.png")));
 		contentPane.add(UMLPanel);
 		UMLPanel.setPreferredSize(new Dimension((int) (contentPane.getWidth()*.7), contentPane.getHeight() - 65));
+	}
+	
+	public static void generateGV(String arg) {
+		String path = "temp.dot";
+
+		try (final BufferedWriter writer = Files.newBufferedWriter(Paths.get(path), StandardCharsets.UTF_8,
+				StandardOpenOption.CREATE);) {
+			writer.write(arg);
+			writer.flush();
+			writer.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ProcessBuilder pb = new ProcessBuilder("graphviz-2.38\\release\\bin\\dot.exe", "-Tpng", "temp.dot", "-o",
+				"input-output\\uml.png");
+		try {
+			File log = new File("errorLog.txt");
+			pb.redirectErrorStream(true);
+			pb.redirectOutput(Redirect.appendTo(log));
+			Process p = pb.start();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
