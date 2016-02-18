@@ -13,9 +13,7 @@ public class FileFinder {
 			if(f.getName().equals(name)) {
 				return f;
 			}
-			System.out.println(f.getAbsolutePath());
 		}
-		System.out.println(name);
 		throw new FileNotFoundException();
 	}
 
