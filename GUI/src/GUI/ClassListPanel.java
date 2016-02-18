@@ -29,26 +29,29 @@ import com.jidesoft.swing.*;
 
 public class ClassListPanel extends JScrollPane {
 
-	private List<IClass> classes;
-	private ArrayList<JCheckBox> checkboxes;
 	private ArrayList<String> patterns;
 	private CheckBoxTree tree;
 
 	public ClassListPanel(IModel m) throws IOException {
 		patterns = new ArrayList<String>();
-		
-		BufferedReader in = new BufferedReader(new FileReader("patternTypesConfig.txt"));
-        String line = "";
-        while ((line = in.readLine()) != null) {
-        	String[] current = line.split("-");
-        	patterns.add(current[0]);
-        }
-        in.close();
-        
-        DefaultMutableTreeNode root = new DefaultMutableTreeNode("Patterns");
-        DefaultTreeModel model = new DefaultTreeModel(root);
-        tree = new CheckBoxTree(model);
-        
+
+		loadPatterns();
+
+		createCheckBoxTree(m);
+
+		GenerateUMLButton generate = new GenerateUMLButton("Generate UML", tree);
+
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setLayout(new BorderLayout(0, 0));
+		buttonPanel.add(generate, BorderLayout.SOUTH);
+		this.setViewportView(buttonPanel);
+	}
+
+	private void createCheckBoxTree(IModel m) {
+		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Patterns");
+		DefaultTreeModel model = new DefaultTreeModel(root);
+		tree = new CheckBoxTree(model);
+
 		for (String s : patterns) {
 			DefaultMutableTreeNode node = new DefaultMutableTreeNode(s);
 			findClassesWithPattern(s, m, node);
@@ -58,34 +61,37 @@ public class ClassListPanel extends JScrollPane {
 		findClassesWithPattern("NONE", m, node);
 		root.add(node);
 		expandAllNodes(tree, 0, tree.getRowCount());
-		
+
 		tree.getCheckBoxTreeSelectionModel().addSelectionPath(tree.getPathForRow(0));
 		this.setColumnHeaderView(tree);
-		
-		GenerateUMLButton generate = new GenerateUMLButton("Generate UML", tree);
-		
-		JPanel buttonPanel = new JPanel();
-		buttonPanel.setLayout(new BorderLayout(0, 0));
-		buttonPanel.add(generate, BorderLayout.SOUTH);
-		this.setViewportView(buttonPanel);
+	}
+
+	private void loadPatterns() throws FileNotFoundException, IOException {
+		BufferedReader in = new BufferedReader(new FileReader("patternTypesConfig.txt"));
+		String line = "";
+		while ((line = in.readLine()) != null) {
+			String[] current = line.split("-");
+			patterns.add(current[0]);
+		}
+		in.close();
 	}
 
 	private void findClassesWithPattern(String s, IModel m, DefaultMutableTreeNode node) {
-		for(IClass c : m.getClasses()) {
-			if(c.getPattern().equals(s)) {
+		for (IClass c : m.getClasses()) {
+			if (c.getPattern().equals(s)) {
 				node.add(new DefaultMutableTreeNode(c.getName()));
 			}
 		}
 	}
-	
-	private void expandAllNodes(JTree tree, int startingIndex, int rowCount){
-	    for(int i=startingIndex;i<rowCount;++i){
-	        tree.expandRow(i);
-	    }
 
-	    if(tree.getRowCount()!=rowCount){
-	        expandAllNodes(tree, rowCount, tree.getRowCount());
-	    }
+	private void expandAllNodes(JTree tree, int startingIndex, int rowCount) {
+		for (int i = startingIndex; i < rowCount; ++i) {
+			tree.expandRow(i);
+		}
+
+		if (tree.getRowCount() != rowCount) {
+			expandAllNodes(tree, rowCount, tree.getRowCount());
+		}
 	}
 
 }
