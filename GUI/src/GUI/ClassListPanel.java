@@ -63,6 +63,7 @@ public class ClassListPanel extends JScrollPane {
 	}
 
 	private void getSelectedCheckBoxes(IModel classModel) {
+		selectedClasses = new ArrayList<IClass>();
 		CheckBoxTreeSelectionModel model = tree.getCheckBoxTreeSelectionModel();
 		TreePath[] paths = model.getSelectionPaths();
 		for(int i = 0; i < paths.length; i++) {

@@ -193,8 +193,8 @@ public class WindowFrame extends JFrame {
 		UMLPanel = new JScrollPane(new JLabel(image));
 		UMLPanel.setPreferredSize(new Dimension((int) (contentPane.getWidth() * .7), contentPane.getHeight() - 100));
 		contentPane.add(UMLPanel);
-		contentPane.repaint();
 		contentPane.revalidate();
+		contentPane.repaint();
 		
 	}
 
