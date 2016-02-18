@@ -1,5 +1,0 @@
-java.io.InputStreamReader
-java.io.Reader
-java.io.InputStream
-java.io.FileReader
-java.io.BufferedReader

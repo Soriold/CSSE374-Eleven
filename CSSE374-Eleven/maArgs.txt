@@ -1,8 +1,0 @@
-java.awt.event.MouseAdapter
-java.awt.event.MouseEvent
-java.awt.event.MouseListener
-java.awt.event.MouseMotionListener
-java.awt.event.MouseWheelListener
-java.util.EventListener
-javax.swing.ToolTipManager
-javax.swing.event.MouseInputAdapter

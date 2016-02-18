@@ -1,5 +1,0 @@
-lab5_1.App
-lab5_1.ArrayListAdapter
-lab5_1.LinearTransformer
-java.util.Enumeration
-java.util.Iterator

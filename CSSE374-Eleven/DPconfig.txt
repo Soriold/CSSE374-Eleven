@@ -1,6 +1,0 @@
-java.awt.Container
-java.awt.Component
-java.awt.Canvas
-java.awt.List
-java.awt.Scrollbar
-java.awt.Button
