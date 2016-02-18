@@ -4,7 +4,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
@@ -13,11 +12,6 @@ import java.util.Properties;
 
 import org.junit.Test;
 
-import src.problem.components.IClass;
-import src.problem.components.IModel;
-import src.problem.components.Model;
-import src.problem.outputvisitor.GraphVizOutputStream;
-import src.problem.patternrecognition.PatternRecognizer;
 import src.problem.visible.DesignParser;
 
 public class GVOSIntegrationTests {
