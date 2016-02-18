@@ -15,5 +15,13 @@ digraph G {fontname = "Bitstream Vera Sans" fontsize = 8
 + methodDepth0() : void\l
 + methodDepth4(String ) : String\l
 }"]
+TestClassThree[ label = "{TestClassThree||+ \<init\>() : void\l
++ methodDepth2() : void\l
++ methodDepth3() : void\l
+}"]
+ edge [ arrowhead = vee style = dashed  label=""]
+ TestClass -> TestClassThree
+ edge [ arrowhead = vee style = dashed  label=""]
+ TestClassThree -> TestClass
 
 }

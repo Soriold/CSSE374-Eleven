@@ -31,7 +31,7 @@ public class GVOSIntegrationTests {
 	@Test
 	public void testFields() throws IOException {
 		Properties prop = new Properties();
-		FileInputStream fis = new FileInputStream(new File("testing\\testing.properties"));
+		FileInputStream fis = new FileInputStream(new File("testing\\testing-input\\testFields.properties"));
 		prop.load(fis);
 		fis.close();
 		try {
@@ -58,15 +58,25 @@ public class GVOSIntegrationTests {
 
 	@Test
 	public void testMethods() throws IOException {
-		IModel model = new Model();
-		IClass clazz = p.parse("testClasses.TestClass", model);
-		model.addClass(clazz);
+		Properties prop = new Properties();
+		FileInputStream fis = new FileInputStream(new File("testing\\testing-input\\testMethods.properties"));
+		prop.load(fis);
+		fis.close();
+		try {
+			p.run(prop);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		BufferedReader reader = new BufferedReader(new FileReader("testing\\testing-output\\GVOutput.txt"));
+        StringBuilder b = new StringBuilder();
+        String line = "";
+        while ((line = reader.readLine()) != null) {
+        	b.append(line);
+        }
+        reader.close();
 
-		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
-		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
-		gvos.write(model);
-		gvos.close();
-		String result = resultStream.toString();
+		String result = b.toString();
 
 		assertTrue(result.contains("- testPrivateMethod(int ) : void"));
 		assertTrue(result.contains("# testProtectedMethod(int double ) : void"));
@@ -77,211 +87,264 @@ public class GVOSIntegrationTests {
 
 	@Test
 	public void testClass() throws IOException {
-		IModel model = new Model();
-		IClass clazz = p.parse("testClasses.TestClass", model);
-		model.addClass(clazz);
+		Properties prop = new Properties();
+		FileInputStream fis = new FileInputStream(new File("testing\\testing-input\\testClass.properties"));
+		prop.load(fis);
+		fis.close();
+		try {
+			p.run(prop);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		BufferedReader reader = new BufferedReader(new FileReader("testing\\testing-output\\GVOutput.txt"));
+        StringBuilder b = new StringBuilder();
+        String line = "";
+        while ((line = reader.readLine()) != null) {
+        	b.append(line);
+        }
+        reader.close();
 
-		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
-		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
-		gvos.write(model);
-		gvos.close();
-		String result = resultStream.toString();
+		String result = b.toString();
 
 		assertTrue(result.contains("TestClass|"));
 	}
 
 	@Test
 	public void testImplements() throws IOException {
-		String[] args = new String[] { "testClasses.TestInterface", "testClasses.TestInterfaceImplementation" };
-
-		Model model = new Model();
-
-		for (String className : args) {
-			IClass clazz = p.parse(className, model);
-			model.addClass(clazz);
+		Properties prop = new Properties();
+		FileInputStream fis = new FileInputStream(new File("testing\\testing-input\\testImplements.properties"));
+		prop.load(fis);
+		fis.close();
+		try {
+			p.run(prop);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-
-		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
-		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
-		gvos.write(model);
-		gvos.close();
-		String result = resultStream.toString();
-
-		// System.out.println(result);
-
+		
+		BufferedReader reader = new BufferedReader(new FileReader("testing\\testing-output\\GVOutput.txt"));
+        StringBuilder b = new StringBuilder();
+        String line = "";
+        while ((line = reader.readLine()) != null) {
+        	b.append(line);
+        }
+        reader.close();
+        
+		String result = b.toString();
+		
 		assertTrue(result.contains(
-				"edge [ arrowhead = \"onormal\" style = \"dashed\"  label=\"\"]\nTestInterfaceImplementation -> TestInterface"));
+				"edge [ arrowhead = onormal style = dashed  label=\"\"] TestInterfaceImplementation -> TestInterface"));
 	}
 
 	@Test
 	public void testInheritance() throws IOException {
-		String[] args = new String[] { "testClasses.TestSuperClass", "testClasses.TestSubClass" };
-
-		Model model = new Model();
-
-		for (String className : args) {
-			IClass clazz = p.parse(className, model);
-			model.addClass(clazz);
+		Properties prop = new Properties();
+		FileInputStream fis = new FileInputStream(new File("testing\\testing-input\\testInheritance.properties"));
+		prop.load(fis);
+		fis.close();
+		try {
+			p.run(prop);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-
-		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
-		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
-		gvos.write(model);
-		gvos.close();
-		String result = resultStream.toString();
+		
+		BufferedReader reader = new BufferedReader(new FileReader("testing\\testing-output\\GVOutput.txt"));
+        StringBuilder b = new StringBuilder();
+        String line = "";
+        while ((line = reader.readLine()) != null) {
+        	b.append(line);
+        }
+        reader.close();
+        
+		String result = b.toString();
 
 		assertTrue(result.contains(
-				"edge [ arrowhead = \"onormal\" style = \"solid\"  label=\"\"]\nTestSubClass -> TestSuperClass"));
+				"edge [ arrowhead = onormal style = solid  label=\"\"] TestSubClass -> TestSuperClass"));
 	}
 
 	@Test
 	public void testInterfaceExtendsInterface() throws IOException {
-		String[] args = new String[] { "testClasses.TestInterface", "testClasses.TestInterfaceTwo" };
-
-		Model model = new Model();
-
-		for (String className : args) {
-			IClass clazz = p.parse(className, model);
-			model.addClass(clazz);
+		Properties prop = new Properties();
+		FileInputStream fis = new FileInputStream(new File("testing\\testing-input\\testInterfaceExtendsInterface.properties"));
+		prop.load(fis);
+		fis.close();
+		try {
+			p.run(prop);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-
-		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
-		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
-		gvos.write(model);
-		gvos.close();
-		String result = resultStream.toString();
+		
+		BufferedReader reader = new BufferedReader(new FileReader("testing\\testing-output\\GVOutput.txt"));
+        StringBuilder b = new StringBuilder();
+        String line = "";
+        while ((line = reader.readLine()) != null) {
+        	b.append(line);
+        }
+        reader.close();
+        
+		String result = b.toString();
 
 		assertTrue(result.contains(
-				"edge [ arrowhead = \"onormal\" style = \"solid\"  label=\"\"]\nTestInterfaceTwo -> TestInterface"));
+				"edge [ arrowhead = onormal style = solid  label=\"\"] TestInterfaceTwo -> TestInterface"));
 
 	}
 
 	@Test
 	public void testAssociation() throws IOException {
-		String[] args = new String[] { "testClasses.TestClass", "testClasses.TestClassTwo" };
-
-		Model model = new Model();
-
-		for (String className : args) {
-			IClass clazz = p.parse(className, model);
-			model.addClass(clazz);
+		Properties prop = new Properties();
+		FileInputStream fis = new FileInputStream(new File("testing\\testing-input\\testAssociation.properties"));
+		prop.load(fis);
+		fis.close();
+		try {
+			p.run(prop);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-
-		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
-		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
-		gvos.write(model);
-		gvos.close();
-		String result = resultStream.toString();
+		
+		BufferedReader reader = new BufferedReader(new FileReader("testing\\testing-output\\GVOutput.txt"));
+        StringBuilder b = new StringBuilder();
+        String line = "";
+        while ((line = reader.readLine()) != null) {
+        	b.append(line);
+        }
+        reader.close();
+        
+		String result = b.toString();
+		
 		assertTrue(result
-				.contains("edge [ arrowhead = \"vee\" style = \"solid\"  label=\"\"]\nTestClass -> TestClassTwo"));
+				.contains("edge [ arrowhead = vee style = solid  label=\"\"] TestClass -> TestClassTwo"));
 	}
 
 	@Test
 	public void testAssociationInArrayList() throws IOException {
-		String[] args = new String[] { "testClasses.TestClass", "testClasses.TestClassTwo" };
-
-		Model model = new Model();
-
-		for (String className : args) {
-			IClass clazz = p.parse(className, model);
-			model.addClass(clazz);
+		Properties prop = new Properties();
+		FileInputStream fis = new FileInputStream(new File("testing\\testing-input\\testAssociationInArrayList.properties"));
+		prop.load(fis);
+		fis.close();
+		try {
+			p.run(prop);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-
-		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
-		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
-		gvos.write(model);
-		gvos.close();
-		String result = resultStream.toString();
+		
+		BufferedReader reader = new BufferedReader(new FileReader("testing\\testing-output\\GVOutput.txt"));
+        StringBuilder b = new StringBuilder();
+        String line = "";
+        while ((line = reader.readLine()) != null) {
+        	b.append(line);
+        }
+        reader.close();
+        
+		String result = b.toString();
 
 		assertTrue(result
-				.contains("edge [ arrowhead = \"vee\" style = \"solid\"  label=\"\"]\nTestClassTwo -> TestClass"));
+				.contains("edge [ arrowhead = vee style = solid  label=\"\"] TestClassTwo -> TestClass"));
 	}
 
 	@Test
 	public void testUsesReturn() throws IOException {
-		String[] args = new String[] { "testClasses.TestClass", "testClasses.TestClassThree" };
-
-		Model model = new Model();
-
-		for (String className : args) {
-			IClass clazz = p.parse(className, model);
-			model.addClass(clazz);
+		Properties prop = new Properties();
+		FileInputStream fis = new FileInputStream(new File("testing\\testing-input\\testUsesReturn.properties"));
+		prop.load(fis);
+		fis.close();
+		try {
+			p.run(prop);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-
-		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
-		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
-		gvos.write(model);
-		gvos.close();
-		String result = resultStream.toString();
+		
+		BufferedReader reader = new BufferedReader(new FileReader("testing\\testing-output\\GVOutput.txt"));
+        StringBuilder b = new StringBuilder();
+        String line = "";
+        while ((line = reader.readLine()) != null) {
+        	b.append(line);
+        }
+        reader.close();
+        
+		String result = b.toString();
 
 		assertTrue(result
-				.contains("edge [ arrowhead = \"vee\" style = \"dashed\"  label=\"\"]\nTestClass -> TestClassThree"));
+				.contains("edge [ arrowhead = vee style = dashed  label=\"\"] TestClass -> TestClassThree"));
 	}
 
 	@Test
 	public void testUsesArg() throws IOException {
-		String[] args = new String[] { "testClasses.TestClass", "testClasses.TestSuperClass" };
-
-		Model model = new Model();
-
-		for (String className : args) {
-			IClass clazz = p.parse(className, model);
-			model.addClass(clazz);
+		Properties prop = new Properties();
+		FileInputStream fis = new FileInputStream(new File("testing\\testing-input\\testUsesArg.properties"));
+		prop.load(fis);
+		fis.close();
+		try {
+			p.run(prop);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-
-		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
-		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
-		gvos.write(model);
-		gvos.close();
-		String result = resultStream.toString();
+		
+		BufferedReader reader = new BufferedReader(new FileReader("testing\\testing-output\\GVOutput.txt"));
+        StringBuilder b = new StringBuilder();
+        String line = "";
+        while ((line = reader.readLine()) != null) {
+        	b.append(line);
+        }
+        reader.close();
+        
+		String result = b.toString();
 
 		assertTrue(result
-				.contains("edge [ arrowhead = \"vee\" style = \"dashed\"  label=\"\"]\nTestClass -> TestSuperClass"));
+				.contains("edge [ arrowhead = vee style = dashed  label=\"\"] TestClass -> TestSuperClass"));
 	}
 
 	@Test
 	public void testUsesEdgeCaseInstanceCreation() throws IOException {
-		String[] args = new String[] { "testClasses.TestClassTwo", "testClasses.TestSuperClass",
-				"testClasses.TestSubClass" };
-
-		Model model = new Model();
-
-		for (String className : args) {
-			IClass clazz = p.parse(className, model);
-			model.addClass(clazz);
+		Properties prop = new Properties();
+		FileInputStream fis = new FileInputStream(new File("testing\\testing-input\\testUsesEdgeCaseInstanceCreation.properties"));
+		prop.load(fis);
+		fis.close();
+		try {
+			p.run(prop);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-
-		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
-		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
-		gvos.write(model);
-		gvos.close();
-		String result = resultStream.toString();
+		
+		BufferedReader reader = new BufferedReader(new FileReader("testing\\testing-output\\GVOutput.txt"));
+        StringBuilder b = new StringBuilder();
+        String line = "";
+        while ((line = reader.readLine()) != null) {
+        	b.append(line);
+        }
+        reader.close();
+        
+		String result = b.toString();
 
 		assertTrue(result.contains(
-				"edge [ arrowhead = \"vee\" style = \"dashed\"  label=\"\"]\nTestClassTwo -> TestSuperClass"));
+				"edge [ arrowhead = vee style = dashed  label=\"\"] TestClassTwo -> TestSuperClass"));
 		assertTrue(result
-				.contains("edge [ arrowhead = \"vee\" style = \"dashed\"  label=\"\"]\nTestClassTwo -> TestSubClass"));
+				.contains("edge [ arrowhead = vee style = dashed  label=\"\"] TestClassTwo -> TestSubClass"));
 	}
 
 	@Test
 	public void testAssociationTakesPriorityOverUses() throws IOException {
-		String[] args = new String[] { "testClasses.TestClass", "testClasses.TestClassTwo" };
-
-		Model model = new Model();
-
-		for (String className : args) {
-			IClass clazz = p.parse(className, model);
-			model.addClass(clazz);
+		Properties prop = new Properties();
+		FileInputStream fis = new FileInputStream(new File("testing\\testing-input\\testAssociationTakesPriorityOverUses.properties"));
+		prop.load(fis);
+		fis.close();
+		try {
+			p.run(prop);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-
-		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
-		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
-		gvos.write(model);
-		gvos.close();
-		String result = resultStream.toString();
+		
+		BufferedReader reader = new BufferedReader(new FileReader("testing\\testing-output\\GVOutput.txt"));
+        StringBuilder b = new StringBuilder();
+        String line = "";
+        while ((line = reader.readLine()) != null) {
+        	b.append(line);
+        }
+        reader.close();
+        
+		String result = b.toString();
 
 		assertTrue(result
-				.contains("edge [ arrowhead = \"vee\" style = \"solid\"  label=\"\"]\nTestClass -> TestClassTwo"));
+				.contains("edge [ arrowhead = vee style = solid  label=\"\"] TestClass -> TestClassTwo"));
 		assertFalse(result
 				.contains("edge [ arrowhead = \"vee\" style = \"dashed\"  label=\"\"]\nTestClass -> TestClassTwo"));
 	}
@@ -289,83 +352,88 @@ public class GVOSIntegrationTests {
 	// Testing tricky factory cases
 	@Test
 	public void testFactoryBasicClass() throws IOException {
-		String[] args = new String[] { "lab2_3.NYPizzaIngredientFactory" };
-
-		Model model = new Model();
-
-		for (String className : args) {
-			IClass clazz = p.parse(className, model);
-			model.addClass(clazz);
+		Properties prop = new Properties();
+		FileInputStream fis = new FileInputStream(new File("testing\\testing-input\\testFactoryBasicClass.properties"));
+		prop.load(fis);
+		fis.close();
+		try {
+			p.run(prop);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-
-		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
-		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
-		gvos.write(model);
-		gvos.close();
-		String result = resultStream.toString();
-
-		// System.out.println(result);
-
+		
+		BufferedReader reader = new BufferedReader(new FileReader("testing\\testing-output\\GVOutput.txt"));
+        StringBuilder b = new StringBuilder();
+        String line = "";
+        while ((line = reader.readLine()) != null) {
+        	b.append(line);
+        }
+        reader.close();
+        
+		String result = b.toString();
+		
 		assertTrue(result.contains(
-				"NYPizzaIngredientFactory[ label = \"{NYPizzaIngredientFactory||+ \\<init\\>() : void\\l\n+ createDough() : Dough\\l\n+ createSauce() : Sauce\\l\n+ createCheese() : Cheese\\l\n+ createVeggies() : Veggies[]\\l\n+ createPepperoni() : Pepperoni\\l\n+ createClam() : Clams\\l\n}\"]"));
+				"NYPizzaIngredientFactory[ label = \"{NYPizzaIngredientFactory||+ \\<init\\>() : void\\l+ createDough() : Dough\\l+ createSauce() : Sauce\\l+ createCheese() : Cheese\\l+ createVeggies() : Veggies[]\\l+ createPepperoni() : Pepperoni\\l+ createClam() : Clams\\l}\"]"));
 	}
 
 	@Test
 	public void testFactoryBasicExtension() throws IOException {
-		String[] args = new String[] { "lab2_3.Cheese", "lab2_3.ChicagoPizzaIngredientFactory", "lab2_3.Clams",
-				"lab2_3.Dough", "lab2_3.FreshClams", "lab2_3.FrozenClams", "lab2_3.MarinaraSauce",
-				"lab2_3.MozzarellaCheese", "lab2_3.NYPizzaIngredientFactory", "lab2_3.NYPizzaStore",
-				"lab2_3.PizzaIngredientFactory", "lab2_3.PlumTomatoSauce", "lab2_3.ReggianoCheese", "lab2_3.Sauce",
-				"lab2_3.ThickCrustDough", "lab2_3.ThinCrustDough" };
-
-		Model model = new Model();
-
-		for (String className : args) {
-			IClass clazz = p.parse(className, model);
-			model.addClass(clazz);
+		Properties prop = new Properties();
+		FileInputStream fis = new FileInputStream(new File("testing\\testing-input\\testFactoryBasicExtension.properties"));
+		prop.load(fis);
+		fis.close();
+		try {
+			p.run(prop);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		
+		BufferedReader reader = new BufferedReader(new FileReader("testing\\testing-output\\GVOutput.txt"));
+        StringBuilder b = new StringBuilder();
+        String line = "";
+        while ((line = reader.readLine()) != null) {
+        	b.append(line);
+        }
+        reader.close();
+        
+		String result = b.toString();
 
-		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
-		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
-		gvos.write(model);
-		gvos.close();
-		String result = resultStream.toString();
-
 		assertTrue(result.contains(
-				"edge [ arrowhead = \"onormal\" style = \"dashed\"  label=\"\"]\nNYPizzaIngredientFactory -> PizzaIngredientFactory"));
+				"edge [ arrowhead = onormal style = dashed  label=\"\"] NYPizzaIngredientFactory -> PizzaIngredientFactory"));
 		assertTrue(result.contains(
-				"edge [ arrowhead = \"onormal\" style = \"dashed\"  label=\"\"]\nChicagoPizzaIngredientFactory -> PizzaIngredientFactory"));
+				"edge [ arrowhead = onormal style = dashed  label=\"\"] ChicagoPizzaIngredientFactory -> PizzaIngredientFactory"));
 		assertTrue(result.contains(
-				"edge [ arrowhead = \"onormal\" style = \"dashed\"  label=\"\"]\nMozzarellaCheese -> Cheese"));
+				"edge [ arrowhead = onormal style = dashed  label=\"\"] MozzarellaCheese -> Cheese"));
 		assertTrue(result
-				.contains("edge [ arrowhead = \"onormal\" style = \"dashed\"  label=\"\"]\nPlumTomatoSauce -> Sauce"));
+				.contains("edge [ arrowhead = onormal style = dashed  label=\"\"] PlumTomatoSauce -> Sauce"));
 	}
 
 	@Test
 	public void testFactoryBasicUsesReturn() throws IOException {
-		String[] args = new String[] { "lab2_3.Cheese", "lab2_3.ChicagoPizzaIngredientFactory", "lab2_3.Clams",
-				"lab2_3.Dough", "lab2_3.FreshClams", "lab2_3.FrozenClams", "lab2_3.MarinaraSauce",
-				"lab2_3.MozzarellaCheese", "lab2_3.NYPizzaIngredientFactory", "lab2_3.NYPizzaStore",
-				"lab2_3.PizzaIngredientFactory", "lab2_3.PlumTomatoSauce", "lab2_3.ReggianoCheese", "lab2_3.Sauce",
-				"lab2_3.ThickCrustDough", "lab2_3.ThinCrustDough" };
-
-		Model model = new Model();
-
-		for (String className : args) {
-			IClass clazz = p.parse(className, model);
-			model.addClass(clazz);
+		Properties prop = new Properties();
+		FileInputStream fis = new FileInputStream(new File("testing\\testing-input\\testFactoryBasicExtension.properties"));
+		prop.load(fis);
+		fis.close();
+		try {
+			p.run(prop);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		
+		BufferedReader reader = new BufferedReader(new FileReader("testing\\testing-output\\GVOutput.txt"));
+        StringBuilder b = new StringBuilder();
+        String line = "";
+        while ((line = reader.readLine()) != null) {
+        	b.append(line);
+        }
+        reader.close();
+        
+		String result = b.toString();
 
-		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
-		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
-		gvos.write(model);
-		gvos.close();
-		String result = resultStream.toString();
-		// System.out.println(result);
 		assertTrue(result.contains(
-				"edge [ arrowhead = \"vee\" style = \"dashed\"  label=\"\"]\nNYPizzaIngredientFactory -> Cheese"));
+				"edge [ arrowhead = vee style = dashed  label=\"\"] NYPizzaIngredientFactory -> Cheese"));
 		assertTrue(result.contains(
-				"edge [ arrowhead = \"vee\" style = \"dashed\"  label=\"\"]\nChicagoPizzaIngredientFactory -> Sauce"));
+				"edge [ arrowhead = vee style = dashed  label=\"\"] ChicagoPizzaIngredientFactory -> Sauce"));
 	}
 
 	@Test

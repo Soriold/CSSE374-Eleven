@@ -217,11 +217,12 @@ public class GraphVizOutputStream extends FilterOutputStream {
 				style = "";
 			}
 			if (c.getLabel() == null) {
-				label = " label=\"\"";
+				label = "label=\"\"";
 			} else {
-				label = " label=\"" + c.getLabel() + "\" ";
+				label = "label=\"" + c.getLabel() + "\" ";
 			}
-			this.write(" edge [ " + style + " " + this.getTagAttribute(c.getTags()) + " " + label + "]\n" + c.getSrc()
+			System.out.println("*"+this.getTagAttribute(c.getTags())+"*");
+			this.write(" edge [ " + style + " " + this.getTagAttribute(c.getTags()) + " " + label + "]\n " + c.getSrc()
 					+ " -> " + c.getDest() + "\n");
 		});
 	}
