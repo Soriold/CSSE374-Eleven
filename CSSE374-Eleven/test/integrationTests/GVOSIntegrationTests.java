@@ -314,6 +314,8 @@ public class GVOSIntegrationTests {
         reader.close();
         
 		String result = b.toString();
+		
+		System.out.println(result);
 
 		assertTrue(result.contains(
 				"edge [ arrowhead = vee style = dashed  label=\"\"] TestClassTwo -> TestSuperClass"));
@@ -438,158 +440,220 @@ public class GVOSIntegrationTests {
 
 	@Test
 	public void testFactoryBasicUsesInstantiation() throws IOException {
-		String[] args = new String[] { "lab2_3.Cheese", "lab2_3.ChicagoPizzaIngredientFactory", "lab2_3.Clams",
-				"lab2_3.Dough", "lab2_3.FreshClams", "lab2_3.FrozenClams", "lab2_3.MarinaraSauce",
-				"lab2_3.MozzarellaCheese", "lab2_3.NYPizzaIngredientFactory", "lab2_3.NYPizzaStore",
-				"lab2_3.PizzaIngredientFactory", "lab2_3.PlumTomatoSauce", "lab2_3.ReggianoCheese", "lab2_3.Sauce",
-				"lab2_3.ThickCrustDough", "lab2_3.ThinCrustDough" };
-
-		Model model = new Model();
-
-		for (String className : args) {
-			IClass clazz = p.parse(className, model);
-			model.addClass(clazz);
+		Properties prop = new Properties();
+		FileInputStream fis = new FileInputStream(new File("testing\\testing-input\\testFactoryBasicUsesInstantiation.properties"));
+		prop.load(fis);
+		fis.close();
+		try {
+			p.run(prop);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-
-		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
-		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
-		gvos.write(model);
-		gvos.close();
-		String result = resultStream.toString();
+		
+		BufferedReader reader = new BufferedReader(new FileReader("testing\\testing-output\\GVOutput.txt"));
+        StringBuilder b = new StringBuilder();
+        String line = "";
+        while ((line = reader.readLine()) != null) {
+        	b.append(line);
+        }
+        reader.close();
+        
+		String result = b.toString();
 
 		assertTrue(result.contains(
-				"edge [ arrowhead = \"vee\" style = \"dashed\"  label=\"\"]\nNYPizzaIngredientFactory -> ReggianoCheese"));
+				"edge [ arrowhead = vee style = dashed  label=\"\"] NYPizzaIngredientFactory -> ReggianoCheese"));
 		assertFalse(result.contains(
-				"edge [ arrowhead = \"vee\" style = \"dashed\"  label=\"\"]\nNYPizzaIngredientFactory -> MozzarellaCheese"));
+				"edge [ arrowhead = vee style = dashed  label=\"\"] NYPizzaIngredientFactory -> MozzarellaCheese"));
 		assertTrue(result.contains(
-				"edge [ arrowhead = \"vee\" style = \"dashed\"  label=\"\"]\nChicagoPizzaIngredientFactory -> PlumTomatoSauce"));
+				"edge [ arrowhead = vee style = dashed  label=\"\"] ChicagoPizzaIngredientFactory -> PlumTomatoSauce"));
 		assertFalse(result.contains(
-				"edge [ arrowhead = \"vee\" style = \"dashed\"  label=\"\"]\nChicagoPizzaIngredientFactory -> MarinaraSauce"));
+				"edge [ arrowhead = vee style = dashed  label=\"\"] ChicagoPizzaIngredientFactory -> MarinaraSauce"));
 	}
 
 	// Testing singleton detection
 	@Test
 	public void testDesktopSingleton() throws IOException {
-		IModel model = new Model();
-		IClass clazz = p.parse("java.awt.Desktop", model);
-		model.addClass(clazz);
-		PatternRecognizer.recognize((Model) model);
-		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
-		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
-		gvos.write(model);
-		gvos.close();
-		String result = resultStream.toString();
-		// System.out.println(result);
+		Properties prop = new Properties();
+		FileInputStream fis = new FileInputStream(new File("testing\\testing-input\\testDesktopSingleton.properties"));
+		prop.load(fis);
+		fis.close();
+		try {
+			p.run(prop);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		BufferedReader reader = new BufferedReader(new FileReader("testing\\testing-output\\GVOutput.txt"));
+        StringBuilder b = new StringBuilder();
+        String line = "";
+        while ((line = reader.readLine()) != null) {
+        	b.append(line);
+        }
+        reader.close();
+        
+		String result = b.toString();
+		
 		assertTrue(result.contains("Desktop\\n\\<\\<Singleton\\>\\>"));
 	}
 
 	@Test
 	public void testRuntimeSingleton() throws IOException {
-		IModel model = new Model();
-		IClass clazz = p.parse("java.lang.Runtime", model);
-		model.addClass(clazz);
-		PatternRecognizer.recognize((Model) model);
-		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
-		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
-		gvos.write(model);
-		gvos.close();
-		String result = resultStream.toString();
+		Properties prop = new Properties();
+		FileInputStream fis = new FileInputStream(new File("testing\\testing-input\\testRuntimeSingleton.properties"));
+		prop.load(fis);
+		fis.close();
+		try {
+			p.run(prop);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		BufferedReader reader = new BufferedReader(new FileReader("testing\\testing-output\\GVOutput.txt"));
+        StringBuilder b = new StringBuilder();
+        String line = "";
+        while ((line = reader.readLine()) != null) {
+        	b.append(line);
+        }
+        reader.close();
+        
+		String result = b.toString();
 
 		assertTrue(result.contains("Runtime\\n\\<\\<Singleton\\>\\>"));
 	}
 
 	@Test
 	public void testCalendarNotSingleton() throws IOException {
-		IModel model = new Model();
-		IClass clazz = p.parse("java.util.Calendar", model);
-		model.addClass(clazz);
-		PatternRecognizer.recognize((Model) model);
-		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
-		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
-		gvos.write(model);
-		gvos.close();
-		String result = resultStream.toString();
+		Properties prop = new Properties();
+		FileInputStream fis = new FileInputStream(new File("testing\\testing-input\\testCalendarNotSingleton.properties"));
+		prop.load(fis);
+		fis.close();
+		try {
+			p.run(prop);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		BufferedReader reader = new BufferedReader(new FileReader("testing\\testing-output\\GVOutput.txt"));
+        StringBuilder b = new StringBuilder();
+        String line = "";
+        while ((line = reader.readLine()) != null) {
+        	b.append(line);
+        }
+        reader.close();
+        
+		String result = b.toString();
 
 		assertFalse(result.contains("Calendar\\n\\<\\<Singleton\\>\\>"));
 	}
 
 	@Test
 	public void testFilterInputStreamNotSingleton() throws IOException {
-		IModel model = new Model();
-		IClass clazz = p.parse("java.io.FilterInputStream", model);
-		model.addClass(clazz);
-		PatternRecognizer.recognize((Model) model);
-		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
-		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
-		gvos.write(model);
-		gvos.close();
-		String result = resultStream.toString();
+		Properties prop = new Properties();
+		FileInputStream fis = new FileInputStream(new File("testing\\testing-input\\testFilterInputStreamNotSingleton.properties"));
+		prop.load(fis);
+		fis.close();
+		try {
+			p.run(prop);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		BufferedReader reader = new BufferedReader(new FileReader("testing\\testing-output\\GVOutput.txt"));
+        StringBuilder b = new StringBuilder();
+        String line = "";
+        while ((line = reader.readLine()) != null) {
+        	b.append(line);
+        }
+        reader.close();
+        
+		String result = b.toString();
 
 		assertFalse(result.contains("FilterInputStream\\n\\<\\<Singleton\\>\\>"));
 	}
 
 	@Test
 	public void testEagerSingleton() throws IOException {
-		IModel model = new Model();
-		IClass clazz = p.parse("testClasses.TestEagerSingleton", model);
-		model.addClass(clazz);
-		PatternRecognizer.recognize((Model) model);
-		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
-		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
-		gvos.write(model);
-		gvos.close();
-		String result = resultStream.toString();
+		Properties prop = new Properties();
+		FileInputStream fis = new FileInputStream(new File("testing\\testing-input\\testEagerSingleton.properties"));
+		prop.load(fis);
+		fis.close();
+		try {
+			p.run(prop);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		BufferedReader reader = new BufferedReader(new FileReader("testing\\testing-output\\GVOutput.txt"));
+        StringBuilder b = new StringBuilder();
+        String line = "";
+        while ((line = reader.readLine()) != null) {
+        	b.append(line);
+        }
+        reader.close();
+        
+		String result = b.toString();
 
 		assertTrue(result.contains("TestEagerSingleton\\n\\<\\<Singleton\\>\\>"));
 	}
 
 	@Test
 	public void testLazySingleton() throws IOException {
-		IModel model = new Model();
-		IClass clazz = p.parse("testClasses.TestLazySingleton", model);
-		model.addClass(clazz);
-		PatternRecognizer.recognize((Model) model);
-		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
-		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
-		gvos.write(model);
-		gvos.close();
-		String result = resultStream.toString();
+		Properties prop = new Properties();
+		FileInputStream fis = new FileInputStream(new File("testing\\testing-input\\testLazySingleton.properties"));
+		prop.load(fis);
+		fis.close();
+		try {
+			p.run(prop);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		BufferedReader reader = new BufferedReader(new FileReader("testing\\testing-output\\GVOutput.txt"));
+        StringBuilder b = new StringBuilder();
+        String line = "";
+        while ((line = reader.readLine()) != null) {
+        	b.append(line);
+        }
+        reader.close();
+        
+		String result = b.toString();
 
 		assertTrue(result.contains("TestLazySingleton\\n\\<\\<Singleton\\>\\>"));
 	}
 
 	@Test
 	public void testDecoratorLab2_1() throws IOException {
-		String[] args = new String[] { "lab2_1.DecryptionInputStream", "lab2_1.EncryptionOutputStream",
-				"lab2_1.IDecryption", "lab2_1.IEncryption", "lab2_1.SubstitutionCipher", "lab2_1.TextEditorApp",
-				"java.io.FilterInputStream", "java.io.FilterOutputStream", "java.io.InputStream",
-				"java.io.OutputStream" };
-
-		Model model = new Model();
-
-		for (String className : args) {
-			IClass clazz = p.parse(className, model);
-			model.addClass(clazz);
+		Properties prop = new Properties();
+		FileInputStream fis = new FileInputStream(new File("testing\\testing-input\\testDecoratorLab2_1.properties"));
+		prop.load(fis);
+		fis.close();
+		try {
+			p.run(prop);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-
-		PatternRecognizer.recognize(model);
-		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
-		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
-		gvos.write(model);
-		gvos.close();
-		String result = resultStream.toString();
+		
+		BufferedReader reader = new BufferedReader(new FileReader("testing\\testing-output\\GVOutput.txt"));
+        StringBuilder b = new StringBuilder();
+        String line = "";
+        while ((line = reader.readLine()) != null) {
+        	b.append(line);
+        }
+        reader.close();
+        
+		String result = b.toString();
 
 		assertTrue(result.contains("DecryptionInputStream\\n\\<\\<decorator\\>\\>"));
 		assertTrue(result.contains("FilterInputStream\\n\\<\\<decorator\\>\\>"));
 		assertTrue(result.contains("InputStream\\n\\<\\<component\\>\\>"));
 		assertTrue(result.contains(
-				"edge [ arrowhead = \"vee\" style = \"solid\"  label=\"decorates\" ]\nFilterInputStream -> InputStream"));
+				"edge [ arrowhead = vee style = solid  label=\"decorates\" ] FilterInputStream -> InputStream"));
 
 		assertTrue(result.contains("EncryptionOutputStream\\n\\<\\<decorator\\>\\>"));
 		assertTrue(result.contains("FilterOutputStream\\n\\<\\<decorator\\>\\>"));
 		assertTrue(result.contains("OutputStream\\n\\<\\<component\\>\\>"));
 		assertTrue(result.contains(
-				"edge [ arrowhead = \"vee\" style = \"solid\"  label=\"decorates\" ]\nFilterOutputStream -> OutputStream"));
+				"edge [ arrowhead = vee style = solid  label=\"decorates\" ] FilterOutputStream -> OutputStream"));
 	}
 
 	@Test
