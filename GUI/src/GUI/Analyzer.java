@@ -1,11 +1,6 @@
 package GUI;
 
-import java.awt.EventQueue;
 import java.util.Properties;
-
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 
 import src.problem.visible.DesignParser;
 
