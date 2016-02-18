@@ -88,7 +88,7 @@ public class DesignParser {
 
 		String relationPath = prop.getProperty("Relation-Types", null);
 		Relation.setRelationTypes(EnumExtractor.extractKeys(relationPath));
-		
+
 		String tagPath = prop.getProperty("Tag-Types", null);
 		ITaggable.setTagTypes(EnumExtractor.extractKeys(tagPath));
 
@@ -96,18 +96,26 @@ public class DesignParser {
 
 		currentPhase = phases[0];
 
-		for (String className : inputClasses) {
-			currentParseClass = className;
-			IClass clazz = parse(className.trim(), model);
-			model.addClass(clazz);
+		if (inputClasses != null && inputClasses.length > 0) {
+			for (String className : inputClasses) {
+				try {
+					currentParseClass = className;
+					IClass clazz = parse(className.trim(), model);
+					model.addClass(clazz);
+				} catch (IOException e) {
+				}
+			}
 		}
-
-		for (byte[] clazz : importedClasses) {
-			IClass pClass = parse(clazz, model);
-			currentParseClass = pClass.getName();
-			model.addClass(pClass);
+		if (importedClasses != null && !importedClasses.isEmpty()) {
+			for (byte[] clazz : importedClasses) {
+				try {
+					IClass pClass = parse(clazz, model);
+					currentParseClass = pClass.getName();
+					model.addClass(pClass);
+				} catch (IOException e) {
+				}
+			}
 		}
-
 		currentParseClass = null;
 
 		for (int i = 1; i < phases.length; i++) {
