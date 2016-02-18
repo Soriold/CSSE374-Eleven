@@ -1,6 +1,7 @@
 package src.problem.visible;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -20,6 +21,9 @@ public class FileImporter {
 
 		List<byte[]> ret = new ArrayList<byte[]>();
 		File folder = new File(path);
+		if(folder.listFiles() == null) {
+			throw new FileNotFoundException("No files in the given folder.");
+		}
 		for (File fileEntry : folder.listFiles()) {
 			ret.add(getFileByteArray(fileEntry.toPath()));
 		}
