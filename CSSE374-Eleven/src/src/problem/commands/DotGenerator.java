@@ -13,7 +13,7 @@ public class DotGenerator implements IPhase {
 	@Override
 	public void executeOn(IModel m, Properties prop) throws IOException {
 		String outputPath = prop.getProperty("Output-Directory");
-		GraphVizOutputStream gvos = new GraphVizOutputStream(new FileOutputStream(outputPath + "\\GVOutput.txt"));
+		GraphVizOutputStream gvos = new GraphVizOutputStream(new FileOutputStream(outputPath));
 		
 		String patternPath = prop.getProperty("Pattern-Types", null);
 		String relationPath = prop.getProperty("Relation-Types", null);

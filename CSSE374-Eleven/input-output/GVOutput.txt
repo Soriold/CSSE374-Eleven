@@ -1,5 +1,5 @@
 digraph G {fontname = "Bitstream Vera Sans" fontsize = 8
-node [fontname ="Bitstream Vera Sans" fontsize = 8 shape = "record"] edge [fontname = "Bitstream Vera Sans" fontsize = 8]DecryptionInputStream[style=filled fillcolor=green label = "{DecryptionInputStream\n\<\<decorator\>\>|- decryptor : IDecryption\l
+ node [fontname ="Bitstream Vera Sans" fontsize = 8 shape = "record"] edge [fontname = "Bitstream Vera Sans" fontsize = 8]DecryptionInputStream[style=filled fillcolor=green label = "{DecryptionInputStream\n\<\<decorator\>\>|- decryptor : IDecryption\l
 |+ \<init\>(InputStream IDecryption ) : void\l
 + read() : int\l
 + read(byte[] int int ) : int\l
@@ -137,67 +137,67 @@ NewDataStandardizer[ label = "{NewDataStandardizer|- parsers : DataParser[]\l
 + standardize(String ) : String\l
 + getCompany(String ) : String\l
 }"]
-edge [ arrowhead = "onormal" style = "solid"  label=""]
+ edge [ arrowhead = onormal style = solid   label=""]
 DecryptionInputStream -> FilterInputStream
-edge [ arrowhead = "vee" style = "dashed"  label=""]
+ edge [ arrowhead = vee style = dashed   label=""]
 EncryptionOutputStream -> FilterOutputStream
-edge [ arrowhead = "onormal" style = "dashed"  label=""]
+ edge [ arrowhead = onormal style = dashed   label=""]
 SubstitutionCipher -> IEncryption
-edge [ arrowhead = "vee" style = "dashed"  label=""]
+ edge [ arrowhead = vee style = dashed   label=""]
 DataDisplay -> DataDisplay
-edge [ arrowhead = "vee" style = "solid"  label=""]
+ edge [ arrowhead = vee style = solid   label=""]
 EncryptionOutputStream -> IEncryption
-edge [ arrowhead = "vee" style = "dashed"  label=""]
+ edge [ arrowhead = vee style = dashed   label=""]
 NewDataStandardizer -> GoogleParser
-edge [ arrowhead = "onormal" style = "dashed"  label=""]
+ edge [ arrowhead = onormal style = dashed   label=""]
 GoogleParser -> DataParser
-edge [ arrowhead = "vee" style = "dashed"  label=""]
+ edge [ arrowhead = vee style = dashed   label=""]
 EncryptionOutputStream -> OutputStream
-edge [ arrowhead = "onormal" style = "dashed"  label=""]
+ edge [ arrowhead = onormal style = dashed   label=""]
 AmazonParser -> DataParser
-edge [ arrowhead = "vee" style = "solid"  label=""]
+ edge [ arrowhead = vee style = solid   label=""]
 DataDisplay2 -> DataDisplay
-edge [ arrowhead = "vee" style = "dashed"  label=""]
+ edge [ arrowhead = vee style = dashed   label=""]
 DataStandardizer -> DataStandardizer
-edge [ arrowhead = "vee" style = "solid"  label="decorates" ]
+ edge [ arrowhead = vee style = solid   label="decorates" ]
 FilterOutputStream -> OutputStream
-edge [ arrowhead = "onormal" style = "solid"  label=""]
+ edge [ arrowhead = onormal style = solid   label=""]
 FilterOutputStream -> OutputStream
-edge [ arrowhead = "vee" style = "dashed"  label=""]
+ edge [ arrowhead = vee style = dashed   label=""]
 TextEditorApp -> EncryptionOutputStream
-edge [ arrowhead = "onormal" style = "dashed"  label=""]
+ edge [ arrowhead = onormal style = dashed   label=""]
 SubstitutionCipher -> IDecryption
-edge [ arrowhead = "vee" style = "solid"  label=""]
+ edge [ arrowhead = vee style = solid   label=""]
 DataDisplay1 -> DataDisplay
-edge [ arrowhead = "vee" style = "dashed"  label=""]
+ edge [ arrowhead = vee style = dashed   label=""]
 TextEditorApp -> DecryptionInputStream
-edge [ arrowhead = "vee" style = "solid"  label=""]
+ edge [ arrowhead = vee style = solid   label=""]
 DataStandardizer2 -> DataStandardizer
-edge [ arrowhead = "onormal" style = "dashed"  label=""]
+ edge [ arrowhead = onormal style = dashed   label=""]
 MicrosoftParser -> DataParser
-edge [ arrowhead = "vee" style = "dashed"  label=""]
+ edge [ arrowhead = vee style = dashed   label=""]
 NewDataStandardizer -> MicrosoftParser
-edge [ arrowhead = "onormal" style = "solid"  label=""]
+ edge [ arrowhead = onormal style = solid   label=""]
 FilterInputStream -> InputStream
-edge [ arrowhead = "vee" style = "dashed"  label=""]
+ edge [ arrowhead = vee style = dashed   label=""]
 NewDataStandardizer -> AmazonParser
-edge [ arrowhead = "vee" style = "solid"  label="decorates" ]
+ edge [ arrowhead = vee style = solid   label="decorates" ]
 FilterInputStream -> InputStream
-edge [ arrowhead = "vee" style = "dashed"  label=""]
+ edge [ arrowhead = vee style = dashed   label=""]
 DataStandardizerTest -> NewDataStandardizer
-edge [ arrowhead = "vee" style = "solid"  label=""]
+ edge [ arrowhead = vee style = solid   label=""]
 DecryptionInputStream -> IDecryption
-edge [ arrowhead = "onormal" style = "solid"  label=""]
+ edge [ arrowhead = onormal style = solid   label=""]
 EncryptionOutputStream -> FilterOutputStream
-edge [ arrowhead = "vee" style = "dashed"  label=""]
+ edge [ arrowhead = vee style = dashed   label=""]
 DecryptionInputStream -> InputStream
-edge [ arrowhead = "vee" style = "dashed"  label=""]
+ edge [ arrowhead = vee style = dashed   label=""]
 TextEditorApp -> SubstitutionCipher
-edge [ arrowhead = "vee" style = "solid"  label=""]
+ edge [ arrowhead = vee style = solid   label=""]
 DataDisplay -> NewDataStandardizer
-edge [ arrowhead = "vee" style = "solid"  label=""]
+ edge [ arrowhead = vee style = solid   label=""]
 DataStandardizer1 -> DataStandardizer
-edge [ arrowhead = "vee" style = "dashed"  label=""]
+ edge [ arrowhead = vee style = dashed   label=""]
 DecryptionInputStream -> FilterInputStream
 
 }
