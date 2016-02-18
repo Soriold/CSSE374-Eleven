@@ -2,12 +2,7 @@ package GUI;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 import javax.swing.JFrame;
@@ -16,8 +11,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
-import src.problem.components.IClass;
-import src.problem.components.IModel;
 import src.problem.components.Model;
 import src.problem.visible.DesignParser;
 
@@ -70,16 +63,16 @@ public class WindowFrame extends JFrame {
 		contentPane.setSize(new Dimension(this.getWidth(), this.getHeight()));
 	}
 
-	private void updateUML(Properties p) {
-		List<IClass> classes = panel.getSelectedClasses();
-		
-		String path = (String) props.get("Input-Folder");
-		ArrayList<String> classesToParse = new ArrayList<String>();
-		for (IClass c : classes) {
-			classesToParse.add(path + "\\" + c.getName() + ".class");
+	public void updateUML(Properties p) {
+		DesignParser dp = DesignParser.getInstance();
+
+		try {
+			dp.run(p);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		String[] classList = (String[]) classesToParse.toArray();
-		// props.setProperty(key, value)
+		UMLBuilder.buildUML(p.getProperty("Output-Directory"));
+		setupUMLPanel();
 	}
 
 }
