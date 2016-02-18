@@ -6,4 +6,5 @@ CSSE374-Eleven/resources/facebook
 CSSE374-Eleven/facebookArgs.txt
 CSSE374-Eleven/input-output/GVOutput.txt
 *.class
-GUI/bin/
+GUI/bin/*
+CSSE374-Eleven/testing/testing-output/GVOutput.txt
