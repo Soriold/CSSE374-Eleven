@@ -127,7 +127,7 @@ public class GVOSIntegrationTests {
 		String result = b.toString();
 		
 		assertTrue(result.contains(
-				"edge [ arrowhead = onormal style = dashed color=black label=\"\"] TestInterfaceImplementation -> TestInterface"));
+				"edge [ arrowhead = onormal style = dashed  color=black  label=\"\"] TestInterfaceImplementation -> TestInterface"));
 	}
 
 	@Test
@@ -153,7 +153,7 @@ public class GVOSIntegrationTests {
 		String result = b.toString();
 
 		assertTrue(result.contains(
-				"edge [ arrowhead = onormal style = solid color=black label=\"\"] TestSubClass -> TestSuperClass"));
+				"edge [ arrowhead = onormal style = solid  color=black  label=\"\"] TestSubClass -> TestSuperClass"));
 	}
 
 	@Test
@@ -179,7 +179,7 @@ public class GVOSIntegrationTests {
 		String result = b.toString();
 
 		assertTrue(result.contains(
-				"edge [ arrowhead = onormal style = solid color=black label=\"\"] TestInterfaceTwo -> TestInterface"));
+				"edge [ arrowhead = onormal style = solid  color=black  label=\"\"] TestInterfaceTwo -> TestInterface"));
 
 	}
 
@@ -206,7 +206,7 @@ public class GVOSIntegrationTests {
 		String result = b.toString();
 		
 		assertTrue(result
-				.contains("edge [ arrowhead = vee style = solid color=black label=\"\"] TestClass -> TestClassTwo"));
+				.contains("edge [ arrowhead = vee style = solid  color=black  label=\"\"] TestClass -> TestClassTwo"));
 	}
 
 	@Test
@@ -232,7 +232,7 @@ public class GVOSIntegrationTests {
 		String result = b.toString();
 
 		assertTrue(result
-				.contains("edge [ arrowhead = vee style = solid color=black label=\"\"] TestClassTwo -> TestClass"));
+				.contains("edge [ arrowhead = vee style = solid  color=black  label=\"\"] TestClassTwo -> TestClass"));
 	}
 
 	@Test
@@ -258,7 +258,7 @@ public class GVOSIntegrationTests {
 		String result = b.toString();
 
 		assertTrue(result
-				.contains("edge [ arrowhead = vee style = dashed color=black label=\"\"] TestClass -> TestClassThree"));
+				.contains("edge [ arrowhead = vee style = dashed  color=black  label=\"\"] TestClass -> TestClassThree"));
 	}
 
 	@Test
@@ -284,7 +284,7 @@ public class GVOSIntegrationTests {
 		String result = b.toString();
 
 		assertTrue(result
-				.contains("edge [ arrowhead = vee style = dashed color=black label=\"\"] TestClass -> TestSuperClass"));
+				.contains("edge [ arrowhead = vee style = dashed  color=black  label=\"\"] TestClass -> TestSuperClass"));
 	}
 
 	@Test
@@ -310,9 +310,9 @@ public class GVOSIntegrationTests {
 		String result = b.toString();
 		
 		assertTrue(result.contains(
-				"edge [ arrowhead = vee style = dashed color=black label=\"\"] TestClassTwo -> TestSuperClass"));
+				"edge [ arrowhead = vee style = dashed  color=black  label=\"\"] TestClassTwo -> TestSuperClass"));
 		assertTrue(result
-				.contains("edge [ arrowhead = vee style = dashed color=black label=\"\"] TestClassTwo -> TestSubClass"));
+				.contains("edge [ arrowhead = vee style = dashed  color=black  label=\"\"] TestClassTwo -> TestSubClass"));
 	}
 
 	@Test
@@ -338,9 +338,9 @@ public class GVOSIntegrationTests {
 		String result = b.toString();
 
 		assertTrue(result
-				.contains("edge [ arrowhead = vee style = solid color=black label=\"\"] TestClass -> TestClassTwo"));
+				.contains("edge [ arrowhead = vee style = solid  color=black  label=\"\"] TestClass -> TestClassTwo"));
 		assertFalse(result
-				.contains("edge [ arrowhead = \"vee\" style = \"dashed\" color=black label=\"\"]\nTestClass -> TestClassTwo"));
+				.contains("edge [ arrowhead = \"vee\" style = \"dashed\"  color=black  label=\"\"]\nTestClass -> TestClassTwo"));
 	}
 
 	// Testing tricky factory cases
@@ -369,7 +369,7 @@ public class GVOSIntegrationTests {
 		System.out.println(result);
 		
 		assertTrue(result.contains(
-				"NYPizzaIngredientFactory[color=black label = \"{NYPizzaIngredientFactory||+ \\<init\\>() : void\\l+ createDough() : Dough\\l+ createSauce() : Sauce\\l+ createCheese() : Cheese\\l+ createVeggies() : Veggies[]\\l+ createPepperoni() : Pepperoni\\l+ createClam() : Clams\\l}\"]"));
+				"NYPizzaIngredientFactory[ color=black  label = \"{NYPizzaIngredientFactory||+ \\<init\\>() : void\\l+ createDough() : Dough\\l+ createSauce() : Sauce\\l+ createCheese() : Cheese\\l+ createVeggies() : Veggies[]\\l+ createPepperoni() : Pepperoni\\l+ createClam() : Clams\\l}\"]"));
 	}
 
 	@Test
@@ -395,13 +395,13 @@ public class GVOSIntegrationTests {
 		String result = b.toString();
 
 		assertTrue(result.contains(
-				"edge [ arrowhead = onormal style = dashed color=black label=\"\"] NYPizzaIngredientFactory -> PizzaIngredientFactory"));
+				"edge [ arrowhead = onormal style = dashed  color=black  label=\"\"] NYPizzaIngredientFactory -> PizzaIngredientFactory"));
 		assertTrue(result.contains(
-				"edge [ arrowhead = onormal style = dashed color=black label=\"\"] ChicagoPizzaIngredientFactory -> PizzaIngredientFactory"));
+				"edge [ arrowhead = onormal style = dashed  color=black  label=\"\"] ChicagoPizzaIngredientFactory -> PizzaIngredientFactory"));
 		assertTrue(result.contains(
-				"edge [ arrowhead = onormal style = dashed color=black label=\"\"] MozzarellaCheese -> Cheese"));
+				"edge [ arrowhead = onormal style = dashed  color=black  label=\"\"] MozzarellaCheese -> Cheese"));
 		assertTrue(result
-				.contains("edge [ arrowhead = onormal style = dashed color=black label=\"\"] PlumTomatoSauce -> Sauce"));
+				.contains("edge [ arrowhead = onormal style = dashed  color=black  label=\"\"] PlumTomatoSauce -> Sauce"));
 	}
 
 	@Test
@@ -427,9 +427,9 @@ public class GVOSIntegrationTests {
 		String result = b.toString();
 
 		assertTrue(result.contains(
-				"edge [ arrowhead = vee style = dashed color=black label=\"\"] NYPizzaIngredientFactory -> Cheese"));
+				"edge [ arrowhead = vee style = dashed  color=black  label=\"\"] NYPizzaIngredientFactory -> Cheese"));
 		assertTrue(result.contains(
-				"edge [ arrowhead = vee style = dashed color=black label=\"\"] ChicagoPizzaIngredientFactory -> Sauce"));
+				"edge [ arrowhead = vee style = dashed  color=black  label=\"\"] ChicagoPizzaIngredientFactory -> Sauce"));
 	}
 
 	@Test
@@ -455,13 +455,13 @@ public class GVOSIntegrationTests {
 		String result = b.toString();
 
 		assertTrue(result.contains(
-				"edge [ arrowhead = vee style = dashed color=black label=\"\"] NYPizzaIngredientFactory -> ReggianoCheese"));
+				"edge [ arrowhead = vee style = dashed  color=black  label=\"\"] NYPizzaIngredientFactory -> ReggianoCheese"));
 		assertFalse(result.contains(
-				"edge [ arrowhead = vee style = dashed color=black label=\"\"] NYPizzaIngredientFactory -> MozzarellaCheese"));
+				"edge [ arrowhead = vee style = dashed  color=black  label=\"\"] NYPizzaIngredientFactory -> MozzarellaCheese"));
 		assertTrue(result.contains(
-				"edge [ arrowhead = vee style = dashed color=black label=\"\"] ChicagoPizzaIngredientFactory -> PlumTomatoSauce"));
+				"edge [ arrowhead = vee style = dashed  color=black  label=\"\"] ChicagoPizzaIngredientFactory -> PlumTomatoSauce"));
 		assertFalse(result.contains(
-				"edge [ arrowhead = vee style = dashed color=black label=\"\"] ChicagoPizzaIngredientFactory -> MarinaraSauce"));
+				"edge [ arrowhead = vee style = dashed  color=black  label=\"\"] ChicagoPizzaIngredientFactory -> MarinaraSauce"));
 	}
 
 	// Testing singleton detection
@@ -641,13 +641,13 @@ public class GVOSIntegrationTests {
 		assertTrue(result.contains("FilterInputStream\\n\\<\\<decorator\\>\\>"));
 		assertTrue(result.contains("InputStream\\n\\<\\<component\\>\\>"));
 		assertTrue(result.contains(
-				"edge [ arrowhead = vee style = solid color=black label=\"decorates\" ] FilterInputStream -> InputStream"));
+				"edge [ arrowhead = vee style = solid  color=black  label=\"decorates\" ] FilterInputStream -> InputStream"));
 
 		assertTrue(result.contains("EncryptionOutputStream\\n\\<\\<decorator\\>\\>"));
 		assertTrue(result.contains("FilterOutputStream\\n\\<\\<decorator\\>\\>"));
 		assertTrue(result.contains("OutputStream\\n\\<\\<component\\>\\>"));
 		assertTrue(result.contains(
-				"edge [ arrowhead = vee style = solid color=black label=\"decorates\" ] FilterOutputStream -> OutputStream"));
+				"edge [ arrowhead = vee style = solid  color=black  label=\"decorates\" ] FilterOutputStream -> OutputStream"));
 	}
 
 	@Test
@@ -676,7 +676,7 @@ public class GVOSIntegrationTests {
 		assertTrue(result.contains("Enumeration\\n\\<\\<target\\>\\>"));
 		assertTrue(result.contains("Iterator\\n\\<\\<adaptee\\>\\>"));
 		assertTrue(result.contains(
-				"edge [ arrowhead = vee style = solid color=black label=\"adapts\" ] ArrayListAdapter -> Iterator"));
+				"edge [ arrowhead = vee style = solid  color=black  label=\"adapts\" ] ArrayListAdapter -> Iterator"));
 	}
 
 	@Test
@@ -730,7 +730,7 @@ public class GVOSIntegrationTests {
 		assertTrue(result.contains("BufferedReader\\n\\<\\<decorator\\>\\>"));
 		assertTrue(result.contains("Reader\\n\\<\\<component\\>\\>"));
 		assertTrue(result.contains(
-				"edge [ arrowhead = vee style = solid color=black label=\"decorates\" ] BufferedReader -> Reader"));
+				"edge [ arrowhead = vee style = solid  color=black  label=\"decorates\" ] BufferedReader -> Reader"));
 	}
 
 	@Test
@@ -761,7 +761,7 @@ public class GVOSIntegrationTests {
 		assertTrue(result.contains("BufferedWriter\\n\\<\\<decorator\\>\\>"));
 		assertTrue(result.contains("Writer\\n\\<\\<component\\>\\>"));
 		assertTrue(result.contains(
-				"edge [ arrowhead = vee style = solid color=black label=\"decorates\" ] BufferedWriter -> Writer"));
+				"edge [ arrowhead = vee style = solid  color=black  label=\"decorates\" ] BufferedWriter -> Writer"));
 	}
 
 	@Test
