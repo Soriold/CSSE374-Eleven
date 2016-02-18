@@ -6,6 +6,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import javax.swing.JFrame;
@@ -14,6 +16,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
+import src.problem.components.IClass;
+import src.problem.components.IModel;
 import src.problem.components.Model;
 import src.problem.visible.DesignParser;
 
@@ -26,10 +30,12 @@ public class WindowFrame extends JFrame {
 	private JPanel contentPane;
 	public Model m;
 	private Properties props;
+	private ClassListPanel panel;
 
 	/**
 	 * Create the frame.
-	 * @param props 
+	 * 
+	 * @param props
 	 * 
 	 * @throws Exception
 	 */
@@ -48,10 +54,9 @@ public class WindowFrame extends JFrame {
 	}
 
 	private void setupClassListPanel() throws IOException {
-		ClassListPanel classListPanel = new ClassListPanel(DesignParser.getInstance().getModel(), props);
-		contentPane.add(classListPanel);
-		classListPanel
-				.setPreferredSize(new Dimension((int) (contentPane.getWidth() * .25), contentPane.getHeight() - 65));
+		panel = new ClassListPanel(DesignParser.getInstance().getModel(), props);
+		contentPane.add(panel);
+		panel.setPreferredSize(new Dimension((int) (contentPane.getWidth() * .25), contentPane.getHeight() - 65));
 	}
 
 	private void setupFrame() {
@@ -63,6 +68,18 @@ public class WindowFrame extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		contentPane.setSize(new Dimension(this.getWidth(), this.getHeight()));
+	}
+
+	private void updateUML(Properties p) {
+		List<IClass> classes = panel.getSelectedClasses();
+		
+		String path = (String) props.get("Input-Folder");
+		ArrayList<String> classesToParse = new ArrayList<String>();
+		for (IClass c : classes) {
+			classesToParse.add(path + "\\" + c.getName() + ".class");
+		}
+		String[] classList = (String[]) classesToParse.toArray();
+		// props.setProperty(key, value)
 	}
 
 }
