@@ -1,5 +1,6 @@
 package gui;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -20,13 +21,18 @@ public class PropertiesGenerator {
 		String folder = prop.getProperty("Input-Folder");
 		StringBuilder sb = new StringBuilder();
 		for (IClass c : classes) {
-			sb.append(folder + "\\" + c.getName() + ".class,");
+			// sb.append(folder + "\\" + c.getName() + ".class,");
+			try {
+				sb.append(FileFinder.findFile(c.getName() + ".class", folder).getAbsolutePath() + ",");
+			} catch (FileNotFoundException e) {
+				//e.printStackTrace();
+			}
 		}
 		return buildProperties(prop, sb);
 	}
 
 	private static Properties getPropertiesFromManyFiles(List<IClass> classes, Properties prop) {
-		
+
 		List<String> clazzes = getClassNames(classes);
 		String[] inputFiles = prop.getProperty("Input-Folder").split(",");
 		StringBuilder sb = new StringBuilder();
@@ -47,8 +53,8 @@ public class PropertiesGenerator {
 	}
 
 	private static boolean contains(List<String> clazzes, String file) {
-		for(String clazz : clazzes) {
-			if(file.contains(clazz)) {
+		for (String clazz : clazzes) {
+			if (file.contains(clazz)) {
 				return true;
 			}
 		}

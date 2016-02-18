@@ -5,12 +5,22 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FileImporter {
-
-	public static List<byte[]> getClassesFromInputFolder(String inputPath) throws IOException, Exception {
+	
+	public static List<byte[]> getClasses(String input) throws IOException, Exception {
+		if (input.contains(",")) {
+			return getClassesFromInputFiles(input.split(","));
+		} else {
+			return getClassesFromInputFolder(input);
+		}
+	}
+	
+	private static List<byte[]> getClassesFromInputFolder(String inputPath) throws IOException, Exception {
+		System.out.println(inputPath);
 		List<byte[]> ret = new ArrayList<byte[]>();
 		File folder = new File(inputPath);
 		if (folder.listFiles() == null) {
@@ -26,10 +36,10 @@ public class FileImporter {
 		return ret;
 	}
 	
-	public static List<byte[]> getClassesFromInputFiles(String[] paths) throws IOException, Exception {
+	private static List<byte[]> getClassesFromInputFiles(String[] paths) throws IOException, Exception {
 		List<byte[]> ret = new ArrayList<byte[]>();
 		for (String s : paths) {
-			ret.addAll(getClassesFromInputFolder(s));
+			ret.add(getFileByteArray(Paths.get(s)));
 		}
 		return ret;
 	}

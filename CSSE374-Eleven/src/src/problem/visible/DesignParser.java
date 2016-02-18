@@ -74,7 +74,7 @@ public class DesignParser {
 			inputClasses = prop.getProperty("Input-Classes").split(",");
 		}
 		if (prop.keySet().contains("Input-Folder")) {
-			importedClasses = FileImporter.getClassesFromInputFolder(prop.getProperty("Input-Folder"));
+			importedClasses = FileImporter.getClasses(prop.getProperty("Input-Folder"));
 		}
 
 		String[] phases = prop.getProperty("Phases").split(",");

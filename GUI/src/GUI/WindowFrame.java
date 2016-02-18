@@ -46,6 +46,7 @@ public class WindowFrame extends JFrame {
 	public Model m;
 	private Properties props;
 	private ClassListPanel panel;
+	private JScrollPane UMLPanel;
 	private JFrame configFrame;
 
 	/**
@@ -66,7 +67,7 @@ public class WindowFrame extends JFrame {
 	}
 
 	private void setupUMLPanel() {
-		JScrollPane UMLPanel = new JScrollPane(new JLabel(new ImageProxy("input-output\\uml.png")));
+		UMLPanel = new JScrollPane(new JLabel(new ImageProxy("input-output\\uml.png")));
 		contentPane.add(UMLPanel);
 		UMLPanel.setPreferredSize(new Dimension((int) (contentPane.getWidth() * .7), contentPane.getHeight() - 100));
 	}
@@ -182,16 +183,21 @@ public class WindowFrame extends JFrame {
 		this.dispose();
 	}
 
-	private void updateUML(Properties p) {
-		List<IClass> classes = panel.getSelectedClasses();
+	public void updateUML(Properties p) {
+		System.out.println("updating");
+		DesignParser dp = DesignParser.getInstance();
 
-		String path = (String) props.get("Input-Folder");
-		ArrayList<String> classesToParse = new ArrayList<String>();
-		for (IClass c : classes) {
-			classesToParse.add(path + "\\" + c.getName() + ".class");
+		try {
+			dp.run(p);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		String[] classList = (String[]) classesToParse.toArray();
-		// props.setProperty(key, value)
+		
+		UMLBuilder.buildUML(p.getProperty("Output-Directory"));
+		UMLPanel.removeAll();
+		UMLPanel.add(new JLabel(new ImageProxy("input-output\\uml.png")));
+		UMLPanel.repaint();
 	}
+
 
 }
