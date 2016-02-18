@@ -8,3 +8,6 @@ CSSE374-Eleven/input-output/GVOutput.txt
 *.class
 GUI/bin/*
 CSSE374-Eleven/testing/testing-output/GVOutput.txt
+*.class
+GUI/bin/GUI/ClassListPanel.class
+GUI/bin/GUI/WindowFrame.class
