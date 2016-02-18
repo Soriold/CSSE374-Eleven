@@ -48,6 +48,7 @@ public class WindowFrame extends JFrame {
 	private ClassListPanel panel;
 	private JScrollPane UMLPanel;
 	private JFrame configFrame;
+	private ImageProxy image;
 
 	/**
 	 * Create the frame.
@@ -67,7 +68,8 @@ public class WindowFrame extends JFrame {
 	}
 
 	private void setupUMLPanel() {
-		UMLPanel = new JScrollPane(new JLabel(new ImageProxy("input-output\\uml.png")));
+		image = new ImageProxy("input-output\\uml.png");
+		UMLPanel = new JScrollPane(new JLabel(image));
 		contentPane.add(UMLPanel);
 		UMLPanel.setPreferredSize(new Dimension((int) (contentPane.getWidth() * .7), contentPane.getHeight() - 100));
 	}
@@ -194,9 +196,15 @@ public class WindowFrame extends JFrame {
 		}
 		
 		UMLBuilder.buildUML(p.getProperty("Output-Directory"));
-		UMLPanel.removeAll();
-		UMLPanel.add(new JLabel(new ImageProxy("input-output\\uml.png")));
-		UMLPanel.repaint();
+		image.flush();
+		image = new ImageProxy("input-output\\uml.png");
+		contentPane.remove(UMLPanel);
+		UMLPanel = new JScrollPane(new JLabel(image));
+		UMLPanel.setPreferredSize(new Dimension((int) (contentPane.getWidth() * .7), contentPane.getHeight() - 100));
+		contentPane.add(UMLPanel);
+		contentPane.repaint();
+		contentPane.revalidate();
+		
 	}
 
 

@@ -59,4 +59,9 @@ class ImageProxy implements Icon {
 			}
 		}
 	}
+	
+	public void flush() {
+		imageIcon.getImage().flush();
+	}
+
 }
