@@ -67,7 +67,7 @@ public class WindowFrame extends JFrame {
 
 	private void setupClassListPanel() throws IOException {
 		JPanel leftPanel = new JPanel();
-		panel = new ClassListPanel(DesignParser.getInstance().getModel(), props);
+		panel = new ClassListPanel(DesignParser.getInstance().getModel());
 		
 		JButton generate = new JButton("Generate UML");
 		
@@ -177,7 +177,6 @@ public class WindowFrame extends JFrame {
 	}
 
 	public void updateUML(Properties p) {
-		System.out.println("updating");
 		DesignParser dp = DesignParser.getInstance();
 
 		try {

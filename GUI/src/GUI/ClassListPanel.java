@@ -32,7 +32,7 @@ public class ClassListPanel extends JScrollPane {
 	private List<IClass> selectedClasses;
 	private IModel m;
 
-	public ClassListPanel(IModel m, Properties props) throws IOException {
+	public ClassListPanel(IModel m) throws IOException {
 		patterns = new ArrayList<String>();
 		this.selectedClasses = new ArrayList<IClass>();
 
@@ -41,20 +41,6 @@ public class ClassListPanel extends JScrollPane {
 
 		createCheckBoxTree(m);
 
-//		JButton generate = new JButton("Generate UML");
-//		
-//		generate.addActionListener(new ActionListener() {
-//
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				getSelectedCheckBoxes(m);
-//			}
-//		});
-//
-//		JPanel buttonPanel = new JPanel();
-//		buttonPanel.setLayout(new BorderLayout(0, 0));
-//		buttonPanel.add(generate, BorderLayout.SOUTH);
-//		this.setViewportView(buttonPanel);
 	}
 
 	public List<IClass> getSelectedClasses() {

@@ -20,7 +20,6 @@ public class FileImporter {
 	}
 	
 	private static List<byte[]> getClassesFromInputFolder(String inputPath) throws IOException, Exception {
-		System.out.println(inputPath);
 		List<byte[]> ret = new ArrayList<byte[]>();
 		File folder = new File(inputPath);
 		if (folder.listFiles() == null) {
