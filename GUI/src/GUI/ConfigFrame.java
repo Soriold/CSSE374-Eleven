@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -148,6 +149,8 @@ public class ConfigFrame extends JFrame {
 					try {
 						String outputPath = props.getProperty("Output-Directory");
 						WindowFrame wframe = new WindowFrame(outputPath, props, frame);
+						Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+						wframe.setLocation(dim.width/2- 500, dim.height/2-500);
 						wframe.setVisible(true);
 					} catch (Exception e) {
 						//do nothing
