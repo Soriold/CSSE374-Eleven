@@ -48,3 +48,6 @@ Error: temp.dot: syntax error in line 1 near 'abel'
 
 (dot.exe:11152): Pango-WARNING **: couldn't load font "Bitstream Vera Sans Not-Rotated 8", falling back to "Sans Not-Rotated 8", expect ugly output.
 Error: temp.dot: syntax error in line 1 near 'abel'
+
+(dot.exe:11576): Pango-WARNING **: couldn't load font "Bitstream Vera Sans Not-Rotated 8", falling back to "Sans Not-Rotated 8", expect ugly output.
+Error: temp.dot: syntax error in line 1 near 'abel'
