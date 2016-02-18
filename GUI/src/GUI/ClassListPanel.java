@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -32,6 +32,7 @@ public class ClassListPanel extends JScrollPane {
 	private CheckBoxTree tree;
 	private Properties props;
 	private List<IClass> selectedClasses;
+	private IModel m;
 
 	public ClassListPanel(IModel m, Properties props) throws IOException {
 		patterns = new ArrayList<String>();
@@ -39,26 +40,28 @@ public class ClassListPanel extends JScrollPane {
 		this.selectedClasses = new ArrayList<IClass>();
 
 		loadPatterns();
+		this.m = m;
 
 		createCheckBoxTree(m);
 
-		JButton generate = new JButton("Generate UML");
-		
-		generate.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				getSelectedCheckBoxes(m);
-			}
-		});
-
-		JPanel buttonPanel = new JPanel();
-		buttonPanel.setLayout(new BorderLayout(0, 0));
-		buttonPanel.add(generate, BorderLayout.SOUTH);
-		this.setViewportView(buttonPanel);
+//		JButton generate = new JButton("Generate UML");
+//		
+//		generate.addActionListener(new ActionListener() {
+//
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				getSelectedCheckBoxes(m);
+//			}
+//		});
+//
+//		JPanel buttonPanel = new JPanel();
+//		buttonPanel.setLayout(new BorderLayout(0, 0));
+//		buttonPanel.add(generate, BorderLayout.SOUTH);
+//		this.setViewportView(buttonPanel);
 	}
 
 	public List<IClass> getSelectedClasses() {
+		getSelectedCheckBoxes(this.m);
 		return this.selectedClasses;
 	}
 

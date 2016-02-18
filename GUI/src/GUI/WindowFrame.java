@@ -1,5 +1,6 @@
-package GUI;
+package gui;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -10,6 +11,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -21,8 +23,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
+import gui.PropertiesGenerator;
 import src.problem.components.Model;
 import src.problem.visible.DesignParser;
+import javax.swing.BoxLayout;
 
 public class WindowFrame extends JFrame {
 
@@ -57,10 +61,23 @@ public class WindowFrame extends JFrame {
 		JScrollPane UMLPanel = new JScrollPane(new JLabel(new ImageProxy("input-output\\uml.png")));
 		contentPane.add(UMLPanel);
 		UMLPanel.setPreferredSize(new Dimension((int) (contentPane.getWidth() * .7), contentPane.getHeight() - 100));
+		
+				JButton generate = new JButton("Generate UML");
+				UMLPanel.setRowHeaderView(generate);
+				
+						generate.addActionListener(new ActionListener() {
+				
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								Properties p = PropertiesGenerator.getPropertiesFromClasses(panel.getSelectedClasses(), props);
+								updateUML(p);
+							}
+						});
 	}
 
 	private void setupClassListPanel() throws IOException {
 		panel = new ClassListPanel(DesignParser.getInstance().getModel(), props);
+		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.X_AXIS));
 		contentPane.add(panel);
 		panel.setPreferredSize(new Dimension((int) (contentPane.getWidth() * .25), contentPane.getHeight() - 100));
 	}
@@ -73,7 +90,6 @@ public class WindowFrame extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		contentPane.setSize(new Dimension(this.getWidth(), this.getHeight()));
 	}
 
@@ -133,6 +149,7 @@ public class WindowFrame extends JFrame {
 	}
 
 	public void updateUML(Properties p) {
+		System.out.println("updating");
 		DesignParser dp = DesignParser.getInstance();
 
 		try {
@@ -140,6 +157,7 @@ public class WindowFrame extends JFrame {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		UMLBuilder.buildUML(p.getProperty("Output-Directory"));
 		setupUMLPanel();
 	}
