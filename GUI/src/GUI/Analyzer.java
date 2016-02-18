@@ -13,13 +13,11 @@ public class Analyzer implements Runnable {
 
 	private DesignParser dp;
 	private Properties props;
-	private JFrame frame;
 	private String error;
 
-	public Analyzer(DesignParser dp, Properties props, JFrame frame) {
+	public Analyzer(DesignParser dp, Properties props) {
 	        this.dp = dp;
 	        this.props = props;
-	        this.frame = frame;
 	        this.error = null;
 	    }
 

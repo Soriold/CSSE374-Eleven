@@ -33,7 +33,8 @@ public class WindowFrame extends JFrame {
 	 * Create the frame.
 	 * @throws Exception 
 	 */
-	public WindowFrame() throws Exception {
+	public WindowFrame(String outputPath) throws Exception {
+		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1400, 800);
 		contentPane = new JPanel();
@@ -42,16 +43,7 @@ public class WindowFrame extends JFrame {
 		contentPane.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		contentPane.setSize(new Dimension(this.getWidth(), this.getHeight()));
 		
-		Properties defaultProps = new Properties();
-		FileInputStream in = new FileInputStream("default.properties");
-		defaultProps.load(in);
-		in.close();
-		DesignParser dp = DesignParser.getInstance();
-		dp.run(defaultProps);
-		
-		IModel m = dp.getModel();
-		
-		BufferedReader reader = new BufferedReader(new FileReader("input-output\\GVOutput.txt"));
+		BufferedReader reader = new BufferedReader(new FileReader(outputPath + "\\GVOutput.txt"));
         StringBuilder b = new StringBuilder();
         String line = "";
         while ((line = reader.readLine()) != null) {

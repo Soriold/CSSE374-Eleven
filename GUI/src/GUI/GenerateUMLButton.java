@@ -6,8 +6,11 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreePath;
 
 import com.jidesoft.swing.CheckBoxTree;
+import com.jidesoft.swing.CheckBoxTreeSelectionModel;
 
 public class GenerateUMLButton extends JButton {
 	
@@ -34,9 +37,15 @@ public class GenerateUMLButton extends JButton {
 	}
 
 	private ArrayList<String> getSelectedCheckBoxes() {
-		return selectedClasses;
-		//DefaultMutableTreeNode root = tree.get
-		
+		CheckBoxTreeSelectionModel model = tree.getCheckBoxTreeSelectionModel();
+		TreePath[] paths = tree.getSelectionPaths();
+		for(int i = 0; i < paths.length; i++) {
+			DefaultMutableTreeNode node = (DefaultMutableTreeNode) paths[i].getLastPathComponent();
+			String className = (String) node.getUserObject();
+			System.out.println(className);
+		}
+		DefaultMutableTreeNode root = (DefaultMutableTreeNode) tree.getModel().getRoot();
+		return null;
 	}
 	
 	

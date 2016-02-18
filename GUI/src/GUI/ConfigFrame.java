@@ -27,8 +27,7 @@ public class ConfigFrame extends JFrame {
 	
 	private JFrame frame = this;
 	private File configFile;
-	private String configPath;
-	
+
 	/**
 	 * Launch the application.
 	 * @throws IOException 
@@ -65,7 +64,6 @@ public class ConfigFrame extends JFrame {
 			      if (rVal == JFileChooser.APPROVE_OPTION) {
 			        configFile = c.getSelectedFile();
 			        if(configFile.getName().endsWith(".properties")) {
-			        	configPath = c.getCurrentDirectory().toString();
 				        progressBarText.setText("Selected properties file: " + configFile.getName());
 			        } else {
 				        progressBarText.setText("Invalid properties file. Please select a file ending in .properties");
@@ -88,7 +86,7 @@ public class ConfigFrame extends JFrame {
 				DesignParser dp = DesignParser.getInstance();
 				
 				Properties props = new Properties();
-				Analyzer analyzer = new Analyzer(dp, props, frame);
+				Analyzer analyzer = new Analyzer(dp, props);
 				try {
 					FileInputStream in = new FileInputStream(configFile.getAbsolutePath());
 					props.load(in);
@@ -121,14 +119,14 @@ public class ConfigFrame extends JFrame {
 					progressBarText.setText("Invalid properties file.");
 		        }else {
 					progressBarText.setText("Done!");
+					try {
+						String outputPath = props.getProperty("Output-Directory");
+						WindowFrame frame = new WindowFrame(outputPath);
+						frame.setVisible(true);
+					} catch (Exception e) {
+						//do nothing
+					}
 		        }
-
-				try {
-					WindowFrame frame = new WindowFrame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					//do nothing
-				}
 			}
 			
 		});
