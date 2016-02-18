@@ -25,6 +25,14 @@ public class FileImporter {
 		}
 		return ret;
 	}
+	
+	public static List<byte[]> getClassesFromInputFiles(String[] paths) throws IOException, Exception {
+		List<byte[]> ret = new ArrayList<byte[]>();
+		for (String s : paths) {
+			ret.addAll(getClassesFromInputFolder(s));
+		}
+		return ret;
+	}
 
 	private static byte[] getFileByteArray(Path path) throws IOException {
 		return Files.readAllBytes(path);
