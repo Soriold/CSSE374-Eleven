@@ -4,8 +4,10 @@ This tool is designed to interpret a set of Java classes and generate an accurat
 
 ## Milestone 7:
 
+Design Parser
 ![alt tag](https://github.com/Soriold/CSSE374-Eleven/blob/master/CSSE374-Eleven/M7%20Project%20UML%20Diagrams/M7%20Manual%20UML.png)
 
+GUI Tool
 ![alt tag](https://github.com/Soriold/CSSE374-Eleven/blob/master/CSSE374-Eleven/M7%20Project%20UML%20Diagrams/M7%20External%20GUI%20UML.png?raw=true)
 
 Milestone 7 update: All configurations were migrated to .properties files for easier use of the tool. Features were added to the core code to make external use of a .jar easier. Some of these features include external access to the classes being parsed and more options for how a user would like to parse the classes. Milestone 7 includes a new external GUI tool that allows easy use of the UML generator tool. This GUI uses an external jar file and is an example of how any user can extend our core code without actually editing it externally.
@@ -55,4 +57,4 @@ Simplified the current UML Diagrams. Improved Composite spotting. Wrote the fron
 All team members were equally involved in important matters such as software design decisions, etcetera.
 
 # Instructions: 
-DesignParser now takes four arguments. The first argument is the file that contains the fully qualified names of the classes you want to parse. The second argument is either "true" or "false", depending on whether you want to generate a sequence diagram. If you do want to generate a sequence diagram, and have set the second argument to "true", the third argument should be the fully qualified name of the method you want to generate a diagram for, including the method parameters. the fourth and final argument should be the number of levels of recursion that you want for the sequence diagram. Be careful setting the levels of recursion, as the diagram may grow very quickly. For example, under Run Configurations in Eclipse, we used the arguments "collectionsArgs.txt true java.util.Collections.shuffle(List<T> list) 3" to generate the sequence diagram of java.util.Collections.shuffle() at a depth of 3. After running DesignParser with the desired arguments, two text files are created: GVOutput.txt contains the GraphViz code to make a UML diagram of the parsed classes, and SDEditOutput.txt contains the SDEdit markup for the sequence diagram of the given method.
+See the included PDF in the GUI/docs folder.
