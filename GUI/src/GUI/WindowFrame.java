@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Properties;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -24,16 +25,18 @@ public class WindowFrame extends JFrame {
 	private static final long serialVersionUID = 1825270332058411713L;
 	private JPanel contentPane;
 	public Model m;
+	private Properties props;
 
 	/**
 	 * Create the frame.
+	 * @param props 
 	 * 
 	 * @throws Exception
 	 */
-	public WindowFrame(String outputPath) throws Exception {
-
+	public WindowFrame(String outputPath, Properties props) throws Exception {
+		this.props = props;
 		setupFrame();
-		UMLBuilder.buildUML(readOutput(outputPath));
+		UMLBuilder.buildUML(outputPath);
 		setupClassListPanel();
 		setupUMLPanel();
 	}
@@ -45,7 +48,7 @@ public class WindowFrame extends JFrame {
 	}
 
 	private void setupClassListPanel() throws IOException {
-		ClassListPanel classListPanel = new ClassListPanel(DesignParser.getInstance().getModel());
+		ClassListPanel classListPanel = new ClassListPanel(DesignParser.getInstance().getModel(), props);
 		contentPane.add(classListPanel);
 		classListPanel
 				.setPreferredSize(new Dimension((int) (contentPane.getWidth() * .25), contentPane.getHeight() - 65));
@@ -60,18 +63,6 @@ public class WindowFrame extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		contentPane.setSize(new Dimension(this.getWidth(), this.getHeight()));
-	}
-
-	private String readOutput(String outputPath) throws FileNotFoundException, IOException {
-		BufferedReader reader = new BufferedReader(new FileReader(outputPath));
-		StringBuilder b = new StringBuilder();
-		String line = "";
-		while ((line = reader.readLine()) != null) {
-			b.append(line);
-		}
-		reader.close();
-		String bs = b.toString();
-		return bs;
 	}
 
 }

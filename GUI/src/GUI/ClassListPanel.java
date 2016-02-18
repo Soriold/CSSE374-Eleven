@@ -11,6 +11,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -35,15 +36,17 @@ public class ClassListPanel extends JScrollPane {
 
 	private ArrayList<String> patterns;
 	private CheckBoxTree tree;
+	private Properties props;
 
-	public ClassListPanel(IModel m) throws IOException {
+	public ClassListPanel(IModel m, Properties props) throws IOException {
 		patterns = new ArrayList<String>();
+		this.props = props;
 
 		loadPatterns();
 
 		createCheckBoxTree(m);
 
-		GenerateUMLButton generate = new GenerateUMLButton("Generate UML", tree);
+		GenerateUMLButton generate = new GenerateUMLButton("Generate UML", tree, patterns, m, props);
 
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new BorderLayout(0, 0));
@@ -54,9 +57,9 @@ public class ClassListPanel extends JScrollPane {
 	private void createCheckBoxTree(IModel m) {
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Patterns");
 	    TreeModel treeModel = new DefaultTreeModel(root);
-		CheckBoxTreeSelectionModel model = new CheckBoxTreeSelectionModel(treeModel);
+		//CheckBoxTreeSelectionModel model = new CheckBoxTreeSelectionModel(treeModel);
 		tree = new CheckBoxTree();
-		tree.setSelectionModel(model);
+		tree.setModel(treeModel);
 
 		for (String s : patterns) {
 			DefaultMutableTreeNode node = new DefaultMutableTreeNode(s);
