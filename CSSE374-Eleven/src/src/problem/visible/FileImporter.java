@@ -13,11 +13,15 @@ public class FileImporter {
 	public static List<byte[]> getClassesFromInputFolder(String inputPath) throws IOException, Exception {
 		List<byte[]> ret = new ArrayList<byte[]>();
 		File folder = new File(inputPath);
-		if(folder.listFiles() == null) {
+		if (folder.listFiles() == null) {
 			throw new FileNotFoundException("No files in the given folder.");
 		}
 		for (File fileEntry : folder.listFiles()) {
-			ret.add(getFileByteArray(fileEntry.toPath()));
+			if (fileEntry.isDirectory()) {
+				ret.addAll(getClassesFromInputFolder(fileEntry.getAbsolutePath()));
+			} else {
+				ret.add(getFileByteArray(fileEntry.toPath()));
+			}
 		}
 		return ret;
 	}
