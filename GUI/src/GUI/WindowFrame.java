@@ -1,32 +1,40 @@
 package gui;
 
-import java.awt.BorderLayout;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
-import javax.imageio.ImageIO;
+import javax.imageio.*;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
-import gui.PropertiesGenerator;
+import src.problem.components.IClass;
+import src.problem.components.IModel;
 import src.problem.components.Model;
 import src.problem.visible.DesignParser;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JMenu;
 import javax.swing.BoxLayout;
+import java.awt.BorderLayout;
 
 public class WindowFrame extends JFrame {
 
@@ -61,24 +69,28 @@ public class WindowFrame extends JFrame {
 		JScrollPane UMLPanel = new JScrollPane(new JLabel(new ImageProxy("input-output\\uml.png")));
 		contentPane.add(UMLPanel);
 		UMLPanel.setPreferredSize(new Dimension((int) (contentPane.getWidth() * .7), contentPane.getHeight() - 100));
-		
-				JButton generate = new JButton("Generate UML");
-				UMLPanel.setRowHeaderView(generate);
-				
-						generate.addActionListener(new ActionListener() {
-				
-							@Override
-							public void actionPerformed(ActionEvent e) {
-								Properties p = PropertiesGenerator.getPropertiesFromClasses(panel.getSelectedClasses(), props);
-								updateUML(p);
-							}
-						});
 	}
 
 	private void setupClassListPanel() throws IOException {
+		JPanel leftPanel = new JPanel();
 		panel = new ClassListPanel(DesignParser.getInstance().getModel(), props);
+		
+		JButton generate = new JButton("Generate UML");
+		
+		generate.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Properties p = PropertiesGenerator.getPropertiesFromClasses(panel.getSelectedClasses(), props);
+				updateUML(p);
+			}
+		});
+		
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.X_AXIS));
-		contentPane.add(panel);
+		leftPanel.setLayout(new BorderLayout(0, 0));
+		leftPanel.add(panel);
+		leftPanel.add(generate, BorderLayout.SOUTH);
+		contentPane.add(leftPanel);
 		panel.setPreferredSize(new Dimension((int) (contentPane.getWidth() * .25), contentPane.getHeight() - 100));
 	}
 
@@ -139,8 +151,30 @@ public class WindowFrame extends JFrame {
 		JMenuItem mnHelp = new JMenu("Help");
 		menuBar.add(mnHelp);
 		JMenuItem mntmInstructions = new JMenuItem("Instructions");
+		mntmInstructions.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					Desktop.getDesktop().open(new File("docs\\Supporting Documentation.pdf"));
+				} catch (Exception exception) {
+					JOptionPane.showMessageDialog(contentPane, "Error opening help file.");
+				}
+			}
+			
+		});
 		mnHelp.add(mntmInstructions);
 		JMenuItem mntmAbout = new JMenuItem("About");
+		mntmAbout.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(contentPane, 
+						"Version 1.0 (2016)\nCreated by Ben Kimmel, Tayler How, and Shayna Oriold.", 
+						"About UML Generator", JOptionPane.INFORMATION_MESSAGE);
+			}
+			
+		});
 		mnHelp.add(mntmAbout);
 	}
 
@@ -148,18 +182,16 @@ public class WindowFrame extends JFrame {
 		this.dispose();
 	}
 
-	public void updateUML(Properties p) {
-		System.out.println("updating");
-		DesignParser dp = DesignParser.getInstance();
+	private void updateUML(Properties p) {
+		List<IClass> classes = panel.getSelectedClasses();
 
-		try {
-			dp.run(p);
-		} catch (Exception e) {
-			e.printStackTrace();
+		String path = (String) props.get("Input-Folder");
+		ArrayList<String> classesToParse = new ArrayList<String>();
+		for (IClass c : classes) {
+			classesToParse.add(path + "\\" + c.getName() + ".class");
 		}
-		
-		UMLBuilder.buildUML(p.getProperty("Output-Directory"));
-		setupUMLPanel();
+		String[] classList = (String[]) classesToParse.toArray();
+		// props.setProperty(key, value)
 	}
 
 }
