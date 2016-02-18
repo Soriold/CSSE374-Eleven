@@ -3,8 +3,13 @@ package integrationTests;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.Properties;
 
 import org.junit.Test;
 
@@ -25,15 +30,25 @@ public class GVOSIntegrationTests {
 
 	@Test
 	public void testFields() throws IOException {
-		IModel model = new Model();
-		IClass clazz = p.parse("testClasses.TestClass", model);
-		model.addClass(clazz);
+		Properties prop = new Properties();
+		FileInputStream fis = new FileInputStream(new File("testing\\testing.properties"));
+		prop.load(fis);
+		fis.close();
+		try {
+			p.run(prop);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		BufferedReader reader = new BufferedReader(new FileReader("testing\\testing-output\\GVOutput.txt"));
+        StringBuilder b = new StringBuilder();
+        String line = "";
+        while ((line = reader.readLine()) != null) {
+        	b.append(line);
+        }
+        reader.close();
 
-		ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
-		GraphVizOutputStream gvos = new GraphVizOutputStream(resultStream);
-		gvos.write(model);
-		gvos.close();
-		String result = resultStream.toString();
+		String result = b.toString();
 
 		assertTrue(result.contains("- testStringField : String"));
 		assertTrue(result.contains("- testIntField : int"));

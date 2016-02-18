@@ -1,0 +1,19 @@
+digraph G {fontname = "Bitstream Vera Sans" fontsize = 8
+ node [fontname ="Bitstream Vera Sans" fontsize = 8 shape = "record"] edge [fontname = "Bitstream Vera Sans" fontsize = 8]TestClass[ label = "{TestClass|- testStringField : String\l
+- testIntField : int[]\l
++ testListField : List\<String\>\l
+# testClassTwo : TestClassTwo\l
+|+ \<init\>() : void\l
+- testPrivateMethod(int ) : void\l
+# testProtectedMethod(int double ) : void\l
++ testPublicMethod(String ) : void\l
++ testGetIntField() : int[]\l
++ testGetStringField() : String\l
++ testUsesReturn() : TestClassThree\l
++ testUsesArg(TestSuperClass ) : void\l
++ method() : ArrayList\l
++ methodDepth0() : void\l
++ methodDepth4(String ) : String\l
+}"]
+
+}
