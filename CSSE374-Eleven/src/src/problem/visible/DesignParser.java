@@ -74,7 +74,10 @@ public class DesignParser {
 			inputClasses = prop.getProperty("Input-Classes").split(",");
 		}
 		if (prop.keySet().contains("Input-Folder")) {
-			importedClasses = FileImporter.getClasses(prop.getProperty("Input-Folder"));
+			try {
+				importedClasses = FileImporter.getClasses(prop.getProperty("Input-Folder"));
+			} catch (Exception e) {
+			}
 		}
 
 		String[] phases = prop.getProperty("Phases").split(",");
@@ -112,7 +115,7 @@ public class DesignParser {
 					IClass pClass = parse(clazz, model);
 					currentParseClass = pClass.getName();
 					model.addClass(pClass);
-				} catch (IOException e) {
+				} catch (Exception e) {
 				}
 			}
 		}
